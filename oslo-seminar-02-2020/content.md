@@ -90,4 +90,6 @@ class: middle, center
 
 ---
 
+## Hi! I'm a VSR!
+
 ![An example VSR](imgs/frames.h.png)
