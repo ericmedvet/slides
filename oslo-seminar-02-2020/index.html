@@ -1,57 +1,54 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
+    <title>Voxel-based Soft Robots</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-    <title>Voxel-based soft robots</title>
-
-    <link rel="stylesheet" href="../../reveal.js/css/reset.css">
-    <link rel="stylesheet" href="../../reveal.js/css/reveal.css">
-    <link rel="stylesheet" href="../../reveal.js/css/theme/white.css">
-
-    <!-- Theme used for syntax highlighting of code -->
-    <link rel="stylesheet" href="../../reveal.js/lib/css/monokai.css">
-
-    <!-- Printing and PDF exports -->
-    <script>
-      var link = document.createElement( 'link' );
-      link.rel = 'stylesheet';
-      link.type = 'text/css';
-      link.href = window.location.search.match( /print-pdf/gi ) ? '../../reveal.js/css/print/pdf.css' : '../../reveal.js/css/print/paper.css';
-      document.getElementsByTagName( 'head' )[0].appendChild( link );
-    </script>
     <style>
-      .container{display: flex;}
-      .col{flex: 1;}
+      @import url(https://fonts.googleapis.com/css?family=Baloo+Bhai|Montserrat:400,400i,700,700i|Ubuntu+Mono:400,700,400i);
+      body { font-family: 'Montserrat'; }
+      h1, h2, h3 {
+        font-family: 'Baloo Bhai';
+        font-weight: normal;
+      }
+      h1 {color: brown;}
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .cols {
+        display: flex;
+      }
+      .fifty {
+        flex: 50%;
+      }
+      img {
+        max-width: 100%;
+      }
+      .w50p img {
+        width: 50%;
+      }
+      .h10ex img {
+        height: 10ex;
+      }
     </style>
   </head>
   <body>
-    <div class="reveal">
-      <div class="slides">
-        <section data-markdown="content.md"></section>
-      </div>
-    </div>
-
-    <script src="../../reveal.js/js/reveal.js"></script>
-
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+    <script src='https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML' type="text/javascript"></script>
     <script>
-      // More info about config & dependencies:
-      // - https://github.com/hakimel/reveal.js#configuration
-      // - https://github.com/hakimel/reveal.js#dependencies
-      Reveal.initialize({
-        history: true,
-        dependencies: [
-          { src: '../../reveal.js/plugin/markdown/marked.js' },
-          { src: '../../reveal.js/plugin/markdown/markdown.js' },
-          { src: '../../reveal.js/plugin/notes/notes.js', async: true },
-          { src: '../../reveal.js/plugin/highlight/highlight.js', async: true },
-          { src: '../../reveal.js/plugin/math/math.js', async: true },
-          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true },
-        ],
-	transition: 'none'
+      var slideshow = remark.create({
+        sourceUrl: "content.md"
       });
-      Reveal.configure({ slideNumber: true });
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+      MathJax.Hub.Configured();
     </script>
   </body>
 </html>
