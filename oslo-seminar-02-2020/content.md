@@ -66,6 +66,7 @@ Research topics:
 - applications of ML:
   - computer/web security
   - information extraction
+  - some computer vision
 - evolutionary computation and applications
   - genetic programming & grammatical evolution
   - regular expressions
@@ -77,7 +78,7 @@ Head, founder, since ≈1y
 
 Research topics:
 - evolutionary robotics
-- social learning (with evo)
+- social learning (with evolution)
 - multi-agent systems
 ]
 ]
@@ -182,21 +183,19 @@ VSRs emply fine-grained modularity
 
 ---
 
-## And in practice...
+## Applications
 
 .center[
-modularity + re-usability + effectivenss = ?
-
-Eventually, applications.
+modularity + re-usability + effectivenss = ... eventually, applications.
 ]
 
 .cols[
 .fifty[
-E.g., disaster response:
+Example: disaster response
 1. have a bag of voxels, empty it at disaster site
 2. voxels assemble and form a VSR suitable for task/site
 3. VSR does the work
-4. collect, dissassemble, put in bag
+4. collect voxels, dissassemble, put back in bag
 
 What do we still miss for doing that?
 ]
@@ -231,7 +230,8 @@ Details
 
 Notes:
 - simulation and static/dynamic validation
-- rather unpractical
+- rather unpractical actuation
+- cannot be disassembled
 ]
 .fifty[.center[![VSR of Hiller and Lipson](imgs/hiller-lipson.png)]]
 ]
@@ -245,17 +245,17 @@ Notes:
 .cols[
 .fifty[
 Motivation:
-- include fabrication in the design optimization loop
+- include fabrication in the body design optimization loop
   - fight the **sim2real** problem
 
 Details
 - _material_: silicone
-- _actuation_: pneumatical
+- _actuation_: pneumatic
 - _fabrication_: molding machine and big manual effort
 
 Notes:
 - modular (manual/static assembly)
-- cable-driven actuation
+- cable-dependent actuation
 ]
 .fifty[.center[
 ![Kriegman's silicone VSR](imgs/kriegman-silicon-result.png)
@@ -282,6 +282,7 @@ Details
 Notes:
 - reconfigurable
 - actually one module = many voxels
+- cable-dependent actuation
 ]
 .fifty[.center[
 ![SUI's VSR overview](imgs/sui-magnets-overall.png)
@@ -339,25 +340,25 @@ class: middle, center
 
 ## Auto vs. manual design
 
+.cols[
+.fifty[
 Manual design of VSR is difficult:
 - *non-trivial interactions* of many components
 - *large search space*: many things can be optimized
 
-.cols[
-.fifty.center[
-.w75p[![Large VSR](imgs/large-vsr.png)]
+.center.w75p[![Large VSR](imgs/large-vsr.png)]
 ]
-.fifty.center[
-.w75p[![Robotic arn](imgs/robotic-arm.jpg)]
-]
-]
-
+.fifty[
 ⇒ Automatic design!
 - Evolutionary Computation
 
+.center.w75p[![Robotic arn](imgs/robotic-arm.jpg)]
+]
+]
+
 ---
 
-## Evolutionary Computation (for optimizing VSR)
+## Evolutionary Computation
 
 Key ingredients:
 - what to optimize
