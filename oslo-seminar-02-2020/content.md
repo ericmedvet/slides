@@ -442,7 +442,7 @@ No sensors, no processing
 
 ---
 
-### Results (secondary)
+### Results (impact of material)
 
 .cols[
 .fifty[
@@ -483,8 +483,8 @@ Each voxel volume varies with sin function:
 .center[$s_i(k) = s_i^0+a \sin(2 \pi f k \Delta t + \phi_i)$]
 
 Amplitude and frequency equal for all the voxels; phase $\phi_i$ and resting volume $s_i^0$ are subjected to evolution.
-- individual is $\theta_\text{NS} = (s_1^0, \phi_1, \dots, s_n^0, \phi_n)$
-- with bilateral symmetry for resting volumes
+- individual is $(s_1^0, \dots, s_m^0, \phi_1, \dots, \phi_n)$
+- with bilateral symmetry for resting volumes ($m=\frac{n}{2}$)
 
 No sensors, no processing
 
@@ -495,6 +495,22 @@ No sensors, no processing
 - mutation-only
 - Pareto-dominance based optimization: maximize fitness, minimize age ⇒ favor diversity
 - overlapping and truncation selection ⇒ high selective pressure
+
+```
+P := []
+foreach (i in [1, ..., n_pop]) {
+  P := P + (random(), 0)
+}
+foreach (i in [1, ..., n_gen]) {
+  P' := []
+  foreach ((g,a) in P) {
+    g' := mutate(g)
+    P' := P' + (g,a+1) + (g',a+1)
+  }
+  P' := P' + (random(), 0)
+  P := select(P', n_pop)
+}
+```
 
 ---
 
@@ -511,13 +527,131 @@ No sensors, no processing
 
 .center[![Evo+devo results](imgs/nature-evo-devo-results.png)]
 
-- Controllers evolved with evo+devo are better ⇒ development increase evolvability
+- Controllers evolved with evo+devo are better ⇒ development increases evolvability
   - even w/o devo
   - more behaviors are discovered (e.g., rolling)
-- Side effect: evo+devo improve robustness to noise on parameters
+- Side effect: evo+devo improves robustness to noise on parameters
 
 ---
 
 ### In action
 
 .center[<iframe width="800" height="450" src="https://www.youtube.com/embed/Ee2sU-AZWC4?start=53" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>]
+
+---
+
+## Evolution of a sensing controller
+
+.ref[Talamini, Jacopo, et al. "[Evolutionary Synthesis of Sensing Controllers for Voxel-based Soft Robots](https://www.mitpressjournals.org/doi/abs/10.1162/isal_a_00223)." The 2018 Conference on Artificial Life: A Hybrid of the European Conference on Artificial Life (ECAL) and the International Conference on the Synthesis and Simulation of Living Systems (ALIFE). One Rogers Street, Cambridge, MA 02142-1209 USA journals-info@ mit. edu: MIT Press, 2019.]
+
+**Goal**: the controller can sense _and process_ itself and environment information
+
+- _Fitness_: traveled distance
+- _Representation_: parameters of a neural network
+- _EA_: the same simple Age-Fitness-Pareto
+
+---
+
+### Sensing vs. non-sensing controller
+
+.cols[
+.fifty.center[
+Non-sensing
+
+.w75p[![Non-sensing controller scheme](imgs/talamini-sensing-phases-ctrl.png)]
+
+Sensing
+
+.w75p[![NN-based sensing controller scheme](imgs/talamini-sensing-nn-ctrl.png)]
+]
+.fifty[
+The same sensors on each voxel:
+- velocity magnitude
+- acceleration magnitude
+- actual volume
+
+Neural network architecture partially dictated by the size of the VSRs
+- params ~$\mathcal{O}(n^2)$
+]
+]
+
+---
+
+### Results (main)
+
+.center[
+.w50p[![VSRs used in the experiments](imgs/talamini-sensing-vsrs.png)]
+
+.w75p[![Sensing vs. non-sensing controller](imgs/talamini-sensing-results-main.png)]
+]
+
+---
+
+### Behavior analysis
+
+.cols[
+.fifty[
+Aim: understanding if the sensing controller results in novel behaviors, _sistematically_
+
+For each VSR:
+1. consider position of center of mass
+2. compute DFT along two axes
+3. merge in a single vector
+
+For all evolved VSRs:
+1. map vectors to 2-D with MDS
+2. plot
+]
+.fifty[
+.w50p.center[![Procedure for behavior analysis](imgs/talamini-sensing-behavior-procedure.png)]
+]
+]
+
+---
+
+### Results (bahavior analysis)
+
+.w75p.center[![Results behavior analysis](imgs/talamini-sensing-behavior-results.png)]
+
+Evolved sensing controllers often result in "high-frequency" behaviors
+
+---
+
+##  Evolution of a distributed controller
+
+.ref[Medvet, Eric, et al. "Evolution of Distributed Neural Controllers for Voxel-based Soft Robots." submitted to Genetic and Evolutionary Computation Conference 2020.]
+
+**Goal**: *embodied* controller that can sense and process itself and environment information *without* disrupting **modularity**
+
+- _Fitness_: traveled distance
+- _Representation_: parameters of many neural networks
+- _EA_: pretty standard
+
+Notes:
+- a 2-D variant of VSRs
+
+---
+
+### 2D-VSR-Sim
+
+---
+
+### Distributed vs. centralized sensing controller
+
+---
+
+### Results (main)
+
+---
+
+### Modularity and re-usability
+
+---
+
+### Results (modularity and re-usability)
+
+---
+
+class: middle, center
+
+# What's next, from a *research* perspective?
