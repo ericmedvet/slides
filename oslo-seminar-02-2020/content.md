@@ -311,7 +311,7 @@ Details
 
 Notes:
 - pipeline with filters
-  - including sort of domain randomization
+  - including sort of domain randomization to cope with _reality gap_
 ]
 .fifty[.center[
 ![Kriegman's living VSR overview](imgs/kriegman-frog.png)
@@ -338,7 +338,7 @@ class: middle, center
 
 ---
 
-## Auto vs. manual design
+## Manual vs. auto design
 
 .cols[
 .fifty[
@@ -346,13 +346,13 @@ Manual design of VSR is difficult:
 - *non-trivial interactions* of many components
 - *large search space*: many things can be optimized
 
-.center.w75p[![Large VSR](imgs/large-vsr.png)]
+.center.w75p[![Robotic arn](imgs/robotic-arm.jpg)]
 ]
 .fifty[
 ⇒ Automatic design!
 - Evolutionary Computation
 
-.center.w75p[![Robotic arn](imgs/robotic-arm.jpg)]
+.center.w75p[![Large VSR](imgs/large-vsr.png)]
 ]
 ]
 
@@ -362,10 +362,10 @@ Manual design of VSR is difficult:
 
 Key ingredients:
 - what to optimize
-  - solution representation, search space
-- how to measure solution quality
+  - solution _representation_, search space
+- how to measure solution quality (_fitness_)
 - how to perform optimization
-  - evolutionary algorithms (EA) and its params
+  - evolutionary algorithm (_EA_) and its params
 
 And:
 - why to optimize?
@@ -376,7 +376,7 @@ And:
 
 .ref[Cheney, Nick, et al. "[Unshackling evolution: evolving soft robots with multiple materials and a powerful generative encoding](https://dl.acm.org/doi/abs/10.1145/2661735.2661737)." ACM SIGEVOlution 7.1 (2014): 11-23.]
 
-**Goal**: optimize a body of up $10 \times 10 \times 10$ voxels (from a couple of materials) that is good at *locomotion*
+**Goal**: optimize a body of (up to) $10 \times 10 \times 10$ voxels (of a few predefined "materials") that is good at *locomotion*
 
 - _Fitness_: traveled distance
 - _Representation_: indirect (generative) based on CPPN vs. indirect
@@ -423,13 +423,13 @@ A $10 \times 10 \times 10$ vector directly encoding material presence:
 
 ### Controller
 
-Implicit in the material: voxel of different materials contract and expands differently:
+Implicit in the material: voxels of different materials contract and expand differently:
 - soft passive tissue
 - hard passive tissue
 - contract/expand active tissue
 - expand/contract active tissue ($\Delta \phi = \pi$)
 
-No sensors, no processing
+No sensors, no processing of sensory information
 
 ---
 
@@ -480,10 +480,11 @@ Note: VSRs are used for addressing a broader research question
 ### Representation
 
 Each voxel volume varies with sin function:
-.center[$s_i(k) = s_i^0+a \sin(2 \pi f k \Delta t + \phi_i)$]
+.center[$v_i(k) =v_i^i+(v_i^f-v_i^i) \frac{k}{K}+a \sin(2 \pi f k \Delta t + \phi_i)$]
+- resting volume varies during the VSR "life" $[0,K]$
 
-Amplitude and frequency equal for all the voxels; phase $\phi_i$ and resting volume $s_i^0$ are subjected to evolution.
-- individual is $(s_1^0, \dots, s_m^0, \phi_1, \dots, \phi_n)$
+Amplitude and frequency equal for all the voxels; phase $\phi_i$ and resting volume initial and final values $v_i^i, v_i^f$ are subjected to evolution.
+- individual is $(v_1^i, \dots, v_m^i, v_1^f, \dots, v_m^f, \phi_1, \dots, \phi_n)$
 - with bilateral symmetry for resting volumes ($m=\frac{n}{2}$)
 
 No sensors, no processing
@@ -493,7 +494,7 @@ No sensors, no processing
 ### EA
 
 - mutation-only
-- Pareto-dominance based optimization: maximize fitness, minimize age ⇒ favor diversity
+- Pareto-dominance based optimization: maximize fitness, minimize age ⇒ favors diversity
 - overlapping and truncation selection ⇒ high selective pressure
 
 ```
@@ -544,7 +545,7 @@ foreach (i in [1, ..., n_gen]) {
 
 .ref[Talamini, Jacopo, et al. "[Evolutionary Synthesis of Sensing Controllers for Voxel-based Soft Robots](https://www.mitpressjournals.org/doi/abs/10.1162/isal_a_00223)." The 2018 Conference on Artificial Life: A Hybrid of the European Conference on Artificial Life (ECAL) and the International Conference on the Synthesis and Simulation of Living Systems (ALIFE). One Rogers Street, Cambridge, MA 02142-1209 USA journals-info@ mit. edu: MIT Press, 2019.]
 
-**Goal**: the controller can sense _and process_ itself and environment information
+**Goal**: the controller can sense itself and the environment _and process_ related information
 
 - _Fitness_: traveled distance
 - _Representation_: parameters of a neural network
@@ -619,7 +620,7 @@ Evolved sensing controllers often result in "high-frequency" behaviors
 
 ##  Evolution of a distributed controller
 
-.ref[Medvet, Eric, et al. "Evolution of Distributed Neural Controllers for Voxel-based Soft Robots." submitted to Genetic and Evolutionary Computation Conference 2020.]
+.ref[Medvet, Eric, et al. "[Evolution of Distributed Neural Controllers for Voxel-based Soft Robots](http://medvet.inginf.units.it/publications)." submitted to Genetic and Evolutionary Computation Conference 2020.]
 
 **Goal**: *embodied* controller that can sense and process itself and environment information *without* disrupting **modularity**
 
@@ -634,13 +635,66 @@ Notes:
 
 ### 2D-VSR-Sim
 
+.ref[Medvet, Eric, et al. "[Design, Validation, and Case Studies of 2D-VSR-Sim, an Optimization-friendly Simulator of 2-D Voxel-based Soft Robots](https://arxiv.org/abs/2001.08617)." arXiv preprint arXiv:2001.08617 (2020).]
+
+Why a new software? (at least one already exists)
+- more consistent interface to VSR aspects suitable for optimization, with a **focus on sensing**
+- **2-D** makes search space in general smaller
+- (in Java, works nicely with our usual evolutionary pipeline)
+- with tools for online and offline *visualization* of the simulations
+
+.cols[
+.fifty.center[
+.w75p[![2D-VSR-Sim VSR model](imgs/2d-vsr-sim-vsr.png)]
+]
+.fifty.center[
+.w75p[![2D-VSR-Sim Graphical User Interface](imgs/2d-vsr-sim-gui.png)]
+]
+]
+
 ---
 
-### Distributed vs. centralized sensing controller
+### Centralized vs. distributed sensing controller
+
+.cols[
+.fifty[
+.h40ex.center[![Centralized controller scheme](imgs/gecco2020-centralized.png)]
+
+- disembodied
+- requires wiring between NN and voxels
+- single point of failure
+- cannot be disassembled
+]
+.fifty[
+.w75p.center[![Distributed controller scheme](imgs/gecco2020-distributed.png)]
+
+- embodied
+- can be disassembled
+- wiring is inside the voxel
+]
+]
 
 ---
 
 ### Results (main)
+
+.w75p.center[![Six VSR shapes](imgs/gecco2020-robots.png)]
+.w75p.center[![Results: effectivenss](imgs/gecco2020-results-effectiveness.png)]
+
+.cols[
+.fifty[
+- same sensors on all voxels: mean and diff of area, x- and y- velocity
+- distributed not worse than centralized, without disrupting modularity
+- both better than non-sensing on small VSRs
+]
+.fifty[
+.w75p.center[![Scalability of num. of params with respect to num. of voxels](imgs/gecco2020-params-scalability.png)]
+]
+]
+
+---
+
+### In action
 
 ---
 
@@ -655,3 +709,10 @@ Notes:
 class: middle, center
 
 # What's next, from a *research* perspective?
+
+---
+
+- benchmarks
+- modularity and re-configurability at different scales
+- auto assebly
+- physical building: nanotechnologies
