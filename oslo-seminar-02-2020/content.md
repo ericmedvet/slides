@@ -5,7 +5,9 @@ class: middle, center
 
 [Eric Medvet](http://medvet.inginf.units.it/), University of Trieste
 
-11/12/2020, Simula@OsloMet
+.vam[![Twitter icon](imgs/twitter.png)]@EricMedvetTs
+
+11/2/2020, Simula@OsloMet
 
 ---
 
@@ -676,7 +678,7 @@ Why a new software? (at least one already exists)
 
 ---
 
-### Results (main)
+### Results (effectiveness)
 
 .w75p.center[![Six VSR shapes](imgs/gecco2020-robots.png)]
 .w75p.center[![Results: effectivenss](imgs/gecco2020-results-effectiveness.png)]
@@ -700,9 +702,39 @@ Why a new software? (at least one already exists)
 
 ### Modularity and re-usability
 
+.cols[
+.fifty[
+Idea:
+1. evolve the controller for a VSR
+2. detach some parts
+3. reattach the parts on another VSR
+Is the re-assembled VSR cheaper to optimize than a new one?
+
+Experiments with:
+- two VSR shapes
+- two ways for re-assembling
+  - same shape
+  - different shape
+- two sensor configurations
+  - all voxels with same sensors
+  - legs with few sensors
+]
+.fifty.center[
+![Re-assembling configurations](imgs/gecco2020-bipeds.png)
+From Giulio Fidel's thesis.
+]
+]
+
 ---
 
 ### Results (modularity and re-usability)
+.center[![Modularity results](imgs/gecco2020-modularity-results.png)]
+
+Findings:
+- re-assembled is in general cheaper to optimize
+- difference is sharper for:
+  - larger VSR (larger search space)
+  - VSR with few sensors (better coordination between trunk and leg)
 
 ---
 
@@ -712,7 +744,24 @@ class: middle, center
 
 ---
 
-- benchmarks
-- modularity and re-configurability at different scales
-- auto assebly
-- physical building: nanotechnologies
+## A few ideas
+
+- Benchmarks
+  - most studies focused only on locomotion
+  - nice, immediate, but maybe not the only thing a robot can do
+    - does not require sensing (as is now)
+  - 2D-VSR-Sim may ease development
+- Modularity and re-configurability at different scales
+  - intelligent robotic tissue
+  - libraruy of modules, tissue
+  - optimzation starting from parts in the library
+- Auto assembly
+- Physical building: nanotechnologies?
+  - *architected materials* that can be re-configured upon magnetic/electric signals
+  - computing with nanomaterials (.ref[Broersma, Hajo, Julian F. Miller, and Stefano Nichele. "[Computational matter: Evolving computational functions in nanoscale materials](https://link.springer.com/chapter/10.1007/978-3-319-33921-4_16)." Advances in Unconventional Computing. Springer, Cham, 2017. 397-428.])
+
+---
+
+class: middle, center
+
+Thanks!
