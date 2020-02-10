@@ -1,6 +1,6 @@
 class: middle, center
 
-# Overview of other research projects
+# Research activity overview
 
 [Eric Medvet](http://medvet.inginf.units.it/), University of Trieste
 
@@ -32,7 +32,7 @@ class: middle, center
 
 - .ref[Bartoli, De Lorenzo, Medvet, Squillero, [Multi-level Diversity Promotion Strategies for Grammar-guided Genetic Programming](http://medvet.inginf.units.it/publications/multileveldiversitypromotionstrategiesforgrammarguidedgeneticprogramming), Applied Soft Computing, 2019]
 - .ref[Bartoli, Castelli, Medvet, [Weighted Hierarchical Grammatical Evolution](http://medvet.inginf.units.it/publications/weightedhierarchicalgrammaticalevolution), IEEE Transactions on Cybernetics, 2018]
-- .ref[Medvet, Bartoli, De Lorenzo, Tarlao, [Designing Automatically a Representation for Grammatical Evolution](http://medvet.inginf.units.it/publications/designingautomaticallyarepresentationforgrammaticalevolution), Genetic Programming and Evolvable Machines, 2018 (extension of EuroGP **best paper**)]
+- .ref[Medvet, Bartoli, De Lorenzo, Tarlao, [Designing Automatically a Representation for Grammatical Evolution](http://medvet.inginf.units.it/publications/designingautomaticallyarepresentationforgrammaticalevolution), Genetic Programming and Evolvable Machines, 2018 (extension of **EuroGP best paper**)]
 - .ref[Medvet, Bartoli, De Lorenzo, Tarlao, [GOMGE: Gene-pool Optimal Mixing on Grammatical Evolution](http://medvet.inginf.units.it/publications/gomgegenepooloptimalmixingongrammaticalevolution), 15th International Conference on Parallel Problem Solving from Nature (PPSN), 2018, Coimbra (Portugal)]
 - .ref[Medvet, Daolio, Tagliapietra, [Evolvability in Grammatical Evolution](http://medvet.inginf.units.it/publications/evolvabilityingrammaticalevolution), ACM Genetic and Evolutionary Computation Conference (GECCO), 2017, Berlin (Germany)]
 - .ref[Medvet, [A Comparative Analysis of Dynamic Locality and Redundancy in Grammatical Evolution](http://medvet.inginf.units.it/publications/acomparativeanalysisofdynamiclocalityandredundancyingrammaticalevolution), 20th European Conference on Genetic Programming (EuroGP), 2017, Amsterdam (Netherlands)]
@@ -79,6 +79,8 @@ class: middle, center
 
 ## Computer Security
 
+.h25ex.center[![WPA2 evil twins table](imgs/sec-eviltwins.png)]
+
 - .ref[Bartoli, Medvet, De Lorenzo, Tarlao, [Enterprise Wi-Fi: we need devices that are secure by default](http://medvet.inginf.units.it/publications/enterprisewifiweneeddevicesthataresecurebydefault), Communications of the ACM, 2019]
 - .ref[Bartoli, Medvet, Onesti, [Evil Twins and WPA2 Enterprise: A Coming Security Disaster?](http://medvet.inginf.units.it/publications/eviltwinsandwpaenterpriseacomingsecuritydisaster), Computers & Security, 2018]
 - .ref[Bartoli, Medvet, De Lorenzo, Tarlao, [Back To The Basics: Security of Software Downloads for Smart Objects](http://medvet.inginf.units.it/publications/backtothebasicssecurityofsoftwaredownloadsforsmartobjects), 4th EAI International Conference on Smart Objects and Technologies for Social Good (GOODTECHS), 2018, Bologna (Italy)]
@@ -90,6 +92,33 @@ class: middle, center
 
 ## Multi-agent Systems
 
+.center[
+.h15ex[![STL to Data Streaming example](imgs/mas-stl2ds.png)]
+.h15ex[![Traffic simulator](imgs/mas-traffic.png)]
+]
+
+- .ref[Talamini, Medvet, Bartoli, [Communication-based Cooperative Tasks: how the Language Expressiveness affects Reinforcement Learning](http://medvet.inginf.units.it/publications/communicationbasedcooperativetaskshowthelanguageexpressivenessaffectsreinforcementlearning), 34th ACM/SIGAPP Symposium on Applied Computing (SAC), 2019, Limassol (Cyprus)]
+- .ref[Bortolussi, Gulisano, Medvet, Palyvos-Giannas, [Automatic Translation of Spatio-Temporal Logics to Streaming-Based Monitoring Applications for IoT-Equipped Autonomous Agents](http://medvet.inginf.units.it/publications/automatictranslationofspatiotemporallogicstostreamingbasedmonitoringapplicationsforiotequippedautonomousagents), 6th International Workshop on Middleware and Applications for the Internet of Things (M4IoT@Middleware), 2019, Davis (USA)]
+- .ref[Talamini, Scaini, Medvet, Bartoli, [Selfish vs. Global Behavior Promotion in Car Controller Evolution](http://medvet.inginf.units.it/publications/selfishvsglobalbehaviorpromotionincarcontrollerevolution), 1st GECCO Workshop on Decomposition Techniques in Evolutionary Optimization (DTEO@GECCO), 2018, Kyoto (Japan)]
+- .ref[Lombardi, Medvet, Bartoli, [A Language for UAV Traffic Rules in an Urban Environment and Decentralized Scenario](http://medvet.inginf.units.it/publications/alanguageforuavtrafficrulesinanurbanenvironmentanddecentralizedscenario), IEEE International Conference on Tools with Artificial Intelligence (ICTAI), 2017, Boston (USA)]
+- .ref[Medvet, Bartoli, Talamini, [Road Traffic Rules Synthesis using Grammatical Evolution](http://medvet.inginf.units.it/publications/roadtrafficrulessynthesisusinggrammaticalevolution), 20th European Conference on the Applications of Evolutionary Computation (EvoApplication), 2017, Amsterdam (Netherlands)]
+
 ---
 
 ## Misc
+
+.cols[
+.fifty.center[
+.h15ex[![Dimensionality reduction](imgs/misc-dimred.png)]
+]
+.fifty.center[
+.h15ex[![Fake review News coverage by THE](imgs/misc-fakereviews.png)]
+]
+]
+
+- Visualization for Evolutionary Computation
+  - .ref[De Lorenzo, Medvet, Tušar, Bartoli, [An Analysis of Dimensionality Reduction Techniques for Visualizing Evolution](http://medvet.inginf.units.it/publications/ananalysisofdimensionalityreductiontechniquesforvisualizingevolution), 10th Annual workshop on Visualisation in Genetic and Evolutionary Computation (VizGEC@GECCO), 2019, Prague (Czech Republic)]
+  - .ref[edvet, Virgolin, Castelli, Bosman, Gonçalves, Tušar, [Unveiling Evolutionary Algorithm Representation with DU Maps](http://medvet.inginf.units.it/publications/unveilingevolutionaryalgorithmrepresentationwithdumaps), Genetic Programming and Evolvable Machines, 2018]
+- Natural language generation
+  - .ref[Bartoli, De Lorenzo, Medvet, Morello, Tarlao, []"Best Dinner Ever!!!": Automatic Generation of Restaurant Reviews with LSTM-RNN](http://medvet.inginf.units.it/publications/bestdinnereverautomaticgenerationofrestaurantreviewswithlstmrnn), IEEE/WIC/ACM International Conference on Web Intelligence (WI), 2016, Omaha (USA)]
+  - .ref[Bartoli, De Lorenzo, Medvet, Tarlao, [Your Paper has been Accepted, Rejected, or whatever: Automatic Generation of Scientific Paper Reviews](http://medvet.inginf.units.it/publications/yourpaperhasbeenacceptedrejectedorwhateverautomaticgenerationofscientificpaperreviews), International Cross Domain Conference and Workshop (CD-ARES), 2016, Salzburg (Austria)]
