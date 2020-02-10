@@ -696,7 +696,15 @@ Why a new software? (at least one already exists)
 
 ---
 
-### In action
+### In action (small worm)
+
+.center[<iframe width="750" height="500" src="https://www.youtube.com/embed/iHCW3jM41D0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>]
+
+---
+
+### In action (large tripod)
+
+.center[<iframe width="750" height="500" src="https://www.youtube.com/embed/y6nRjabuiDc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>]
 
 ---
 
