@@ -1,0 +1,55 @@
+@import url(https://fonts.googleapis.com/css?family=Livvic:400,400i,700,700i|Roboto+Mono:400,700,400i);
+body {
+  font-family: 'Livvic';
+}
+.remark-slide-content {
+  font-size: 24px;
+}
+h1, h2, h3 {
+  font-family: 'Livvic';
+  font-weight: normal;
+}
+h1 {
+  color: brown;
+}
+.remark-code, .remark-inline-code {
+  font-family: 'Roboto Mono';
+}
+.cols {
+  display: flex;
+}
+.fifty {
+  flex: 50%;
+}
+img {
+  max-width: 100%;
+}
+.w50p img {
+  width: 50%;
+}
+.w75p img {
+  width: 75%;
+}
+.h10ex img {
+  height: 10ex;
+}
+.h15ex img {
+  height: 15ex;
+}
+.h25ex img {
+  height: 25ex;
+}
+.h40ex img {
+  height: 40ex;
+}
+.footnote {
+  position: absolute;
+  bottom: 2.5em;
+  font-size: 75%
+}
+.ref {
+  font-style: italic;
+}
+.vam {
+  vertical-align: middle;
+}
