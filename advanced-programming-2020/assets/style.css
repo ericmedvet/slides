@@ -12,14 +12,27 @@ h1, h2, h3 {
 h1 {
   color: brown;
 }
+code {
+  border-radius: 5px;
+}
 .remark-code, .remark-inline-code {
   font-family: 'Roboto Mono';
+}
+.remark-inline-code {
+  color: #812815;
+  font-size: 85%;
 }
 .cols {
   display: flex;
 }
 .fifty {
   flex: 50%;
+}
+.fifty:nth-child(1) {
+  padding-right: 0.5em;
+}
+.fifty:nth-child(2) {
+  padding-left: 0.5em;
 }
 img {
   max-width: 100%;
@@ -52,4 +65,10 @@ img {
 }
 .vam {
   vertical-align: middle;
+}
+.big-quote {
+  background-color: lightgray;
+  padding: 0.5em;
+  font-size: 80%;
+  border-radius: 5px;
 }

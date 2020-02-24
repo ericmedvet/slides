@@ -8,8 +8,22 @@
   <body>
     <script src="assets/remark-latest.min.js"></script>
     <script>
+      var sourceUrls = [
+        '01-intro.md',
+        '02-hello.md'
+      ];
+      var xmlhttp = new XMLHttpRequest();
+      var source = ""
+      for (var i = 0; i < sourceUrls.length; i++) {
+        xmlhttp.open('GET', sourceUrls[i], false);
+        xmlhttp.send();
+        source += xmlhttp.responseText;
+        if (i + 1 < sourceUrls.length) {
+          source += "\n---\n"
+        }
+      };
       var slideshow = remark.create({
-        sourceUrl: "01-intro.md",
+        source: source,
         ratio: "4:3",
         highlightStyle: "monokai",
         highlightLines: true,
