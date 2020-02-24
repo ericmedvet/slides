@@ -109,7 +109,7 @@ class: middle, center
 ## Why Java?
 
 Practical motivations:
-- write once, run everywhere
+- write once, run anywhere
 - large community support, solid tools, many APIs
 - free
 
@@ -328,7 +328,7 @@ A `.class` executable can be executed on any machine for which a program exists 
 - on Solaris SPARC x64, with the `java` program for Solaris SPARC x64
 - Mac OS X, Windows, Android, ...
 
-→ **Write once, run everywhere**
+→ **Write once, run anywhere**
 
 ---
 
