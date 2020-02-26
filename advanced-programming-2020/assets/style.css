@@ -15,6 +15,9 @@ h1 {
 code {
   border-radius: 5px;
 }
+pre {
+  margin: 0.1em 0;
+}
 .remark-code, .remark-inline-code {
   font-family: 'Roboto Mono';
 }
@@ -25,14 +28,29 @@ code {
 .cols {
   display: flex;
 }
-.fifty {
+.c30 {
+  flex: 30%;
+}
+.c40 {
+  flex: 40%;
+}
+.c50 {
   flex: 50%;
 }
-.fifty:nth-child(1) {
+.c60 {
+  flex: 60%;
+}
+.c70 {
+  flex: 70%;
+}
+.cols > div:nth-child(1) {
   padding-right: 0.5em;
 }
-.fifty:nth-child(2) {
+.cols > div:nth-child(2) {
   padding-left: 0.5em;
+}
+.cols .vcentered {
+  align-self: center;
 }
 img {
   max-width: 100%;
@@ -75,6 +93,62 @@ img {
 .important {
   background-color: #FF5733;
   padding: 0.5em;
-  font-size: 120%;
+  font-size: 150%;
   border-radius: 5px;
+  color: white;
+}
+.diagram rect {
+  fill: #FCF3CF;
+  stroke: #F1C40F;
+  stroke-width:2;
+}
+.diagram line {
+  stroke: #F1C40F;
+  stroke-width:2;
+}
+.diagram circle {
+  fill: #F1C40F;
+}
+.diagram text {
+  dominant-baseline: middle;
+  text-anchor: middle;
+  font-family: 'Roboto Mono';
+  fill: #812815;
+  font-size: 85%;
+}
+.question::before {
+  font-weight: bolder;
+  color: white;
+  background-color: green;
+  padding: 0.2em;
+  content: 'for you';
+  margin-right: 0.5em;
+  border-radius: 5px;
+  float: right;
+}
+.question {
+  margin-top: 1em;
+  background-color: #DAF7A6;
+  padding: 0.5em;
+  border-radius: 5px;
+}
+.javadoc {
+  font-size: 50%;
+}
+.javadoc tbody tr td:nth-child(1),
+.javadoc tbody tr td:nth-child(2) {
+  font-family: 'Roboto Mono';
+  color: #812815;
+  font-size: 85%;
+}
+.javadoc tbody tr:nth-last-of-type(2n) {
+  background: lightgray;
+}
+.javadoc td {
+  margin: 0;
+  padding: 0;
+}
+
+svg { /*TODO: remove me, I'm here for debug*/
+  /* border: 1px dashed red; */
 }

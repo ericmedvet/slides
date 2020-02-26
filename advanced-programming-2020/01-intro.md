@@ -99,6 +99,8 @@ In brief:
 2. Tools and methods for programming
 3. Distributed programming
 
+(See the [syllabus](http://medvet.inginf.units.it/teaching/programmazione-avanzata-2019-2020)!)
+
 ---
 
 class: middle, center
@@ -246,7 +248,7 @@ public class Greeter {
 Or it contains more than one class definitions, at most one non-inner has the `public` modifier (we will see):
 
 .cols[
-.fifty[
+.c50[
 ```java
 public class Greeter {
   //...
@@ -256,7 +258,7 @@ public class Greeter {
 }
 ```
 ]
-.fifty[
+.c50[
 ```java
 public class Greeter {
   //...
@@ -405,10 +407,10 @@ How to access the source code?
 ## Consuming the documentation
 
 .cols[
-.fifty.center[
+.c50.center[
 ![Javadoc, online](images/javadoc-online-arraycopy.png)
 ]
-.fifty.center[
+.c50.center[
 ![Javadoc, online](images/javadoc-netbeans-arraycopy.png)
 ]
 ]
