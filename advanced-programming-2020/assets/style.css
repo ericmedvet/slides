@@ -72,3 +72,9 @@ img {
   font-size: 80%;
   border-radius: 5px;
 }
+.important {
+  background-color: #FF5733;
+  padding: 0.5em;
+  font-size: 120%;
+  border-radius: 5px;
+}

@@ -35,13 +35,14 @@ Teacher slides:
 
 ## Exam
 
-Two ways:
+Two options:
 
 1. project + written test + home assignments
   - grade: weighted average with weights 60%, 30%, 10%
 2. project + written test + oral exam
   - grade: weighted average with weights 40%, 30%, 30%
-  - fail if at least one part is graded <6/10
+
+Failed if at least one part is graded <6/10.
 
 ---
 
@@ -73,7 +74,7 @@ Project:
   - 5/10 to 10/10: submitted, depending on
     - quality of code
     - software structure
-    - documentation
+    - documentat (mainly clarity)
     - test coverage
     - degree of working
 
@@ -139,8 +140,8 @@ Mailnly composed of:
 - a set of specificications
 - a set of libraries, with Application Program Interfaces (**APIs**)
 
-Platforms (also **editions**) differ mainly in the libraries.
-Most commont editions:
+Platforms (also called **editions**) differ mainly in the libraries.
+Most common editions:
 - Java 2 Platform, Standard Edition (J2SE): for general-purpose, desktop applications
 - Java 2 Platform, Enterprise Edition (J2EE): J2SE + APIs/specifications for multi-tier client-server enterprise applications
 
@@ -159,7 +160,7 @@ What is needed for developing in Java?
 
 ## JDKs
 
-One JDK per (platform, version).
+One JDK per (vendor, platform, version).
 
 A few options:
 - [Oracle JDK](https://www.oracle.com/java/technologies/javase-downloads.html)
@@ -188,7 +189,7 @@ Classic, desktop-based:
 Cloud-based:
 - Full: [Codenvy](https://codenvy.com/), [Eclipse Che + OpenShift](https://che.openshift.io/)
   - steeper learning curve
-- Light: [CompileJava.net](https://www.compilejava.net/)
+- Light: [CompileJava.net](https://www.compilejava.net/), [repl.it](https://repl.it/)
 
 ---
 
@@ -267,7 +268,7 @@ public class Greeter {
 ]
 ]
 
-Always one `.class` for each class definition!
+Compilation results always in one `.class` for each class definition!
 
 ---
 
@@ -283,7 +284,7 @@ public class Greeter {
 }
 ```
 
-The application be executed:
+An application can be executed:
 ```bash
 java Greeter
 ```
@@ -294,7 +295,7 @@ java Greeter
 ## Class and the virtual machine
 
 - A `.class` file contains executable code in a binary format (**bytecode**)
-- The bytecode is **interpreted** by a program (`java`) that simulates Java Virtual Machine (**JVM**)
+- The bytecode is **interpreted** by a program (`java`) that simulates a machine: the Java Virtual Machine (**JVM**)
 
 JVM:
 - like a real machine, but simulated: it has an instruction set and manages memory
@@ -321,7 +322,7 @@ The result is the 32 low-order bits of the true mathematical result in a suffici
 
 ## Portability
 
-A `.class` executable can be executed on any machine for which a program exists that simulates the JVM
+A `.class` executable can be executed on any machine for which a program exists that simulates the JVM (i.e., a `java`).
 
 "One" `.java` compiled to "one" `.class`, can be executed:
 - on Linux x64, with the `java` program for Linux x64
@@ -337,6 +338,7 @@ A `.class` executable can be executed on any machine for which a program exists 
 Note:
 - the OS executes `java`
 - `java` executes the bytecode
+  - simulates the JVM which executes the bytecode
 - the OS cannot execute the bytecode!
 
 ---
@@ -346,7 +348,7 @@ Note:
 `java` is part of the Java Runtime Environment (**JRE**), which includes also necessary libraries.
 The JRE is part of the JDK.
 
-The JDK contains (also and mainly):
+The JDK contains (mainly):
 - the compiler `javac`
 - the JRE (including `java`)
 - many compiled classes (`.class` files)
@@ -380,14 +382,14 @@ totale 632
 ...
 ```
 
-Usually JDK can be installed on OS; but it can be simply uncompressed somewhere.
+Usually the JDK can be **installed** on the OS; but it can be simply uncompressed somewhere.
 
 ---
 
 ## Documentation and source code
 
 Do you need them?
-- documentation: **yes**!
+- documentation: **yes**, in practice
 - source code: no, but it can be useful for understanding
 
 How to access the documentation?
@@ -422,6 +424,7 @@ How to access the source code?
 Actually, things are much more complex:
 - on the fly optimization
 - recompilation
+- compilation to native code
 - ...
 
 ---
@@ -432,12 +435,14 @@ Is intepretation efficient?
 - unrelevant question
 
 Relevant question: is my software fast enough?
-- measure
+- it depends: measure!
 
 If not?
-- profile
-- find opportunities for improvement
-- improve
+1. profile
+2. find opportunities for improvement
+3. improve
+
+(that is: write good code!)
 
 The problem is rarely in interpretation!
 
