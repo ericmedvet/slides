@@ -391,3 +391,51 @@ You **have to**:
 - use the documentation (briefly: **javadoc**)
 - and/or proficiently use the IDE
   - **autocompletion**
+
+Often, the signature alone is sufficient for understanding what the method does (e.g., `int length()` of `String`).
+
+This is because who wrote the code for `String` correcly chose the signature: in particular the name.
+
+There are **naming conventions**!
+
+---
+
+## Naming conventions
+
+**Extremely important!**
+- code is not just for machines, it's for humans
+- with code, a human tells another human about a procedure
+
+Many of them: some just for Java, some broader.
+- we'll see part of them, gradually
+
+The degree to which naming conventions are followed concurs in determining the **quality of the code**.
+
+---
+
+### Classes and methods
+
+Class:
+- a noun, a name of an **actor**: e.g., `Dog`, `Sorter`, `Tree`
+- representative of the entity the class represents
+- upper camel case (aka dromedary case): `HttpServerResponse`
+
+Method:
+- a verb, a name of an action: e.g., `bark`, `sort`, `countNodes`
+  - with acceptable exceptions: e.g., `size`, `nodes`
+- representative of the operation the method performs
+- lower camel case: `removeLastChar`
+
+---
+
+### References
+
+Reference:
+- consistent with the corresponding type
+- representative of the specific use of the referenced object:
+  - not every `String` has to be referenced by `s`
+  - specific! e.g., `numOfElements` is better than `n`
+- lower camel case
+
+God gave us IDEs, IDEs give us **autocompletion**!
+Don't spare on chars.
