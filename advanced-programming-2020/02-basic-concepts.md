@@ -275,6 +275,12 @@ We'll discuss them later.
 
 ---
 
+class: middle, center
+
+## Using classes
+
+---
+
 ## Methods
 
 An operation applicable on a object is a **method** of the corresponding class.
@@ -282,7 +288,7 @@ An operation applicable on a object is a **method** of the corresponding class.
 Every method has a **signature**, consisting of:
 - name
 - sequence of types of input parameters (name not relevant)
-- type of output parameter
+- type of output parameter (aka **return type**)
   - possibly `void`, if there is no output
 
 Examples (from class [`String`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html)):
@@ -355,13 +361,13 @@ From another point of view: at most one method with the same (name, input parame
 
 ```java
 String s = new String("Hello!");
-PrintStream ps = new PrintStream(...);
+PrintStream ps = new PrintStream(/*...*/);
 p.`pringln(s)`;
 ```
 
 .cols[
 .c70[
-.javadoc[
+.javadoc.methods[
 | Type | Method             | Description                                                       |
 |------|--------------------|-------------------------------------------------------------------|
 | void | println()          | Terminates the current line by writing the line separator string. |
@@ -377,7 +383,7 @@ p.`pringln(s)`;
 ]
 ]
 .c30[
-From class [PrintStream](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/PrintStream.html)
+From class [`PrintStream`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/PrintStream.html)
 ]
 ]
 
@@ -439,3 +445,233 @@ Reference:
 
 God gave us IDEs, IDEs give us **autocompletion**!
 Don't spare on chars.
+
+---
+
+## Associative dot operator
+
+```java
+String s = new String(" shout!");
+s = s.trim().toUpperCase();
+```
+- invoke `trim()` on object referenced by `s`
+- invoke `toUpperCase()` on the object resulting from `trim()` invocation
+- make `s` reference the object resulting from `toUpperCase()` invocation
+
+.javadoc.methods[
+| Type | Method | Description |
+| --- | --- | --- |
+| String | toUpperCase() | Converts all of the characters in this `String` to upper case using the rules of the default locale. |
+| String | trim() | Returns a string whose value is this string, with all leading and trailing space removed, where space is defined as any character whose codepoint is less than or equal to `'U+0020'` (the space character). |
+]
+
+---
+
+### Objects and references diagram
+
+```java
+String s = new String(" shout!");
+s = s.trim().toUpperCase();
+```
+.cols[
+.c50[
+After 1st line:
+.center.diagram[
+<svg width="251" height="150" role="img">
+<circle cx="10" cy="40" r="10"/>
+<text x="10" y="20">s</text>
+<rect x="100" y="20" width="150" height="40"/>
+<text x="175" y="10">String</text>
+<text x="175" y="40">" shout!"</text>
+<line x1="10" y1="40" x2="100" y2="40"/>
+</svg>
+]
+]
+.c50[
+After 2nd line:
+.center.diagram[
+<svg width="251" height="250" role="img">
+<circle cx="10" cy="40" r="10"/>
+<text x="10" y="20">s</text>
+<rect x="100" y="20" width="150" height="40"/>
+<text x="175" y="10">String</text>
+<text x="175" y="40">" shout!"</text>
+<rect x="100" y="100" width="150" height="40"/>
+<text x="175" y="90">String</text>
+<text x="175" y="120">"shout!"</text>
+<rect x="100" y="180" width="150" height="40"/>
+<text x="175" y="170">String</text>
+<text x="175" y="200">"SHOUT!"</text>
+<line x1="10" y1="40" x2="100" y2="200"/>
+</svg>
+]
+]
+]
+
+---
+
+## Constructor
+
+Every class T has (at least) one special method called **constructor** that, when invoked:
+- results in the creation of a new object of class T
+- inits the new object
+
+Special syntax for invocation using the `new` keyword:
+```java
+Greeter greeter = new Greeter();
+```
+
+There are a few exceptions to this syntax:
+- `String s = "hi!";` same of `String s = new String("hi!");`
+
+---
+
+## Initialization
+
+What happens with initialization depends on the constructor.
+
+Class [`Date`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html): The class `Date` represents a specific instant in time, with millisecond precision.
+
+.javadoc.constructors[
+| Modifier | Constructor | Description |
+| --- | --- | --- |
+| | Date() | Allocates a `Date` object and initializes it so that it represents the time at which it was allocated, measured to the nearest millisecond. |
+]
+
+Probably two different initialization outcomes:
+```java
+Date now = new Date();
+// some code doing long things
+Date laterThanNow = new Date();
+```
+
+---
+
+## Multiple constructors
+
+A class C can have more than one constructors:
+- at most one with the same input parameters
+- (the name and the return type are always the same)
+  - name: the very same name of the class (e.g., `Date` → `Date()`)
+  - return type: C (e.g., `Date` → `Date`)
+
+Class [`String`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html):
+.javadoc.constructors[
+| Modifier | Constructor | Description |
+| --- | --- | --- |
+| | String()| Initializes a newly created `String` object so that it represents an empty character sequence. |
+| | String​(char[] value)	| Allocates a new `String` so that it represents the sequence of characters currently contained in the character array argument. |
+| | String​(String original) | Initializes a newly created `String` object so that it represents the same sequence of characters as the argument; in other words, the newly created string is a copy of the argument string. |
+]
+
+---
+
+### Other example: `Socket`
+
+Class [`Socket`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/net/Socket.html): This class implements client sockets (also called just "sockets"). A socket is an endpoint for communication between two machines.
+
+.javadoc.constructors[
+| Modifier | Constructor | Description |
+| --- | --- | --- |
+|   | Socket() | Creates an unconnected Socket. |
+|   | Socket​(String host, int port) | Creates a stream socket and connects it to the specified port number on the named host. |
+|   | Socket​(String host, int port, boolean stream) | **Deprecated.** Use DatagramSocket instead for UDP transport. |
+|   | Socket​(String host, int port, InetAddress localAddr, int localPort) | Creates a socket and connects it to the specified remote host on the specified remote port. |
+|   | Socket​(InetAddress address, int port) | Creates a stream socket and connects it to the specified port number at the specified IP address. |
+|   | Socket​(InetAddress host, int port, boolean stream) | **Deprecated.** Use DatagramSocket instead for UDP transport. |
+|   | Socket​(InetAddress address, int port, InetAddress localAddr, int localPort) | Creates a socket and connects it to the specified remote address on the specified remote port. |
+|   | Socket​(Proxy proxy) | Creates an unconnected socket, specifying the type of proxy, if any, that should be used regardless of any other settings. |
+| protected | Socket​(SocketImpl impl) | Creates an unconnected Socket with a user-specified SocketImpl. |
+]
+
+---
+
+## Information hiding
+
+The user of a class (that is, a developer possibly different than the one who developed the class):
+- can use the class and operates on it
+- does not know how it is coded
+
+Class [`Date`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html):
+.javadoc.methods[
+| Type | Methodd | Description |
+| --- | --- | --- |
+| boolean | after​(Date when) | Tests if this date is after the specified date. |
+| boolean | before​(Date when) | Tests if this date is before the specified date. |
+| long | getTime() | Returns the number of milliseconds since January 1, 1970, 00:00:00 GMT represented by this `Date` object. |
+| String | toString() | Converts this `Date` object to a String of the form: |
+]
+
+We can do non-trivial manipulation of dates (meant as entities) through the class `Date` without knowing its code!
+
+---
+
+## Modularity
+
+The user of a class **knows**:
+- which operations exist, how to use them, what they do
+
+He/she **does not know**:
+- what's inside the object
+- how exactly an operation works
+
+The **state** of the object and the **code** of the class might change, but the user is **not required to be notified of changes**!
+
+→ **Modularity**: everyone takes care of only some part of the sofware!
+
+---
+
+class: middle, center
+
+## Coding classes
+
+---
+
+## Complex numbers
+
+Goal: manipulating complex numbers
+
+By examples:
+```java
+Complex c1 = new Complex(7.46, -3.4567);
+Complex c2 = new Complex(0.1, 9.81);
+
+Complex c3 = c1.add(c2);
+// same for subtract(), multiply(), divide()
+
+double norm = c2.getNorm();
+double angle = c2.getAngle();
+String s = c2.toString();
+double real = c2.getReal();
+double imaginary = c2.getImaginary();
+```
+
+(Point of view of the user.)
+
+---
+
+## "Solution": `Complex.java`
+
+```java
+public class Complex {
+  private double real;
+  private double imaginary;
+  public Complex(double real, double imaginary) {
+    this.real = real;
+    this.imaginary = imaginary;
+  }
+  public double getReal() {
+    return real;
+  }
+  public double getImaginary() { /* ... */ }
+  public Complex add(Complex other) {
+    return new Complex(
+      real + other.real,
+      imaginary + other.imaginary
+    );
+  }
+  /* other methods */
+}
+```
+
+(IDE: code generation, auto formatting.)

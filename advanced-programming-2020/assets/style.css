@@ -132,8 +132,9 @@ img {
   padding: 0.5em;
   border-radius: 5px;
 }
-.javadoc {
+.javadoc table {
   font-size: 50%;
+  border-spacing: 0;
 }
 .javadoc tbody tr td:nth-child(1),
 .javadoc tbody tr td:nth-child(2) {
@@ -142,11 +143,15 @@ img {
   font-size: 85%;
 }
 .javadoc tbody tr:nth-last-of-type(2n) {
-  background: lightgray;
+  background: #DDDDDD;
+}
+.javadoc tbody tr:nth-last-of-type(2n+1) {
+  background: #EEEEEE;
 }
 .javadoc td {
   margin: 0;
-  padding: 0;
+  padding: 0 0.5em;
+  vertical-align: top;
 }
 
 svg { /*TODO: remove me, I'm here for debug*/
