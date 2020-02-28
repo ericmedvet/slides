@@ -99,7 +99,7 @@ In brief:
 2. Tools and methods for programming
 3. Distributed programming
 
-(See the [syllabus](http://medvet.inginf.units.it/teaching/programmazione-avanzata-2019-2020)!)
+.note[See the [syllabus](http://medvet.inginf.units.it/teaching/programmazione-avanzata-2019-2020]!)]
 
 ---
 
@@ -153,7 +153,7 @@ Most common editions:
 
 What is needed for developing in Java?
 - Java Development Kit (**JDK**), absolutely necessary
-- documentation (javadoc)
+- API documentation (briefly **javadoc**)
 - Integrated Development Environment (**IDE**)
   - many options
   - when used proficiently, makes development more efficient and effective
@@ -290,7 +290,7 @@ An application can be executed:
 ```bash
 java Greeter
 ```
-(Or `java Greeter.class`, or in other ways)
+.note[Or `java Greeter.class`, or in other ways]
 
 ---
 

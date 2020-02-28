@@ -18,7 +18,7 @@ Goal: **deep understanding** of this code
 - not just what it "does"
 - but the role of every part of the code
 
-(Take code highlighting with care!)
+.note[Take code highlighting with care!]
 
 ---
 
@@ -104,7 +104,9 @@ String s2 = s1;
 </svg>
 ]
 
-(Where? For now: in the memory of the JVM, conceptually.)
+**Objects+references diagram**: where? when?
+- for now: in the memory of the JVM, conceptually.
+- at runtime
 
 ---
 
@@ -186,7 +188,7 @@ After 3rd line:
 
 ---
 
-## Objects and references diagram
+## Objects+references diagram
 
 ```java
 String dog1 = new String("Simba");
@@ -228,7 +230,7 @@ Answers (in brief):
   - output can be referenced: `retRefName = refName.opName()`
 
 
-(We are just scratching the surface; we'll go deeper ahead.)
+.note[We are just scratching the surface; we'll go deeper ahead.]
 
 ---
 
@@ -291,7 +293,7 @@ Every method has a **signature**, consisting of:
 - type of output parameter (aka **return type**)
   - possibly `void`, if there is no output
 
-Examples (from class [`String`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html)):
+Examples (class [`String`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html)):
 - `char charAt(int index)`
 - `int indexOf​(String str, int fromIndex)`
 - `String replace​(CharSequence target, CharSequence replacement)`
@@ -383,7 +385,7 @@ p.`pringln(s)`;
 ]
 ]
 .c30[
-From class [`PrintStream`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/PrintStream.html)
+Class [`PrintStream`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/PrintStream.html)
 ]
 ]
 
@@ -396,7 +398,7 @@ A lot of classes, a lot of methods!
 You **have to**:
 - use the documentation (briefly: **javadoc**)
 - and/or proficiently use the IDE
-  - **autocompletion**
+  - **autocompletion**! (Ctrl+space)
 
 Often, the signature alone is sufficient for understanding what the method does (e.g., `int length()` of `String`).
 
@@ -416,6 +418,8 @@ Many of them: some just for Java, some broader.
 - we'll see part of them, gradually
 
 The degree to which naming conventions are followed concurs in determining the **quality of the code**.
+
+.note[There are many sources online: e.g., [JavaPoint](https://www.javatpoint.com/java-naming-conventions)]
 
 ---
 
@@ -627,11 +631,11 @@ class: middle, center
 
 ---
 
-## Complex numbers
+## Problem: complex numbers
 
 Goal: manipulating complex numbers
 
-By examples:
+By examples (i.e., point of view of the user):
 ```java
 Complex c1 = new Complex(7.46, -3.4567);
 Complex c2 = new Complex(0.1, 9.81);
@@ -645,8 +649,6 @@ String s = c2.toString();
 double real = c2.getReal();
 double imaginary = c2.getImaginary();
 ```
-
-(Point of view of the user.)
 
 ---
 
@@ -674,4 +676,442 @@ public class Complex {
 }
 ```
 
-(IDE: code generation, auto formatting.)
+.note[IDE: code generation, auto formatting.]
+
+---
+
+### What's behind the solution?
+
+**Domain knowledge**:
+- what is a complex number? what are its composing parts? (entities)
+- what are the required operations?
+
+Knowledge of the programming language:
+- how to represent the entities in Java?
+- how to perform the operations in Java?
+
+You need both!
+- you can rely on external help, but you still need to know what you want to do
+  - Google/stackoverflow: how to do X in Java?
+
+---
+
+### Objects+references diagram
+
+```java
+Complex c1 = new Complex(7.46, -3.4567);
+Complex c2 = new Complex(0.1, 9.81);
+```
+
+.center.diagram[
+<svg width="500" height="300" role="img">
+<circle cx="20" cy="40" r="10"/>
+<text x="20" y="20">c1</text>
+<rect x="100" y="20" width="150" height="40"/>
+<text x="175" y="10">Complex</text>
+<circle cx="130" cy="40" r="10"/>
+<circle cx="160" cy="40" r="10"/>
+<rect x="300" y="20" width="50" height="40"/>
+<text x="325" y="10">double</text>
+<rect x="400" y="20" width="50" height="40"/>
+<text x="425" y="10">double</text>
+<polyline points="20,40 100,40"/>
+<polyline points="130,40 130,90 380,90 380,40 400,40"/>
+<polyline points="160,40 160,70 280,70 280,40 300,40"/>
+<circle cx="20" cy="140" r="10"/>
+<text x="20" y="120">c2</text>
+<rect x="100" y="120" width="150" height="40"/>
+<text x="175" y="110">Complex</text>
+<circle cx="130" cy="140" r="10"/>
+<circle cx="160" cy="140" r="10"/>
+<rect x="300" y="120" width="50" height="40"/>
+<text x="325" y="110">double</text>
+<rect x="400" y="120" width="50" height="40"/>
+<text x="425" y="110">double</text>
+<polyline points="20,140 100,140"/>
+<polyline points="130,140 130,190 380,190 380,140 400,140"/>
+<polyline points="160,140 160,170 280,170 280,140 300,140"/>
+</svg>
+]
+
+---
+
+### Objects+references diagram
+
+```java
+Complex c1 = new Complex(7.46, -3.4567);
+Complex c2 = new Complex(0.1, 9.81);
+Complex c3 = c1.add(c2);
+double norm = c2.getNorm();
+```
+
+.center.diagram[
+<svg width="500" height="400" role="img">
+<circle cx="30" cy="40" r="10"/>
+<text x="30" y="20">c1</text>
+<rect x="100" y="20" width="150" height="40"/>
+<text x="175" y="10">Complex</text>
+<circle cx="130" cy="40" r="10"/>
+<circle cx="160" cy="40" r="10"/>
+<rect x="300" y="20" width="50" height="40"/>
+<text x="325" y="10">double</text>
+<rect x="400" y="20" width="50" height="40"/>
+<text x="425" y="10">double</text>
+<polyline points="30,40 100,40"/>
+<polyline points="130,40 130,90 380,90 380,40 400,40"/>
+<polyline points="160,40 160,70 280,70 280,40 300,40"/>
+<circle cx="30" cy="140" r="10"/>
+<text x="30" y="120">c2</text>
+<rect x="100" y="120" width="150" height="40"/>
+<text x="175" y="110">Complex</text>
+<circle cx="130" cy="140" r="10"/>
+<circle cx="160" cy="140" r="10"/>
+<rect x="300" y="120" width="50" height="40"/>
+<text x="325" y="110">double</text>
+<rect x="400" y="120" width="50" height="40"/>
+<text x="425" y="110">double</text>
+<polyline points="30,140 100,140"/>
+<polyline points="130,140 130,190 380,190 380,140 400,140"/>
+<polyline points="160,140 160,170 280,170 280,140 300,140"/>
+<circle cx="30" cy="240" r="10"/>
+<text x="30" y="220">c3</text>
+<rect x="100" y="220" width="150" height="40"/>
+<text x="175" y="210">Complex</text>
+<circle cx="130" cy="240" r="10"/>
+<circle cx="160" cy="240" r="10"/>
+<rect x="300" y="220" width="50" height="40"/>
+<text x="325" y="210">double</text>
+<rect x="400" y="220" width="50" height="40"/>
+<text x="425" y="210">double</text>
+<polyline points="30,240 100,240"/>
+<polyline points="130,240 130,290 380,290 380,240 400,240"/>
+<polyline points="160,240 160,270 280,270 280,240 300,240"/>
+<circle cx="30" cy="340" r="10"/>
+<text x="30" y="320">norm</text>
+<rect x="100" y="320" width="50" height="40"/>
+<text x="125" y="310">double</text>
+<polyline points="30,340 100,340"/>
+</svg>
+]
+
+---
+
+### Field
+
+A **field** is an object contained in an object:
+```java
+public class Complex {
+* private double real;
+* private double imaginary;
+  /* ... */
+}
+```
+They are referenced, there is an identifier:
+.center.diagram[
+<svg width="500" height="200" role="img">
+<circle cx="30" cy="40" r="10"/>
+<text x="30" y="20">c1</text>
+<rect x="100" y="20" width="150" height="80"/>
+<text x="175" y="10">Complex</text>
+<circle cx="130" cy="80" r="10"/>
+<text x="130" y="60">real</text>
+<circle cx="180" cy="60" r="10"/>
+<text x="180" y="40">imaginary</text>
+<rect x="300" y="20" width="50" height="40"/>
+<text x="325" y="10">double</text>
+<rect x="400" y="20" width="50" height="40"/>
+<text x="425" y="10">double</text>
+<polyline points="30,40 100,40"/>
+<polyline points="130,80 130,130 380,130 380,40 400,40"/>
+<polyline points="180,60 180,110 280,110 280,40 300,40"/>
+</svg>
+]
+
+---
+
+## Accessing fields
+
+Can be manipuleted using **dot notation**, like methods:
+```java
+public Complex add(Complex other) {
+  return new Complex(
+    real + `other.real`,
+    imaginary + `other.imaginary`
+  );
+}
+```
+
+---
+
+## Access modifiers: `private`, `public`
+
+Keywords that specify where an identifier is visible, i.e., where it is lecit to use it for accessing the field or method .note[or other, we'll see].
+
+- `private`: visible only within the code of its class
+- `public`: visible everywhere
+
+.note[For brevity, we avoid discussing about syntax: but the Java language specification describes exactly where/how every keyword can be used.]
+
+---
+
+## `private` fields
+
+File `Complex.java`:
+```java
+public class Complex {
+  `private` double real;
+  /* here real can be used */
+}
+/* here real can not be used */
+```
+
+File `ComplexCalculator.java`:
+```java
+public class ComplexCalculator {
+  public Complex add(Complex c1, Complex c2) {
+    /* here real can not be used */
+  }
+}
+```
+
+---
+
+## `private` or `public`: how to choose?
+
+Ideally, it depends of the **nature of the entity** that the class represents (domain knowledge!)
+
+But (general rule of thumb):
+- **fields** should be `private`
+  - because they represent the state of the object, and we want to avoid that the state is manipulated from "outside"
+- **methods** should be `public`
+  - because they are operations that can be performed on the object
+  - unless we use a method for describing a "partial" operation that is reused frequently by other public operations: in this case, the method should be `private`
+
+---
+
+## `this` identifier
+
+It is the identifier of the reference that references the object on which the method, where `this` is, is being executed.
+
+```java
+public class Complex {
+  public Complex add(Complex other) {
+    return new Complex(
+      `this.`real + other.real,
+      `this.`imaginary + other.imaginary
+    );
+  }
+}
+```
+
+---
+
+## Implicit `this`
+
+Can be omitted:
+```java
+public class Complex {
+  public Complex add(Complex other) {
+    return new Complex(
+      `real` + other.real,
+      imaginary + other.imaginary
+    );
+  }
+}
+```
+
+`real` and `this.real` reference the same object.
+
+
+---
+
+## `this` for disambiguation
+
+Sometimes it is necessary for disambiguation:
+```java
+public class Complex {
+  private double real;
+  private double imaginary;
+  public Complex(double real, double imaginary) {
+    `this.real` = `real`;
+    this.imaginary = imaginary;
+  }
+}
+```
+
+Before the line, `real` and `this.real` do not reference the same object.
+
+---
+
+class: middle, center
+
+## Packages
+
+---
+
+## Exported identifiers
+
+A class (i.e., a `.class` file) exports some identifiers of:
+- class .note[or classes, but one per `.class` file]
+- methods
+- fields
+
+Access modifier can be omitted: **default** access identifier:
+- `private`: not visible (~ not exported)
+- `public`: visible
+- default: visible
+
+---
+
+## Package
+
+A **package** is a set of classes with a name
+- we'll see how to define it
+
+A package exports the identifiers of its classes:
+- `private`: not visible (~ not exported)
+- `public`: visible
+- default: visible **only within the package**
+
+---
+
+## Package name
+
+A sequence of letters separated by dots, e.g.:
+- `it.units.erallab`
+- `java.util`
+- `java.util.logging`
+
+There is no formal hierarchy, nor relationship:
+- `java.util.logging` is not a "subpackage" of `java.util`
+- they are just different packages
+
+---
+
+### Why and how?
+
+Why package names?
+- to avoid name clash that may be likely for classes representing common concepts
+  - e.g., `User`, `Point`
+
+How to name packages? (naming conventions)
+- usually, (lowercase) reversed institution/company name + product + internal product organization, e.g., `it.units.erallab.hmsrobots.objects.immutable`
+  - `it.units.erallab`: institution
+  - `hmsrobots`: product
+  - `objects.immutable`: internal organization
+
+Beyond names:
+- packages impact on file organization (we'll see, in directories)
+
+---
+
+## Packages and modules
+
+Since Java 9, a new, higher level abstraction for code entities organization has been introduced: Java Platform Module System (JPMS), briefly **modules**.
+- they are interesting and useful, but...
+- we'll complitely ignore
+- you can build rather complex software without knowing them
+
+---
+
+### API documentation
+
+<iframe width="100%" height="500" src="https://docs.oracle.com/en/java/javase/13/docs/api/index.html"></iframe>
+
+---
+
+## Fully qualified name
+
+Every class is identified **unequivocally** by its **Fully Qualified Name** (FQN):
+
+FQN = package name + class name
+- `java.net.Socket`
+- `it.units.erallab.hmsrobots.objects.immutable.Component`
+
+Everywhere in the code, every* class can be identified by its FQN.
+
+```java
+double r = 10;
+it.units.shapes.Circle circle = new it.units.shapes.Circle(r);
+double area = circle.area();
+```
+
+.note[\*: provided it is available; we'll see]
+
+---
+
+## `import`
+
+Writing always the FQN can make the source code **verbose**, yet it is necessary, otherwise the compiler does not know which class we are referring to.
+
+Solution (shorthand): `import`
+```java
+*import it.units.shapes.Circle;
+
+public class ShapeCompound {
+  private `Circle` circle;
+  /* ... */
+}
+```
+
+"`import package.X`" means "dear compiler, whenever I write `X` in this code, I mean `package.X`"
+- the compiler internally always uses the FQN
+
+---
+
+## Star import
+
+It might be useful to "import" all the classes in a package:
+- it can be done with `import it.units.shapes.*`;
+
+Coding conventions suggest **not** to do it:
+- risk: one might import an unneeded class with the same simple name of another class of the same package (e.g., `java.awt.Event` and `it.units.timetable.Event`)
+- lack of motivation
+    - IDEs add `import`s for you **automatically**, and can remove them partially automatically (**autocompletion**!)
+    - so don't be lazy and messy
+
+---
+
+## `import` for the developer
+
+`import` is an optimization for the developer:
+- recall: code is not just for the machine
+
+`import` does not import code, classes, objects...
+
+
+
+---
+
+## Point of view of the compiler
+
+When the compiler processes the source code (`.java`) and finds a class identifier `C`:
+- it needs to know its methods and fields (name, signature, modifiers)
+- to be able to check if their usage is legit
+
+If without FQN, the compiler looks for `C` definition:
+- in the source code (`.java`)
+- in the same package (directory)
+- in the packages imported with star import
+
+---
+
+## `java.lang` package
+
+All classes of the `java.lang` packages are by default available:
+- `import java.lang.*` is implicitly present in every source code
+
+---
+
+## Syntax of FQNs
+
+Package and class name cannot be identified just by looking at the FQN:
+
+E.g., `it.units.UglySw.Point`:
+- can be the name of a package
+- or can be a FQN where:
+  - `Point` is a class
+  - or, `UglySw.Point` is a class (we'll see)
+  - or, `units.UglySw.Point` is a class, but disrespectful of naming conventions!
+
+Common case and convention: package name are all lowercase!

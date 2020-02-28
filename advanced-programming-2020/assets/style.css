@@ -97,14 +97,25 @@ img {
   border-radius: 5px;
   color: white;
 }
+.note {
+  color: darkgray;
+  font-size: 75%;
+}
+.note::before {
+  content: '(';
+}
+.note::after {
+  content: ')';
+}
 .diagram rect {
   fill: #FCF3CF;
   stroke: #F1C40F;
   stroke-width:2;
 }
-.diagram line {
+.diagram line, .diagram polyline {
   stroke: #F1C40F;
   stroke-width:2;
+  fill: none;
 }
 .diagram circle {
   fill: #F1C40F;
