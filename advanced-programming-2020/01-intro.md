@@ -74,7 +74,7 @@ Project:
   - 5/10 to 10/10: submitted, depending on
     - quality of code
     - software structure
-    - documentat (mainly clarity)
+    - document (mainly clarity)
     - test coverage
     - degree of working
 
@@ -161,7 +161,7 @@ We will focus on:
 Mailnly composed of:
 - an execution engine
 - a compiler
-- a set of specificications
+- a set of specifications
 - a set of libraries, with Application Program Interfaces (**APIs**)
 
 Platforms (also called **editions**) differ mainly in the libraries.
@@ -184,7 +184,7 @@ What is needed for developing in Java?
 
 ## JDKs
 
-One JDK per (vendor, platform, version).
+One JDK per (vendor, platform, version, os+architecture).
 
 A few options:
 - [Oracle JDK](https://www.oracle.com/java/technologies/javase-downloads.html)
