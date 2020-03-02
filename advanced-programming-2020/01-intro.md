@@ -99,7 +99,29 @@ In brief:
 2. Tools and methods for programming
 3. Distributed programming
 
-.note[See the [syllabus](http://medvet.inginf.units.it/teaching/programmazione-avanzata-2019-2020]!)]
+.note[See the [syllabus](http://medvet.inginf.units.it/teaching/programmazione-avanzata-2019-2020)!]
+
+---
+
+## Excercises
+
+There we'll be several excercises:
+- approx. 20h on 72h
+- sofware design and implementation excercises
+- bring your own device
+- in classroom
+  - with the teacher actively investigating about your progresses
+
+Practice is fundamental!
+
+.note[**Computational thinking is an outcome of the coding practice**. See Nardelli, Enrico. "[Do we really need computational thinking?](https://cacm.acm.org/magazines/2019/2/234348-do-we-really-need-computational-thinking/abstract)." Communications of the ACM 62.2 (2019): 32-35.]
+
+---
+
+## You?
+
+- How many of you already know object-oriented programming?
+- How many of you already know Java?
 
 ---
 

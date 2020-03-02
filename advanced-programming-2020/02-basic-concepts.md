@@ -1040,7 +1040,7 @@ double area = circle.area();
 
 ---
 
-## `import`
+## The `import` keyword
 
 Writing always the FQN can make the source code **verbose**, yet it is necessary, otherwise the compiler does not know which class we are referring to.
 
@@ -1115,3 +1115,100 @@ E.g., `it.units.UglySw.Point`:
   - or, `units.UglySw.Point` is a class, but disrespectful of naming conventions!
 
 Common case and convention: package name are all lowercase!
+
+---
+
+## `static` field
+
+A **field** of a class C can be defined with the `static` non-access modifier:
+- the corresponding object is **unique**, that is, the same for every instance of C
+- it **always** exists, even if no instances of C exist
+  - if instantiated
+
+From another point of view:
+- the reference to a static field is shared (i.e., the same) among the zero or more instances of the class
+
+---
+
+
+
+### `static` field: diagram
+
+```java
+public class Greeter {
+  `public` static String msg;
+  private String name;
+  /* ... */
+}
+
+Greeter g1 = new Greeter();
+Greeter g2 = new Greeter();
+```
+
+.center.diagram[
+<svg width="500" height="350" role="img">
+<circle cx="30" cy="40" r="10"/>
+<text x="30" y="20">g1</text>
+<rect x="100" y="20" width="150" height="60"/>
+<text x="175" y="10">Greeter</text>
+<circle cx="130" cy="60" r="10"/>
+<text x="130" y="40">msg</text>
+<circle cx="200" cy="60" r="10"/>
+<text x="200" y="40">name</text>
+<rect x="300" y="20" width="50" height="40"/>
+<text x="325" y="10">String</text>
+<rect x="400" y="20" width="50" height="40"/>
+<text x="425" y="10">String</text>
+<polyline points="30,40 100,40"/>
+<polyline points="130,60 130,130 380,130 380,40 400,40"/>
+<polyline points="200,60 200,110 280,110 280,40 300,40"/>
+<circle cx="30" cy="180" r="10"/>
+<text x="30" y="160">g2</text>
+<rect x="100" y="160" width="150" height="60"/>
+<text x="175" y="150">Greeter</text>
+<circle cx="130" cy="200" r="10"/>
+<text x="130" y="180">msg</text>
+<circle cx="200" cy="200" r="10"/>
+<text x="200" y="180">name</text>
+<rect x="300" y="160" width="50" height="40"/>
+<text x="325" y="150">String</text>
+<polyline points="30,180 100,180"/>
+<polyline points="200,200 200,250 280,250 280,180 300,180"/>
+<polyline points="130,200 130,270 425,270 425,60"/>
+</svg>
+]
+
+---
+
+## `static` method
+
+Also a **method** of a class C can be defined with `static`:
+- when invoked, it is not applied on the instance of C
+- can be invoked even if no instances of C exist, with a special syntax
+
+The method code cannot access field or use other methods of C that are not `static`:
+- they might not exist!
+- the compiler performs the check (at compile time)
+
+---
+
+## `static` method: syntax
+
+```java
+public class Greeter {
+  public static String msg;
+  private String name;
+  /* ... */
+  public static String sayMessage() {
+    return msg;
+  }
+}
+
+String msg = `Greeter.sayMessage()`; /* OK! */
+
+Greeter greeter = new Greeter();
+greeter.sayMessage(); /* Syntax is ok, but `avoid this form` */
+```
+
+- `greeter.sayMessage()` is bad because it suggests that the instance `greeter` is somehow involved in this operation, whereas it is indeed not involved!
+- only the "class" `Greeter` is involved
