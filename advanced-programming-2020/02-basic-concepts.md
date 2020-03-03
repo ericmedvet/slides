@@ -364,7 +364,7 @@ From another point of view: at most one method with the same (name, input parame
 ```java
 String s = new String("Hello!");
 PrintStream ps = new PrintStream(/*...*/);
-p.`pringln(s)`;
+ps.`println(s)`;
 ```
 
 .cols[
