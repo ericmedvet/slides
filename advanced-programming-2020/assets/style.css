@@ -127,7 +127,7 @@ img {
   fill: #812815;
   font-size: 85%;
 }
-.question::before {
+.excercise::before {
   font-weight: bolder;
   color: white;
   background-color: green;
@@ -137,11 +137,21 @@ img {
   border-radius: 5px;
   float: right;
 }
-.question {
+.excercise {
   margin-top: 1em;
   background-color: #DAF7A6;
   padding: 0.5em;
   border-radius: 5px;
+}
+.question {
+  color: green;
+  font-size: 75%;
+}
+.question::before {
+  content: '[';
+}
+.question::after {
+  content: ']';
 }
 .javadoc table {
   font-size: 50%;
@@ -163,6 +173,11 @@ img {
   margin: 0;
   padding: 0 0.5em;
   vertical-align: top;
+}
+.arrow::before {
+  content: '→';
+  font-weight: bolder;
+  font-size: 150%;
 }
 
 svg { /*TODO: remove me, I'm here for debug*/

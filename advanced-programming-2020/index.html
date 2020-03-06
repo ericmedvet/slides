@@ -7,10 +7,17 @@
   </head>
   <body>
     <script src="assets/remark-latest.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css"> -->
+    <script src="assets/katex.min.js"></script>
+    <script src="assets/auto-render.min.js"></script>
+    <link rel="stylesheet" href="assets/katex.min.css">
     <script>
       var sourceUrls = [
         '01-intro.md',
-        '02-basic-concepts.md'
+        '02-basic-concepts.md',
+        '03-first-class.md'
       ];
       var xmlhttp = new XMLHttpRequest();
       var source = ""
@@ -22,13 +29,19 @@
           source += "\n---\n"
         }
       };
+      var renderMath = function() {
+        renderMathInElement(document.body, {delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false}
+        ]});
+      };
       var slideshow = remark.create({
         source: source,
         ratio: "4:3",
         highlightStyle: "monokai",
         highlightLines: true,
         highlightSpans: true
-      });
+      }, renderMath);
     </script>
   </body>
 </html>

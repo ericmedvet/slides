@@ -200,7 +200,7 @@ dog2 = dog1;
 squirrel2 = squirrel2;
 ```
 
-.question[
+.excercise[
 Draw the diagram
 - after the 3rd line
 - after the last line
@@ -556,8 +556,8 @@ Date laterThanNow = new Date();
 A class C can have more than one constructors:
 - at most one with the same input parameters
 - (the name and the return type are always the same)
-  - name: the very same name of the class (e.g., `Date` → `Date()`)
-  - return type: C (e.g., `Date` → `Date`)
+  - name: the very same name of the class (e.g., `Date` .arrow[] `Date()`)
+  - return type: C (e.g., `Date` .arrow[] `Date`)
 
 Class [`String`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html):
 .javadoc.constructors[
@@ -621,7 +621,7 @@ He/she **does not know**:
 
 The **state** of the object and the **code** of the class might change, but the user is **not required to be notified of changes**!
 
-→ **Modularity**: everyone takes care of only some part of the sofware!
+.arrow[] **Modularity**: everyone takes care of only some part of the sofware!
 
 ---
 
@@ -1196,7 +1196,7 @@ The method code cannot access field or use other methods of C that are not `stat
 
 ```java
 public class Greeter {
-  public static String msg;
+  private static String msg;
   private String name;
   /* ... */
   public static String sayMessage() {
@@ -1212,3 +1212,167 @@ greeter.sayMessage(); /* Syntax is ok, but `avoid this form` */
 
 - `greeter.sayMessage()` is bad because it suggests that the instance `greeter` is somehow involved in this operation, whereas it is indeed not involved!
 - only the "class" `Greeter` is involved
+
+---
+
+## Hello goal!
+
+```java
+public class Greeter {
+  public static void main(String[] args) {
+    System.out.println("Hello World!");
+  }
+}
+```
+
+Goal: deep understanding of this code
+- not just what it "does"
+- but the **role of every part** of the code
+  - keywords
+  - names
+
+---
+
+### `main` signature
+
+```java
+public class Greeter {
+  `public static void main`(String[] args) {
+    System.out.println("Hello World!");
+  }
+}
+```
+
+- `public` .arrow[] `main` has to be invoked "directly" by the JVM upon execution (`java Greeter`): it has to be accessible
+- `static` .arrow[] invokable without having an already existing instance of `Greeter`
+- `void` .arrow[] does not return anything
+
+`public static void main(String[])` is the signature **required** by Java if you want to use the method as an execution **entry point**!
+  - only the name of the input parameter can be modified
+
+---
+
+### What is `System.out`?
+
+```java
+public class Greeter {
+  public static void main(String[] args) {
+    `System.out`.println("Hello World!");
+  }
+}
+```
+
+- `println` is a method, since it is invoked `()`
+- `System.out` might be, in principle:
+  1. the FQN of a class (and hence `println` is static in the class `out`)
+  2. a field of a class (and hence `out` is static in the class `System`)
+
+There is no package `System` (and `out` would be a class name out of conventions), hence 2 holds: `System` is a class
+
+---
+
+### "Where" is `System`?
+
+```java
+public class Greeter {
+  public static void main(String[] args) {
+    `System.out`.println("Hello World!");
+  }
+}
+```
+
+Where is `System`?
+- more precisely, how can the compiler check that we correctly use `out` field of `System`?
+
+There is no `import`, hence it can be:
+1. there a `System.class` in the same directory of this `.class`, hence we wrote a `System.java`
+2. `System` is in the `java.lang` package, that is always imported by default
+
+2 holds: `java.lang.System` is the FQN of `System`
+
+---
+
+### "What" is `out`?
+
+```java
+public class Greeter {
+  public static void main(String[] args) {
+    System.`out`.println("Hello World!");
+  }
+}
+```
+
+Look at [`System`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/System.html) class documentation (fields):
+.javadoc.fields[
+| Modifier and type | Field | Description |
+| --- | --- | --- |
+| static PrintStream | err | The "standard" error output stream. |
+| static InputStream | in	| The "standard" input stream. |
+| static PrintStream | out | The "standard" output stream. |
+]
+
+.arrow[] `out` is a field of type `PrintStream` that represents the **standard output**.
+
+.note[What's the standard output? "Typically this stream corresponds to display output or another output destination specified by the host environment or user."]
+
+---
+
+### What is `println()`? How is it used?
+
+```java
+public class Greeter {
+  public static void main(String[] args) {
+    System.out.`println("Hello World!")`;
+  }
+}
+```
+
+Look at [`PrintStream`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/PrintStream.html) class documentation (methods):
+.javadoc.methods[
+| Type | Field | Description |
+| --- | --- | --- |
+| void | println​(int x) | Prints an integer and then terminate the line. |
+| void | println​(long x) | Prints a long and then terminate the line. |
+| void | println​(Object x) | Prints an Object and then terminate the line. |
+| void | println​(String x) | Prints a String and then terminate the line. |
+]
+
+`"Hello World!"` is a string literal and corresponds to `new String("Hello World!")`
+- hence `println​(String x)` is the used method
+
+---
+
+## Involved classes
+
+```java
+public class Greeter {
+  public static void main(String[] args) {
+    System.out.println("Hello World!");
+  }
+}
+```
+
+"Involved" classes:
+- defined here: `Greeter`
+- defined elsewhere, used here: `System`, `String`, `PrintStream`
+  - `System`, `String` in `java.lang`; `PrintStream` in `java.io`
+
+---
+
+### No `import`
+
+No need to import `PrintStream`:
+- `import` does not "load code"
+- `import` says to the compiler that we will use a simple name for FQN **in the source code**
+  - but we do not use `PrintStream` in the source code
+  - there is an `import` for `PrintStream` in `System.java` (or FQN)
+
+```java
+import java.io.PrintStream;
+/* ... */
+
+public class System {
+  public static PrintStream out;
+  /* ... */
+}
+```
