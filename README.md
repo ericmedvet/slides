@@ -1,2 +1,2 @@
 # Slides
-Slides of my talks and lectures
+Slides of my recent talks and lectures.
