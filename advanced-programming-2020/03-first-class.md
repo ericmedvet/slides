@@ -340,3 +340,5 @@ At the beginning of `main()` after `java ArgLister Hello World`
 ]
 
 ---
+
+## Operating with `String`s

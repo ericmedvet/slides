@@ -904,6 +904,8 @@ public class Complex {
 }
 ```
 
+`this` is a keyword.
+
 ---
 
 ## Implicit `this`
@@ -941,6 +943,9 @@ public class Complex {
 
 Before the line, `real` and `this.real` do not reference the same object.
 
+.note[This is the typical structure of a constructor: name of input parameters match the name of fields.
+As usual, the **IDE is your friend** and can write this code automaticaly!]
+
 ---
 
 class: middle, center
@@ -956,7 +961,7 @@ A class (i.e., a `.class` file) exports some identifiers of:
 - methods
 - fields
 
-Access modifier can be omitted: **default** access identifier:
+Access modifier can be omitted: **default** access modifier:
 - `private`: not visible (~ not exported)
 - `public`: visible
 - default: visible
@@ -972,6 +977,8 @@ A package exports the identifiers of its classes:
 - `private`: not visible (~ not exported)
 - `public`: visible
 - default: visible **only within the package**
+
+.note[There are no many reasons for using the default access modifier; please always specify one between `public` and `private` (or `protected`, we'll see...)]
 
 ---
 
@@ -1098,7 +1105,7 @@ If without FQN, the compiler looks for `C` definition:
 
 ## `java.lang` package
 
-All classes of the `java.lang` packages are by default available:
+All classes of the `java.lang` packages are available **by default**:
 - `import java.lang.*` is implicitly present in every source code
 
 ---
@@ -1111,8 +1118,8 @@ E.g., `it.units.UglySw.Point`:
 - can be the name of a package
 - or can be a FQN where:
   - `Point` is a class
-  - or, `UglySw.Point` is a class (we'll see)
-  - or, `units.UglySw.Point` is a class, but disrespectful of naming conventions!
+  - or, `UglySw.Point` and `UglySw` are classes (we'll see)
+  - or, `units.UglySw.Point`, `units.UglySw`, and `units` are classes, but the first is disrespectful of naming conventions!
 
 Common case and convention: package name are all lowercase!
 
@@ -1136,7 +1143,7 @@ From another point of view:
 
 ```java
 public class Greeter {
-  `public` static String msg;
+  public `static` String msg;
   private String name;
   /* ... */
 }
@@ -1257,7 +1264,7 @@ public class Greeter {
 ```java
 public class Greeter {
   public static void main(String[] args) {
-    `System.out`.println("Hello World!");
+    `System.out`.`println`("Hello World!");
   }
 }
 ```
@@ -1276,7 +1283,7 @@ There is no package `System` (and `out` would be a class name out of conventions
 ```java
 public class Greeter {
   public static void main(String[] args) {
-    `System.out`.println("Hello World!");
+    `System`.out.println("Hello World!");
   }
 }
 ```
