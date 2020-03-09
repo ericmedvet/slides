@@ -400,7 +400,7 @@ drwxr-xr-x  6 root root  4096 feb  6 12:08 lib
 ```
 
 ```bash
-eric@cpi:~$ ls /usr/lib/jvm/java-11-openjdk-amd64/bin/ -la
+eric@cpu:~$ ls /usr/lib/jvm/java-11-openjdk-amd64/bin/ -la
 totale 632
 -rwxr-xr-x 1 root root  14576 gen 15 16:14 jar
 -rwxr-xr-x 1 root root  14576 gen 15 16:14 jarsigner
