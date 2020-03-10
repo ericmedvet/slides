@@ -691,7 +691,7 @@ Write an application that, given a word $w$ and a number $n$, gives $n$ anagrams
 Hints:
 - take inspiration from the Internet
   - but please make at least the effort of finding the proper search query
-- if you alredy master "advanced" Java features, try to ignore them, at least initially
+- if you already master "advanced" Java features, try to ignore them, at least initially
 
 If/when done:
   1. redo it on a full, desktop IDE
