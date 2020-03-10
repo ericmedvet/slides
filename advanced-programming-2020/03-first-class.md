@@ -278,6 +278,67 @@ for (`String dogName : dogNames`) {
 
 ---
 
+## Varargs
+
+In a signature of a method, the **last input parameter**, if of type array, can be specified with the `...` syntax instead of `[]`:
+```java
+public static double max(double... values) { /* ... */}
+```
+
+From the inside, exactly the same of `[]`:
+```java
+public static double max(double[] values) { /* ... */}
+```
+
+From the outside, i.e., where the method is invoked, `...` enables invokation with variable number of parameters (of the same type):
+```java
+double max = max(4, 3.14, 73, -1.1); //values ≅ double[4]
+max = max(); //values ≅ double[0]
+max = max(new double[2]{1, 2}); //Ok!
+```
+
+.note[Since Java 5.0. Mathematically speaking, varargs allows to define **variadic functions**.]
+
+---
+
+### About modifiers
+
+```java
+public static double max(double... values) {
+  double max = values[0];
+  for (int i = 1; i<values.length; i++) {
+    max = (max > values[i]) ? max : values[i];
+  }
+  return max;
+}
+```
+.note[`condition ? expr1 : expr2` is the ternary operator.]
+
+- .question[Of which class might be a method?]
+- .question[Why `static`?]
+
+---
+
+### Why only last input parameter?
+
+```java
+// does NOT compile!
+public static int intersectionSize(String... as, String... bs) {
+  /* ... */
+}
+
+intersectSize("hello", "world", "cruel", "world");
+```
+What is `as` and what is `bs`?
+- undecidable!
+
+Java designers could have allowed for some exceptional case that, under some conditions, are not misinterpretable:
+- `method(ClassA..., ClassC)`
+- `method(ClassA..., ClassB...)`
+
+But they opted for **clarity at the expense of expressiveness**.
+---
+
 ## Command line arguments
 
 Available as content of `main` only arguments:
@@ -342,3 +403,296 @@ At the beginning of `main()` after `java ArgLister Hello World`
 ---
 
 ## Operating with `String`s
+
+Creation (`String` constructors):
+- empty: `String s = new String();`
+- specified: `String s = new String("hi!");`
+  - the same of `String s = "hi!";`
+- same of another: `String s = new String(otherString);`
+- ...
+
+---
+
+## `String` methods
+
+Many!
+
+A few examples from the javadoc of [`String`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html)
+.javadoc.methods[
+| Modif. and type | Field | Description |
+| --- | --- | --- |
+| int | compareTo​(String anotherString) | Compares two strings **lexicographically**. |
+| int | compareToIgnoreCase​(String str) | Compares two strings lexicographically, ignoring case differences. |
+| boolean | endsWith​(String suffix) | Tests if this string ends with the specified **suffix**. |
+| int | indexOf​(int ch) | Returns the index within this string of the first occurrence of the specified character. |
+| int | indexOf​(int ch, int fromIndex) | Returns the index within this string of the first occurrence of the specified character, starting the search at the specified index. |
+| int | indexOf​(String str) | Returns the index within this string of the first occurrence of the specified substring. |
+| int | indexOf​(String str, int fromIndex) | Returns the index within this string of the first occurrence of the specified **substring**, starting at the specified index. |
+| int | length() | Returns the length of this string. |
+| boolean | matches​(String regex) | Tells whether or not this string matches the given regular expression. |
+| String | replaceAll​(String regex, String replacement) | Replaces each substring of this string that matches the given **regular expression** with the given replacement. |
+]
+
+---
+
+### `String.format()`
+
+.javadoc.methods[
+| Modif. and type | Field | Description |
+| --- | --- | --- |
+| static String | format​(String format, Object... args) | Returns a formatted string using the specified format string and arguments. |
+]
+
+See also [`Formatter`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Formatter.html) class and `printf()` in [`PrintStream`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/PrintStream.html) class; [here](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Formatter.html#syntax) the syntax.
+
+```java
+String reference = String.format(
+  "FPR=%4.2f\tFNR=%4.2f%n",
+  fp / n,
+  fn / p
+);
+//prints FPR=0.11 FNR=0.10
+```
+
+We'll se why `Object...`
+
+---
+
+## `String`s are immutable
+
+1st sentence of the 2nd para of [`String`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html) docs: "Strings are **constant**; their values **cannot be changed** after they are created."
+
+Apparently the docs are self-contradictory:
+.javadoc.methods[
+| Modif. and type | Field | Description |
+| --- | --- | --- |
+| String | concat​(String str) | Concatenates the specified string to the end of this string. |
+| String | toUpperCase() | Converts all of the characters in this `String` to upper case using the rules of the default locale. |
+]
+
+Apparently!
+
+---
+
+### `String.concat()`
+
+<iframe width="100%" height="500" src="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html#concat(java.lang.String)"></iframe>
+
+
+---
+
+### Immutable `String`s: diagram
+
+```java
+String s1, s2;
+s1 = "hamburger";
+s2 = s.substring(3, 7);
+System.out.print("s = ");
+System.out.println(s1);
+s1 = s1.replace('a', 'b');
+String[] names ={ "John", "Fitzgerald", "Kennedy"}
+String firstInit, middleInit, lastInit;
+firstInit = names[0].substring(0, 1);
+middleInit = names[1].substring(0, 1);
+lastInit = names[2].substring(0, 1);
+firstInit.concat(middleInit).initials.concat(lastInit);
+```
+
+.excercise[
+Draw the diagram
+- after the line starting with `String[]`
+- after the last line
+]
+
+---
+
+## Concatenation
+
+Besides `concat()`, `+` operator (alternative syntax):
+```java
+String s1 = "today is ";
+String s2 = s1.concat(" Tuesday").concat("!");
+```
+
+2nd line is the same of:
+```java
+String s2 = s1 + " Tuesday" + "!";
+```
+
+`+` is associative on the left:
+- `"today is Tuesday"` is obtained before `"today is Tuesday!"`
+
+---
+
+## `String +` other type
+
+If one of the operands of `+` is of type `String` then, at runtime:
+- a `String` representation of the operand is obtained
+- the concatenation of the two `String`s is done
+
+```java
+int age = 41;
+String statement = "I'm " + age + " years old";
+```
+.question[What are the `String` and the non-`String` operands?]
+
+For the case when the non-`String` operand is not a primitive type, we'll see the underlying mechanism in detail.
+
+---
+
+## Primitive types
+
+A few differences with respect to classes:
+- they are not created with `new`
+- they do not have methods (no constructors) and fields
+  - no dot notation
+
+They can be operands of (binary) operators.
+
+```java
+int n = 512;
+double d = 0d;
+char a = 'a';
+boolean flag = false;
+flag = flag || true;
+double k = 3 * d - Math.sqrt(4.11);
+```
+
+.question[`sqrt()` modifiers?]
+
+---
+
+## Initialization of primitive types
+
+If not explicitly initialized:
+- if field of an object, initialized to default value
+  - 0 for numbers, `false` for `boolean`
+- if local variable, code does not compile
+
+---
+
+## Initialization of arrays of primitive types
+Consistently, for arrays:
+- elements of primitive type arrays are initialized to default value
+
+```java
+int[] marks;
+double[] ages = new double[3];
+```
+
+.center.diagram[
+<svg width="660" height="300" role="img">
+<circle cx="75" cy="40" r="10"/>
+<text x="75" y="20">marks</text>
+<circle cx="75" cy="120" r="10"/>
+<text x="75" y="100">ages</text>
+<rect x="150" y="100" width="150" height="60"/>
+<text x="225" y="90">double[]</text>
+<circle cx="200" cy="140" r="10"/>
+<text x="200" y="120">0</text>
+<circle cx="225" cy="140" r="10"/>
+<text x="225" y="120">1</text>
+<circle cx="250" cy="140" r="10"/>
+<text x="250" y="120">2</text>
+<rect x="350" y="100" width="80" height="40"/>
+<text x="390" y="90">double</text>
+<text x="390" y="120">0.0</text>
+<rect x="450" y="100" width="80" height="40"/>
+<text x="490" y="90">double</text>
+<text x="490" y="120">0.0</text>
+<rect x="550" y="100" width="80" height="40"/>
+<text x="590" y="90">double</text>
+<text x="590" y="120">0.0</text>
+<polyline points="75,120 150,120"/>
+<polyline points="200,140 200,180 340,180 340,120 350,120"/>
+<polyline points="225,140 225,190 440,190 440,120 450,120"/>
+<polyline points="250,140 250,200 540,200 540,120 550,120"/>
+</svg>
+]
+
+---
+
+## `=` on primitive types
+
+Assign operator `=` copies the content, instead of referencing the same object.
+
+.cols[
+.c50[
+```java
+String s1 = "hello!";
+String s2 = s1;
+```
+.center.diagram[
+<svg width="251" height="150" role="img">
+<circle cx="10" cy="40" r="10"/>
+<text x="10" y="20">s1</text>
+<circle cx="10" cy="120" r="10"/>
+<text x="10" y="100">s2</text>
+<rect x="100" y="20" width="150" height="40"/>
+<text x="175" y="10">String</text>
+<text x="175" y="40">"hello!"</text>
+<polyline points="10,40 100,40"/>
+<polyline points="10,120, 100,40"/>
+</svg>
+]
+]
+.c50[
+```java
+double s1 = 3.14;
+double d2 = d1;
+```
+
+.center.diagram[
+<svg width="251" height="150" role="img">
+<circle cx="10" cy="40" r="10"/>
+<text x="10" y="20">d1</text>
+<circle cx="10" cy="120" r="10"/>
+<text x="10" y="100">d2</text>
+<rect x="100" y="20" width="100" height="40"/>
+<text x="150" y="10">double</text>
+<text x="150" y="40">3.14</text>
+<rect x="100" y="100" width="100" height="40"/>
+<text x="150" y="90">double</text>
+<text x="150" y="120">3.14</text>
+<polyline points="10,40 100,40"/>
+<polyline points="10,120, 100,120"/>
+</svg>
+]
+]
+]
+
+.note[Things are a bit more complex, we'll see...]
+
+---
+
+class: middle center
+
+## Ready for first excercise!
+
+---
+
+## Onlide IDE [repl.it](repl.it)
+
+![repl.it online IDE](images/replit-1st-lab.png)
+
+- register
+- enjoy compilation (`javac`) and execution (`java`)
+  - note the run button
+
+---
+
+class: lab
+
+## Anagrams!
+
+Write an application that, given a word $w$ and a number $n$, gives $n$ anagrams of $w$.
+  - with capitalized anagrams
+
+Hints:
+- take inspiration from the Internet
+  - but please make at least the effort of finding the proper search query
+- if you alredy master "advanced" Java features, try to ignore them, at least initially
+
+If/when done:
+  1. redo it on a full, desktop IDE
+  2. profile your code

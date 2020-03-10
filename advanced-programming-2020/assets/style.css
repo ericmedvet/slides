@@ -180,6 +180,10 @@ img {
   font-size: 150%;
 }
 
+.remark-slide-content.lab {
+  background-color: #DAF7A6;;
+}
+
 svg { /*TODO: remove me, I'm here for debug*/
   /* border: 1px dashed red; */
 }
