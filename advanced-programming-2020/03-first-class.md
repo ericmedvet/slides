@@ -219,7 +219,7 @@ Name of arrays (i.e., identfiers of references to arrays):
   - `Person[] persons`, `Person[] employees`, ...
 
 Definition:
-- `Person persons[]` is the same of `Person[] persons`, but the former **is much better**:
+- `Person persons[]` is the same of `Person[] persons`, but the latter **is much better**:
   - it makes evident that the **type** is an array, rather than the identifier
 
 ---
@@ -270,7 +270,7 @@ Enhanced `for` (or for-each) syntax:
 ```java
 String[] dogNames = {"Simba", "Gass"};
 for (`String dogName : dogNames`) {
-  System.out.println("A dog name is " + dogNames[i]);
+  System.out.println("A dog name is " + dogName);
 }
 ```
 - the index is not available inside the loop
@@ -316,6 +316,7 @@ public static double max(double... values) {
 
 - .question[Of which class might be a method?]
 - .question[Why `static`?]
+- .question[What happens with `max()`?]
 
 ---
 
@@ -327,7 +328,7 @@ public static int intersectionSize(String... as, String... bs) {
   /* ... */
 }
 
-intersectSize("hello", "world", "cruel", "world");
+intersectionSize("hello", "world", "cruel", "world");
 ```
 What is `as` and what is `bs`?
 - undecidable!
@@ -346,7 +347,7 @@ Available as content of `main` only arguments:
 public class ArgLister {
   public static void main(String[] args) {
     for (String arg : args) {
-      System.out.println("Arg: " + arg);
+      System.out.println(arg);
     }
   }
 }

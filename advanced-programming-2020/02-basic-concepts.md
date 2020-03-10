@@ -806,6 +806,8 @@ public class Complex {
   /* ... */
 }
 ```
+The fields of an object constitute its **state**.
+
 They are referenced, there is an identifier:
 .center.diagram[
 <svg width="500" height="200" role="img">
@@ -943,8 +945,7 @@ public class Complex {
 
 Before the line, `real` and `this.real` do not reference the same object.
 
-.note[This is the typical structure of a constructor: name of input parameters match the name of fields.
-As usual, the **IDE is your friend** and can write this code automaticaly!]
+.note[This is the typical structure of a constructor: name of input parameters match the name of fields. As usual, the **IDE is your friend** and can write this code automaticaly!]
 
 ---
 
@@ -1219,6 +1220,21 @@ greeter.sayMessage(); /* Syntax is ok, but `avoid this form` */
 
 - `greeter.sayMessage()` is bad because it suggests that the instance `greeter` is somehow involved in this operation, whereas it is indeed not involved!
 - only the "class" `Greeter` is involved
+
+---
+
+## When to use `static` for methods?
+
+Conceptually, a method should be `static` if it represents an operation that does not involve an entity represented by an instance of the class:
+
+```java
+public class Dog {
+  public static Dog getCutest(Dog dog1, Dog dog2) { /* ... */ }
+  public static Dog fromString(String name) { /* ... */ }
+}
+```
+
+`static` should be used also for `private` method, when condition above is met, even if they are not visible from outside (but other co-developers see it!)
 
 ---
 
