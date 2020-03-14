@@ -682,6 +682,33 @@ class: middle center
 
 ---
 
+## Code neatly!
+
+Your code is **your representation** of a problem and its solution.
+
+When someone looks at your code is like she/he is entering your mind:
+- messy code .arrow[] messy representation .arrow[] messy mind .arrow[] messy you!
+- **do you want to look messy?**
+  - to your collaborator, your boss, your employee
+  - to your teacher
+
+---
+
+## Code review
+
+At least 4 sources of mess (increasingly harder to spot):
+- code formatting
+- naming
+- implementation of algorithm
+- algorithm
+
+**Code review** .arrow[] the process of checking the code by looking at the **source code**:
+- routinely performed within big tech companies
+- there is a "IEEE Standard for Software Reviews and Audits" (IEEE 1028-2008)
+- not cheap!
+
+---
+
 class: lab
 
 ## Anagrams!
