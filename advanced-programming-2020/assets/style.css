@@ -153,18 +153,48 @@ img {
 .question::after {
   content: ']';
 }
-.javadoc table {
+.javadoc {
+  font-family: 'DejaVu Serif', Georgia, "Times New Roman", Times, serif;
+  border: 1px solid #2c4557;
   font-size: 50%;
+}
+.javadoc.head {
+  font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
+  padding: 0.25em;
+}
+.javadoc.head .def {
+  font-weight: bolder;
+  color: #2c4557;
+  font-size: 150%;
+}
+.javadoc.head .pack {
+  color: #4A6782;
+}
+.javadoc.head .indent {
+  width: 2em;
+  display: inline-block;
+}
+.javadoc.head p {
+  margin: 0.5em 0;
+}
+.javadoc table {
   border-spacing: 0;
+  width: 100%;
+}
+.javadoc thead th {
+  background: #dee3e9;
+  text-align: left;
+  font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
 }
 .javadoc tbody tr td:nth-child(1),
-.javadoc tbody tr td:nth-child(2) {
-  font-family: 'Roboto Mono';
-  color: #812815;
+.javadoc tbody tr td:nth-child(2),
+.javadoc .remark-code, .javadoc .remark-inline-code {
+  font-family: 'DejaVu Sans Mono', monospace;
+  color: #4A6782;
   font-size: 85%;
 }
 .javadoc tbody tr:nth-last-of-type(2n) {
-  background: #DDDDDD;
+  background: #FFFFFF;
 }
 .javadoc tbody tr:nth-last-of-type(2n+1) {
   background: #EEEEEE;
@@ -174,6 +204,7 @@ img {
   padding: 0 0.5em;
   vertical-align: top;
 }
+
 .arrow::before {
   content: '→';
   font-weight: bolder;

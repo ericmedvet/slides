@@ -686,7 +686,7 @@ class: middle center
 
 Your code is **your representation** of a problem and its solution.
 
-When someone looks at your code is like she/he is entering your mind:
+When someone looks at your code, she/he is entering your mind:
 - messy code .arrow[] messy representation .arrow[] messy mind .arrow[] messy you!
 - **do you want to look messy?**
   - to your collaborator, your boss, your employee

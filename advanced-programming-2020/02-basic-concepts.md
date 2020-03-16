@@ -598,7 +598,7 @@ The user of a class (that is, a developer possibly different than the one who de
 
 Class [`Date`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html):
 .javadoc.methods[
-| Type | Methodd | Description |
+| Type | Method | Description |
 | --- | --- | --- |
 | boolean | after​(Date when) | Tests if this date is after the specified date. |
 | boolean | before​(Date when) | Tests if this date is before the specified date. |
