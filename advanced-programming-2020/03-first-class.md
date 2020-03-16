@@ -282,19 +282,19 @@ for (`String dogName : dogNames`) {
 
 In a signature of a method, the **last input parameter**, if of type array, can be specified with the `...` syntax instead of `[]`:
 ```java
-public static double max(double... values) { /* ... */}
+public static double max(double... values) { /* 1 ... */}
 ```
 
 From the inside, exactly the same of `[]`:
 ```java
-public static double max(double[] values) { /* ... */}
+public static double max(double[] values) { /* 2 ... */}
 ```
 
 From the outside, i.e., where the method is invoked, `...` enables invokation with variable number of parameters (of the same type):
 ```java
-double max = max(4, 3.14, 73, -1.1); //values ≅ double[4]
-max = max(); //values ≅ double[0]
-max = max(new double[2]{1, 2}); //Ok!
+double max = max(4, 3.14, -1.1); //values ≅ double[3]; OK for 1
+max = max(); //values ≅ double[0]; OK for 1
+max = max(new double[2]{1, 2}); //Ok!; OK for 1 and 2
 ```
 
 .note[Since Java 5.0. Mathematically speaking, varargs allows to define **variadic functions**.]
