@@ -36,7 +36,7 @@ In this particular case:
 - $n$ is natural
 - anagram:
   - in general "a word or phrase formed by rearranging the letters of a different word or phrase" (from [Wikipedia](https://en.wikipedia.org/wiki/Anagram))
-  - here (customer): [permutation with repetitions](https://en.wikipedia.org/wiki/Permutation#Permutations_with_repetition)
+  - here (customer): [permutation of multisets](https://en.wikipedia.org/wiki/Permutation#Permutations_of_multisets)
 - show up to $n$, whichever you prefer
 
 ---
@@ -452,7 +452,7 @@ String reference = String.format(
   fp / n,
   fn / p
 );
-//prints FPR=0.11 FNR=0.10
+//results in FPR=0.11 FNR=0.10
 ```
 
 We'll se why `Object...`
@@ -487,8 +487,8 @@ Apparently!
 ```java
 String s1, s2;
 s1 = "hamburger";
-s2 = s.substring(3, 7);
-System.out.print("s = ");
+s2 = s1.substring(3, 7);
+System.out.print("s1 = ");
 System.out.println(s1);
 s1 = s1.replace('a', 'b');
 String[] names ={ "John", "Fitzgerald", "Kennedy"}
@@ -496,10 +496,10 @@ String firstInit, middleInit, lastInit;
 firstInit = names[0].substring(0, 1);
 middleInit = names[1].substring(0, 1);
 lastInit = names[2].substring(0, 1);
-firstInit.concat(middleInit).initials.concat(lastInit);
+firstInit.concat(middleInit).concat(lastInit);
 ```
 
-.excercise[
+.exercise[
 Draw the diagram
 - after the line starting with `String[]`
 - after the last line
@@ -639,7 +639,7 @@ String s2 = s1;
 ]
 .c50[
 ```java
-double s1 = 3.14;
+double d1 = 3.14;
 double d2 = d1;
 ```
 
@@ -668,7 +668,7 @@ double d2 = d1;
 
 class: middle center
 
-## Ready for first excercise!
+## Ready for first exercise!
 
 ---
 
@@ -711,7 +711,7 @@ At least 4 sources of mess (increasingly harder to spot):
 
 class: lab
 
-## Anagrams!
+## Anagrams! (~2h, 1st home assignment)
 
 Write an application that, given a word $w$ and a number $n$, gives $n$ anagrams of $w$.
   - with capitalized anagrams

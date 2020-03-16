@@ -89,10 +89,10 @@ More details at project assignment.
 ### Written test and oral exam
 
 Written test:
-- a few questions with short open answers and short programming excercises
+- a few questions with short open answers and short programming exercises
 
 Oral exam:
-- questions and short programming excercises
+- questions and short programming exercises
 
 ---
 
@@ -107,11 +107,11 @@ In brief:
 
 ---
 
-## Excercises
+## Exercises
 
-There we'll be several excercises:
+There we'll be several exercises:
 - approx. 20h on 72h
-- sofware design and implementation excercises
+- sofware design and implementation exercises
 - bring your own device
 - in classroom
   - with the teacher actively investigating about your progresses

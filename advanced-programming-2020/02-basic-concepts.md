@@ -200,7 +200,7 @@ dog2 = dog1;
 squirrel2 = squirrel2;
 ```
 
-.excercise[
+.exercise[
 Draw the diagram
 - after the 3rd line
 - after the last line
@@ -380,8 +380,7 @@ ps.`println(s)`;
 | void | println​(float x)   | Prints a float and then terminate the line.                       |
 | void | println​(int x)     | Prints an integer and then terminate the line.                    |
 | void | println​(long x)    | Prints a long and then terminate the line.                        |
-| void | println​(Object x)  | Prints an Object and then terminate the line.                     |
-| void | println​(String x)  | **Prints a String and then terminate the line.**                      |
+| void | println​(String x)  | **Prints a String and then terminate the line.**                  |   |
 ]
 ]
 .c30[
