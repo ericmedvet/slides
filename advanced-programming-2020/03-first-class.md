@@ -711,7 +711,7 @@ At least 4 sources of mess (increasingly harder to spot):
 
 class: lab
 
-## Anagrams! (~2h, 1st home assignment)
+## Anagrams! .note[~2h, 1st home assignement]
 
 Write an application that, given a word $w$ and a number $n$, gives $n$ anagrams of $w$.
   - with capitalized anagrams
