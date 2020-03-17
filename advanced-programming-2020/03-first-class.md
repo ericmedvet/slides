@@ -36,7 +36,7 @@ In this particular case:
 - $n$ is natural
 - anagram:
   - in general "a word or phrase formed by rearranging the letters of a different word or phrase" (from [Wikipedia](https://en.wikipedia.org/wiki/Anagram))
-  - here (customer): [permutation of multisets](https://en.wikipedia.org/wiki/Permutation#Permutations_of_multisets)
+  - here (customer): [permutation of multisets](https://en.wikipedia.org/wiki/Permutation#Permutations_of_multisets) with repetitions
 - show up to $n$, whichever you prefer
 
 ---
@@ -714,6 +714,7 @@ class: lab
 ## Anagrams! .note[~2h, 1st home assignement]
 
 Write an application that, given a word $w$ and a number $n$, gives $n$ anagrams of $w$.
+  - multiset of permutations of multiset (i.e., with repetitions)
   - with capitalized anagrams
 
 Hints:

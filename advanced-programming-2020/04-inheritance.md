@@ -169,7 +169,7 @@ Since a class can be derived from many classes, inheritance relationships form a
 .javadoc.head[
 **Package** .pack[java.io]
 
-.def[Class BuefferedReader]
+.def[Class BufferedReader]
 
 .pack[java.lang.Object]  
 .indent[].pack[java.io.Reader]  
