@@ -374,6 +374,32 @@ Ok!
 
 ---
 
+## Inheritance and inline initialization
+
+```java
+public static class Base {
+  public int n = 1;
+}
+```
+
+```java
+public static class Derived extends Base {
+  public int m = n + 1;
+}
+```
+```java
+Derived derived = new Derived();
+System.out.printf("m=%d%n", derived.m); // -> m=2
+```
+
+"Field initialization is executed before the first statement of any constructor."
+.arrow[] any of **this** class!
+- `super()` is executed before any inline initialization
+
+.question[what's `derived.n`?]
+
+---
+
 class: middle, center
 
 ## Polymorphism

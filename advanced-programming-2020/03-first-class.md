@@ -187,27 +187,15 @@ String[] firstNames;
 String[] lastNames = new String[3];
 lastNames[1] = new String("Medvet");
 ```
-
 .center.diagram[
-<svg width="550" height="300" role="img">
-<circle cx="75" cy="40" r="10"/>
-<text x="75" y="20">firstNames</text>
-<circle cx="75" cy="180" r="10"/>
-<text x="75" y="160">lastNames</text>
-<rect x="150" y="160" width="150" height="60"/>
-<text x="225" y="150">String[]</text>
-<circle cx="200" cy="200" r="10"/>
-<text x="200" y="180">0</text>
-<circle cx="225" cy="200" r="10"/>
-<text x="225" y="180">1</text>
-<circle cx="250" cy="200" r="10"/>
-<text x="250" y="180">2</text>
-<rect x="350" y="160" width="150" height="40"/>
-<text x="425" y="150">String</text>
-<text x="425" y="180">"Medvet"</text>
-<polyline points="75,180 150,180"/>
-<polyline points="225,200 225,250 325,250 325,180 350,180"/>
-</svg>
+ref(0,20,'firstNames')
+ref(0,80,'lastNames')
+obj(100,60,140,60,'String[]','')
+ref(140,100,'0')
+ref(170,100,'1')
+ref(200,100,'2')
+obj(300,60,140,40,'String','"Medvet"')
+link([170,100,170,140,280,140,280,80,300,80])
 ]
 
 ---
@@ -380,25 +368,15 @@ At the beginning of `main()` after `java ArgLister Hello World`
 .question[What inside the 1st and 2nd iteration of the `for` loop?]
 
 .center.diagram[
-<svg width="650" height="250" role="img">
-<circle cx="75" cy="50" r="10"/>
-<text x="75" y="30">args</text>
-<rect x="150" y="30" width="150" height="60"/>
-<text x="225" y="20">String[]</text>
-<circle cx="200" cy="70" r="10"/>
-<text x="200" y="50">0</text>
-<circle cx="225" cy="70" r="10"/>
-<text x="225" y="50">1</text>
-<rect x="350" y="30" width="120" height="40"/>
-<text x="410" y="20">String</text>
-<text x="410" y="50">"Hello"</text>
-<rect x="520" y="30" width="120" height="40"/>
-<text x="580" y="20">String</text>
-<text x="580" y="50">"World"</text>
-<polyline points="75,50 150,50"/>
-<polyline points="200,70 200,120 325,120 325,50 350,50"/>
-<polyline points="225,70 225,100 495,100 495,50 520,50"/>
-</svg>
+ref(0,20,'args')
+obj(100,0,140,60,'String[]','')
+link([0,20,100,20])
+ref(140,40,'0')
+ref(170,40,'1')
+obj(300,0,140,40,'String','"Hello"')
+link([140,40,140,100,280,100,280,20,300,20])
+obj(500,0,140,40,'String','"World"')
+link([170,40,170,80,480,80,480,20,500,20])
 ]
 
 ---
@@ -582,33 +560,61 @@ double[] ages = new double[3];
 ```
 
 .center.diagram[
-<svg width="660" height="300" role="img">
-<circle cx="75" cy="40" r="10"/>
-<text x="75" y="20">marks</text>
-<circle cx="75" cy="120" r="10"/>
-<text x="75" y="100">ages</text>
-<rect x="150" y="100" width="150" height="60"/>
-<text x="225" y="90">double[]</text>
-<circle cx="200" cy="140" r="10"/>
-<text x="200" y="120">0</text>
-<circle cx="225" cy="140" r="10"/>
-<text x="225" y="120">1</text>
-<circle cx="250" cy="140" r="10"/>
-<text x="250" y="120">2</text>
-<rect x="350" y="100" width="80" height="40"/>
-<text x="390" y="90">double</text>
-<text x="390" y="120">0.0</text>
-<rect x="450" y="100" width="80" height="40"/>
-<text x="490" y="90">double</text>
-<text x="490" y="120">0.0</text>
-<rect x="550" y="100" width="80" height="40"/>
-<text x="590" y="90">double</text>
-<text x="590" y="120">0.0</text>
-<polyline points="75,120 150,120"/>
-<polyline points="200,140 200,180 340,180 340,120 350,120"/>
-<polyline points="225,140 225,190 440,190 440,120 450,120"/>
-<polyline points="250,140 250,200 540,200 540,120 550,120"/>
-</svg>
+ref(0,-40,'marks')
+ref(0,20,'ages')
+obj(100,0,140,60,'double[]','')
+link([0,20,100,20])
+ref(140,40,'0')
+ref(170,40,'1')
+ref(200,40,'2')
+obj(300,0,80,40,'double','0.0')
+obj(420,0,80,40,'double','0.0')
+obj(540,0,80,40,'double','0.0')
+link([140,40,140,100,280,100,280,20,300,20])
+link([170,40,170,90,400,90,400,20,420,20])
+link([200,40,200,80,520,80,520,20,540,20])
+]
+
+---
+
+## Inline field initialization
+
+Fields can be initialized inline:
+
+```java
+public class Greeter {
+  private String greet = "Hello";
+  public void greet() {
+    System.out.println(greet + " World!");
+  }
+}
+```
+
+Field initialization is executed before the first statement of any constructor.
+
+---
+
+## Field initialization
+
+```java
+public class Greeter {
+  private String greet = "Hello";
+  private String target;
+  private int n;
+  public void greet() {
+    System.out.println(greet + " " + target);
+    System.out.println(n);
+  }
+}
+```
+.center.diagram[
+ref(0,20,'greet')
+obj(100,0,140,40,'String','"Hello"')
+link([0,20,100,20])
+ref(0,80,'target')
+ref(0,140,'n')
+obj(100,120,60,40,'int','0')
+link([0,140,100,140])
 ]
 
 ---
@@ -624,17 +630,11 @@ String s1 = "hello!";
 String s2 = s1;
 ```
 .center.diagram[
-<svg width="251" height="150" role="img">
-<circle cx="10" cy="40" r="10"/>
-<text x="10" y="20">s1</text>
-<circle cx="10" cy="120" r="10"/>
-<text x="10" y="100">s2</text>
-<rect x="100" y="20" width="150" height="40"/>
-<text x="175" y="10">String</text>
-<text x="175" y="40">"hello!"</text>
-<polyline points="10,40 100,40"/>
-<polyline points="10,120, 100,40"/>
-</svg>
+ref(0,20,'s1')
+obj(100,0,140,40,'String','"hello!"')
+link([0,20,100,20])
+ref(0,100,'s2')
+link([0,100,100,20])
 ]
 ]
 .c50[
@@ -642,27 +642,102 @@ String s2 = s1;
 double d1 = 3.14;
 double d2 = d1;
 ```
-
 .center.diagram[
-<svg width="251" height="150" role="img">
-<circle cx="10" cy="40" r="10"/>
-<text x="10" y="20">d1</text>
-<circle cx="10" cy="120" r="10"/>
-<text x="10" y="100">d2</text>
-<rect x="100" y="20" width="100" height="40"/>
-<text x="150" y="10">double</text>
-<text x="150" y="40">3.14</text>
-<rect x="100" y="100" width="100" height="40"/>
-<text x="150" y="90">double</text>
-<text x="150" y="120">3.14</text>
-<polyline points="10,40 100,40"/>
-<polyline points="10,120, 100,120"/>
-</svg>
+ref(0,20,'d1')
+obj(100,0,100,40,'double','3,14')
+link([0,20,100,20])
+ref(0,100,'d2')
+obj(100,80,100,40,'double','3,14')
+link([0,100,100,100])
 ]
 ]
 ]
 
 .note[Things are a bit more complex, we'll see...]
+
+---
+
+## `null`
+
+A special "value" that can be referenced by a reference of any non-primitive type.
+
+Fields:
+- non-primitive fields are implicitly set to `null`
+- recall: primitive fields are set to their default values
+
+Local variables:
+- if not initialized, compilation error!
+
+---
+
+## Referencing `null`
+
+A reference referencing `null` is (approx.) not referencing anything.
+
+.cols[
+.c50[
+```java
+String s1 = "hi";
+String s2 = null;
+String s3 = null;
+```
+.center.diagram[
+ref(0,20,'s1')
+obj(100,0,140,40,'String','"hi"')
+link([0,20,100,20])
+link([0,80,100,80],'null')
+ref(0,80,'s2')
+obj(100,60,100,40,'','null','null')
+link([0,140,100,80],'null')
+ref(0,140,'s3')
+]
+.note[`null` is not of any particular type; we will omit gray part of the diagram]
+]
+.c50[
+```java
+public class Greeter {
+  private String s1 = "hi";
+  private String s2 = null;
+  private String s3;
+  private int n;
+}
+```
+.center.diagram[
+ref(0,20,'s1')
+obj(100,0,140,40,'String','"hi"')
+link([0,20,100,20])
+link([0,80,100,80],'null')
+ref(0,80,'s2')
+obj(100,60,100,40,'','null','null')
+link([0,140,100,80],'null')
+ref(0,140,'s3')
+ref(0,200,'n')
+obj(100,180,60,40,'int','0')
+link([0,200,100,200])
+]
+]
+]
+
+---
+
+## Dereferencing
+
+```java
+String s1 = "hi";
+String s2 = s1;
+s1 = null;
+boolean isNull = s1 == null;
+```
+.center.diagram[
+ref(0,20,'s1')
+obj(100,0,140,40,'String','"hi"')
+link([0,20,100,20])
+ref(0,80,'s2')
+link([0,80,100,20])
+ref(0,140,'isNull')
+obj(100,120,100,40,'boolean','true')
+link([0,140,100,140])
+]
 
 ---
 

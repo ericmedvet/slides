@@ -107,18 +107,26 @@ img {
 .note::after {
   content: ')';
 }
-.diagram rect {
+.diagram rect,
+.diagram .obj {
   fill: #FCF3CF;
   stroke: #F1C40F;
   stroke-width:2;
 }
-.diagram line, .diagram polyline {
+.diagram line,
+.diagram polyline,
+.diagram .link {
   stroke: #F1C40F;
   stroke-width:2;
   fill: none;
 }
-.diagram circle {
+.diagram circle,
+.diagram .ref {
   fill: #F1C40F;
+}
+.diagram .null {
+  fill: #EEEEEE;
+  stroke: #AAAAAA;
 }
 .diagram text {
   dominant-baseline: middle;

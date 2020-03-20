@@ -9,6 +9,7 @@
     <script src="assets/remark-latest.min.js"></script>
     <script src="assets/katex.min.js"></script>
     <script src="assets/auto-render.min.js"></script>
+    <script src="assets/diagram-transformer.js"></script>
     <link rel="stylesheet" href="assets/katex.min.css">
     <script>
       var sourceUrls = [
@@ -32,6 +33,7 @@
           {left: "$$", right: "$$", display: true},
           {left: "$", right: "$", display: false}
         ]});
+        diagramTransformer.transformAll(document.body, "diagram");
       };
       var slideshow = remark.create({
         source: source,

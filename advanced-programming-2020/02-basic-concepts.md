@@ -51,10 +51,7 @@ String s;
 - no object is created
 ]
 .c40.center.vcentered.diagram[
-<svg width="251" height="80" role="img">
-<circle cx="10" cy="40" r="10"/>
-<text x="10" y="20">s</text>
-</svg>
+ref(0,0,'s')
 ]
 ]
 
@@ -68,14 +65,9 @@ String s = new String("Content");
 - make `s` reference the new object
 ]
 .c40.center.vcentered.diagram[
-<svg width="251" height="80" role="img">
-<circle cx="10" cy="40" r="10"/>
-<text x="10" y="20">s</text>
-<rect x="100" y="20" width="150" height="40"/>
-<text x="175" y="10">String</text>
-<text x="175" y="40">"Content"</text>
-<line x1="10" y1="40" x2="100" y2="40">
-</svg>
+ref(0,20,'s')
+obj(80,0,150,40,'String','"Content"')
+link([0,20,80,20])
 ]
 ]
 
@@ -91,17 +83,11 @@ String s2 = s1;
 - create reference `s2` and make it reference the object referenced by `s1`
 
 .center.diagram[
-<svg width="251" height="100" role="img">
-<circle cx="10" cy="40" r="10"/>
-<text x="10" y="20">s1</text>
-<circle cx="10" cy="90" r="10"/>
-<text x="10" y="70">s2</text>
-<rect x="100" y="20" width="150" height="40"/>
-<text x="175" y="10">String</text>
-<text x="175" y="40">"Content"</text>
-<line x1="10" y1="40" x2="100" y2="40"/>
-<line x1="10" y1="90" x2="100" y2="40"/>
-</svg>
+ref(0,20,'s1')
+ref(0,70,'s2')
+obj(80,0,150,40,'String','"Content"')
+link([0,20,80,20])
+link([0,70,80,20])
 ]
 
 **Objects+references diagram**: where? when?
@@ -120,14 +106,8 @@ new String("Content2");
 - create object of type `String` and init it with `"Content2"`
 
 .center.diagram[
-<svg width="251" height="150" role="img">
-<rect x="100" y="20" width="150" height="40"/>
-<text x="175" y="10">String</text>
-<text x="175" y="40">"Content1"</text>
-<rect x="100" y="100" width="150" height="40"/>
-<text x="175" y="90">String</text>
-<text x="175" y="120">"Content2"</text>
-</svg>
+obj(80,0,150,40,'String','"Content1"')
+obj(80,80,150,40,'String','"Content2"')
 ]
 
 The two objects are not referenced: they cannot be manipulated!
@@ -149,39 +129,23 @@ s1 = s2;
 .c50[
 After 2nd line:
 .center.diagram[
-<svg width="251" height="150" role="img">
-<circle cx="10" cy="40" r="10"/>
-<text x="10" y="20">s1</text>
-<circle cx="10" cy="120" r="10"/>
-<text x="10" y="100">s2</text>
-<rect x="100" y="20" width="150" height="40"/>
-<text x="175" y="10">String</text>
-<text x="175" y="40">"Content1"</text>
-<rect x="100" y="100" width="150" height="40"/>
-<text x="175" y="90">String</text>
-<text x="175" y="120">"Content2"</text>
-<line x1="10" y1="40" x2="100" y2="40"/>
-<line x1="10" y1="120" x2="100" y2="120"/>
-</svg>
+ref(0,20,'s1')
+ref(0,90,'s2')
+obj(80,0,150,40,'String','"Content1"')
+obj(80,70,150,40,'String','"Content2"')
+link([0,20,80,20])
+link([0,90,80,90])
 ]
 ]
 .c50[
 After 3rd line:
 .center.diagram[
-<svg width="251" height="150" role="img">
-<circle cx="10" cy="40" r="10"/>
-<text x="10" y="20">s1</text>
-<circle cx="10" cy="120" r="10"/>
-<text x="10" y="100">s2</text>
-<rect x="100" y="20" width="150" height="40"/>
-<text x="175" y="10">String</text>
-<text x="175" y="40">"Content1"</text>
-<rect x="100" y="100" width="150" height="40"/>
-<text x="175" y="90">String</text>
-<text x="175" y="120">"Content2"</text>
-<line x1="10" y1="40" x2="100" y2="120"/>
-<line x1="10" y1="120" x2="100" y2="120"/>
-</svg>
+ref(0,20,'s1')
+ref(0,90,'s2')
+obj(80,0,150,40,'String','"Content1"')
+obj(80,70,150,40,'String','"Content2"')
+link([0,20,80,90])
+link([0,90,80,90])
 ]
 ]
 ]
@@ -313,20 +277,12 @@ int l = s.length();
 - make `l` reference the object created upon the execution of the operation
 
 .center.diagram[
-<svg width="251" height="150" role="img">
-<circle cx="10" cy="40" r="10"/>
-<text x="10" y="20">s</text>
-<circle cx="10" cy="120" r="10"/>
-<text x="10" y="100">l</text>
-<rect x="100" y="20" width="150" height="40"/>
-<text x="175" y="10">String</text>
-<text x="175" y="40">"Hello!"</text>
-<rect x="100" y="100" width="150" height="40"/>
-<text x="175" y="90">int</text>
-<text x="175" y="120">6</text>
-<line x1="10" y1="40" x2="100" y2="40"/>
-<line x1="10" y1="120" x2="100" y2="120"/>
-</svg>
+ref(0,20,'s')
+ref(0,90,'l')
+obj(80,0,150,40,'String','"Hello!"')
+obj(80,70,100,40,'int','"6"')
+link([0,20,80,20])
+link([0,90,80,90])
 ]
 
 ---
@@ -480,33 +436,19 @@ s = s.trim().toUpperCase();
 .c50[
 After 1st line:
 .center.diagram[
-<svg width="251" height="150" role="img">
-<circle cx="10" cy="40" r="10"/>
-<text x="10" y="20">s</text>
-<rect x="100" y="20" width="150" height="40"/>
-<text x="175" y="10">String</text>
-<text x="175" y="40">" shout!"</text>
-<line x1="10" y1="40" x2="100" y2="40"/>
-</svg>
+ref(0,20,'s')
+obj(80,0,150,40,'String','" shout!"')
+link([0,20,80,20])
 ]
 ]
 .c50[
 After 2nd line:
 .center.diagram[
-<svg width="251" height="250" role="img">
-<circle cx="10" cy="40" r="10"/>
-<text x="10" y="20">s</text>
-<rect x="100" y="20" width="150" height="40"/>
-<text x="175" y="10">String</text>
-<text x="175" y="40">" shout!"</text>
-<rect x="100" y="100" width="150" height="40"/>
-<text x="175" y="90">String</text>
-<text x="175" y="120">"shout!"</text>
-<rect x="100" y="180" width="150" height="40"/>
-<text x="175" y="170">String</text>
-<text x="175" y="200">"SHOUT!"</text>
-<line x1="10" y1="40" x2="100" y2="200"/>
-</svg>
+ref(0,20,'s')
+obj(80,0,150,40,'String','" shout!"')
+obj(80,70,150,40,'String','"shout!"')
+obj(80,140,150,40,'String','"SHOUT!"')
+link([0,20,80,140])
 ]
 ]
 ]
@@ -703,34 +645,24 @@ Complex c2 = new Complex(0.1, 9.81);
 ```
 
 .center.diagram[
-<svg width="500" height="300" role="img">
-<circle cx="20" cy="40" r="10"/>
-<text x="20" y="20">c1</text>
-<rect x="100" y="20" width="150" height="40"/>
-<text x="175" y="10">Complex</text>
-<circle cx="130" cy="40" r="10"/>
-<circle cx="160" cy="40" r="10"/>
-<rect x="300" y="20" width="50" height="40"/>
-<text x="325" y="10">double</text>
-<rect x="400" y="20" width="50" height="40"/>
-<text x="425" y="10">double</text>
-<polyline points="20,40 100,40"/>
-<polyline points="130,40 130,90 380,90 380,40 400,40"/>
-<polyline points="160,40 160,70 280,70 280,40 300,40"/>
-<circle cx="20" cy="140" r="10"/>
-<text x="20" y="120">c2</text>
-<rect x="100" y="120" width="150" height="40"/>
-<text x="175" y="110">Complex</text>
-<circle cx="130" cy="140" r="10"/>
-<circle cx="160" cy="140" r="10"/>
-<rect x="300" y="120" width="50" height="40"/>
-<text x="325" y="110">double</text>
-<rect x="400" y="120" width="50" height="40"/>
-<text x="425" y="110">double</text>
-<polyline points="20,140 100,140"/>
-<polyline points="130,140 130,190 380,190 380,140 400,140"/>
-<polyline points="160,140 160,170 280,170 280,140 300,140"/>
-</svg>
+ref(0,20,'c1')
+obj(100,0,150,40,'Complex','')
+link([0,20,100,20])
+ref(130,20,'')
+ref(160,20,'')
+obj(300,0,50,40,'double','')
+obj(400,0,50,40,'double','')
+link([130,20,130,70,380,70,380,20,400,20])
+link([160,20,160,50,280,50,280,20,300,20])
+ref(0,120,'c2')
+obj(100,100,150,40,'Complex','')
+link([0,120,100,120])
+ref(130,120,'')
+ref(160,120,'')
+obj(300,100,50,40,'double','')
+obj(400,100,50,40,'double','')
+link([130,120,130,170,380,170,380,120,400,120])
+link([160,120,160,150,280,150,280,120,300,120])
 ]
 
 ---
@@ -745,52 +677,36 @@ double norm = c2.getNorm();
 ```
 
 .center.diagram[
-<svg width="500" height="400" role="img">
-<circle cx="30" cy="40" r="10"/>
-<text x="30" y="20">c1</text>
-<rect x="100" y="20" width="150" height="40"/>
-<text x="175" y="10">Complex</text>
-<circle cx="130" cy="40" r="10"/>
-<circle cx="160" cy="40" r="10"/>
-<rect x="300" y="20" width="50" height="40"/>
-<text x="325" y="10">double</text>
-<rect x="400" y="20" width="50" height="40"/>
-<text x="425" y="10">double</text>
-<polyline points="30,40 100,40"/>
-<polyline points="130,40 130,90 380,90 380,40 400,40"/>
-<polyline points="160,40 160,70 280,70 280,40 300,40"/>
-<circle cx="30" cy="140" r="10"/>
-<text x="30" y="120">c2</text>
-<rect x="100" y="120" width="150" height="40"/>
-<text x="175" y="110">Complex</text>
-<circle cx="130" cy="140" r="10"/>
-<circle cx="160" cy="140" r="10"/>
-<rect x="300" y="120" width="50" height="40"/>
-<text x="325" y="110">double</text>
-<rect x="400" y="120" width="50" height="40"/>
-<text x="425" y="110">double</text>
-<polyline points="30,140 100,140"/>
-<polyline points="130,140 130,190 380,190 380,140 400,140"/>
-<polyline points="160,140 160,170 280,170 280,140 300,140"/>
-<circle cx="30" cy="240" r="10"/>
-<text x="30" y="220">c3</text>
-<rect x="100" y="220" width="150" height="40"/>
-<text x="175" y="210">Complex</text>
-<circle cx="130" cy="240" r="10"/>
-<circle cx="160" cy="240" r="10"/>
-<rect x="300" y="220" width="50" height="40"/>
-<text x="325" y="210">double</text>
-<rect x="400" y="220" width="50" height="40"/>
-<text x="425" y="210">double</text>
-<polyline points="30,240 100,240"/>
-<polyline points="130,240 130,290 380,290 380,240 400,240"/>
-<polyline points="160,240 160,270 280,270 280,240 300,240"/>
-<circle cx="30" cy="340" r="10"/>
-<text x="30" y="320">norm</text>
-<rect x="100" y="320" width="50" height="40"/>
-<text x="125" y="310">double</text>
-<polyline points="30,340 100,340"/>
-</svg>
+ref(0,20,'c1')
+obj(100,0,150,40,'Complex','')
+link([0,20,100,20])
+ref(130,20,'')
+ref(160,20,'')
+obj(300,0,50,40,'double','')
+obj(400,0,50,40,'double','')
+link([130,20,130,70,380,70,380,20,400,20])
+link([160,20,160,50,280,50,280,20,300,20])
+ref(0,120,'c2')
+obj(100,100,150,40,'Complex','')
+link([0,120,100,120])
+ref(130,120,'')
+ref(160,120,'')
+obj(300,100,50,40,'double','')
+obj(400,100,50,40,'double','')
+link([130,120,130,170,380,170,380,120,400,120])
+link([160,120,160,150,280,150,280,120,300,120])
+ref(0,220,'c3')
+obj(100,200,150,40,'Complex','')
+link([0,220,100,220])
+ref(130,220,'')
+ref(160,220,'')
+obj(300,200,50,40,'double','')
+obj(400,200,50,40,'double','')
+link([130,220,130,270,380,270,380,220,400,220])
+link([160,220,160,250,280,250,280,220,300,220])
+ref(0,320,'norm')
+obj(100,300,50,40,'double','')
+link([0,320,100,320])
 ]
 
 ---
@@ -804,28 +720,21 @@ public class Complex {
 * private double imaginary;
   /* ... */
 }
+Complex c1 = new Complex(1.1, 2.2);
 ```
 The fields of an object constitute its **state**.
 
 They are referenced, there is an identifier:
 .center.diagram[
-<svg width="500" height="200" role="img">
-<circle cx="30" cy="40" r="10"/>
-<text x="30" y="20">c1</text>
-<rect x="100" y="20" width="150" height="80"/>
-<text x="175" y="10">Complex</text>
-<circle cx="130" cy="80" r="10"/>
-<text x="130" y="60">real</text>
-<circle cx="180" cy="60" r="10"/>
-<text x="180" y="40">imaginary</text>
-<rect x="300" y="20" width="50" height="40"/>
-<text x="325" y="10">double</text>
-<rect x="400" y="20" width="50" height="40"/>
-<text x="425" y="10">double</text>
-<polyline points="30,40 100,40"/>
-<polyline points="130,80 130,130 380,130 380,40 400,40"/>
-<polyline points="180,60 180,110 280,110 280,40 300,40"/>
-</svg>
+ref(0,20,'c1')
+obj(100,0,150,80,'Complex','')
+link([0,20,100,20])
+ref(130,60,'real')
+ref(180,40,'imaginary')
+obj(300,0,50,40,'double','')
+obj(400,0,50,40,'double','')
+link([130,60,130,110,380,110,380,20,400,20])
+link([180,40,180,90,280,90,280,20,300,20])
 ]
 
 ---
@@ -1153,36 +1062,24 @@ Greeter g2 = new Greeter();
 ```
 
 .center.diagram[
-<svg width="500" height="350" role="img">
-<circle cx="30" cy="40" r="10"/>
-<text x="30" y="20">g1</text>
-<rect x="100" y="20" width="150" height="60"/>
-<text x="175" y="10">Greeter</text>
-<circle cx="130" cy="60" r="10"/>
-<text x="130" y="40">msg</text>
-<circle cx="200" cy="60" r="10"/>
-<text x="200" y="40">name</text>
-<rect x="300" y="20" width="50" height="40"/>
-<text x="325" y="10">String</text>
-<rect x="400" y="20" width="50" height="40"/>
-<text x="425" y="10">String</text>
-<polyline points="30,40 100,40"/>
-<polyline points="130,60 130,130 380,130 380,40 400,40"/>
-<polyline points="200,60 200,110 280,110 280,40 300,40"/>
-<circle cx="30" cy="180" r="10"/>
-<text x="30" y="160">g2</text>
-<rect x="100" y="160" width="150" height="60"/>
-<text x="175" y="150">Greeter</text>
-<circle cx="130" cy="200" r="10"/>
-<text x="130" y="180">msg</text>
-<circle cx="200" cy="200" r="10"/>
-<text x="200" y="180">name</text>
-<rect x="300" y="160" width="50" height="40"/>
-<text x="325" y="150">String</text>
-<polyline points="30,180 100,180"/>
-<polyline points="200,200 200,250 280,250 280,180 300,180"/>
-<polyline points="130,200 130,270 425,270 425,60"/>
-</svg>
+ref(0,20,'g1')
+obj(100,0,140,60,'Greeter','')
+link([0,20,100,20])
+ref(140,40,'msg')
+ref(200,40,'name')
+obj(300,0,60,40,'String','')
+obj(400,0,60,40,'String','')
+link([140,40,140,90,380,90,380,20,400,20])
+link([200,40,200,80,280,80,280,20,300,20])
+ref(0,160,'g2')
+obj(100,140,140,60,'Greeter','')
+link([0,160,100,160])
+ref(140,180,'msg')
+ref(200,180,'name')
+obj(300,140,60,40,'String','')
+obj(400,140,60,40,'String','')
+link([140,180,140,230,380,230,380,160,400,160])
+link([200,180,200,220,280,220,280,160,300,160])
 ]
 
 ---
