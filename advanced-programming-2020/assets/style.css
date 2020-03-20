@@ -107,20 +107,16 @@ img {
 .note::after {
   content: ')';
 }
-.diagram rect,
 .diagram .obj {
   fill: #FCF3CF;
   stroke: #F1C40F;
   stroke-width:2;
 }
-.diagram line,
-.diagram polyline,
 .diagram .link {
   stroke: #F1C40F;
   stroke-width:2;
   fill: none;
 }
-.diagram circle,
 .diagram .ref {
   fill: #F1C40F;
 }
@@ -128,7 +124,9 @@ img {
   fill: #EEEEEE;
   stroke: #AAAAAA;
 }
-.diagram text {
+.diagram .refLabel,
+.diagram .typeLabel,
+.diagram .contentLabel {
   dominant-baseline: middle;
   text-anchor: middle;
   font-family: 'Roboto Mono';

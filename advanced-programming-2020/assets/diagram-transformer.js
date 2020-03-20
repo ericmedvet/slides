@@ -45,7 +45,7 @@ var DiagramTransformer = {
       var code = '';
       code += '<circle cx="'+x+'" cy="'+y+'" r="'+this.constants.refRadius+'" class="ref '+className+'"/>';
       if (label) {
-        code += '<text x="'+x+'" y="'+(y-(this.constants.charHeight/2+this.constants.refRadius))+'">'+label+'</text>';
+        code += '<text x="'+x+'" y="'+(y-(this.constants.charHeight/2+this.constants.refRadius))+'" class="refLabel">'+label+'</text>';
       }
       return {
         minX: x-Math.max(this.constants.charWidth*label.length/2, this.constants.refRadius),
@@ -60,10 +60,10 @@ var DiagramTransformer = {
       var code = '';
       code += '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" class="obj '+className+'"/>';
       if (typeLabel) {
-        code += '<text x="'+(x+w/2)+'" y="'+(y-this.constants.charHeight/2)+'">'+typeLabel+'</text>';
+        code += '<text x="'+(x+w/2)+'" y="'+(y-this.constants.charHeight/2)+'" class="typeLabel">'+typeLabel+'</text>';
       }
       if (contentLabel) {
-        code += '<text x="'+(x+w/2)+'" y="'+(y+10+this.constants.charHeight/2)+'">'+contentLabel+'</text>';
+        code += '<text x="'+(x+w/2)+'" y="'+(y+10+this.constants.charHeight/2)+'" class="contentLabel">'+contentLabel+'</text>';
       }
       return {
         minX: x+w/2-Math.max(this.constants.charWidth*typeLabel.length/2, w/2),
