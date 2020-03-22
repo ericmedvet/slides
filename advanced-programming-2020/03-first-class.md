@@ -731,7 +731,6 @@ boolean isNull = s1 == null;
 .center.diagram[
 ref(0,20,'s1')
 obj(100,0,140,40,'String','"hi"')
-link([0,20,100,20])
 ref(0,80,'s2')
 link([0,80,100,20])
 ref(0,140,'isNull')
