@@ -511,6 +511,8 @@ However:
 public Milk milk(Animal animal) { /* ... */ }
 ```
 is wrong!
+- but (as is here) compiles!
+- wrong, because conceptually you cannot milk every animal
 
 ---
 
@@ -739,7 +741,7 @@ public class Greeter {
 | void | println​(Object x) | Prints an Object and then terminate the line. |
 ]
 
-`Date` extents `Object` and there is a `PrintStream.println(Object)`!
+`Date` extends `Object` and there is a `PrintStream.println(Object)`!
 - a `Date` has everything an `Object` has
 - `println()` says it knows how to print on `Object`
 
@@ -790,7 +792,7 @@ IDEs have an option for writing a decent `toString()` for you (`Alt+Ins` in Netb
 .javadoc[
 `public String toString()`
 
-Converts this Date object to a String of the form:
+Converts this `Date` object to a `String` of the form:
 
 `dow mon dd hh:mm:ss zzz yyyy`
 
@@ -800,7 +802,7 @@ where:
 - `dd` is the day of the month (`01` through `31`), as two decimal digits.
 - `hh` is the hour of the day (`00` through `23`), as two decimal digits.
 - `mm` is the minute within the hour (`00` through `59`), as two decimal digits.
-- `ss` is the second within the minute (`00` through `61`, as two decimal digits.
+- `ss` is the second within the minute (`00` through `61`), as two decimal digits.
 - `zzz` is the time zone (and may reflect daylight saving time). Standard time zone abbreviations include those recognized by the method parse. If time zone information is not available, then `zzz` is empty - that is, it consists of no characters at all.
 - `yyyy` is the year, as four decimal digits.
 ]
@@ -941,8 +943,28 @@ Conceptually, inside the `Class` of a class X:
 
 .note[We'll see later more about this!]
 
+.cols[
+.c50[
+.compact[
+```java
+public class Base {
+  public void doBase() { /*...*/ }
+}
+```
+```java
+public class Derived {
+  public void doDerived() { /*...*/ }
+}
+```
+```java
+Derived d  = new Derived();
+```
+]
+`methods` contains `doDerived`, not `doBase`
+]
+.c50[
 .center.diagram[
-ref(60,20,'')
+ref(60,20,'d')
 obj(100,0,60,40,'Derived','')
 link([60,20,100,20])
 ref(140,20,'')
@@ -950,6 +972,8 @@ link([140,20,170,20,170,90,180,90])
 obj(180,0,180,200,'Class','Derived')
 ref(300,80,'methods')
 ref(300,120,'fields')
+]
+]
 ]
 
 ---
@@ -959,7 +983,7 @@ ref(300,120,'fields')
 - and the class of the base type, possibly `Object`
 
 .center.diagram[
-ref(60,20,'')
+ref(60,20,'d')
 obj(100,0,60,40,'Derived','')
 link([60,20,100,20])
 ref(140,20,'')
@@ -980,12 +1004,27 @@ ref(700,120,'fields')
 ref(700,160,'superclass')
 ]
 
+- `methods` of `d.getClass()` contains `doDerived`
+- `methods` of `d.getClass().superclass` contains `doBase`
+- `methods` of `d.getClass().superclass.superclass` contains `toString`, `getClass`, ...
+
+.note[Approximately: types and names of fields/methods are different]
+
 ---
 
 ## Which method?
 
 ```java
 System.out.println(derived); // -> derived.toString()
+```
+```java
+public void println(Object x) {
+  if ( x == null ) {
+    println("null");
+  } else {
+    println(`x.toString()`);
+  }
+}
 ```
 
 Conceptually:
@@ -1030,7 +1069,7 @@ What's the difference with respect to `==`?
 ## `==` (and `!=`)
 
 `a == b`
-- if `a` and `b` of different primitive types, or of primitive and non-primitive, or of non compatible* non-primitive types, then code does not compile
+- if `a` and `b` of different primitive types\*\*, or of primitive and non-primitive\*\*, or of non compatible* non-primitive types, then code does not compile
 - else if `a` and `b` of same primitive type, then evaluates to boolean `true` iff `a` and `b` have the same value, otherwise evaluates to `false`
 - else evaluates to boolean `true` if `a` and `b` **reference the same object** or both do not reference any object (i.e., they "are" `null`), otherwise evaluates to `false`
 
