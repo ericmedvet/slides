@@ -480,6 +480,40 @@ A `Chihuahua` is a `Dog`, a `Mammal`, ..., and an `Object`.
 
 ---
 
+## Be general
+
+**Rule**: use the **most general** definition!
+
+```java
+public void putLeash(Dog dog) { /* ... */ }
+```
+is better than:
+```java
+public void putLeash(Chihuahua dog) { /* ... */ }
+```
+even if in your code you will `putLeash()` only on `Chihuahua`s (but provided that you have the inheritance `Dog` .arrow[] `Chihuahua`).
+
+---
+
+### ... but not too much
+
+Similarly:
+```java
+public Milk milk(Mammal mammal) { /* ... */ }
+```
+is better than:
+```java
+public Milk milk(Cow cow) { /* ... */ }
+```
+
+However:
+```java
+public Milk milk(Animal animal) { /* ... */ }
+```
+is wrong!
+
+---
+
 ## Removing methods?
 
 ```java
@@ -741,12 +775,12 @@ Hence:
 In general, the `toString` method returns a string that "textually represents" this object. The result should be a concise but informative representation that is easy for a person to read. It is recommended that all subclasses override this method.
 ]
 
-The developer of a class may (and should!) redefine (**override**) `toString()`:
+The developer of a class may (and should!) redefine (= **override**) `toString()`:
 - returns a string that "textually represents" this object
 - concise but informative
 - easy for a person to read
 
-IDEs have an option for writing a decent `toString` for you (`Alt+Ins` in Netbeans)
+IDEs have an option for writing a decent `toString()` for you (`Alt+Ins` in Netbeans)
 
 
 ---
@@ -976,6 +1010,559 @@ In the worst case, `c` is eventually the `Class` describing `Object`
 
 ---
 
+## Methods of `Object`
 
+`Object` class:
+.javadoc.methods[
+| Type | Field | Description |
+| --- | --- | --- |
+|boolean | equals​(Object obj) | Indicates whether some other object is "equal to" this one. |
+| Class<?> | getClass() | Returns the runtime class of this Object. |
+| String | toString() | Returns a string representation of the object. |
+]
 
-<!-- multiple inheritance: why not? -->
+`equals()`: indicates whether some other object is "equal to" this one.
+
+What's the difference with respect to `==`?
+
+---
+
+## `==` (and `!=`)
+
+`a == b`
+- if `a` and `b` of different primitive types, or of primitive and non-primitive, or of non compatible* non-primitive types, then code does not compile
+- else if `a` and `b` of same primitive type, then evaluates to boolean `true` iff `a` and `b` have the same value, otherwise evaluates to `false`
+- else evaluates to boolean `true` if `a` and `b` **reference the same object** or both do not reference any object (i.e., they "are" `null`), otherwise evaluates to `false`
+
+`a != b`
+- if it compiles, evaluates to the negation of `a == b`
+
+.note[\*: "compatible" means that types are the same or one derives from the other]
+
+---
+
+## Same object!
+
+```java
+String s1 = "hi!";
+String s2 = "hi!";
+String s3 = s2;
+boolean b;
+b = s1 == s2; // -> false
+b = s2 == s3; // -> true
+b = s1.length() == s2.length(); // -> true
+```
+.center.diagram[
+ref(0,20,'s1')
+obj(80,0,100,40,'String','hi!')
+link([0,20,80,20])
+ref(0,100,'s2')
+obj(80,80,100,40,'String','hi!')
+link([0,100,80,100])
+ref(0,160,'s3')
+link([0,160,80,100])
+obj(80,200,60,40,'int','3')
+obj(180,200,60,40,'int','3')
+]
+
+---
+
+## `equals()`
+
+`Object`: "indicates whether some other object is "equal to" this one".
+
+Actual meaning depend on the type, that possibly overrides `equals()`
+- `String`: "true if and only if [...] represents the same sequence of characters [...]"
+- `Date`: "true if and only if [...] represents the same point in time, to the millisecond [...]"
+- `PrintStream`: does not override `equals()`
+  - the developers of `PrintStream` **decided** that the "equal to" notion of `Object` hold for `PrintStream`s
+
+---
+
+## `equals()` documentation in `Object`
+
+.javadoc[
+Indicates whether some other object is "equal to" this one.
+
+The `equals` method implements an equivalence relation on non-null object references:
+- It is *reflexive*: for any non-null reference value `x`, `x.equals(x)` should return `true`.
+- It is *symmetric*: for any non-null reference values `x` and `y`, `x.equals(y)` should return `true` if and only if `y.equals(x)` returns `true`.
+- It is *transitive*: for any non-null reference values `x`, `y`, and `z`, if `x.equals(y)` returns `true` and `y.equals(z)` returns `true`, then `x.equals(z)` should return `true`.
+- It is *consistent*: for any non-null reference values `x` and `y`, multiple invocations of `x.equals(y)` consistently return `true` or consistently return `false`, provided no information used in equals comparisons on the objects is modified.
+- For any non-null reference value `x`, `x.equals(null)` should return `false`.
+
+The `equals` method for class `Object` implements the most discriminating possible equivalence relation on objects; that is, for any non-null reference values `x` and `y`, this method returns `true` if and only if `x` and `y` refer to the same object (`x == y` has the value `true`).
+]
+
+Two things in this documentation:
+- what's the general semantics of `equals()`
+- how does the specific implementation in `Object` work
+
+---
+
+## `equals()` in `Object`
+
+"the most discriminating possible equivalence relation":
+```java
+public class Object {
+  /* ... */
+  public boolean equals(Object other) {
+    if (other == null) {
+      return false;
+    }
+    return this == other;
+  }
+}
+```
+
+Note: `this` cannot be `null`!
+
+---
+
+## Overriding `equals`
+
+Semantics level requirements:
+- **equivalence** conceptually sound for the specific case
+- reflexivity, symmetry, transitiveness, consistency, `null`
+
+Syntax level requirement:
+- comply with the signature
+```java
+public boolean equals(Object other)
+```
+  - the argument is of type `Object` also for the deriving type!
+
+The compiler:
+- does check fulfillment of syntax requirement
+- **cannot check** fulfillment of semantics requirements
+  - big responsability of the developer
+
+---
+
+## Implementing equivalence
+
+It depends on the case, i.e., on the type; it should correspond to equivalence of the represented concepts.
+
+Given type `X`, should answer the question:
+- are `x1` and `x2` the same `X`?
+
+E.g., equivalence of persons: are two persons the same?
+- in the real world:
+  - formed by the same atoms? (probably too strict)
+  - same first and last name? (probably too loose)
+- in the application:
+  - depends of what aspects of real world are modeled
+
+---
+
+### Equivalent persons
+
+```java
+public class Person {
+  private String firstName;
+  private String lastName;
+  private Date birthDate;
+}
+```
+This class models a person by her/his first name, last name, and birth date:
+- it's a **developer's decision**
+
+At most (in strictness), `equals()` can say that "two persons are the same iff they have the same first name, same last name, and same birth date".
+- what if two "different" persons has the same name and birth date? (Marco Rossi!)
+- what if a person changes name?
+
+---
+
+### Equivalent persons with fiscal code
+
+```java
+public class Person {
+  private String firstName;
+  private String lastName;
+  private Date birthDate;
+  private String fiscalCode;
+}
+```
+
+This class models a person with [...] and fiscal code.
+
+By **domain knowledge**, the developer can decide that "two persons are the same iff they have the same fiscal code".
+
+---
+
+### Simple `Person.equals()`
+
+.compact[
+```java
+public class Person {
+  private String firstName;
+  private String lastName;
+  private Date birthDate;
+
+  public boolean equals(Object other) {
+    if (other == null) {
+      return false;
+    }
+    if (!(other instanceof Person)) {
+      return false;
+    }
+    if (!firstName.equals(((Person) other).firstName)) {
+      return false;
+    }
+    if (!lastName.equals(((Person) other).lastName)) {
+      return false;
+    }
+    if (!birthDate.equals(((Person) other).birthDate)) {
+      return false;
+    }
+    return true;
+  }
+}
+```
+]
+
+- `(Person)` to downcast `other` as `Person`
+- assumes fields are not null
+
+---
+
+## `Person.equals()` with fiscal code
+
+.compact[
+```java
+public class Person {
+  private String firstName;
+  private String lastName;
+  private Date birthDate;
+  private String fiscalCode;
+
+  public boolean equals(Object other) {
+    if (other == null) {
+      return false;
+    }
+    if (!(other instanceof Person)) {
+      return false;
+    }
+    if (!fiscalCode.equals(((Person) other).fiscalCode)) {
+      return false;
+    }
+    return true;
+  }
+}
+```
+]
+
+We (the developers) **decided** that two persons are the same if they have the same fiscal code, **regardless** of name and birth date!
+
+---
+
+### IDEs and `equals()`
+
+As for `toString()`, IDEs have an option for writing `equals()` for you (`Alt+Ins` in Netbeans).
+E.g., outcome with `fiscalCode`:
+
+.cols[
+.c50[
+.compact[
+```java
+public boolean equals(Object obj) {
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  final Person other = (Person) obj;
+  if (!Objects.equals(
+    this.fiscalCode,
+    other.fiscalCode
+    )) {
+    return false;
+  }
+  return true;
+}
+```
+]
+]
+.c50[
+- `this == obj`: a performance optimization
+- same `getClass()` different than `instanceof`!
+- `Objects.equals()` takes care of checking if field is `null`
+
+.note[Ignore `final` for now]
+]
+]
+
+---
+
+## `Objects`
+
+.javadoc[
+This class consists of `static` utility methods for operating on objects, or checking certain conditions before operation.
+]
+
+A class with **utility methods**, static by design.
+
+[`Objects`](https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/util/Objects.html) class:
+.javadoc.methods[
+| Type | Field | Description |
+| --- | --- | --- |
+| static int | checkIndex​(int index, int length) | Checks if the index is within the bounds of the range from 0 (inclusive) to `length` (exclusive). |
+| static boolean | deepEquals​(Object a, Object b) | Returns `true` if the arguments are deeply equal to each other and `false` otherwise. |
+| static boolean | equals​(Object a, Object b) | Returns `true` if the arguments are equal to each other and `false` otherwise. |
+| static boolean | isNull​(Object obj) | Returns `true` if the provided reference is `null` otherwise returns false. |
+]
+
+"deeply equal": equal, but also with arrays.
+
+Many other similar classes in and out the JDK, e.g., [`Arrays`](https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/util/Arrays.html):
+- static `fill()`, `sort()`, ...
+
+---
+
+## `instanceof` vs. `getClass()`
+
+`a instanceof B`
+- `true` iff object referenced by `a` might be legitimately referenced by a reference `b` to objects of type `B`
+
+`a.getClass() == b.getClass()`:
+- `true` iff at runtime class of object referenced by `a` is exactly the same (`==`) of class of object referenced by `b`
+
+`a.getClass() == B.class`
+- `X.class` is (approx.) an implicit static reference to the object representing the class `X`
+- `true` iff at runtime class of object referenced by `a` is exactly `B`
+
+---
+
+### `instanceof` vs. `getClass()`: example
+
+```java
+public class Person { /* ... */ }
+```
+```java
+public class Employee extends Person { /* ... */ }
+```
+```java
+Person p = new Person( /* ... */ );
+Employee e = new Employee( /* ... */ );
+boolean b1 = e instanceof p; // -> true
+boolean b2 = p.getClass() == e.getClass(); // -> false
+```
+
+.diagram.center[
+ref(0,20,'p')
+obj(80,0,100,40,'Person','')
+link([0,20,80,20])
+ref(160,20,'')
+link([160,20,190,20,190,-30,370,-30,370,50,380,50])
+obj(220,0,120,100,'Class','Employee')
+ref(320,80,'')
+link([320,80,350,80,350,50,380,50])
+obj(380,0,120,100,'Class','Person')
+ref(480,80,'')
+link([480,80,510,80,510,50,540,50])
+obj(540,0,120,100,'Class','Object')
+ref(640,80,'')
+ref(0,100,'e')
+obj(80,80,100,40,'Employee','')
+link([0,100,80,100])
+ref(160,100,'')
+link([160,100,190,100,190,50,220,50])
+ref(0,180,'b1')
+obj(80,160,60,40,'boolean','true')
+link([0,180,80,180])
+ref(200,180,'b2')
+obj(280,160,60,40,'boolean','false')
+link([200,180,280,180])
+]
+
+Is an employee equal to the person being the employee?
+Big question: it depends on how you model the reality.
+
+---
+
+## `equals()` on complex types
+
+`equals()` should represent the **equivalence** that is inherently defined by the representation defined by the type.
+
+.cols[
+.c50[
+```java
+public class `Bag`OfInts {
+  private int[] values;
+}
+```
+
+Models $X = \mathcal{M}(\mathbb{Z}) = \\{f: \mathbb{Z} \to \mathbb{N}\\}$. (**bag** == **multiset**)
+
+Equiv. of $x_1, x_2$ considers:
+- length
+- items
+]
+.c50[
+```java
+public class `Sequence`OfInts {
+  private int[] values;
+}
+```
+
+Models $X = \bigcup_{i \in \mathbb{N}}\mathbb{Z}^i$.
+
+Equiv. of $x_1, x_2$ considers:
+- length
+- items
+- order of items
+]
+]
+
+.note[$X$ is the class, $x \in X$ is the object]  
+.note[$\mathcal{M}(A)$ is my notation for the set of **multisets** built with elements of the set $A$.]
+
+---
+
+### Everything in the name!
+
+.cols[
+.c50[
+$X = \mathcal{M}(\mathbb{Z})$
+```java
+class BagOfInts {
+  private int[] values;
+}
+```
+]
+.c50[
+$X = \bigcup_{i \in \mathbb{N}}\mathbb{Z}^i$
+```java
+class SequenceOfInts {
+  private int[] values;
+}
+```
+]
+]
+
+Exactly the **same code**, **different models**!
+
+Difference in models should be captured by the name of the type!
+
+---
+
+## Multiple inheritance
+
+```java
+public class Vehicle { /* ... */ }
+```
+```java
+public class MotorVehicle extends Vehicle {
+  public void startEngine() { /* ... */ }
+}  
+```
+```java
+public class Motorboat extends MotorVehicle {
+  public void startEngine() { System.out.println("bl bl bl"); }
+  public void turnPropeller() { /* ... */ }
+}  
+```
+```java
+public class Car extends MotorVehicle {
+  public void startEngine() { System.out.println("brum brum"); }
+  public void turnWheels() { /* ... */ }
+}  
+```
+
+- Every `MotorVehicle` is a `Vehicle`
+- Every `Boat` is a `MotorVehicle`, thus also a `Vehicle`
+- Every `Car` is a `MotorVehicle`, thus also a `Vehicle`.
+- In general, a `Car` is not a `Boat`!
+
+---
+
+## Here comes the amphibious!
+
+.cols[
+.c50[
+.center[
+![Fiat 6640](images/fiat6640.jpg)
+]
+]
+.c50[
+Ohhh, surprise!
+
+There is a `Car` that is **also** a `Boat`!
+
+.note[It is a [Fiat 6640](https://it.wikipedia.org/wiki/Fiat_6640)]
+]
+]
+
+```java
+public class AmphibiousVehicle extends Boat, Car { // NOOOO!
+  public void doAmphibiousFancyThings() { /* ... */ }
+}
+```
+**Does not compile!** No multiple inheritance!
+
+---
+
+## Why not?
+
+```java
+public class AmphibiousVehicle extends Boat, Car { // NOOOO!
+  public void doAmphibiousFancyThings() { /* ... */ }
+}
+```
+```java
+AmphibiousVehicle fiat6640 = new AmphibiousVehicle();
+fiat6640.startEngine();
+```
+Should it result in `bl bl bl` or in `brum brum`?
+- it's certain that there is a `startEngine()`, since both `Boat` and `Car` extends `MotorVehicle`: which one should be invoked? .note[same for `equals()`, `toString()`, ...]
+- same for fields
+
+Java syntax does not allow the developer to specify which one!
+- it was a precise decision of Java developers
+- some other languages allow [multiple inheritance](https://en.wikipedia.org/wiki/Multiple_inheritance)
+
+---
+
+### Why not?
+
+"it was a precise decision of Java developers"
+
+They might have allowed multiple inheritance from `A`, `B` only when `A` and `B` intersection of overridden methods was empty:
+
+```java
+public class A { public void doA() { /*...*/ } }
+```
+
+```java
+public class B { public void doB() { /*...*/ } }
+```
+
+```java
+public class C extends A, B { public void doC() { /*...*/ } }
+```
+
+Looks legit!
+A `c` can `doA()`, `doB()`, `doC()`, and do `toString()`!
+
+What if then the developer of `A` override `toString()`!
+- **Disaster!** The same code of `C` does not compile anymore!
+
+.note[There is a mechanism in Java for modeling the amphibious; we'll see it!]
+
+---
+
+class: lab
+
+## Equivalence .note[~2h, 2nd home assignement]
+
+1. Design and implement a class that represents $X = \mathcal{P}(\mathbb{R})$
+  - with a proper `equals()`
+  - with a proper `toString()`
+  - with a proper constructor that takes 0+ values $\in \mathbb{R}$
+2. Write an application that reads from stdin two comma-separated list of real numbers, creates $x_1, x_2 \in X$, and outputs a text message saying if $x_1, x_2$ are the same or not
+
+.note[There are other ways for implementing multisets (and sets, sequences, ...); we'll see them]
