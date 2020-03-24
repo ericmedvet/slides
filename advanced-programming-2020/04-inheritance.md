@@ -952,7 +952,7 @@ public class Base {
 }
 ```
 ```java
-public class Derived {
+public class Derived extends Base {
   public void doDerived() { /*...*/ }
 }
 ```
@@ -1387,7 +1387,7 @@ public class Employee extends Person { /* ... */ }
 ```java
 Person p = new Person( /* ... */ );
 Employee e = new Employee( /* ... */ );
-boolean b1 = e instanceof p; // -> true
+boolean b1 = e instanceof Person; // -> true
 boolean b2 = p.getClass() == e.getClass(); // -> false
 ```
 
@@ -1513,9 +1513,9 @@ public class Car extends MotorVehicle {
 ```
 
 - Every `MotorVehicle` is a `Vehicle`
-- Every `Boat` is a `MotorVehicle`, thus also a `Vehicle`
+- Every `Motorboat` is a `MotorVehicle`, thus also a `Vehicle`
 - Every `Car` is a `MotorVehicle`, thus also a `Vehicle`.
-- In general, a `Car` is not a `Boat`!
+- In general, a `Car` is not a `Motorboat`!
 
 ---
 
@@ -1530,14 +1530,14 @@ public class Car extends MotorVehicle {
 .c50[
 Ohhh, surprise!
 
-There is a `Car` that is **also** a `Boat`!
+There is a `Car` that is **also** a `Motorboat`!
 
 .note[It is a [Fiat 6640](https://it.wikipedia.org/wiki/Fiat_6640)]
 ]
 ]
 
 ```java
-public class AmphibiousVehicle extends Boat, Car { // NOOOO!
+public class AmphibiousVehicle extends Motorboat, Car { // NOOOO!
   public void doAmphibiousFancyThings() { /* ... */ }
 }
 ```
@@ -1548,7 +1548,7 @@ public class AmphibiousVehicle extends Boat, Car { // NOOOO!
 ## Why not?
 
 ```java
-public class AmphibiousVehicle extends Boat, Car { // NOOOO!
+public class AmphibiousVehicle extends Motorboat, Car { // NOOOO!
   public void doAmphibiousFancyThings() { /* ... */ }
 }
 ```
@@ -1557,7 +1557,7 @@ AmphibiousVehicle fiat6640 = new AmphibiousVehicle();
 fiat6640.startEngine();
 ```
 Should it result in `bl bl bl` or in `brum brum`?
-- it's certain that there is a `startEngine()`, since both `Boat` and `Car` extends `MotorVehicle`: which one should be invoked? .note[same for `equals()`, `toString()`, ...]
+- it's certain that there is a `startEngine()`, since both `Motorboat` and `Car` extends `MotorVehicle`: which one should be invoked? .note[same for `equals()`, `toString()`, ...]
 - same for fields
 
 Java syntax does not allow the developer to specify which one!
@@ -1598,10 +1598,12 @@ class: lab
 
 ## Equivalence .note[~2h, 2nd home assignement]
 
-1. Design and implement a class that represents $X = \mathcal{P}(\mathbb{R})$
+1. Design and implement a class that represents $X = \mathcal{M}(\mathbb{R})$
   - with a proper `equals()`
   - with a proper `toString()`
   - with a proper constructor that takes 0+ values $\in \mathbb{R}$
-2. Write an application that reads from stdin two comma-separated list of real numbers, creates $x_1, x_2 \in X$, and outputs a text message saying if $x_1, x_2$ are the same or not
+2. Write an application that reads from stdin two comma-separated lists of real numbers, creates $x_1, x_2 \in X$, and outputs a text message saying if $x_1, x_2$ are the same or not
 
-.note[There are other ways for implementing multisets (and sets, sequences, ...); we'll see them]
+.note[There are other ways for implementing multisets (and sets, sequences, ...); we'll see them.]
+
+.note[Do not use the collection framework. Do not use [Guava `Multiset`](https://guava.dev/releases/18.0/api/docs/com/google/common/collect/Multiset.html)]
