@@ -69,7 +69,9 @@ var DiagramTransformer = {
           x +
           '" y="' +
           (y - (this.constants.charHeight / 2 + this.constants.refRadius)) +
-          '" class="refLabel">' +
+          '" class="refLabel ' +
+          className +
+          '">' +
           label +
           "</text>";
       }
@@ -115,7 +117,9 @@ var DiagramTransformer = {
           (x + w / 2) +
           '" y="' +
           (y - this.constants.charHeight / 2) +
-          '" class="typeLabel">' +
+          '" class="typeLabel ' +
+          className +
+          '">' +
           typeLabel +
           "</text>";
       }
@@ -125,7 +129,9 @@ var DiagramTransformer = {
           (x + w / 2) +
           '" y="' +
           (y + 10 + this.constants.charHeight / 2) +
-          '" class="contentLabel">' +
+          '" class="contentLabel ' +
+          className +
+          '">' +
           contentLabel +
           "</text>";
       }

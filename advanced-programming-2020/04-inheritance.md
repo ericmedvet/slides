@@ -1458,7 +1458,7 @@ Equiv. of $x_1, x_2$ considers:
 ]
 ]
 
-.note[$X$ is the class, $x \in X$ is the object]  
+.note[$X$ "is" the class, $x \in X$ is the object]  
 .note[$\mathcal{M}(A)$ is my notation for the set of **multisets** built with elements of the set $A$.]
 
 ---

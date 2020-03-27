@@ -137,6 +137,10 @@ img {
   fill: #812815;
   font-size: 85%;
 }
+.diagram .invisible {
+  fill-opacity: 0.33;
+  stroke-opacity: 0.33;
+}
 .excercise::before {
   font-weight: bolder;
   color: white;
