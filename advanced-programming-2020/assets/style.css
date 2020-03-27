@@ -1,12 +1,14 @@
-@import url(https://fonts.googleapis.com/css?family=Livvic:400,400i,700,700i|Roboto+Mono:400,700,400i);
+@import url("https://fonts.googleapis.com/css?family=Livvic:400,400i,700,700i|Roboto+Mono:400,700,400i");
 body {
-  font-family: 'Livvic';
+  font-family: "Livvic";
 }
 .remark-slide-content {
   font-size: 24px;
 }
-h1, h2, h3 {
-  font-family: 'Livvic';
+h1,
+h2,
+h3 {
+  font-family: "Livvic";
   font-weight: normal;
 }
 h1 {
@@ -22,8 +24,9 @@ code {
 pre {
   margin: 0.1em 0;
 }
-.remark-code, .remark-inline-code {
-  font-family: 'Roboto Mono';
+.remark-code,
+.remark-inline-code {
+  font-family: "Roboto Mono";
 }
 .remark-inline-code {
   color: #812815;
@@ -80,7 +83,7 @@ img {
 .footnote {
   position: absolute;
   bottom: 2.5em;
-  font-size: 75%
+  font-size: 75%;
 }
 .ref {
   font-style: italic;
@@ -95,7 +98,7 @@ img {
   border-radius: 0.5em;
 }
 .important {
-  background-color: #FF5733;
+  background-color: #ff5733;
   padding: 0.5em;
   font-size: 150%;
   border-radius: 0.5em;
@@ -106,36 +109,53 @@ img {
   font-size: 75%;
 }
 .note::before {
-  content: '(';
+  content: "(";
 }
 .note::after {
-  content: ')';
+  content: ")";
 }
 .diagram .obj {
-  fill: #FCF3CF;
-  stroke: #F1C40F;
-  stroke-width:2;
+  fill: #fcf3cf;
+  stroke: #f1c40f;
+  stroke-width: 2;
+}
+.diagram .zone {
+  fill: none;
+  stroke: #999999;
+  stroke-width: 2;
+  stroke-dasharray: 4 2;
 }
 .diagram .link {
-  stroke: #F1C40F;
-  stroke-width:2;
+  stroke: #f1c40f;
+  stroke-width: 2;
   fill: none;
 }
 .diagram .ref {
-  fill: #F1C40F;
+  fill: #f1c40f;
 }
 .diagram .null {
-  fill: #EEEEEE;
-  stroke: #AAAAAA;
+  fill: #eeeeee;
+  stroke: #aaaaaa;
+}
+.diagram text {
+  dominant-baseline: middle;
+  font-size: 85%;
+}
+.diagram .zoneLabel {
+  fill: #999999;
+  font-size: 85%;
 }
 .diagram .refLabel,
 .diagram .typeLabel,
 .diagram .contentLabel {
-  dominant-baseline: middle;
-  text-anchor: middle;
-  font-family: 'Roboto Mono';
+  text-anchor: middle;  
+}
+.diagram .refLabel,
+.diagram .typeLabel,
+.diagram .contentLabel,
+.diagram .zoneLabel.code {
+  font-family: "Roboto Mono";
   fill: #812815;
-  font-size: 85%;
 }
 .diagram .invisible {
   fill-opacity: 0.33;
@@ -146,14 +166,14 @@ img {
   color: white;
   background-color: green;
   padding: 0.2em;
-  content: 'for you';
+  content: "for you";
   margin-right: 0.5em;
   border-radius: 5px;
   float: right;
 }
 .exercise {
   margin-top: 1em;
-  background-color: #DAF7A6;
+  background-color: #daf7a6;
   padding: 0.5em;
   border-radius: 0.5em;
 }
@@ -162,19 +182,19 @@ img {
   font-size: 75%;
 }
 .question::before {
-  content: '[';
+  content: "[";
 }
 .question::after {
-  content: ']';
+  content: "]";
 }
 .javadoc {
-  font-family: 'DejaVu Serif', Georgia, "Times New Roman", Times, serif;
+  font-family: "DejaVu Serif", Georgia, "Times New Roman", Times, serif;
   border: 1px solid #2c4557;
   font-size: 50%;
   padding: 0.25em;
 }
 .javadoc.head {
-  font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
+  font-family: "DejaVu Sans", Arial, Helvetica, sans-serif;
   padding: 0.25em;
 }
 .javadoc.head .def {
@@ -183,7 +203,7 @@ img {
   font-size: 150%;
 }
 .javadoc.head .pack {
-  color: #4A6782;
+  color: #4a6782;
 }
 .javadoc.head .indent {
   width: 2em;
@@ -199,24 +219,25 @@ img {
 .javadoc thead th {
   background: #dee3e9;
   text-align: left;
-  font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
+  font-family: "DejaVu Sans", Arial, Helvetica, sans-serif;
 }
 .javadoc tbody tr td:nth-child(1),
 .javadoc tbody tr td:nth-child(2),
-.javadoc .remark-code, .javadoc .remark-inline-code {
-  font-family: 'DejaVu Sans Mono', monospace;
+.javadoc .remark-code,
+.javadoc .remark-inline-code {
+  font-family: "DejaVu Sans Mono", monospace;
   color: black;
   font-size: 85%;
 }
 .javadoc tbody tr td:nth-child(1),
 .javadoc tbody tr td:nth-child(2) {
-  color: #4A6782;
+  color: #4a6782;
 }
 .javadoc tbody tr:nth-last-of-type(2n) {
-  background: #FFFFFF;
+  background: #ffffff;
 }
-.javadoc tbody tr:nth-last-of-type(2n+1) {
-  background: #EEEEEE;
+.javadoc tbody tr:nth-last-of-type(2n + 1) {
+  background: #eeeeee;
 }
 .javadoc td {
   margin: 0;
@@ -225,15 +246,16 @@ img {
 }
 
 .arrow::before {
-  content: '→';
+  content: "→";
   font-weight: bolder;
   font-size: 150%;
 }
 
 .remark-slide-content.lab {
-  background-color: #DAF7A6;;
+  background-color: #daf7a6;
 }
 
-svg { /*TODO: remove me, I'm here for debug*/
+svg {
+  /*TODO: remove me, I'm here for debug*/
   /* border: 1px dashed red; */
 }

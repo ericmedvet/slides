@@ -1,6 +1,7 @@
 class: middle, center
 
 ## Write your first class
+
 ### (and some other key concept)
 
 ---
@@ -16,6 +17,7 @@ Write an application that, given a word $w$ and a number $n$, gives $n$ anagrams
 "Write an application that, given a word $w$ and a number $n$, gives $n$ anagrams of $w$."
 
 Natural language is ambiguous: this description leaves a lot of choices (and hence **responsability**) to the designer/developer:
+
 - "an application": for which platform? are there technological constraints? (tech)
 - "given": how? command line? file? standard input? (tech)
 - "a word $w$": what is a word? (domain)
@@ -30,6 +32,7 @@ Natural language is ambiguous: this description leaves a lot of choices (and hen
 ### More precise goal
 
 In this particular case:
+
 - a Java application, i.e., a class with a `main()`
 - $w$ via standard input, $n$ via command line (customer)
 - a word is a non-empty sequence of word characters (regex `[A-Za-z]+`)
@@ -44,6 +47,7 @@ In this particular case:
 class: center, middle
 
 ## Basic building blocks
+
 ### for achieving the goal
 
 ---
@@ -51,10 +55,11 @@ class: center, middle
 ## Execution flow control
 
 Usual constructs available:
+
 - `if` `then` `else`
 - `while`
-- `for`*
-- `switch`*
+- `for`\*
+- `switch`\*
 - `break`
 - `continue`
 - `return`
@@ -68,10 +73,12 @@ I assume you know them!
 ## Basic I/O
 
 Where:
+
 - input from standard input (aka stdin, typically, "the keyboard")
 - output to standard output (aka stdout)
 
 Of what:
+
 - `String`
 - primitive types
 
@@ -156,6 +163,7 @@ Class [`Integer`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/j
 ]
 
 Similar for other primitive types:
+
 - `Float.parseFloat(String)`
 - `Double.parseDouble(String)`
 - ...
@@ -165,6 +173,7 @@ Similar for other primitive types:
 ## Arrays
 
 Array: fixed-length **sequence** of objects of the **same type**
+
 - each object is accessed with the operator `[]` applied to the reference to the array
 - 0-based indexing
 
@@ -187,6 +196,7 @@ String[] firstNames;
 String[] lastNames = new String[3];
 lastNames[1] = new String("Medvet");
 ```
+
 .center.diagram[
 ref(0,20,'firstNames')
 ref(0,80,'lastNames')
@@ -203,10 +213,12 @@ link([170,100,170,140,280,140,280,80,300,80])
 ### Conventions
 
 Name of arrays (i.e., identfiers of references to arrays):
+
 - plural form of the corresponding reference
   - `Person[] persons`, `Person[] employees`, ...
 
 Definition:
+
 - `Person persons[]` is the same of `Person[] persons`, but the latter **is much better**:
   - it makes evident that the **type** is an array, rather than the identifier
 
@@ -218,7 +230,9 @@ Definition:
 String[] dogNames = {"Simba", "Gass"};
 //same of new String[]{"Simba", "Gass"}
 ```
+
 is the same of
+
 ```java
 String[] dogNames = new String[2];
 dogNames[0] = "Simba"; //same of = new String("Simba");
@@ -230,6 +244,7 @@ dogNames[1] = "Gass";
 ## Array lenght
 
 The type array has a field `length` of type `int` that contains the array size:
+
 - never changes for the a given array
 - cannot be written
 
@@ -247,6 +262,7 @@ System.out.println(`dogNames.length`); //prints 3
 ## Iterating over array elements
 
 "Traditional" `for` syntax:
+
 ```java
 String[] dogNames = {"Simba", "Gass"};
 for (int i = 0; i<dogNames.length; i++) {
@@ -255,12 +271,14 @@ for (int i = 0; i<dogNames.length; i++) {
 ```
 
 Enhanced `for` (or for-each) syntax:
+
 ```java
 String[] dogNames = {"Simba", "Gass"};
 for (`String dogName : dogNames`) {
   System.out.println("A dog name is " + dogName);
 }
 ```
+
 - the index is not available inside the loop
 - can be applied to other types too (we'll see)
 
@@ -269,16 +287,19 @@ for (`String dogName : dogNames`) {
 ## Varargs
 
 In a signature of a method, the **last input parameter**, if of type array, can be specified with the `...` syntax instead of `[]`:
+
 ```java
 public static double max(double... values) { /* 1 ... */}
 ```
 
 From the inside, exactly the same of `[]`:
+
 ```java
 public static double max(double[] values) { /* 2 ... */}
 ```
 
 From the outside, i.e., where the method is invoked, `...` enables invokation with variable number of parameters (of the same type):
+
 ```java
 double max = max(4, 3.14, -1.1); //values ≅ double[3]; OK for 1
 max = max(); //values ≅ double[0]; OK for 1
@@ -300,6 +321,7 @@ public static double max(double... values) {
   return max;
 }
 ```
+
 .note[`condition ? expr1 : expr2` is the ternary operator.]
 
 - .question[Of which class might be a method?]
@@ -318,19 +340,22 @@ public static int intersectionSize(String... as, String... bs) {
 
 intersectionSize("hello", "world", "cruel", "world");
 ```
+
 What is `as` and what is `bs`?
+
 - undecidable!
 
 Java designers could have allowed for some exceptional case that, under some conditions, are not misinterpretable:
+
 - `method(ClassA..., ClassC)`
 - `method(ClassA..., ClassB...)`
 
-But they opted for **clarity at the expense of expressiveness**.
----
+## But they opted for **clarity at the expense of expressiveness**.
 
 ## Command line arguments
 
 Available as content of `main` only arguments:
+
 ```java
 public class ArgLister {
   public static void main(String[] args) {
@@ -346,6 +371,7 @@ eric@cpu:~$ java ArgLister Hello World
 Hello
 World
 ```
+
 .note[Possible limitations and syntax variations depending on the host OS]
 
 ---
@@ -374,7 +400,7 @@ link([0,20,100,20])
 ref(140,40,'0')
 ref(170,40,'1')
 obj(300,0,140,40,'String','"Hello"')
-link([140,40,140,100,280,100,280,20,300,20])
+link([140,40,140,100,280,100,280,85,'j5','n',280,20,300,20])
 obj(500,0,140,40,'String','"World"')
 link([170,40,170,80,480,80,480,20,500,20])
 ]
@@ -384,6 +410,7 @@ link([170,40,170,80,480,80,480,20,500,20])
 ## Operating with `String`s
 
 Creation (`String` constructors):
+
 - empty: `String s = new String();`
 - specified: `String s = new String("hi!");`
   - the same of `String s = "hi!";`
@@ -457,7 +484,6 @@ Apparently!
 
 <iframe width="100%" height="500" src="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html#concat(java.lang.String)"></iframe>
 
-
 ---
 
 ### Immutable `String`s: diagram
@@ -479,26 +505,30 @@ firstInit.concat(middleInit).concat(lastInit);
 
 .exercise[
 Draw the diagram
+
 - after the line starting with `String[]`
 - after the last line
-]
+  ]
 
 ---
 
 ## Concatenation
 
 Besides `concat()`, `+` operator (alternative syntax):
+
 ```java
 String s1 = "today is ";
 String s2 = s1.concat(" Tuesday").concat("!");
 ```
 
 2nd line is the same of:
+
 ```java
 String s2 = s1 + " Tuesday" + "!";
 ```
 
 `+` is associative on the left:
+
 - `"today is Tuesday"` is obtained before `"today is Tuesday!"`
 
 ---
@@ -506,6 +536,7 @@ String s2 = s1 + " Tuesday" + "!";
 ## `String +` other type
 
 If one of the operands of `+` is of type `String` then, at runtime:
+
 - a `String` representation of the operand is obtained
 - the concatenation of the two `String`s is done
 
@@ -513,6 +544,7 @@ If one of the operands of `+` is of type `String` then, at runtime:
 int age = 41;
 String statement = "I'm " + age + " years old";
 ```
+
 .question[What are the `String` and the non-`String` operands?]
 
 For the case when the non-`String` operand is not a primitive type, we'll see the underlying mechanism in detail.
@@ -522,6 +554,7 @@ For the case when the non-`String` operand is not a primitive type, we'll see th
 ## Primitive types
 
 A few differences with respect to classes:
+
 - they are not created with `new`
 - they do not have methods (no constructors) and fields
   - no dot notation
@@ -544,6 +577,7 @@ double k = 3 * d - Math.sqrt(4.11);
 ## Initialization of primitive types
 
 If not explicitly initialized:
+
 - if field of an object, initialized to default value
   - 0 for numbers, `false` for `boolean`
 - if local variable, code does not compile
@@ -551,7 +585,9 @@ If not explicitly initialized:
 ---
 
 ## Initialization of arrays of primitive types
+
 Consistently, for arrays:
+
 - elements of primitive type arrays are initialized to default value
 
 ```java
@@ -570,8 +606,8 @@ ref(200,40,'2')
 obj(300,0,80,40,'double','0.0')
 obj(420,0,80,40,'double','0.0')
 obj(540,0,80,40,'double','0.0')
-link([140,40,140,100,280,100,280,20,300,20])
-link([170,40,170,90,400,90,400,20,420,20])
+link([140,40,140,100,280,100,'j15','n',280,20,300,20])
+link([170,40,170,90,400,90,'j10','n',400,20,420,20])
 link([200,40,200,80,520,80,520,20,540,20])
 ]
 
@@ -607,6 +643,7 @@ public class Greeter {
   }
 }
 ```
+
 .center.diagram[
 ref(0,20,'greet')
 obj(100,0,140,40,'String','"Hello"')
@@ -625,10 +662,12 @@ Assign operator `=` copies the content, instead of referencing the same object.
 
 .cols[
 .c50[
+
 ```java
 String s1 = "hello!";
 String s2 = s1;
 ```
+
 .center.diagram[
 ref(0,20,'s1')
 obj(100,0,140,40,'String','"hello!"')
@@ -638,10 +677,12 @@ link([0,100,100,20])
 ]
 ]
 .c50[
+
 ```java
 double d1 = 3.14;
 double d2 = d1;
 ```
+
 .center.diagram[
 ref(0,20,'d1')
 obj(100,0,100,40,'double','3,14')
@@ -662,10 +703,12 @@ link([0,100,100,100])
 A special "value" that can be referenced by a reference of any non-primitive type.
 
 Fields:
+
 - non-primitive fields are implicitly set to `null`
 - recall: primitive fields are set to their default values
 
 Local variables:
+
 - if not initialized, compilation error!
 
 ---
@@ -676,11 +719,13 @@ A reference referencing `null` is (approx.) not referencing anything.
 
 .cols[
 .c50[
+
 ```java
 String s1 = "hi";
 String s2 = null;
 String s3 = null;
 ```
+
 .center.diagram[
 ref(0,20,'s1')
 obj(100,0,140,40,'String','"hi"')
@@ -694,6 +739,7 @@ ref(0,140,'s3')
 .note[`null` is not of any particular type; we will omit gray part of the diagram]
 ]
 .c50[
+
 ```java
 public class Greeter {
   private String s1 = "hi";
@@ -702,6 +748,7 @@ public class Greeter {
   private int n;
 }
 ```
+
 .center.diagram[
 ref(0,20,'s1')
 obj(100,0,140,40,'String','"hi"')
@@ -728,6 +775,7 @@ String s2 = s1;
 s1 = null;
 boolean isNull = s1 == null;
 ```
+
 .center.diagram[
 ref(0,20,'s1')
 obj(100,0,140,40,'String','"hi"')
@@ -761,6 +809,7 @@ class: middle center
 Your code is **your representation** of a problem and its solution.
 
 When someone looks at your code, she/he is entering your mind:
+
 - messy code .arrow[] messy representation .arrow[] messy mind .arrow[] messy you!
 - **do you want to look messy?**
   - to your collaborator, your boss, your employee
@@ -771,12 +820,14 @@ When someone looks at your code, she/he is entering your mind:
 ## Code review
 
 At least 4 sources of mess (increasingly harder to spot):
+
 - code formatting
 - naming
 - implementation of algorithm
 - algorithm
 
 **Code review** .arrow[] the process of checking the code by looking at the **source code**:
+
 - routinely performed within big tech companies
 - there is a "IEEE Standard for Software Reviews and Audits" (IEEE 1028-2008)
 - not cheap!
@@ -788,14 +839,17 @@ class: lab
 ## Anagrams .note[~2h, 1st home assignement]
 
 Write an application that, given a word $w$ and a number $n$, gives $n$ anagrams of $w$.
-  - multiset of permutations of multiset (i.e., with repetitions)
-  - with capitalized anagrams
+
+- multiset of permutations of multiset (i.e., with repetitions)
+- with capitalized anagrams
 
 Hints:
+
 - take inspiration from the Internet
   - but please make at least the effort of finding the proper search query
 - if you already master "advanced" Java features, try to ignore them, at least initially
 
 If/when done:
-  1. redo it on a full, desktop IDE
-  2. profile your code
+
+1. redo it on a full, desktop IDE
+2. profile your code

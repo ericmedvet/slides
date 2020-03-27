@@ -149,6 +149,44 @@ var DiagramTransformer = {
         code: code
       };
     },
+    zone: function(x, y, w, h, label, className) {
+      className = className ? className : "";
+      var code = "";
+      code +=
+        '<rect x="' +
+        x +
+        '" y="' +
+        y +
+        '" width="' +
+        w +
+        '" height="' +
+        h +
+        '" class="zone ' +
+        className +
+        '"/>';
+      if (label) {
+        code +=
+          '<text x="' +
+          (x + this.constants.charWidth) +
+          '" y="' +
+          (y - this.constants.charHeight / 2) +
+          '" class="zoneLabel ' +
+          className +
+          '">' +
+          label +
+          "</text>";
+      }
+      return {
+        minX: x,
+        maxX: Math.max(
+          x + w,
+          x + this.constants.charWidth + this.constants.charWidth * label.length
+        ),
+        minY: y - this.constants.charHeight,
+        maxY: y + h,
+        code: code
+      };
+    },
     link: function(coords, className) {
       className = className ? className : "";
       var minX = Number.MAX_VALUE;
@@ -156,15 +194,67 @@ var DiagramTransformer = {
       var minY = Number.MAX_VALUE;
       var maxY = -Number.MAX_VALUE;
       var code = "";
-      code += '<polyline points="';
+      code += '<path d="';
       for (var i = 0; i < Math.floor(coords.length / 2); i++) {
-        var x = parseFloat(coords[i * 2]);
-        var y = parseFloat(coords[i * 2 + 1]);
-        minX = Math.min(minX, x);
-        maxX = Math.max(maxX, x);
-        minY = Math.min(minY, y);
-        maxY = Math.max(maxY, y);
-        code += x + "," + y + " ";
+        var command = "L";
+        if (i == 0) {
+          command = "M";
+        }
+        if (!isFinite(coords[i * 2]) && coords[i * 2].startsWith("j")) {
+          var lastX = parseFloat(coords[(i - 1) * 2]);
+          var lastY = parseFloat(coords[(i - 1) * 2 + 1]);
+          var radius = parseFloat(coords[i * 2].substring(1));
+          var direction = coords[i * 2 + 1];
+          if (direction == "n") {
+            code +=
+              "A" +
+              radius +
+              "," +
+              radius +
+              " 0 0,0 " +
+              lastX +
+              "," +
+              (lastY - 2 * radius);
+          } else if (direction == "e") {
+            code +=
+              "A" +
+              radius +
+              "," +
+              radius +
+              " 0 0,0 " +
+              (lastX + 2 * radius) +
+              "," +
+              lastY;
+          } else if (direction == "s") {
+            code +=
+              "A" +
+              radius +
+              "," +
+              radius +
+              " 0 0,0 " +
+              lastX +
+              "," +
+              (lastY + 2 * radius);
+          } else if (direction == "w") {
+            code +=
+              "A" +
+              radius +
+              "," +
+              radius +
+              " 0 0,0 " +
+              (lastX - 2 * radius) +
+              "," +
+              lastY;
+          }
+        } else {
+          var x = parseFloat(coords[i * 2]);
+          var y = parseFloat(coords[i * 2 + 1]);
+          minX = Math.min(minX, x);
+          maxX = Math.max(maxX, x);
+          minY = Math.min(minY, y);
+          maxY = Math.max(maxY, y);
+          code += command + x + "," + y + " ";
+        }
       }
       code += '" class="link ' + className + '"/>';
       return {
