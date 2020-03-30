@@ -1,4 +1,4 @@
-non-primiclass: center, middle
+class: center, middle
 
 ## More on
 
@@ -655,11 +655,12 @@ Many other differences that we do not need to know.
 Stored in heap:
 - every **non-primitive object**
   - everything that is created with `new`
-- every **primitive field** (aka instance variable)
+  - with its **fields**, primitive and non-primitive
 
 Stored in stack:
 - every **reference**
-- every **primitive object not being a field** (aka argument and local variables)
+- every **primitive object not being a field**
+- i.e., argument and local variables
 
 ---
 
@@ -688,6 +689,51 @@ This explains the differences:
 
 ---
 
+### Primitive like references
+
+.diagram.center[
+obj(0,0,80,40,'int i','26')
+obj(200,0,100,40,'String* s','0xAAF3')
+text(320,20,'=')
+ref(350,20,'s')
+link([360,20,390,20])
+]
+
+`String*` `0xAAF3` references the `String` stored at `0xAAF3` in the heap.
+We'll continue to use the previous notation.
+
+Primitive types has a precise size in memory:
+
+.cols[
+.c30[
+| Type | Size |
+| --- | --- |
+| `byte` | 1 byte |
+| `short` | 2 bytes |
+| `int` | 4 bytes |
+| `long` | 8 bytes |
+]
+.c30[
+| Type | Size |
+| --- | --- |
+| `float` | 4 bytes |
+| `double` | 8 bytes |
+| `char` | 2 bytes |
+| `boolean` | * |
+]
+.c40[
+**Also references**!
+
+4 bytes (heap < 32 GB)  
+8 bytes (heap ≥ 32 GB)
+]
+]
+.note[\*: JVM dependent]
+
+.arrow[] JVM knows in advance how much stack reserve for a method invocation!
+
+---
+
 ## Diagram: updated syntax
 
 ```java
@@ -707,12 +753,10 @@ zone(20,200,220,80,'main()','code')
 obj(40,230,60,40,'int l','1')
 ref(200,250,'args')
 link([210,250,260,250,260,110,280,110])
-obj(280,80,160,60,'String[]','')
+obj(280,70,160,70,'String[]','')
 ref(300,120,'0')
 ref(330,120,'1')
-ref(400,120,'length')
-obj(480,100,60,40,'int','2')
-link([410,120,480,120])
+obj(380,100,40,35,'length',2)
 obj(360,170,100,40,'String','"eric"')
 obj(360,240,100,40,'String','"simba"')
 link([300,130,300,190,360,190])
@@ -762,10 +806,8 @@ zone(270,-30,320,320,'Heap')
 zone(20,220,220,60,'main()','code')
 ref(200,260,'args')
 link([210,260,300,260])
-obj(300,220,120,60,'String[]','')
-ref(380,260,'length')
-link([390,260,450,260])
-obj(450,240,60,40,'int','0')
+obj(300,220,120,65,'String[]','')
+obj(360,245,40,35,'length','0')
 zone(20,110,220,80,'run()','code')
 ref(200,170,'name')
 link([210,170,300,170])
@@ -817,10 +859,8 @@ zone(270,-30,320,320,'Heap')
 zone(20,220,220,60,'main()','code')
 ref(200,260,'args')
 link([210,260,300,260])
-obj(300,220,120,60,'String[]','')
-ref(380,260,'length')
-link([390,260,450,260])
-obj(450,240,60,40,'int','0')
+obj(300,220,120,65,'String[]','')
+obj(360,245,40,35,'length','0')
 zone(20,110,220,80,'run()','code')
 ref(200,170,'name')
 link([210,170,300,170])
@@ -878,10 +918,8 @@ zone(270,-30,320,320,'Heap')
 zone(20,220,220,60,'main()','code')
 ref(200,260,'args')
 link([210,260,300,260])
-obj(300,220,120,60,'String[]','')
-ref(380,260,'length')
-link([390,260,450,260])
-obj(450,240,60,40,'int','0')
+obj(300,220,120,65,'String[]','')
+obj(360,245,40,35,'length','0')
 zone(20,110,220,80,'run()','code')
 ref(200,170,'name')
 link([210,170,300,170])
@@ -892,15 +930,204 @@ obj(30,140,60,40,'int n','2')
 
 ---
 
-<!--
-show last diagram again
-- say stack block freed
-  - say that block are stacked
-- say what about "simba"?
--->
+## Freeing the memory
 
-<!-- mention fixed size per block -->
+.center.diagram[
+zone(10,-30,240,320,'Stack')
+zone(270,-30,320,320,'Heap')
+zone(20,220,220,60,'main()','code')
+ref(200,260,'args')
+link([210,260,300,260])
+obj(300,220,120,65,'String[]','')
+obj(360,245,40,35,'length','0')
+zone(20,110,220,80,'run()','code')
+ref(200,170,'name')
+link([210,170,300,170])
+obj(300,150,120,40,'String','"simba "')
+obj(300,30,120,40,'String','"simba"')
+obj(30,140,60,40,'int n','2')
+zone(20,0,220,80,'doThings()','code invisible')
+obj(30,30,60,40,'int p','2','invisible')
+obj(100,30,60,40,'int l','5','invisible')
+ref(180,50,'s','invisible')
+link([180,60,180,100,260,100,260,160,280,160,300,170],'invisible')
+ref(220,50,'s2','invisible')
+link([230,50,300,50],'invisible')
+]
 
-<!-- mention different errors when full -->
+- `doThings()` block in the stack freed just after invocation
+- `String "simba"` no more referenced, hence useless .arrow[] **garbage**
+  - who/when/how frees the corresponding heap space?
+
+---
+
+## Garbage
+
+.cols[
+.c50[
+```java
+public class Person {
+  private int age;
+  private String name;
+  private Person[] friends;
+}
+```
+]
+.c50[
+```java
+//main()
+Person eric = new Person();
+```
+]
+]
+
+.diagram.center[
+zone(10,-30,240,320,'Stack')
+zone(270,-30,320,320,'Heap')
+zone(20,220,220,60,'main()','code')
+obj(280,100,220,70,'Person','')
+obj(290,130,40,35,'age','0')
+ref(370,150,'name')
+ref(450,150,'friends')
+ref(200,260,'eric')
+link([210,260,260,260,260,135,280,135])
+]
+
+---
+
+## Complex garbage
+
+.diagram.center[
+zone(10,-110,140,410,'Stack')
+zone(160,-110,600,410,'Heap')
+zone(20,230,120,60,'main()','code')
+obj(170,-80,220,70,'Person','')
+obj(180,-60,40,35,'age','41')
+ref(260,-40,'name')
+ref(340,-40,'friends')
+obj(180,30,100,40,'String','"Eric"')
+obj(300,30,90,60,'Person[]','')
+ref(320,70,'0')
+ref(360,70,'1')
+link([260,-30,260,0,170,0,170,50,180,50])
+link([340,-30,340,0,290,0,290,60,300,60])
+obj(470,-80,220,70,'Person','')
+obj(480,-60,40,35,'age','50')
+ref(560,-40,'name')
+ref(640,-40,'friends')
+obj(480,30,100,40,'String','"Jack"')
+obj(600,30,90,60,'Person[]','')
+ref(620,70,'0')
+link([560,-30,560,0,470,0,470,50,480,50])
+link([640,-30,640,0,590,0,590,60,600,60])
+obj(270,120,220,70,'Person','')
+obj(280,140,40,35,'age','38')
+ref(360,160,'name')
+ref(440,160,'friends')
+obj(280,230,100,40,'String','"Sara"')
+obj(400,230,90,60,'Person[]','')
+ref(420,270,'0')
+link([360,170,360,200,270,200,270,250,280,250])
+link([440,170,440,200,390,200,390,260,400,260])
+link([310,70,290,70,290,90,240,90,240,155,270,155])
+link([370,70,420,70,420,-55,460,-55,470,-45])
+link([620,80,620,95,260,95,260,145,270,155])
+link([430,270,500,270,500,100,'j5','n',500,80,460,80,460,-45,470,-45])
+ref(110,270,'sara')
+link([120,270,260,270,260,165,270,155])
+ref(50,270,'args')
+link([50,280,50,295,550,295,550,250,560,250])
+obj(560,230,100,40,'String[]','')
+]
+What is garbage here?
+.note[`length` field for arrays omitted]
+
+---
+
+## Garbage collection
+
+The JVM itself takes care of removing the garbage from the heap:
+- decides **when**
+- decides **what** garbage to remove
+- trafe-off between avoiding overhead and having some free space
+
+The component of the JVM doing this cleaning is the **garbage collector** (GC)
+- different GCs, different **how**
+
+---
+
+### `System.gc()`
+
+The developer may **suggest** the JVM to do garbage collection:
+
+`System` class:
+.javadoc.methods[
+| Type | Field | Description |
+| --- | --- | --- |
+| static void | gc() | Runs the garbage collector in the Java Virtual Machine. |
+]
+
+.javadoc[
+Runs the garbage collector in the Java Virtual Machine.
+
+Calling the `gc` method suggests that the Java Virtual Machine expend effort toward recycling unused objects in order to make the memory they currently occupy available for reuse by the Java Virtual Machine. When control returns from the method call, the Java Virtual Machine has made a best effort to reclaim space from all unused objects. There is no guarantee that this effort will recycle any particular number of unused objects, reclaim any particular amount of space, or complete at any particular time, if at all, before the method returns or ever.
+]
+
+Just a kind request...
+
+---
+
+## Before GC
+
+Before GC, the developer was responsible for freeing unused memory.
+- e.g., `malloc()` .arrow[] `free()`
+
+Responsability .arrow[] source of problems, when misbehavior
+- forget to call `free()` .arrow() out of memory
+- `free()` on wrong address .arrow() invalid write
+- write over than reserved `malloc()` .arrow() possible chaos
+
+No more problems with **automatic garbage collection**!
+
+---
+
+### GC: cost
+
+GC can be tricky:
+- unused objects can form graph, possibly acyclic: what is actually garbage?
+- garbage can be large
+
+Doing GC takes time!
+- "unpredictably" long
+- "unpredictable" when
+
+My be undesired in very specific scenarios.
+
+But:
+- you can "tune" your GC setting
+- you can ask for GC when the moment is suitable
+  - by calling `System.gc()` and hoping for the best
+
+---
+
+## Setting the size of available memory
+
+JVM (`java`) parameters:
+- heap
+  - starting size: `-Xms`
+  - max size: `-Xmx`
+- stack
+  - size: `-Xss`
+
+```bash
+eric@cpu:~$ java MyBigApplication -Xmx8G
+```
+
+When exceeded:
+- `java.lang.OutOfMemoryError: Java heap space`
+  - GC made the effort, but failed!
+- `java.lang.StackOverFlowError`
+
+<!-- wrappers -->
 
 <!-- getter and setter -->

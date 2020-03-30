@@ -29,6 +29,8 @@ Natural language is ambiguous: this description leaves a lot of choices (and hen
 
 ---
 
+name:exercise1-full-specs
+
 ### More precise goal
 
 In this particular case:
@@ -835,10 +837,12 @@ At least 4 sources of mess (increasingly harder to spot):
 ---
 
 class: lab
+name: exercise1
 
 ## Anagrams .note[~2h, 1st home assignement]
 
 Write an application that, given a word $w$ and a number $n$, gives $n$ anagrams of $w$.
+(Go to [detailed specifications](#exercise1-full-specs))
 
 - multiset of permutations of multiset (i.e., with repetitions)
 - with capitalized anagrams

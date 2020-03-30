@@ -67,6 +67,14 @@ More details at first assignment.
 
 ---
 
+#### List of home assignements
+
+Just for reference:
+1. [Anagrams](#exercise1)
+2. [Equivalence](#exercise2)
+
+---
+
 ### Project
 
 Project:

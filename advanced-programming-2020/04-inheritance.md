@@ -1596,6 +1596,7 @@ What if then the developer of `A` override `toString()`!
 ---
 
 class: lab
+name: exercise2
 
 ## Equivalence .note[~2h, 2nd home assignement]
 

@@ -187,6 +187,29 @@ var DiagramTransformer = {
         code: code
       };
     },
+    text: function(x, y, label, className) {
+      className = className ? className : "";
+      var code = "";
+      if (label) {
+        code +=
+          '<text x="' +
+          x +
+          '" y="' +
+          y +
+          '" class="textLabel ' +
+          className +
+          '">' +
+          label +
+          "</text>";
+      }
+      return {
+        minX: x - (this.constants.charWidth * label.length) / 2,
+        maxX: x + (this.constants.charWidth * label.length) / 2,
+        minY: y - this.constants.charHeight / 2,
+        maxY: y + y - this.constants.charHeight / 2,
+        code: code
+      };
+    },
     link: function(coords, className) {
       className = className ? className : "";
       var minX = Number.MAX_VALUE;
