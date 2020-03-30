@@ -1605,6 +1605,8 @@ name: exercise2
   - with a proper `toString()`
   - with a proper constructor that takes 0+ values $\in \mathbb{R}$
 2. Write an application that reads from stdin two comma-separated lists of real numbers, creates $x_1, x_2 \in X$, and outputs a text message saying if $x_1, x_2$ are the same or not
+  - user gives two separated inputs
+  - comma separates values within each input
 
 .note[There are other ways for implementing multisets (and sets, sequences, ...); we'll see them.]
 
