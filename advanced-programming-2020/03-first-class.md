@@ -352,7 +352,9 @@ Java designers could have allowed for some exceptional case that, under some con
 - `method(ClassA..., ClassC)`
 - `method(ClassA..., ClassB...)`
 
-## But they opted for **clarity at the expense of expressiveness**.
+But they opted for **clarity at the expense of expressiveness**.
+
+---
 
 ## Command line arguments
 

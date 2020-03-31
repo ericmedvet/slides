@@ -13,7 +13,7 @@ public class Person {
   private String name;
   public Person(String name) { this.name = name; }
   public String getName(){ return name; }
-  public String setName(String name){ this.name = name; }
+  public void setName(String name){ this.name = name; }
 }
 ```
 
@@ -164,7 +164,7 @@ Change is **not visible**!
 A modifier (keyword):
 
 - applicable to classes, methods, fields, variables
-- **static**: effects only at **compile time**
+- **static**: effects only at **compile-time**
 
 Different effects depending on type of definition:
 
@@ -381,7 +381,7 @@ In some cases, the IDE suggests to add the `final` modifier.
 public void capitalizeName(`final` Person p) {
   p.setName(
     p.getName().substring(0, 1).toUpperCase() +
-    p.getName().substring(1).toLowerCase() +
+    p.getName().substring(1).toLowerCase()
   );
 }
 ```
@@ -513,7 +513,7 @@ public String capitalize(final String string) {
   String capitalized = "";
   for (final String token : string.split(" ")) {
     String head = token.substring(0, 1);
-    String remaining = token.substring(1, 0);
+    String remaining = token.substring(1);
     capitalized = capitalized
       + head.toUpperCase() + remaining.toLowerCase() + " ";
   }
@@ -598,15 +598,17 @@ At B:
 ref(0,20,'name','invisible')
 obj(60,0,100,40,'String','"simba "')
 link([10,20,60,20],'invisible')
-ref(0,80,'p')
-obj(60,60,60,40,'int','2')
-link([10,80,60,80])
-ref(0,140,'s2')
-obj(60,120,100,40,'String','"simba"')
-link([10,140,60,140])
-ref(0,200,'l')
-obj(60,180,60,40,'int','5')
-link([10,200,60,200])
+ref(0,60,'s')
+link([10,60,60,20])
+ref(0,100,'p')
+obj(60,80,60,40,'int','2')
+link([10,100,60,100])
+ref(0,160,'s2')
+obj(60,140,100,40,'String','"simba"')
+link([10,160,60,160])
+ref(0,220,'l')
+obj(60,200,60,40,'int','5')
+link([10,220,60,220])
 ]
 ]
 .c30[
@@ -660,7 +662,7 @@ Stored in heap:
 Stored in stack:
 - every **reference**
 - every **primitive object not being a field**
-- i.e., argument and local variables
+- i.e., argument and local variables "created" within methods
 
 ---
 
@@ -750,7 +752,7 @@ zone(0,0,600,300,'JVM memory')
 zone(10,40,240,250,'Stack')
 zone(270,40,320,250,'Heap')
 zone(20,200,220,80,'main()','code')
-obj(40,230,60,40,'int l','1')
+obj(40,230,60,40,'int l','2')
 ref(200,250,'args')
 link([210,250,260,250,260,110,280,110])
 obj(280,70,160,70,'String[]','')
