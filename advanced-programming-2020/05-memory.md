@@ -521,10 +521,19 @@ public String capitalize(final String string) {
 }
 ```
 
-Five identifiers:
+- Five identifiers: `string`, `capitalized`, `token`, `head`, `remaining`
+- Five different scopes
 
-- `string`, `capitalized`, `token`, `head`, `remaining`
-- five different scopes
+.question[What is the scope for each identifier (line of start, line of end)?]
+
+.question[Do you see other issues in this code? (At least 4...)]
+
+<!--
+1. returning always a trailing space
+2. not working with string == null
+3. not working with string containing empty tokens (e.g. "  ")
+4. should be static
+-->
 
 ---
 
@@ -1041,8 +1050,9 @@ ref(50,270,'args')
 link([50,280,50,295,550,295,550,250,560,250])
 obj(560,230,100,40,'String[]','')
 ]
-What is garbage here?
-.note[`length` field for arrays omitted]
+.note[`length` field for arrays omitted]  
+.question[What is garbage here?]
+
 
 ---
 
@@ -1130,6 +1140,186 @@ When exceeded:
   - GC made the effort, but failed!
 - `java.lang.StackOverFlowError`
 
-<!-- wrappers -->
+---
 
-<!-- getter and setter -->
+## Wrapper classes
+
+There are cases when it is better (or required) to operate on basic types as non-primitive rather than primitive.
+
+The JDK contains a set of **wrapper** classes, one for each primitive type:
+- they are **immutable** (like `String`s)
+- they can be stored in the heap
+
+Wrapper classes
+- `Integer` for `int`
+- `Double` for `double`
+- `Boolean` for `boolean`
+- `Character` for `char` .note[the only with different name]
+- ...
+
+.note[There's also a [`Void`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Void.html) class]
+
+---
+
+### Constants and constructor
+
+[`Integer`]() class: .note[the same for the others]
+
+.javadoc[
+The `Integer` class wraps a value of the primitive type `int` in an object. An object of type `Integer` contains a single field whose type is `int`.
+
+In addition, this class provides several methods for converting an `int` to a `String` and a `String` to an `int`, as well as other constants and methods useful when dealing with an `int`.
+]
+
+Constants:
+.javadoc.fields[
+| Modifier and type | Field | Description |
+| --- | --- | --- |
+| static int | BYTES | The number of bytes used to represent an `int` value in two's complement binary form. |
+| static int | MAX_VALUE | A constant holding the maximum value an `int` can have, 231-1. |
+| static int | MIN_VALUE | A constant holding the minimum value an `int` can have, -231. |
+]
+
+Constructors:
+.javadoc.constructors[
+| Constructor | Description |
+| --- | --- |
+| Integer​(int value) | **Deprecated.** It is rarely appropriate to use this constructor. |
+| Integer​(String s)	| **Deprecated.** It is rarely appropriate to use this constructor. |
+]
+
+---
+
+### Methods
+
+"Like" constructors:
+.javadoc.methods[
+| Modifier and type | Field | Description |
+| --- | --- | --- |
+| static int | parseInt​(String s) | Parses the string argument as a signed decimal integer. |
+| static int | parseInt​(String s, int radix) | Parses the string argument as a signed integer in the radix specified by the second argument. |
+| static Integer | valueOf​(int i) | Returns an `Integer` instance representing the specified `int` value. |
+]
+
+```java
+int n = Integer.parseInt("1100110", 2); // -> 102
+```
+
+Others:
+.javadoc.methods[
+| Modifier and type | Field | Description |
+| --- | --- | --- |
+| int | intValue() | Returns the value of this `Integer` as an `int`. |
+| long | longValue() | Returns the value of this `Integer` as a `long` after a widening primitive conversion. |
+]
+
+---
+
+## Autoboxing, autounboxing
+
+Compiler performs obvious implicit translations:
+```java
+public void doIntThings(int n) { /* ... */ }
+public void doIntegerThings(int n) { /* ... */ }
+```
+
+.cols[
+.c50[
+Original:
+```java
+Integer i = 3;
+doIntThings(i);
+```
+```java
+int n = 3;
+doIntegerThings(n);
+```
+```java
+Integer i = 2;
+i++;
+```
+]
+.c50[
+Translated:
+```java
+Integer i = `Integer.valueOf(3)`;
+doIntThings(`i.intValue()`);
+```
+```java
+int n = 3;
+doIntegerThings(`Integer.valueOf(n)`);
+```
+```java
+Integer i = `Integer.valueOf(2)`;
+*i = Integer.valueOf(i.intValue()+1);
+```
+]
+]
+
+In general, use `int` when possible!
+
+---
+
+### Diagram
+
+.cols[
+.c50[
+```java
+Integer i = Integer.valueOf(2);
+i = Integer.valueOf(i.intValue()+1);
+```
+.center.diagram[
+zone(0,0,100,170,'Stack')
+zone(120,0,150,170,'Heap')
+ref(50,130,'i')
+link([60,130,130,130])
+obj(130,110,130,50,'Integer')
+obj(200,120,40,30,'','2')
+]
+.center.diagram[
+zone(0,0,100,170,'Stack')
+zone(120,0,150,170,'Heap')
+ref(50,130,'i')
+link([60,130,110,130,110,50,130,50])
+obj(130,110,130,50,'Integer')
+obj(200,120,40,30,'','2')
+obj(130,30,130,50,'Integer')
+obj(200,40,40,30,'','3')
+]
+]
+.c50[
+```java
+int i = 2;
+i++;
+```
+.center.diagram[
+zone(0,0,100,170,'Stack')
+zone(120,0,150,170,'Heap')
+obj(30,120,60,40,'int i','2')
+]
+.center.diagram[
+zone(0,0,100,170,'Stack')
+zone(120,0,150,170,'Heap')
+obj(30,120,60,40,'int i','3')
+]
+]
+]
+
+---
+
+## Boxing and equals
+
+There is **no unboxing** for `==`!!!
+```java
+Integer n = 300;
+Integer m = 300;
+int k = 300;
+System.out.printf("n ?= m -> %b%n", `n==m`); // -> `false`!!!
+System.out.printf("n ?= k -> %b%n", `n==k`); // -> `true`!!!
+```
+
+.note[`%n` in `printf()` is translated to newline!]
+
+- In general, use `int` when possible!
+- If using `Integer`, use `==` with care!
+  - use `equals()`!

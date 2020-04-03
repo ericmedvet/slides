@@ -148,7 +148,7 @@ img {
 .diagram .refLabel,
 .diagram .typeLabel,
 .diagram .contentLabel {
-  text-anchor: middle;  
+  text-anchor: middle;
 }
 .diagram .refLabel,
 .diagram .typeLabel,
@@ -222,7 +222,7 @@ img {
   font-family: "DejaVu Sans", Arial, Helvetica, sans-serif;
 }
 .javadoc tbody tr td:nth-child(1),
-.javadoc tbody tr td:nth-child(2),
+.javadoc:not(.constructors) tbody tr td:nth-child(2),
 .javadoc .remark-code,
 .javadoc .remark-inline-code {
   font-family: "DejaVu Sans Mono", monospace;
@@ -230,13 +230,13 @@ img {
   font-size: 85%;
 }
 .javadoc tbody tr td:nth-child(1),
-.javadoc tbody tr td:nth-child(2) {
+.javadoc:not(.constructors) tbody tr td:nth-child(2) {
   color: #4a6782;
 }
-.javadoc tbody tr:nth-last-of-type(2n) {
+.javadoc tbody tr:nth-of-type(2n+1) {
   background: #ffffff;
 }
-.javadoc tbody tr:nth-last-of-type(2n + 1) {
+.javadoc tbody tr:nth-of-type(2n) {
   background: #eeeeee;
 }
 .javadoc td {
