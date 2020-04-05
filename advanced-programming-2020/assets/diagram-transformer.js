@@ -48,7 +48,8 @@ var DiagramTransformer = {
       padding: 5,
       charHeight: 20,
       charWidth: 12.5,
-      refRadius: 10
+      refRadius: 10,
+      cylYRadiusRatio: 0.075
     },
     ref: function(x, y, label, className) {
       className = className ? className : "";
@@ -146,6 +147,123 @@ var DiagramTransformer = {
           Math.max((this.constants.charWidth * typeLabel.length) / 2, w / 2),
         minY: y - this.constants.charHeight,
         maxY: y + h,
+        code: code
+      };
+    },
+    cyl: function(x, y, w, h, label, className) {
+      className = className ? className : "";
+      var code = "";
+      code += '<g>';
+      code +=
+        '<path d="M ' +
+        x +
+        "," +
+        y +
+        " L " +
+        x +
+        "," +
+        (y + h) +
+        " A " +
+        w / 2 +
+        "," +
+        w * this.constants.cylYRadiusRatio +
+        " 0 0,0 " +
+        (x + w) +
+        "," +
+        (y + h) +
+        " L " +
+        (x + w) +
+        "," +
+        y +
+        " A " +
+        w / 2 +
+        "," +
+        w * this.constants.cylYRadiusRatio +
+        " 0 0,0 " +
+        x +
+        "," +
+        y +
+        " A " +
+        w / 2 +
+        "," +
+        w * this.constants.cylYRadiusRatio +
+        " 0 0,0 " +
+        (x + w) +
+        "," +
+        y +
+        '" class="cyl ' +
+        className +
+        '"/>';
+      if (label) {
+        code +=
+          '<text x="' +
+          (x + w / 2) +
+          '" y="' +
+          (y +
+            10 +
+            w * this.constants.cylYRadiusRatio +
+            this.constants.charHeight / 2) +
+          '" class="contentLabel ' +
+          className +
+          '">' +
+          label +
+          "</text>";
+      }
+      code += '</g>';
+      return {
+        minX: x,
+        maxX: x + w,
+        minY: y - w * this.constants.cylYRadiusRatio,
+        maxY: y + h + w * this.constants.cylYRadiusRatio,
+        code: code
+      };
+    },
+    arrow: function(x, y, w, h, a, className) {
+      className = className ? className : "";
+      var code = "";
+      code +=
+        '<g transform="rotate(' +
+        a +
+        " " +
+        x +
+        " " +
+        y +
+        ')">' +
+        '<path d="M ' +
+        x +
+        "," +
+        y +
+        " m " +
+        -w / 4 +
+        "," +
+        -h / 2 +
+        " l 0," +
+        h / 2 +
+        " l " +
+        -w / 4 +
+        ",0" +
+        " l " +
+        w / 2 +
+        "," +
+        h / 2 +
+        " l " +
+        w / 2 +
+        "," +
+        -h / 2 +
+        " l " +
+        -w / 4 +
+        ",0" +
+        " l 0," +
+        -h / 2 +
+        'z" class="arrow ' +
+        className +
+        '"/></g>';
+      var r = Math.sqrt((w * w) / 4 + (h * h) / 4);
+      return {
+        minX: x - r,
+        maxX: x + r,
+        minY: y - r,
+        maxY: y + r,
         code: code
       };
     },

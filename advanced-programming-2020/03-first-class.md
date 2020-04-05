@@ -199,7 +199,7 @@ String[] lastNames = new String[3];
 lastNames[1] = new String("Medvet");
 ```
 
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'firstNames')
 ref(0,80,'lastNames')
 obj(100,60,140,60,'String[]','')
@@ -397,7 +397,7 @@ public class ArgLister {
 At the beginning of `main()` after `java ArgLister Hello World`
 .question[What inside the 1st and 2nd iteration of the `for` loop?]
 
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'args')
 obj(100,0,140,60,'String[]','')
 link([0,20,100,20])
@@ -599,7 +599,7 @@ int[] marks;
 double[] ages = new double[3];
 ```
 
-.center.diagram[
+.center.diagram.or[
 ref(0,-40,'marks')
 ref(0,20,'ages')
 obj(100,0,140,60,'double[]','')
@@ -648,7 +648,7 @@ public class Greeter {
 }
 ```
 
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'greet')
 obj(100,0,140,40,'String','"Hello"')
 link([0,20,100,20])
@@ -672,7 +672,7 @@ String s1 = "hello!";
 String s2 = s1;
 ```
 
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'s1')
 obj(100,0,140,40,'String','"hello!"')
 link([0,20,100,20])
@@ -687,7 +687,7 @@ double d1 = 3.14;
 double d2 = d1;
 ```
 
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'d1')
 obj(100,0,100,40,'double','3,14')
 link([0,20,100,20])
@@ -730,7 +730,7 @@ String s2 = null;
 String s3 = null;
 ```
 
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'s1')
 obj(100,0,140,40,'String','"hi"')
 link([0,20,100,20])
@@ -753,7 +753,7 @@ public class Greeter {
 }
 ```
 
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'s1')
 obj(100,0,140,40,'String','"hi"')
 link([0,20,100,20])
@@ -780,7 +780,7 @@ s1 = null;
 boolean isNull = s1 == null;
 ```
 
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'s1')
 obj(100,0,140,40,'String','"hi"')
 ref(0,80,'s2')
@@ -814,7 +814,7 @@ Your code is **your representation** of a problem and its solution.
 
 When someone looks at your code, she/he is entering your mind:
 
-- messy code .arrow[] messy representation .arrow[] messy mind .arrow[] messy you!
+- messy code $\rigtharrow$[] messy representation $\rigtharrow$[] messy mind $\rigtharrow$[] messy you!
 - **do you want to look messy?**
   - to your collaborator, your boss, your employee
   - to your teacher
@@ -830,7 +830,7 @@ At least 4 sources of mess (increasingly harder to spot):
 - implementation of algorithm
 - algorithm
 
-**Code review** .arrow[] the process of checking the code by looking at the **source code**:
+**Code review** $\rigtharrow$[] the process of checking the code by looking at the **source code**:
 
 - routinely performed within big tech companies
 - there is a "IEEE Standard for Software Reviews and Audits" (IEEE 1028-2008)

@@ -50,7 +50,7 @@ String s;
   - a reference has always a name!
 - no object is created
 ]
-.c40.center.vcentered.diagram[
+.c40.center.vcentered.diagram.or[
 ref(0,0,'s')
 ]
 ]
@@ -64,7 +64,7 @@ String s = new String("Content");
 - **create object** of type `String` and init it with `"Content"`
 - make `s` reference the new object
 ]
-.c40.center.vcentered.diagram[
+.c40.center.vcentered.diagram.or[
 ref(0,20,'s')
 obj(80,0,150,40,'String','"Content"')
 link([0,20,80,20])
@@ -82,7 +82,7 @@ String s2 = s1;
 - create reference `s1` and make it reference the new objects
 - create reference `s2` and make it reference the object referenced by `s1`
 
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'s1')
 ref(0,70,'s2')
 obj(80,0,150,40,'String','"Content"')
@@ -105,7 +105,7 @@ new String("Content2");
 - create object of type `String` and init it with `"Content1"`
 - create object of type `String` and init it with `"Content2"`
 
-.center.diagram[
+.center.diagram.or[
 obj(80,0,150,40,'String','"Content1"')
 obj(80,80,150,40,'String','"Content2"')
 ]
@@ -128,7 +128,7 @@ s1 = s2;
 .cols[
 .c50[
 After 2nd line:
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'s1')
 ref(0,90,'s2')
 obj(80,0,150,40,'String','"Content1"')
@@ -139,7 +139,7 @@ link([0,90,80,90])
 ]
 .c50[
 After 3rd line:
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'s1')
 ref(0,90,'s2')
 obj(80,0,150,40,'String','"Content1"')
@@ -276,7 +276,7 @@ int l = s.length();
 - create reference `l` of type `int`
 - make `l` reference the object created upon the execution of the operation
 
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'s')
 ref(0,90,'l')
 obj(80,0,150,40,'String','"Hello!"')
@@ -435,7 +435,7 @@ s = s.trim().toUpperCase();
 .cols[
 .c50[
 After 1st line:
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'s')
 obj(80,0,150,40,'String','" shout!"')
 link([0,20,80,20])
@@ -443,7 +443,7 @@ link([0,20,80,20])
 ]
 .c50[
 After 2nd line:
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'s')
 obj(80,0,150,40,'String','" shout!"')
 obj(80,70,150,40,'String','"shout!"')
@@ -497,8 +497,8 @@ Date laterThanNow = new Date();
 A class C can have more than one constructors:
 - at most one with the same input parameters
 - (the name and the return type are always the same)
-  - name: the very same name of the class (e.g., `Date` .arrow[] `Date()`)
-  - return type: C (e.g., `Date` .arrow[] `Date`)
+  - name: the very same name of the class (e.g., `Date` $\rigtharrow$[] `Date()`)
+  - return type: C (e.g., `Date` $\rigtharrow$[] `Date`)
 
 Class [`String`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html):
 .javadoc.constructors[
@@ -562,7 +562,7 @@ He/she **does not know**:
 
 The **state** of the object and the **code** of the class might change, but the user is **not required to be notified of changes**!
 
-.arrow[] **Modularity**: everyone takes care of only some part of the sofware!
+$\rigtharrow$[] **Modularity**: everyone takes care of only some part of the sofware!
 
 ---
 
@@ -644,7 +644,7 @@ Complex c1 = new Complex(7.46, -3.4567);
 Complex c2 = new Complex(0.1, 9.81);
 ```
 
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'c1')
 obj(100,0,150,40,'Complex','')
 link([0,20,100,20])
@@ -676,7 +676,7 @@ Complex c3 = c1.add(c2);
 double norm = c2.getNorm();
 ```
 
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'c1')
 obj(100,0,150,40,'Complex','')
 link([0,20,100,20])
@@ -725,7 +725,7 @@ Complex c1 = new Complex(1.1, 2.2);
 The fields of an object constitute its **state**.
 
 They are referenced, there is an identifier:
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'c1')
 obj(100,0,150,80,'Complex','')
 link([0,20,100,20])
@@ -1061,7 +1061,7 @@ Greeter g1 = new Greeter();
 Greeter g2 = new Greeter();
 ```
 
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'g1')
 obj(100,0,140,60,'Greeter','')
 link([0,20,100,20])
@@ -1162,9 +1162,9 @@ public class Greeter {
 }
 ```
 
-- `public` .arrow[] `main` has to be invoked "directly" by the JVM upon execution (`java Greeter`): it has to be accessible
-- `static` .arrow[] invokable without having an already existing instance of `Greeter`
-- `void` .arrow[] does not return anything
+- `public` $\rigtharrow$[] `main` has to be invoked "directly" by the JVM upon execution (`java Greeter`): it has to be accessible
+- `static` $\rigtharrow$[] invokable without having an already existing instance of `Greeter`
+- `void` $\rigtharrow$[] does not return anything
 
 `public static void main(String[])` is the signature **required** by Java if you want to use the method as an execution **entry point**!
   - only the name of the input parameter can be modified
@@ -1230,7 +1230,7 @@ Look at [`System`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/
 | static PrintStream | out | The "standard" output stream. |
 ]
 
-.arrow[] `out` is a field of type `PrintStream` that represents the **standard output**.
+$\rigtharrow$[] `out` is a field of type `PrintStream` that represents the **standard output**.
 
 .note[What's the standard output? "Typically this stream corresponds to display output or another output destination specified by the host environment or user."]
 

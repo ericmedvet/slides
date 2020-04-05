@@ -33,7 +33,7 @@ Teacher slides:
 
 Intended usage:
 - slides should contain every concept that has to be taught/learnt
-- **but**, slides are designed for consumption during a lecture, they might be suboptimal for self-consumption .arrow[] **take notes!**
+- **but**, slides are designed for consumption during a lecture, they might be suboptimal for self-consumption $\rigtharrow$[] **take notes!**
 
 ---
 
@@ -346,7 +346,7 @@ An example of the JVM specification, the instruction `iadd`:
 
 .big-quote[
 #### Operand Stack
-..., value1, value2 .arrow[]
+..., value1, value2 $\rigtharrow$[]
 ..., result
 #### Description
 Both value1 and value2 must be of type int. The values are popped from the operand stack. The int result is value1 + value2. The result is pushed onto the operand stack.
@@ -365,7 +365,7 @@ A `.class` executable can be executed on any machine for which a program exists 
 - on Solaris SPARC x64, with the `java` program for Solaris SPARC x64
 - Mac OS X, Windows, Android, ...
 
-.arrow[] **Write once, run anywhere**
+$\rigtharrow$[] **Write once, run anywhere**
 
 ---
 

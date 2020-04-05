@@ -114,52 +114,72 @@ img {
 .note::after {
   content: ")";
 }
-.diagram .obj {
-  fill: #fcf3cf;
-  stroke: #f1c40f;
-  stroke-width: 2;
-}
-.diagram .zone {
-  fill: none;
-  stroke: #999999;
-  stroke-width: 2;
-  stroke-dasharray: 4 2;
-}
-.diagram .link {
-  stroke: #f1c40f;
-  stroke-width: 2;
-  fill: none;
-}
-.diagram .ref {
-  fill: #f1c40f;
-}
-.diagram .null {
-  fill: #eeeeee;
-  stroke: #aaaaaa;
-}
 .diagram text {
   dominant-baseline: middle;
   font-size: 85%;
 }
-.diagram .zoneLabel {
-  fill: #999999;
-  font-size: 85%;
+.diagram rect,
+.diagram ellipse,
+.diagram path {
+  stroke-width: 2;
 }
-.diagram .refLabel,
-.diagram .typeLabel,
-.diagram .contentLabel {
+.diagram .textLabel {
   text-anchor: middle;
-}
-.diagram .refLabel,
-.diagram .typeLabel,
-.diagram .contentLabel,
-.diagram .zoneLabel.code {
-  font-family: "Roboto Mono";
-  fill: #812815;
 }
 .diagram .invisible {
   fill-opacity: 0.33;
   stroke-opacity: 0.33;
+}
+.diagram.or .obj {
+  fill: #fcf3cf;
+  stroke: #f1c40f;
+}
+.diagram.or .zone {
+  fill: none;
+  stroke: #999999;
+  stroke-dasharray: 4 2;
+}
+.diagram.or .link {
+  stroke: #f1c40f;
+  fill: none;
+}
+.diagram.or .ref {
+  fill: #f1c40f;
+}
+.diagram.or .null {
+  fill: #eeeeee;
+  stroke: #aaaaaa;
+}
+.diagram.or .zoneLabel {
+  fill: #999999;
+  font-size: 85%;
+}
+.diagram.or .refLabel,
+.diagram.or .typeLabel,
+.diagram.or .contentLabel {
+  text-anchor: middle;
+}
+.diagram.or .refLabel,
+.diagram.or .typeLabel,
+.diagram.or .contentLabel,
+.diagram text.code {
+  font-family: "Roboto Mono";
+  fill: #812815;
+}
+.diagram.logic .cyl {
+  fill: #eeeeee;
+  stroke: #aaaaaa;
+}
+.diagram.logic :not(text).device {
+  fill: #cccccc;
+  stroke: #999999;
+}
+.diagram.logic .arrow {
+  fill: #eeaaaa;
+  stroke: #ee5555;
+}
+.diagram.logic .contentLabel {
+  text-anchor: middle;
 }
 .excercise::before {
   font-weight: bolder;
@@ -233,7 +253,7 @@ img {
 .javadoc:not(.constructors) tbody tr td:nth-child(2) {
   color: #4a6782;
 }
-.javadoc tbody tr:nth-of-type(2n+1) {
+.javadoc tbody tr:nth-of-type(2n + 1) {
   background: #ffffff;
 }
 .javadoc tbody tr:nth-of-type(2n) {

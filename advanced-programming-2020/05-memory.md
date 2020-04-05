@@ -70,7 +70,7 @@ modify(eric);                     // `C`
 .cols[
 .c30[
 At A:
-.diagram.center[
+.diagram.or.center[
 ref(10,20,'eric')
 obj(40,0,60,40,'Person','')
 link([20,20,40,20])
@@ -81,7 +81,7 @@ link([80,20,120,20])
 ]
 .c30[
 At B:
-.diagram.center[
+.diagram.or.center[
 ref(10,20,'eric','invisible')
 obj(40,0,60,40,'Person','')
 link([20,20,40,20],'invisible')
@@ -96,7 +96,7 @@ By reference:
 ]
 .c40[
 At C:
-.diagram.center[
+.diagram.or.center[
 ref(10,20,'eric')
 obj(40,0,60,40,'Person','')
 link([20,20,40,20])
@@ -127,7 +127,7 @@ uselesslyModify(age); // `C`
 .cols[
 .c30[
 At A:
-.diagram.center[
+.diagram.or.center[
 ref(0,20,'age')
 obj(40,0,60,40,'int','41')
 link([10,20,40,20])
@@ -135,7 +135,7 @@ link([10,20,40,20])
 ]
 .c30[
 At B:
-.diagram.center[
+.diagram.or.center[
 ref(0,20,'age','invisible')
 obj(40,0,60,40,'int','41')
 link([10,20,40,20],'invisible')
@@ -148,7 +148,7 @@ By value:
 ]
 .c40[
 At C:
-.diagram.center[
+.diagram.or.center[
 ref(0,20,'age')
 obj(40,0,60,40,'int','41')
 link([10,20,40,20])
@@ -420,7 +420,7 @@ for (Person teacher : teachers) {
 .cols[
 .c50[
 At A, 1st iteration:
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'alberto')
 obj(80,0,60,40,'Person','')
 link([10,20,80,20])
@@ -443,7 +443,7 @@ link([10,300,200,300,200,10,150,10,140,20])
 ]
 .c50[
 At B, 2nd iter., assume `eric` is ill:
-.center.diagram[
+.center.diagram.or[
 ref(0,20,'alberto')
 obj(80,0,60,40,'Person','')
 link([10,20,80,20])
@@ -595,7 +595,7 @@ public void run() {
 .cols[
 .c30[
 At A:
-.diagram.center[
+.diagram.or.center[
 ref(0,20,'name')
 obj(60,0,100,40,'String','"simba "')
 link([10,20,60,20])
@@ -603,7 +603,7 @@ link([10,20,60,20])
 ]
 .c40[
 At B:
-.diagram.center[
+.diagram.or.center[
 ref(0,20,'name','invisible')
 obj(60,0,100,40,'String','"simba "')
 link([10,20,60,20],'invisible')
@@ -622,7 +622,7 @@ link([10,220,60,220])
 ]
 .c30[
 At C:
-.diagram.center[
+.diagram.or.center[
 ref(0,20,'name')
 obj(60,0,100,40,'String','"simba "')
 link([10,20,60,20])
@@ -702,7 +702,7 @@ This explains the differences:
 
 ### Primitive like references
 
-.diagram.center[
+.diagram.or.center[
 obj(0,0,80,40,'int i','26')
 obj(200,0,100,40,'String* s','0xAAF3')
 text(320,20,'=')
@@ -741,7 +741,7 @@ Primitive types has a precise size in memory:
 ]
 .note[\*: JVM dependent]
 
-.arrow[] JVM knows in advance how much stack reserve for a method invocation!
+$\rigtharrow$[] JVM knows in advance how much stack reserve for a method invocation!
 
 ---
 
@@ -756,7 +756,7 @@ public static void main(String[] args) {
 eric@cpu:~$ java Greeter eric simba
 ```
 
-.center.diagram[
+.center.diagram.or[
 zone(0,0,600,300,'JVM memory')
 zone(10,40,240,250,'Stack')
 zone(270,40,320,250,'Heap')
@@ -811,7 +811,7 @@ public void run() {
 ]
 ]
 
-.center.diagram[
+.center.diagram.or[
 zone(10,-30,240,320,'Stack')
 zone(270,-30,320,320,'Heap')
 zone(20,220,220,60,'main()','code')
@@ -864,7 +864,7 @@ public void run() {
 ]
 ]
 
-.center.diagram[
+.center.diagram.or[
 zone(10,-30,240,320,'Stack')
 zone(270,-30,320,320,'Heap')
 zone(20,220,220,60,'main()','code')
@@ -923,7 +923,7 @@ public void run() {
 ]
 ]
 
-.center.diagram[
+.center.diagram.or[
 zone(10,-30,240,320,'Stack')
 zone(270,-30,320,320,'Heap')
 zone(20,220,220,60,'main()','code')
@@ -943,7 +943,7 @@ obj(30,140,60,40,'int n','2')
 
 ## Freeing the memory
 
-.center.diagram[
+.center.diagram.or[
 zone(10,-30,240,320,'Stack')
 zone(270,-30,320,320,'Heap')
 zone(20,220,220,60,'main()','code')
@@ -967,7 +967,7 @@ link([230,50,300,50],'invisible')
 ]
 
 - `doThings()` block in the stack freed just after invocation
-- `String "simba"` no more referenced, hence useless .arrow[] **garbage**
+- `String "simba"` no more referenced, hence useless $\rigtharrow$[] **garbage**
   - who/when/how frees the corresponding heap space?
 
 ---
@@ -992,7 +992,7 @@ Person eric = new Person();
 ]
 ]
 
-.diagram.center[
+.diagram.or.center[
 zone(10,-30,240,320,'Stack')
 zone(270,-30,320,320,'Heap')
 zone(20,220,220,60,'main()','code')
@@ -1008,7 +1008,7 @@ link([210,260,260,260,260,135,280,135])
 
 ## Complex garbage
 
-.diagram.center[
+.diagram.or.center[
 zone(10,-110,140,410,'Stack')
 zone(160,-110,600,410,'Heap')
 zone(20,230,120,60,'main()','code')
@@ -1092,12 +1092,12 @@ Just a kind request...
 ## Before GC
 
 Before GC, the developer was responsible for freeing unused memory.
-- e.g., `malloc()` .arrow[] `free()`
+- e.g., `malloc()` $\rigtharrow$[] `free()`
 
-Responsability .arrow[] source of problems, when misbehavior
-- forget to call `free()` .arrow() out of memory
-- `free()` on wrong address .arrow() invalid write
-- write over than reserved `malloc()` .arrow() possible chaos
+Responsability $\rigtharrow$[] source of problems, when misbehavior
+- forget to call `free()` $\rigtharrow$() out of memory
+- `free()` on wrong address $\rigtharrow$() invalid write
+- write over than reserved `malloc()` $\rigtharrow$() possible chaos
 
 No more problems with **automatic garbage collection**!
 
@@ -1268,7 +1268,7 @@ In general, use `int` when possible!
 Integer i = Integer.valueOf(2);
 i = Integer.valueOf(i.intValue()+1);
 ```
-.center.diagram[
+.center.diagram.or[
 zone(0,0,100,170,'Stack')
 zone(120,0,150,170,'Heap')
 ref(50,130,'i')
@@ -1276,7 +1276,7 @@ link([60,130,130,130])
 obj(130,110,130,50,'Integer')
 obj(200,120,40,30,'','2')
 ]
-.center.diagram[
+.center.diagram.or[
 zone(0,0,100,170,'Stack')
 zone(120,0,150,170,'Heap')
 ref(50,130,'i')
@@ -1292,12 +1292,12 @@ obj(200,40,40,30,'','3')
 int i = 2;
 i++;
 ```
-.center.diagram[
+.center.diagram.or[
 zone(0,0,100,170,'Stack')
 zone(120,0,150,170,'Heap')
 obj(30,120,60,40,'int i','2')
 ]
-.center.diagram[
+.center.diagram.or[
 zone(0,0,100,170,'Stack')
 zone(120,0,150,170,'Heap')
 obj(30,120,60,40,'int i','3')
@@ -1323,3 +1323,7 @@ System.out.printf("n ?= k -> %b%n", `n==k`); // -> `true`!!!
 - In general, use `int` when possible!
 - If using `Integer`, use `==` with care!
   - use `equals()`!
+
+.question[What happens with `(n+1)==(m+1)`?]
+
+.note[IDEs sometimes warns about misuse of `==`]
