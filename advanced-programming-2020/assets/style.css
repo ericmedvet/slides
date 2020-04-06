@@ -166,19 +166,34 @@ img {
   font-family: "Roboto Mono";
   fill: #812815;
 }
-.diagram.logic .cyl {
+.diagram.io .cyl {
   fill: #eeeeee;
   stroke: #aaaaaa;
 }
-.diagram.logic :not(text).device {
+.diagram.io :not(text).device {
   fill: #cccccc;
   stroke: #999999;
 }
-.diagram.logic .arrow {
+.diagram.io .arrow {
   fill: #eeaaaa;
   stroke: #ee5555;
 }
-.diagram.logic .contentLabel {
+.diagram.io .array {
+  stroke: black;
+  fill: white;
+}
+.diagram.io .cursor {
+  fill: #aaaaee;
+  stroke: #5555ee;
+}
+.diagram.io .eos {
+  fill: #5555ee;
+}
+.diagram.io .link {
+  stroke: black;
+  fill: none;
+}
+.diagram.io .contentLabel {
   text-anchor: middle;
 }
 .excercise::before {

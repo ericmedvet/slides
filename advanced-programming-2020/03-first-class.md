@@ -814,7 +814,7 @@ Your code is **your representation** of a problem and its solution.
 
 When someone looks at your code, she/he is entering your mind:
 
-- messy code $\rigtharrow$[] messy representation $\rigtharrow$[] messy mind $\rigtharrow$[] messy you!
+- messy code $\rightarrow$ messy representation $\rightarrow$ messy mind $\rightarrow$ messy you!
 - **do you want to look messy?**
   - to your collaborator, your boss, your employee
   - to your teacher
@@ -830,7 +830,7 @@ At least 4 sources of mess (increasingly harder to spot):
 - implementation of algorithm
 - algorithm
 
-**Code review** $\rigtharrow$[] the process of checking the code by looking at the **source code**:
+**Code review** $\rightarrow$ the process of checking the code by looking at the **source code**:
 
 - routinely performed within big tech companies
 - there is a "IEEE Standard for Software Reviews and Audits" (IEEE 1028-2008)

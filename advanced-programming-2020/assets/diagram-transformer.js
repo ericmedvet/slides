@@ -49,7 +49,10 @@ var DiagramTransformer = {
       charHeight: 20,
       charWidth: 12.5,
       refRadius: 10,
-      cylYRadiusRatio: 0.075
+      cylYRadiusRatio: 0.075,
+      cursorWidth: 5,
+      cursorHeight: 10,
+      linkHeadSize: 5
     },
     ref: function(x, y, label, className) {
       className = className ? className : "";
@@ -153,7 +156,7 @@ var DiagramTransformer = {
     cyl: function(x, y, w, h, label, className) {
       className = className ? className : "";
       var code = "";
-      code += '<g>';
+      code += "<g>";
       code +=
         '<path d="M ' +
         x +
@@ -209,7 +212,7 @@ var DiagramTransformer = {
           label +
           "</text>";
       }
-      code += '</g>';
+      code += "</g>";
       return {
         minX: x,
         maxX: x + w,
@@ -220,6 +223,7 @@ var DiagramTransformer = {
     },
     arrow: function(x, y, w, h, a, className) {
       className = className ? className : "";
+      a = a ? a : 0;
       var code = "";
       code +=
         '<g transform="rotate(' +
@@ -264,6 +268,75 @@ var DiagramTransformer = {
         maxX: x + r,
         minY: y - r,
         maxY: y + r,
+        code: code
+      };
+    },
+    array: function(x, y, w, h, n, cursor, eos, className) {
+      className = className ? className : "";
+      var code = "";
+      code += "<g>";
+      for (var i = 0; i < n; i++) {
+        code +=
+          '<rect x="' +
+          (x + w * i) +
+          '" y="' +
+          y +
+          '" width="' +
+          w +
+          '" height="' +
+          h +
+          '"' +
+          '" class="array ' +
+          (i == eos ? "eos " : "") +
+          className +
+          '"/>';
+      }
+      if (cursor!=='') {
+        code +=
+          '<path d="' +
+          "M " +
+          (x + w * cursor - this.constants.cursorWidth / 4) +
+          "," +
+          (y - this.constants.cursorHeight) +
+          " " +
+          "l " +
+          -this.constants.cursorWidth / 4 +
+          ",0 " +
+          "l 0," +
+          this.constants.cursorHeight / 2 +
+          " " +
+          "l " +
+          -this.constants.cursorWidth / 4 +
+          ",0 " +
+          "l " +
+          this.constants.cursorWidth / 2 +
+          "," +
+          this.constants.cursorHeight / 2 +
+          " " +
+          "l " +
+          this.constants.cursorWidth / 2 +
+          "," +
+          -this.constants.cursorHeight / 2 +
+          " " +
+          "l " +
+          -this.constants.cursorWidth / 4 +
+          ",0 " +
+          "l 0," +
+          -this.constants.cursorHeight / 2 +
+          " " +
+          'z" class="cursor ' +
+          className +
+          '"/>';
+      }
+      code += "</g>";
+      return {
+        minX: Math.min(x, (cursor!=='') ? (x + w * cursor - this.constants.cursorWidth) : x),
+        maxX: Math.max(
+          x + w * n,
+          (cursor!=='') ? (x + w * cursor + this.constants.cursorWidth) : x
+        ),
+        minY: y - (cursor!=='') ? this.constants.cursorHeight : 0,
+        maxY: y + h,
         code: code
       };
     },
@@ -335,6 +408,7 @@ var DiagramTransformer = {
       var minY = Number.MAX_VALUE;
       var maxY = -Number.MAX_VALUE;
       var code = "";
+      code += '<g>';
       code += '<path d="';
       for (var i = 0; i < Math.floor(coords.length / 2); i++) {
         var command = "L";
@@ -398,6 +472,20 @@ var DiagramTransformer = {
         }
       }
       code += '" class="link ' + className + '"/>';
+      console.log('Math.atan2('+(coords[coords.length-3]-coords[coords.length-5])+','+(coords[coords.length-2]-coords[coords.length-4])+')');
+      if (coords[coords.length-1]=='>') {
+        code += '<g transform="rotate('+(Math.atan(
+          (coords[coords.length-3]-coords[coords.length-5])/
+          (coords[coords.length-2]-coords[coords.length-4])
+        )/Math.PI*180-90)+' '+coords[coords.length-3]+','+coords[coords.length-2]+')">';
+        code += '<path d="'+
+          'M '+coords[coords.length-3]+','+coords[coords.length-2]+' '+
+          'l '+(-this.constants.linkHeadSize)+','+(-this.constants.linkHeadSize/2)+' '+
+          'l 0,'+this.constants.linkHeadSize+' '+
+          'z" class="link head ' + className + '"/>';
+        code += '</g>';
+      }
+      code += '</g>';
       return {
         minX: minX,
         maxX: maxX,

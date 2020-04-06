@@ -698,6 +698,9 @@ This explains the differences:
 - assignement creates copy of value
   - reference assignement creates copy of reference
 
+And:
+- primitive types cannot be `null`
+
 ---
 
 ### Primitive like references
@@ -741,7 +744,7 @@ Primitive types has a precise size in memory:
 ]
 .note[\*: JVM dependent]
 
-$\rigtharrow$[] JVM knows in advance how much stack reserve for a method invocation!
+$\rightarrow$ JVM knows in advance how much stack reserve for a method invocation!
 
 ---
 
@@ -967,7 +970,7 @@ link([230,50,300,50],'invisible')
 ]
 
 - `doThings()` block in the stack freed just after invocation
-- `String "simba"` no more referenced, hence useless $\rigtharrow$[] **garbage**
+- `String "simba"` no more referenced, hence useless $\rightarrow$ **garbage**
   - who/when/how frees the corresponding heap space?
 
 ---
@@ -1092,12 +1095,12 @@ Just a kind request...
 ## Before GC
 
 Before GC, the developer was responsible for freeing unused memory.
-- e.g., `malloc()` $\rigtharrow$[] `free()`
+- e.g., `malloc()` $\rightarrow$ `free()`
 
-Responsability $\rigtharrow$[] source of problems, when misbehavior
-- forget to call `free()` $\rigtharrow$() out of memory
-- `free()` on wrong address $\rigtharrow$() invalid write
-- write over than reserved `malloc()` $\rigtharrow$() possible chaos
+Responsability $\rightarrow$ source of problems, when misbehavior
+- forget to call `free()` $\rightarrow$ out of memory
+- `free()` on wrong address $\rightarrow$ invalid write
+- write over than reserved `malloc()` $\rightarrow$ possible chaos
 
 No more problems with **automatic garbage collection**!
 

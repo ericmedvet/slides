@@ -497,8 +497,8 @@ Date laterThanNow = new Date();
 A class C can have more than one constructors:
 - at most one with the same input parameters
 - (the name and the return type are always the same)
-  - name: the very same name of the class (e.g., `Date` $\rigtharrow$[] `Date()`)
-  - return type: C (e.g., `Date` $\rigtharrow$[] `Date`)
+  - name: the very same name of the class (e.g., `Date` $\rightarrow$ `Date()`)
+  - return type: C (e.g., `Date` $\rightarrow$ `Date`)
 
 Class [`String`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html):
 .javadoc.constructors[
@@ -562,7 +562,7 @@ He/she **does not know**:
 
 The **state** of the object and the **code** of the class might change, but the user is **not required to be notified of changes**!
 
-$\rigtharrow$[] **Modularity**: everyone takes care of only some part of the sofware!
+$\rightarrow$ **Modularity**: everyone takes care of only some part of the sofware!
 
 ---
 
@@ -1162,9 +1162,9 @@ public class Greeter {
 }
 ```
 
-- `public` $\rigtharrow$[] `main` has to be invoked "directly" by the JVM upon execution (`java Greeter`): it has to be accessible
-- `static` $\rigtharrow$[] invokable without having an already existing instance of `Greeter`
-- `void` $\rigtharrow$[] does not return anything
+- `public` $\rightarrow$ `main` has to be invoked "directly" by the JVM upon execution (`java Greeter`): it has to be accessible
+- `static` $\rightarrow$ invokable without having an already existing instance of `Greeter`
+- `void` $\rightarrow$ does not return anything
 
 `public static void main(String[])` is the signature **required** by Java if you want to use the method as an execution **entry point**!
   - only the name of the input parameter can be modified
@@ -1230,7 +1230,7 @@ Look at [`System`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/
 | static PrintStream | out | The "standard" output stream. |
 ]
 
-$\rigtharrow$[] `out` is a field of type `PrintStream` that represents the **standard output**.
+$\rightarrow$ `out` is a field of type `PrintStream` that represents the **standard output**.
 
 .note[What's the standard output? "Typically this stream corresponds to display output or another output destination specified by the host environment or user."]
 

@@ -393,7 +393,7 @@ System.out.printf("m=%d%n", derived.m); // -> m=2
 ```
 
 "Field initialization is executed before the first statement of any constructor."
-$\rigtharrow$[] any of **this** class!
+$\rightarrow$ any of **this** class!
 - `super()` is executed before any inline initialization
 
 .question[What is `derived.n`?]
@@ -444,7 +444,7 @@ Why does it compile? (`use()` was written to work with a `Base`)
 - `Derived` has all fields and methods of `Base`
   - maybe with different behaviors (methods, but signature is exactly the same)
   - maybe it has also other methods/fields
-- $\rigtharrow$[] any dot notation valid on a `Base` is also valid on a `Derived`!
+- $\rightarrow$ any dot notation valid on a `Base` is also valid on a `Derived`!
 
 .note["has all fields", but recall visibility!]
 
@@ -491,7 +491,7 @@ is better than:
 ```java
 public void putLeash(Chihuahua dog) { /* ... */ }
 ```
-even if in your code you will `putLeash()` only on `Chihuahua`s (but provided that you have the inheritance `Dog` $\rigtharrow$[] `Chihuahua`).
+even if in your code you will `putLeash()` only on `Chihuahua`s (but provided that you have the inheritance `Dog` $\rightarrow$ `Chihuahua`).
 
 ---
 
@@ -614,9 +614,9 @@ Derived derived;
 derived = createBase();
 ```
 
-1. `Derived derived`: developer $\rigtharrow$[] compiler
+1. `Derived derived`: developer $\rightarrow$ compiler
   - please, take note (and make sure) that with any operation defined in `Derived` can be applied to object referenced by `derived`
-2. `derived = createBase()`: compiler $\rigtharrow$[] developer
+2. `derived = createBase()`: compiler $\rightarrow$ developer
   - no! I cannot meet the requirement ("make sure that") because the object returned by `createBase()` might not be a `Derived`
 
 It might also be a `Derived`, but cannot guarantee...
