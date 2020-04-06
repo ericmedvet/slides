@@ -190,9 +190,22 @@ img {
   fill: #5555ee;
 }
 .diagram.io .link {
+  stroke: gray;
+  fill: none;
+}
+.diagram.io .link.head {
+  stroke: none;
+  fill: gray;
+}
+.diagram.io .axis {
   stroke: black;
   fill: none;
 }
+.diagram.io .axis.head {
+  stroke: none;
+  fill: black;
+}
+
 .diagram.io .contentLabel {
   text-anchor: middle;
 }
