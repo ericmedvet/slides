@@ -694,9 +694,11 @@ Primitive type objects in the stack:
 This explains the differences:
 - lifetime like references
 - parameter passing by value
-  - reference by value == object by reference
+  - "reference by value" is like "object by reference"
 - assignement creates copy of value
   - reference assignement creates copy of reference
+- `==` compares content
+  - content of reference is the "address" of referenced object
 
 And:
 - primitive types cannot be `null`
@@ -1154,10 +1156,10 @@ The JDK contains a set of **wrapper** classes, one for each primitive type:
 - they can be stored in the heap
 
 Wrapper classes
-- `Integer` for `int`
+- `Integer` for `int` .note[with different name]
 - `Double` for `double`
 - `Boolean` for `boolean`
-- `Character` for `char` .note[the only with different name]
+- `Character` for `char` .note[with different name]
 - ...
 
 .note[There's also a [`Void`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Void.html) class]
@@ -1179,8 +1181,8 @@ Constants:
 | Modifier and type | Field | Description |
 | --- | --- | --- |
 | static int | BYTES | The number of bytes used to represent an `int` value in two's complement binary form. |
-| static int | MAX_VALUE | A constant holding the maximum value an `int` can have, 231-1. |
-| static int | MIN_VALUE | A constant holding the minimum value an `int` can have, -231. |
+| static int | MAX_VALUE | A constant holding the maximum value an `int` can have, 2^31-1. |
+| static int | MIN_VALUE | A constant holding the minimum value an `int` can have, -2^31. |
 ]
 
 Constructors:
@@ -1195,7 +1197,7 @@ Constructors:
 
 ### Methods
 
-"Like" constructors:
+"Like" constructors: .note[only the third is "really" a constructor-like method]
 .javadoc.methods[
 | Modifier and type | Field | Description |
 | --- | --- | --- |
@@ -1223,7 +1225,7 @@ Others:
 Compiler performs obvious implicit translations:
 ```java
 public void doIntThings(int n) { /* ... */ }
-public void doIntegerThings(int n) { /* ... */ }
+public void doIntegerThings(Integer n) { /* ... */ }
 ```
 
 .cols[
