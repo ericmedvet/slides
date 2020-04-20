@@ -844,7 +844,7 @@ name: exercise1
 ## Anagrams .note[~2h, 1st home assignement]
 
 Write an application that, given a word $w$ and a number $n$, gives $n$ anagrams of $w$.
-(Go to [detailed specifications](#exercise1-full-specs))
+(Go to [detailed specifications](#exercise1-full-specs), also in next slide)
 
 - multiset of permutations of multiset (i.e., with repetitions)
 - with capitalized anagrams
@@ -859,3 +859,8 @@ If/when done:
 
 1. redo it on a full, desktop IDE
 2. profile your code
+
+---
+class: lab
+
+template: exercise1-full-specs

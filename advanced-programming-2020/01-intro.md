@@ -67,11 +67,12 @@ More details at first assignment.
 
 ---
 
-#### List of home assignements
+#### List of exercises and home assignements
 
 Just for reference:
-1. [Anagrams](#exercise1)
-2. [Equivalence](#exercise2)
+1. [Anagrams](#exercise1) (also assignment)
+2. [Equivalence](#exercise2) (also assignment)
+3. [File array](#exercise3)
 
 ---
 
