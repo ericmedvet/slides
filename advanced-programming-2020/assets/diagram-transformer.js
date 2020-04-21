@@ -338,7 +338,7 @@ var DiagramTransformer = {
           x + w * n,
           cursor !== "" ? x + w * cursor + this.constants.cursorWidth : x
         ),
-        minY: y - (cursor !== "") ? this.constants.cursorHeight : 0,
+        minY: y - ((cursor !== "") ? this.constants.cursorHeight : 0),
         maxY: y + h,
         code: code
       };
