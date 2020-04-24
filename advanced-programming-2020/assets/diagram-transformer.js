@@ -475,13 +475,6 @@ var DiagramTransformer = {
         }
       }
       code += '" class="link ' + className + '"/>';
-      console.log(
-        "Math.atan2(" +
-          (coords[coords.length - 3] - coords[coords.length - 5]) +
-          "," +
-          (coords[coords.length - 2] - coords[coords.length - 4]) +
-          ")"
-      );
       if (coords[coords.length - 1] == ">") {
         code +=
           '<g transform="rotate(' +
