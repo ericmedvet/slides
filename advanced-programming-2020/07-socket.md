@@ -142,7 +142,7 @@ Protocol (upon connection):
   - if $l'=$ `BYE`, server closes connection; otherwise waits for next line
 
 Server:
-- listens on port 7979
+- listens on port 10000
 - handles 1 client at a time
 - never terminates
 
@@ -157,7 +157,7 @@ Server:
 public class SimpleUppercaserServer {
 
   private static final int PORT = 10000;
-  private static final String CLOSE_COMMAND = "BYE";
+  private static final String QUIT_COMMAND = "BYE";
 
   public static void main(String[] args) throws IOException {
     ServerSocket serverSocket = new ServerSocket(PORT);
@@ -171,9 +171,9 @@ public class SimpleUppercaserServer {
       );
       while (true) {
         String line = br.readLine();
-        bw.write(line.toUpperCase()` + System.lineSeparator()`);
+        bw.write(line.toUpperCase() + `System.lineSeparator()`);
         `bw.flush()`;
-        if (line.equals(CLOSE_COMMAND)) {          
+        if (line.toUpperCase().equals(QUIT_COMMAND)) {          
           break;
         }
       }
@@ -248,11 +248,11 @@ Protocol (upon connection):
 - if $l=l_\text{quit}$, server closes connection, otherwise replies with processed line $l'=p(l)$
 
 Server:
-- listens on port $p$
+- listens on port $n_\text{port}$
 - handles 1 client at a time .note[motivation for `Simple` prefix...]
 - never terminates
 - **designed** to be extended
-- $p:$ `String` $\to$ `String`, $l_\text{quit}$, $p$ are parameters
+- $p:$ `String` $\to$ `String`, $l_\text{quit}$, port number are parameters
 
 .note[No bad things can happen: e.g., client does not close the connection.]
 
@@ -425,7 +425,7 @@ Protocol detail: "send real vector" $\vec{v}$
 2. send $n$ `double`s (8 bytes each)
 
 Server:
-- listens on port 7979, handles 1 client at a time, never terminates
+- listens on port 10000, handles 1 client at a time, never terminates
 
 ---
 
