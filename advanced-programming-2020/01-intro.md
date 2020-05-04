@@ -74,6 +74,7 @@ Just for reference:
 2. [Equivalence](#exercise2) (also assignment)
 3. [File array](#exercise3)
 4. [Compressed file array](#exercise4) (also assignment)
+5. [Word counter server](#exercise5)
 
 ---
 

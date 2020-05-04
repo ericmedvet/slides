@@ -399,7 +399,7 @@ Might define a `private void log(String)` method.
 ---
 
 class: lab
-name: exercise2
+name: exercise5
 
 ## Word counter server .note[~1h]
 
