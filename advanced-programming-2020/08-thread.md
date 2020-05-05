@@ -83,7 +83,7 @@ Process vs. thread:
 .def[Class Thread]
 
 .pack[java.lang.Object]  
-.indent[].java.lang.Thread
+.indent[]java.lang.Thread
 ]
 .javadoc[
 A *thread* is a thread of execution in a program. The Java Virtual Machine allows an application to have multiple threads of execution running concurrently.
@@ -242,10 +242,12 @@ class SlowCounter extends Thread {
 .c50[
 .compact[
 ```java
-SlowCounter c1 = new SlowCounter();
-SlowCounter c2 = new SlowCounter();
-c1.start();
-c2.start();
+public static void main(String[] args) {
+  SlowCounter c1 = new SlowCounter();
+  SlowCounter c2 = new SlowCounter();
+  c1.start();
+  c2.start();
+}
 ```
 ]
 ]
@@ -431,7 +433,7 @@ public class LineProcessingServer {
     ServerSocket serverSocket = new ServerSocket(port);
     while (true) {
       Socket socket = serverSocket.accept();
-      ClientHandler clientHandler = `new ClientHandler(socket, quitCommand)`;
+      ClientHandler clientHandler = `new ClientHandler(socket, this)`;
       `clientHandler.start()`;
     }
   }
@@ -522,7 +524,7 @@ $\Rightarrow$ threads execute concurrenly only apparently!
 Suppose:
 - only one core ($|C|=1$)
 - thread $t_1$ next instructions: $a_1, b_1, c_1$
-- thread $t_1$ next instructions: $a_2, b_2, c_2$
+- thread $t_2$ next instructions: $a_2, b_2, c_2$
 
 Some possible actual executions:
 - $a_1, b_1, c_1, a_2, b_2, c_2$
@@ -572,8 +574,8 @@ public class Counter {
 ```
 ```java
 Counter c = new Counter();
-(new IncThread()).start();
-(new DecThread()).start();
+(new IncThread(c)).start();
+(new DecThread(c)).start();
 ```
 ]
 ]
@@ -582,11 +584,11 @@ Counter c = new Counter();
 ```java
 public class IncThread extends Thread {
   private final Counter c;
-  public CounterThread(Counter c) {
+  public IncThread(Counter c) {
     this.c = c;
   }
   public void run() {
-    System.out.print(c.inc() + " ");
+    System.out.print(c.incAndGet() + " ");
   }
 }
 ```

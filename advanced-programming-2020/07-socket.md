@@ -348,6 +348,10 @@ public class SimpleLineProcessingServer {
 
   /* ... */
 
+  protected String process(String input) {
+    return input;
+  }
+
 }
 ```
 ]
