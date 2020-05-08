@@ -35,6 +35,9 @@ pre {
 .cols {
   display: flex;
 }
+.c25 {
+  flex: 25%;
+}
 .c30 {
   flex: 30%;
 }
@@ -53,7 +56,7 @@ pre {
 .cols > div:nth-child(1) {
   padding-right: 0.5em;
 }
-.cols > div:nth-child(2) {
+.cols > div:nth-last-child(1) {
   padding-left: 0.5em;
 }
 .cols .vcentered {

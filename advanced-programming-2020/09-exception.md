@@ -133,7 +133,7 @@ Language:
 - how to switch to anomalous flow?
 
 Design:
-- when to handle an error? (and when to propagete?)
+- when to handle an error? (and when to propagate?)
 - how to handle an error?
 - when to "create" an error?
 
@@ -274,6 +274,7 @@ public String getLastName(String fullName) `throws MalformedNameException` {
 ]
 
 The developer declares that `getLastName()` might **throw** an exception of type `MalformedNameException`.
+- **`throws` clause**
 
 A method may be declared to throw more than one exceptions:
 .compact[
@@ -286,21 +287,55 @@ public void doHardJob() `throws TooHardException, TooLazyException` {
 
 ---
 
+## `throws` and inheritance
+
+`throws` clause is part of the method signature.
+
+If a class $C'$ extends a class $C$ with a method $m$, $C'$ cannot modify the `throws` clause of $m$.
+
+.cols[
+.c50[
+.compact[
+```java
+public class Worker {
+  void work() {
+    /* ... */
+  }
+}
+```
+]
+]
+.c50[
+.compact[
+```java
+public class LazyWorker extends Worker {
+  void work() throws TooHardException {
+    /* ... */
+  }
+}
+```
+]
+]
+]
+
+Code using a `Worker` expects `work()` to work, regardless of the actual object being a `LazyWorker`.
+- also the opposite does not work
+---
+
 ## `throw`
 
 **How to switch to anomalous flow?** (i.e., how to throw an exception?)
 
-.compact[
 ```java
-public String getLastName(String fullName) `throws MalformedNameException` {
+public String getLastName(String fullName) throws MalformedNameException {
   String[] pieces = fullName.split(" ");
   if (pieces.length == 0) {
-    `throw new MalformedNameException("Empty name!")`;
+    `throw` new MalformedNameException("Empty name!");
   }
   return pieces[pieces.length-1];
 }
 ```
-]
+
 If/when the execution reaches the `throw` $e$ statement, the anomalous flows starts with the exception $e$.
 - in this case, there is no `try`-`catch`, hence the method is defined with `throws ` $E$ (with $e$ of type $E$)
 
@@ -359,25 +394,21 @@ public void showName(String fullName) throws MalformedNameException {
 ```
 ]
 
-Does not compile because:
-- code does not throw `MalformedNameException`
+Compiles, but IDEs usually warn that code does not throw `MalformedNameException`
 
-Also with "wrong" exception type:
+---
+
+### Declared with superclass
 
 .compact[
 ```java
-public String getLastName(String fullName) throws MalformedNameException, IOException {
-  String[] pieces = fullName.split(" ");
-  if (pieces.length == 0) {
-    throw new MalformedNameException("Empty name!");
-  }
-  return pieces[pieces.length-1];
+public void showName(String fullName) throws Exception, MalformedNameException {
+  System.out.println(fullName);
 }
 ```
 ]
 
-- code does not throw `IOException`
-
+Compiles, but IDEs usually warn that declaring `MalformedNameException` is useless because a more general exception can be thrown.
 
 ---
 
@@ -415,12 +446,610 @@ public void showName(String fullName) {
 Does not compile because:
 - first `catch` catches "everything", second one cannot be triggered
 
+---
 
-<!--
-finally
-exception in catch: anomalous is relative
--->
+## `finally`
+
+```java
+try {
+  /* normal flow */
+} catch (Exception e) {
+  /* anomalous flow */
+} finally {
+  /* finally flow */
+}
+```
+
+Allows to define a trailing execution flow that:
+- is always executed
+- does not affect the normal/anomalous state
+
+---
+
+### Example
+
+.cols[
+.c50[
+```java
+public void doThings(int n) {
+  try {
+    System.out.print("n1");
+    if (n == 0) {
+      throw new Exception();
+    }
+    System.out.print("n2");
+  } catch (Exception e) {
+    System.out.print("a");
+  } finally {
+    System.out.print("f");
+  }
+  System.out.println("n3");
+}
+```
+]
+.c50[
+Invoked with `n=1` (no exception thrown):
+- `n1 n2 f n3`
+
+Invoked with `n=0` (`Exception` thrown):
+- `n1 a f n3`
+]
+]
+
+---
+
+### `finally` without catch
+
+`finally` **does not affect** the normal/anomalous state!
+
+.cols[
+.c50[
+.compact[
+```java
+public void doThings(int n)
+  `throws Exception` {
+  try {
+    System.out.print("n1");
+    if (n == 0) {
+      throw new Exception();
+    }
+    System.out.print("n2");
+  } finally {
+    System.out.print("f");
+  }
+  System.out.println("n3");
+}
+```
+```java
+public void externalDoThings(int n) {
+  try {
+    System.out.println("en1");
+    doThings(n);
+    System.out.println("en2");
+  } catch (Exception e) {
+    System.out.println("ea");
+  }
+  System.out.println("en3");
+}
+```
+]
+]
+.c50[
+`externalDoThings(1)` invoked:
+- `en1 n1 n2 f n3 en2 en3`
+- stay in normal state when exiting from `doThings()`
+
+`externalDoThings(0)` invoked:
+- `en1 n1 f na en3`
+- stay in anomalous state when exiting from `doThings()`
+]
+]
+
+---
+
+## Anomalous is relative
+
+The condition of a flow of being anomalous is **relative**, not absolute:
+- given flow $f$, $f'$ with respect to $f$ is anomalous if an exception $e$ was thrown in $f$
+
+```java
+try {  
+  throw new Exception("problem"); // `A`
+} catch (Exception e) {
+  try {
+    throw new Exception("further problem"); // `B`
+  } catch (Exception furtherE) {
+    /* ... `C` */
+  }
+}
+```
+B is anomalous wrt A; C is anomalous wrt B
+- in C, two exceptions exists: `e` and `furtherE`
+
+---
+
+## Unchecked exceptions, throwables
+
+.cols[
+.c30[
+.javadoc.head[
+**Package** .pack[java.lang]
+
+.def[Class Exception]
+
+.pack[java.lang.Object]  
+.indent[].pack[java.lang.Throwable]  
+.indent[].indent[]java.lang.Exception
+]
+]
+.c30[
+.javadoc.head[
+**Package** .pack[java.lang]
+
+.def[Class Error]
+
+.pack[java.lang.Object]  
+.indent[].pack[java.lang.Throwable]  
+.indent[].indent[]java.lang.Error
+]
+]
+.c40[
+.javadoc.head[
+**Package** .pack[java.lang]
+
+.def[Class RuntimeException]
+
+.pack[java.lang.Object]  
+.indent[].pack[java.lang.Throwable]  
+.indent[].indent[].pack[java.lang.Exception]  
+.indent[].indent[].indent[]java.lang.RuntimeException
+]
+]
+]
+
+The language specifies that:
+- only `Throwable`s (and subclasses) can be argument of `throw`, `throws` and `catch`
+- every thrown `Exception` (and subclasses) has to be catched or declared, **unless** it is a `RuntimeException` (or subclasses)
+  - `RuntimeException`s are **unchecked exceptions**
+
+`Throwable` is also extended by `Error`:
+- `Error`s (and subclasses) are unchecked exceptions too
+
+---
+
+## `RuntimeException`
+
+.javadoc.head[
+**Package** .pack[java.lang]
+
+.def[Class RuntimeException]
+
+.pack[java.lang.Object]  
+.indent[].pack[java.lang.Throwable]  
+.indent[].indent[].pack[java.lang.Exception]  
+.indent[].indent[].indent[]java.lang.RuntimeException
+
+`RuntimeException` is the superclass of those exceptions that can be thrown during the normal operation of the Java Virtual Machine.
+
+`RuntimeException` and its subclasses are *unchecked exceptions*. Unchecked exceptions do *not* need to be declared in a method or constructor's `throws` clause if they can be thrown by the execution of the method or constructor and propagate outside the method or constructor boundary.
+]
+
+Basically, can be thrown anywhere.
+
+They can be catched, but you are not compelled to.
+
+---
+
+## `NullPointerException`
+
+The queen of unchecked exceptions!
+
+.javadoc.head[
+**Package** .pack[java.lang]
+
+.def[Class NullPointerException]
+
+.pack[java.lang.Object]  
+.indent[].pack[java.lang.Throwable]  
+.indent[].indent[].pack[java.lang.Exception]  
+.indent[].indent[].indent[].pack[java.lang.RuntimeException]  
+.indent[].indent[].indent[].indent[]java.lang.NullPointerException
+
+Thrown when an application attempts to use `null` in a case where an object is required. These include:
+- Calling the instance method of a `null` object.
+- Accessing or modifying the field of a `null` object.
+- Taking the length of `null` as if it were an array.
+- Accessing or modifying the slots of `null` as if it were an array.
+- Throwing `null` as if it were a `Throwable` value.
+
+Applications should throw instances of this class to indicate other illegal uses of the null object.
+]
+
+Examples (common cases):
+.cols[
+.c30[
+.compact[
+```java
+String s = //.., rets null
+s = s.toUpperCase();
+```
+]
+]
+.c30[
+.compact[
+```java
+int[] a = //.., rets null
+int l = a.length;
+```
+]
+]
+.c30[
+.compact[
+```java
+int[] a = //.., rets null
+a[0] = 0;
+```
+]
+]
+]
+No `throw`, it is the JVM itself that generates the `NullPointerException` (in these examples).
+
+---
+
+### Another "popular" unchecked exception
+
+.javadoc.head[
+**Package** .pack[java.lang]
+
+.def[Class ArrayIndexOutOfBoundsException]
+
+.pack[java.lang.Object]  
+.indent[].pack[java.lang.Throwable]  
+.indent[].indent[].pack[java.lang.Exception]  
+.indent[].indent[].indent[].pack[java.lang.RuntimeException]  
+.indent[].indent[].indent[].indent[].pack[java.lang.IndexOutOfBoundsException]
+.indent[].indent[].indent[].indent[].indent[]java.lang.ArrayIndexOutOfBoundsException
+
+Thrown to indicate that an array has been accessed with an illegal index. The index is either negative or greater than or equal to the size of the array.
+]
+
+---
+
+## Errors
+
+.javadoc.head[
+**Package** .pack[java.lang]
+
+.def[Class Error]
+
+.pack[java.lang.Object]  
+.indent[].pack[java.lang.Throwable]  
+.indent[].indent[]java.lang.Error
+
+An `Error` is a subclass of `Throwable` that indicates serious problems that a reasonable application should not try to catch. Most such errors are abnormal conditions. The `ThreadDeath` error, though a "normal" condition, is also a subclass of `Error` because most applications should not try to catch it.
+
+A method is not required to declare in its `throws` clause any subclasses of `Error` that might be thrown during the execution of the method but not caught, since these errors are abnormal conditions that should never occur. That is, `Error` and its subclasses are regarded as unchecked exceptions for the purposes of compile-time checking of exceptions.
+]
+
+`Exception`: "conditions that a reasonable application might want to catch"
+- come on, you can fix it!
+
+`Error`: "problems that a reasonable application should not try to catch"
+- you are doomed, it's too late!
+
+---
+### Some "popular" errors
+
+No more heap:
+.javadoc.head[
+**Package** .pack[java.lang]
+
+.def[Class OutOfMemoryError]
+
+.pack[java.lang.Object]  
+.indent[].pack[java.lang.Throwable]  
+.indent[].indent[].pack[java.lang.Error]  
+.indent[].indent[].indent[].pack[java.lang.VirtualMachineError]  
+.indent[].indent[].indent[].indent[]java.lang.OutOfMemoryError
+
+Thrown when the Java Virtual Machine cannot allocate an object because it is out of memory, and no more memory could be made available by the garbage collector.
+]
+
+No more stack (too much recursion!):
+.javadoc.head[
+**Package** .pack[java.lang]
+
+.def[Class StackOverflowError]
+
+.pack[java.lang.Object]  
+.indent[].pack[java.lang.Throwable]  
+.indent[].indent[].pack[java.lang.Error]  
+.indent[].indent[].indent[].pack[java.lang.VirtualMachineError]  
+.indent[].indent[].indent[].indent[]java.lang.StackOverflowError
+
+Thrown when a stack overflow occurs because an application recurses too deeply.
+]
+
+---
+
+## `Throwable` (and subclasses) usage
+
+Constructors:
+.javadoc.constructors[
+| Constructor | Description |
+| --- | --- |
+| Throwable()	| Constructs a new throwable with `null` as its detail message. |
+|	Throwable(String message) | Constructs a new throwable with the specified detail message. |
+| Throwable(String message, Throwable cause) | Constructs a new throwable with the specified detail message and cause. |
+]
+
+Methods (key ones):
+.javadoc.methods[
+| Mod. and Type | Method | Description |
+| --- | --- | --- |
+| String | getMessage() | Returns the detail message string of this throwable.
+| void | printStackTrace() | Prints this throwable and its backtrace to the standard error stream. |
+| void | printStackTrace​(PrintStream s) | Prints this throwable and its backtrace to the specified print stream. |
+| void | printStackTrace​(PrintWriter s) | Prints this throwable and its backtrace to the specified print writer. |
+]
+
+`printStackTrace()` (= `printStackTrace(System.err)`):
+- super useful for debugging
+- should **not** be used in production-level software
+  - most IDEs warn if used
+
+---
+
+## Stack trace
+.cols[
+.c50[
+.compact[
+```java
+public static void dec(int n)
+    throws Exception {
+  if (n == 0) {
+    throw new Exception("surprise!");
+  }
+  dec(n - 1);
+}
+```
+]
+]
+.c50[
+.compact[
+```java
+public static void main(String[] args)  {
+  try {
+    dec(5);
+  } catch (Exception e) {
+    e.printStackTrace();
+  }
+}
+```
+]
+]
+]
+
+.compact[
+```bash
+java.lang.Exception: surprise!
+	at it.units.erallab.hmsrobots.objects.Robot.dec(Test.java:185)
+	at it.units.erallab.hmsrobots.objects.Robot.dec(Test.java:185)
+	at it.units.erallab.hmsrobots.objects.Robot.dec(Test.java:185)
+	at it.units.erallab.hmsrobots.objects.Robot.dec(Test.java:185)
+	at it.units.erallab.hmsrobots.objects.Robot.dec(Test.java:185)
+	at it.units.erallab.hmsrobots.objects.Robot.dec(Test.java:185)
+	at it.units.erallab.hmsrobots.objects.Robot.main(Test.java:191)
+```
+]
+
+Shows method, source code file, and source code line of the statement in which the flow switched to anomalous
+- i.e., where `throw` is, when not a JVM thrown throwable
+
+---
+
+## Errors in Java
+
+Language:
+- what is error in Java?
+  - `Throwable`, `Error`, `Exception`, `RuntimeException`
+- how to define the normal and anomalous flow?
+  - `try`-`catch`-`finally`
+- how to switch to anomalous flow?
+  - `throw`
+
+Design:
+- when to handle an error? (and when to propagate?)
+- how to handle an error?
+- when to "create" an error?
+
+---
+
+## How to design with exceptions
+
+Design:
+- when to handle an error? (and when to propagate?)
+- how to handle an error?
+- when to "create" an error?
+
+No, one-fits-all answers.
+- some basic good practice guidelines
+- many finer guidelines
+
+---
+
+## Handle or propagate?
+
+**When to handle an error?**  
+I.e., an exception of type $E$ in a method $m$.
+
+Key idea:
+- if the developer of $m$ knows how to handle the anomalous condition related to $E$, she/he should handle it!
+
+E.g.: `String getWebPageTitleIfAny(String url)`, with `MalformedURLException`
+- bad URL? no page, no title (`IfAny`): catch and return `""`
+
+E.g.: `Configuration loadFromFile(String fileName)` with `FileNotFoundException`
+- no file? I don't know what `Configuration` to return: propagate
+
+---
+
+## Design by contract
+
+A **methodology** for software design: here just in a nutshell.
+
+For each method define:
+- **preconditions** met by input
+  - responsability of the caller (input)
+- **postconditions** met by output
+  - responsability of the called (output)
+
+Then, the method should return abruptly (in anomalous state) if:
+- preconditions are not met
+- postconditions cannot be met
+
+---
+
+## How to handle? When to throw?
+
+**How to handle an error?**
+- in the way you know to handle it to meet postconditions
+
+**When to "create" an error?**  
+(beyond propagation)
+- when preconditions are not met
+
+.compact[
+```java
+public String getLastName(String fullName) throws MalformedNameException {
+  String[] pieces = fullName.split(" ");
+  if (pieces.length == 0) {
+    throw new MalformedNameException("Empty name!");
+  }
+  return pieces[pieces.length-1];
+}
+```
+]
+
+---
+
+## Creation vs. propagation
+
+Good practice (in general): **hide inner implementation**
+
+If component/library/sofware $S$ finds an exception $E'$ related to specific component/library/sofware $S'$ used in $S$, it should not propagate, but should instead create a new exception $E$ related to $S$.
+
+Code using $S$ should not be needed to know $S'$.
+
+
+---
+
+## Common mistake: fake handling
+
+**Never** catch without handling (just to make the code compile)
+
+```java
+try {
+  doRiskyThing();
+} catch (BadThingHappenedException e) {
+  // ignore
+}
+```
+
+Never means never:
+- "I put a empty catch, I'll fix it later"
+  - forgot, huge problems found much later, hardly
+  - common when working with `Thread`s
+
+If you need to catch it, at least, put a `e.printStackTrace()`.
+
+If you don't know how to handle, you shouldn't catch.
+
+---
+
+## `Thread`s and missed handling
+
+`run()` cannot be redefined with a `throws` clause:  
+$\Rightarrow$ every exception has to be handled
+  - even if you don't know how
+
+If no methods handles the exception (e.g., `NullPointerException`), the **thread** is interrupted:
+  - if the main thread, the application stops
+  - otherwise, just the thread **silently** stops
+
+---
+
+## Common mistake: lazy catch all
+
+.cols[
+.c50[
+.compact[
+```java
+try {
+  doRiskyThing();
+} catch (Exception e) {
+  /* handling code */
+}
+```
+]
+]
+.c50[
+.compact[
+```java
+public void doRiskyThing()
+    throws BadFooException, BadBarException {
+  /* ... */
+}
+```
+]
+]
+]
+
+The (lazy) developer handles `BadFooException` and `BadBarException` in the same way.
+- but the `catch` block might be executed also in other conditions, e.g., `NullPointerException`
+
+Correct way:
+.compact[
+```java
+try {
+  doRiskyThing();
+} catch (BadFooException e) {
+  /* handling code */
+} catch (BadBarException e) {
+  /* handling code */
+}
+```
+]
+
+---
+
+### Multicatch
+
+From Java 7 lazyness is no more a motivation:
+```java
+try {
+  doRiskyThing();
+} catch (BadFooException|BadBarException e) {
+}
+```
+At compile-time, `e` is of the most specific supertype of both `BadFooException` and `BadBarException`.
+
+Just a shorthand.
+
+---
+
+## Summarizing
+
+It's a matter of responsability:
+- if preconditions are met and postconditions can be met, it's **called responsability** $\rightarrow$ handle
+- if preconditions are not met, it's **caller responsability** $\rightarrow$ propagate
+- if called cannot meet postconditions, for serious problems beyond its responsability $\rightarrow$ propagate
+
+In practice:
+- always log, if forced to handle
+
 
 <!-- design questions -->
 
 <!-- multicatch -->
+<!-- try with resources: https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html -->
