@@ -1515,7 +1515,7 @@ Otherwise, OS notifies the application (here, the JVM) that TCP failed.
 
 ---
 
-## Message-based protocol
+## Message-oriented protocol
 
 Client $C$: write request, read response.  
 Server $S$: read request, write response.
@@ -1558,7 +1558,7 @@ Iteration in detail:
 ]
 .c50[
 - write response (3)
-  - $S \rightarrow \text{OS}_C$
+  - $S \rightarrow \text{OS}_C$ (last ok call)
   - $\text{OS}_S \rightarrow \text{device}_S$
   - $\text{device}_S \rightarrow \text{device}_C$
   - $\text{device}_C \rightarrow \text{OS}_C$
@@ -1569,7 +1569,30 @@ Iteration in detail:
 
 $C$ never sends a request before consuming a response: hence if `readLine()` worked with the $n$-th request, $C$ received the $n-1$-th response.
 - **not possible** to say when, where, who (client, network) failed after that
-- $n$-th response might have arrived or not
+- $n$-th response **might have arrived or not**
+
+---
+
+## Even worse!
+
+Pipelined message-oriented protocol:
+
+Client $C$: write $k$ requests, read $k$ responses.  
+Server $S$: read $h$ requests, write $h$ responses.
+
+---
+
+## How to manage?
+
+It depends on the application.
+
+Request examples:
+1. "show my balance"
+2. "buy a new pots and pans set"
+3. "new hearth available"
+
+For 1, $C$ can simply send again the request.  
+For 2 and 3, much harder.
 
 <!-- say about pipelined
 mention examples -->
