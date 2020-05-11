@@ -1426,7 +1426,8 @@ public class RobustClientHandler extends ClientHandler {
 ]
 
 - `extends ClientHandler`
-- does not need to know that the server is Robust
+- does not need to know that the server is the robust version
+  - inheritance
 
 ---
 
@@ -1435,12 +1436,12 @@ public class RobustClientHandler extends ClientHandler {
 .compact[
 ```java
 public void run() {
-  try (socket) {
+  try (`socket`) {
     BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
     while (true) {
       String line = br.readLine();
-      if (line == null) {
+      if (`line == null`) {
         System.err.println("Client abruptly closed connection");
         break;
       }
@@ -1456,3 +1457,114 @@ public void run() {
 }
 ```
 ]
+
+- `readLine()` returns null if EOS reached, that happens when the client closes the connection
+  - `line.equals()` would have thrown a `NullPointerException` .question[what if not handled?]
+- `try (socket)`: possible since Java 9
+
+---
+
+## `IOException` and network
+
+.compact[
+```java
+public void run() {
+  try (socket) {
+    BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+    while (true) {
+      String line = `br.readLine()`;
+      if (line == null) {
+        System.err.println("Client abruptly closed connection");
+        break;
+      }
+      if (line.equals(lineProcessingServer.getQuitCommand())) {
+        break;
+      }
+      `bw.write(lineProcessingServer.process(line) + System.lineSeparator())`;
+      `bw.flush()`;
+    }
+  } catch (IOException e) {
+    System.err.printf("IO error: %s", e);
+  }
+}
+```
+]
+
+Suppose we get an `IOException` at $n+1$-th `readLine()`:
+- has the last $n$-th **message** arrived?
+- have all the previous $1, \dots, n$ messages arrived?
+
+---
+
+## TCP guarantees
+
+TCP guarantees that:
+- every byte sent on one endpoint reaches the other endpoint
+- bytes arrive with the same order they have been sent
+- no duplication
+
+... if no problems occur.
+
+Otherwise, OS notifies the application (here, the JVM) that TCP failed.
+
+---
+
+## Message-based protocol
+
+Client $C$: write request, read response.  
+Server $S$: read request, write response.
+
+Iteration in detail:
+.cols[
+.c50[
+- write request (1)
+  - $C \rightarrow \text{OS}_C$
+  - $\text{OS}_C \rightarrow \text{device}_C$
+  - $\text{device}_C \rightarrow \text{device}_S$
+  - $\text{device}_S \rightarrow \text{OS}_S$
+- read request (2)
+  - $\text{OS}_S \rightarrow S$
+]
+.c50[
+- write response (3)
+  - $S \rightarrow \text{OS}_C$
+  - $\text{OS}_S \rightarrow \text{device}_S$
+  - $\text{device}_S \rightarrow \text{device}_C$
+  - $\text{device}_C \rightarrow \text{OS}_C$
+- read response (4)
+  - $\text{OS}_C \rightarrow C$
+]
+]
+
+---
+
+### Exception in `readLine()`
+
+.cols[
+.c50[
+- write request (1)
+  - $C \rightarrow \text{OS}_C$
+  - $\text{OS}_C \rightarrow \text{device}_C$
+  - $\text{device}_C \rightarrow \text{device}_S$
+  - $\text{device}_S \rightarrow \text{OS}_S$
+- read request (2)
+  - $\text{OS}_S \rightarrow S$ `IOException`!
+]
+.c50[
+- write response (3)
+  - $S \rightarrow \text{OS}_C$
+  - $\text{OS}_S \rightarrow \text{device}_S$
+  - $\text{device}_S \rightarrow \text{device}_C$
+  - $\text{device}_C \rightarrow \text{OS}_C$
+- read response (4)
+  - $\text{OS}_C \rightarrow C$
+]
+]
+
+$C$ never sends a request before consuming a response: hence if `readLine()` worked with the $n$-th request, $C$ received the $n-1$-th response.
+- **not possible** to say when, where, who (client, network) failed after that
+- $n$-th response might have arrived or not
+
+<!-- say about pipelined
+mention examples -->
