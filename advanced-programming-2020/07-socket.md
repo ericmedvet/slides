@@ -492,9 +492,9 @@ Might have defined `EnhancedDataInputStream`, `EnhancedDataOutputStream`:
 
 ---
 
-## Message-based protocol
+## Message-oriented protocol
 
-Previous examples implicitly defined a message-based protocol:
+Previous examples implicitly defined a message-oriented protocol:
 - `SimpleLineProcessingServer`: a message is a text line
 - `SimpleRealVectorProcessingServer`: a message is vector encoded in a specified way
 

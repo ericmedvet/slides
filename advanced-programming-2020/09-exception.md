@@ -121,7 +121,7 @@ If an error occurs in $m$:
 
 then **the execution halts immediately**.
 
-$\Rightarrow$ impossible that an error goes undetected causing (bigger) errors later!
+$\Rightarrow$ impossible that an error goes unhandled causing (bigger) errors later!
 
 ---
 
@@ -189,7 +189,7 @@ Another one:
 .pack[java.lang.Object]  
 .indent[].pack[java.lang.Throwable]  
 .indent[].indent[].pack[java.lang.Exception]  
-.indent[].indent[].indent[].javax.sound.sampled.UnsupportedAudioFileException
+.indent[].indent[].indent[]javax.sound.sampled.UnsupportedAudioFileException
 ]
 .javadoc[
 An `UnsupportedAudioFileException` is an exception indicating that an operation failed because a file did not contain valid data of a recognized file type and format.
@@ -410,7 +410,7 @@ If/when the execution reaches the `throw` $e$ statement, the anomalous flows sta
 `throw` is an action:
 - do it now!
 
-`thorws` is part of a definition:
+`throws` is part of a definition:
 - the method may do it
 
 ---
@@ -467,12 +467,17 @@ Compiles, but IDEs usually warn that code does not throw `MalformedNameException
 .compact[
 ```java
 public void showName(String fullName) throws Exception, MalformedNameException {
-  System.out.println(fullName);
+  String[] pieces = fullName.split(" ");
+  if (pieces.length == 0) {
+    throw new MalformedNameException("Empty name!");
+  }
+  return pieces[pieces.length-1];
 }
 ```
 ]
 
 Compiles, but IDEs usually warn that declaring `MalformedNameException` is useless because a more general exception can be thrown.
+
 
 ---
 
@@ -604,7 +609,7 @@ public void externalDoThings(int n) {
 - remains in normal state when exiting from `doThings()`
 
 `externalDoThings(0)` invoked:
-- `en1 n1 f na en3`
+- `en1 n1 f ea en3`
 - remains in anomalous state when exiting from `doThings()`
 ]
 ]

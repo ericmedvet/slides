@@ -694,21 +694,27 @@ Since atomicity is a common requirement, the JDK provides:
 
 `synchronized` can be applied to code blocks, instead of to entire methods:
 
+.compact[
 ```java
-Counter c = /* ... */
-for (int i = 0; i < 10; i++) {
-  `synchronized (c) {`
-    System.out.print(c.get() + " -> ");
-    c.inc();
-    System.out.println(c.get());
-  `}`
+public class CounterThread extends Thread {
+  public void run() {
+    Counter c = /* ... */
+    for (int i = 0; i < 10; i++) {
+      `synchronized (c) {`
+        System.out.print(c.get() + " -> ");
+        c.inc();
+        System.out.println(c.get());
+      `}`
+    }
+  }
 }
 ```
+]
 
 The synchronized block can be executed on the same `Counter` object (`c`, here) by at most one thread at a time.
 
-.question[What's the output with/without `synchronized` with two threads on the same counter?]
+.question[What's the output with/without `synchronized` with two threads on the same counter (i.e., same instance)?]
 
-.question[What if `c` is instantiated here?]
+.question[What if `c` is instantiated with `new Counter()` in `run()`?]
 
 <!-- mention AtomicInteger, mention thread-safe version of classes -->
