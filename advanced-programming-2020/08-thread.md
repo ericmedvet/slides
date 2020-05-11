@@ -686,7 +686,7 @@ Since atomicity is a common requirement, the JDK provides:
 - thread-safe versions of some key classes
   - e.g., [`AtomicInteger`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/concurrent/atomic/AtomicInteger.html)
 - ways to make thread-safe some non thread-safe classes
-  - e.g., [`Collections.synchronizedCollection()`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Collections.html))
+  - e.g., [`Collections.synchronizedCollection()`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Collections.html)
 
 ---
 
