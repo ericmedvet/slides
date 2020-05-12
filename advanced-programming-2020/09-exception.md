@@ -973,9 +973,10 @@ For each method define:
 - **postconditions** met by output
   - responsability of the called (output)
 
-Then, the method should return abruptly (in anomalous state) if:
+Then, the method should return abruptly in anomalous state (i.e., throw or propagate an exception, in Java) **if and only if**:
 - preconditions are not met
-- postconditions cannot be met
+- postconditions cannot be met despite preconditions being met
+  - "cannot" means for serious unsolvable problems
 
 .note[Some IDEs help the developer in adopting this methodology.]
 
@@ -989,6 +990,7 @@ Then, the method should return abruptly (in anomalous state) if:
 **When to "create" an error?**  
 (beyond propagation)
 - when preconditions are not met
+- when postcondition cannot
 
 .compact[
 ```java
@@ -1059,7 +1061,7 @@ If no methods handles the exception (e.g., `NullPointerException`), the **thread
 try {
   doRiskyThing();
 } catch (Exception e) {
-  /* handling code */
+  /* handling code for both */
 }
 ```
 ]
@@ -1085,9 +1087,9 @@ Correct way:
 try {
   doRiskyThing();
 } catch (BadFooException e) {
-  /* handling code */
+  /* handling code for foo */
 } catch (BadBarException e) {
-  /* handling code */
+  /* handling code for bar */
 }
 ```
 ]
@@ -1101,6 +1103,7 @@ From Java 7, lazyness is no more a motivation:
 try {
   doRiskyThing();
 } catch (BadFooException|BadBarException e) {
+  /* handling code for both */
 }
 ```
 At compile-time, `e` is of the most specific supertype of both `BadFooException` and `BadBarException`.
@@ -1174,10 +1177,10 @@ try {
   r.use();
   r.close();
 } catch (AException e) {
-  log();
+  log(e);
   r.close();
 } catch (BException e) {
-  log();
+  log(e);
   r.close();
 }
 ```
@@ -1204,9 +1207,9 @@ try {
   r = open();
   r.use();
 } catch (AException e) {
-  log();
+  log(e);
 } catch (BException e) {
-  log();
+  log(e);
 } finally {
   r.close();
 }
@@ -1234,9 +1237,9 @@ try {
   r = open();
   r.use();  
 } catch (AException e) {
-  log();
+  log(e);
 } catch (BException e) {
-  log();
+  log(e);
 } finally {
   if (r != null) {
     r.close();
@@ -1259,9 +1262,9 @@ Ok, but still verbose...
 try `(Resource r = open())` {
   r.use();  
 } catch (AException e) {
-  log();
+  log(e);
 } catch (BException e) {
-  log();
+  log(e);
 }
 ```
 
@@ -1298,7 +1301,7 @@ try (
     fos.write(data, 0, nOfReadBytes);
   }
 } catch (IOException e) {
-  System.err.println(String.format("Cannot copy due to %s", e));
+  System.err.printf("Cannot copy due to %s", e);
 }
 ```
 
@@ -1390,15 +1393,16 @@ public class RobustLineProcessingServer `extends LineProcessingServer` {
 .compact[
 ```java
 public void start() `throws IOException` {
-  ServerSocket serverSocket = new ServerSocket(port);
-  while (true) {
-    Socket socket;
-    try {
-      socket = serverSocket.accept();
-      ClientHandler clientHandler = new `RobustClientHandler`(socket, this);
-      clientHandler.start();
-    } `catch (IOException e)` {
-      System.err.printf("Cannot accept connection due to %s", e);
+  try (ServerSocket serverSocket = new ServerSocket(port)) {
+    while (true) {
+      Socket socket;
+      try {
+        socket = serverSocket.accept();
+        ClientHandler clientHandler = new `RobustClientHandler`(socket, this);
+        clientHandler.start();
+      } `catch (IOException e)` {
+        System.err.printf("Cannot accept connection due to %s", e);
+      }
     }
   }
 }
