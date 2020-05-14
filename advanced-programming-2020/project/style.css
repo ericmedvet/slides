@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css?family=Livvic:400,400i,700,700i|Roboto+Mono:400,700,400i");
+body {
+  font-family: "Livvic";
+  font-size: 5mm;
+  padding: 1cm;
+}
+pre {
+  padding: .25em;
+  background-color: lightgray;
+  border-radius: 0.25em;
+}
+
+code {
+  font-family: "Roboto Mono";
+  color: #812815;
+  font-size: 90%;
+}
