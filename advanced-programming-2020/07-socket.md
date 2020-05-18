@@ -272,7 +272,7 @@ public class SimpleLineProcessingServer {
     this.quitCommand = quitCommand;
   }
 
-  public void start() throws IOException {
+  public void run() throws IOException {
     ServerSocket serverSocket = new ServerSocket(`port`);
     while (true) {
       Socket socket = serverSocket.accept();
@@ -365,10 +365,10 @@ We use a `PrintStream` because:
 
 ---
 
-### `start()` $\rightarrow$ `start()`+`handleClient()`
+### `run()` $\rightarrow$ `run()`+`handleClient()`
 .compact[
 ```java
-public void start() throws IOException {
+public void run() throws IOException {
   ServerSocket serverSocket = new ServerSocket(port);
   while (true) {
     Socket socket = serverSocket.accept();

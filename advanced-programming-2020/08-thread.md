@@ -7,7 +7,7 @@ class:middle,center
 ## Get rid of `Simple`...
 
 ```java
-public void start() throws IOException {
+public void run() throws IOException {
   ServerSocket serverSocket = new ServerSocket(port);
   while (true) {
     Socket socket = serverSocket.accept();
@@ -46,7 +46,7 @@ This server is not particularly useful!
 A server that can handle many client at a time.
 
 ```java
-public void start() throws IOException {
+public void run() throws IOException {
   ServerSocket serverSocket = new ServerSocket(port);
   while (true) {
     Socket socket = serverSocket.`accept()`;
@@ -305,7 +305,7 @@ public class LineProcessingServer {
     this.quitCommand = quitCommand;
   }
 
-  public void start() throws IOException {
+  public void run() throws IOException {
     ServerSocket serverSocket = new ServerSocket(port);
     while (true) {
       Socket socket = serverSocket.accept();
@@ -429,7 +429,7 @@ public class LineProcessingServer {
     this.quitCommand = quitCommand;
   }
 
-  public void start() throws IOException {
+  public void run() throws IOException {
     ServerSocket serverSocket = new ServerSocket(port);
     while (true) {
       Socket socket = serverSocket.accept();

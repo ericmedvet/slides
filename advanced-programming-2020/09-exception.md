@@ -1376,7 +1376,7 @@ public class RobustLineProcessingServer `extends LineProcessingServer` {
     super(port, quitCommand);
   }
 
-  public void start() throws IOException { /* ... */  }
+  public void run() throws IOException { /* ... */  }
 
 }
 ```
@@ -1388,11 +1388,11 @@ public class RobustLineProcessingServer `extends LineProcessingServer` {
 
 ---
 
-### `start()`
+### `run()`
 
 .compact[
 ```java
-public void start() `throws IOException` {
+public void run() `throws IOException` {
   try (ServerSocket serverSocket = new ServerSocket(port)) {
     while (true) {
       Socket socket;

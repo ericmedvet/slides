@@ -271,7 +271,7 @@ public class LineProcessingServer {
     /* ... */
   }
 
-  public void start() throws IOException {
+  public void run() throws IOException {
     /* ... */
   }
 
@@ -397,7 +397,10 @@ public class LineProcessingServer {
   /* ... */
 }
 ```
+]
+
 Using with anonymous class definition:
+.compact[
 ```java
 LineProcessingServer server = new LineProcessingServer(10000, "BYE", new CommandProcessor() {
   public String process(String input) {
@@ -422,18 +425,22 @@ Modifiers for methods defined in `interface`s:
 .compact[
 ```java
 public interface Listener {
+
   void listen(Event event);
+
   `default` void listen(Event[] events) {
     for (Event event : events) {
       listen(event);
     }
   }
-  `static` Listener null() {
+
+  `static` Listener nullListener() {
     return new Listener() {
       public void listen(Event event) {/* do nothing */ };
     }
   }
-  `default` Listener then(final Listener other) {
+
+  `default` Listener andThen(final Listener other) {
     return new Listener() {
       public void listen(Event event) {
         listen(event);
@@ -441,22 +448,74 @@ public interface Listener {
       };
     }
   }
+
 }
 ```
 ]
+
+- `Listener null()` is a constructor-like utility method
+- `then` is a keyword
 
 ---
 
 ### Usage
 
+.compact[
 ```java
-Listener listener = Listener.null();
+Listener listener = Listener.nullListener();
 ```
 
 ```java
 Listener listener = new StandardOutputListener()
                         .then(new FileListener(file));
 ```
+]
+
+---
+
+### More complex example
+
+.compact[
+```java
+public interface Listener {
+
+  void listen(Event event);
+
+  /* ... */
+
+  `static` Listener nonBlocking(final Listener inner) {
+    return `new Listener() {`
+      public void listen(final Event event) {
+        Thread t = `new Thread() {`
+          public void run() {
+            inner.listen(event);
+          }
+        }
+        t.start();
+      }
+    }
+  }
+}
+```
+]
+
+- Two anonymous class definitions
+  - verbose: we'll see an alternative
+- `final`: effect is on called, not on caller
+
+---
+
+### Usage
+
+```java
+Listener listener = Listener.nonBlocking(
+    new StandardOutputListener().andThen(new FileListener(pathName))
+);
+EventGenerator generator = new EventGenerator(listener);
+generator.start();
+```
+
+The developers of `EventGenerator` just need to know `void listen(Event event)`!
 
 ---
 
@@ -624,13 +683,236 @@ Says to the compiler:
 
 <iframe width="100%" height="450" src="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Override.html"></iframe>
 
-<!-- lambdas -->
+---
+
+class: middle, center
+
+### Lambdas
+
+---
+
+## One-method interfaces
+
+In many cases, one interface models just one functionality by definining a single method.
+
+"Our" examples:
+- `String process(String)` in `CommandProcessor`
+- `void listen(Event)` in `Listener`
+
+JDK examples:
+- `void run()` in `Runnable`
+  - concurrency can be obtained by instantiating a `Thread` with a `Runnable` (`Thread(Runnable)` constructor) and then invoking `start()`
+
+---
+
+## Functional interface
+
+Those interfaces **model functions**:
+- one way to map one input (possibly being defined by multiple arguments) to one output
+- without a state
+
+The "users" of implementation of those interface just need the function definition, that is de-facto, fully contained in the single method implementation.
+
+Yet, implementing them is verbose:
+
+.compact[
+```java
+LineProcessingServer server = new LineProcessingServer(
+    10000, "BYE", new CommandProcessor() {
+      public String process(String input) {
+        return `input.toUpperCase()`;
+      }
+    });
+```
+]
+
+---
+
+## Lambda expressions
+
+(Or, simply, **lambdas**; since Java 8)  
+
+A syntactic **shorthand** for implementing functional interfaces annotated with `@FunctionalInterface`:
+- "implementing" = "defining anonymous classes that implement"
+
+.compact[
+```java
+@FunctionalInterface
+public interface CommandProcessor {
+  String process(String input);
+}
+```
+
+```java
+CommandProcessor p = (String input) -> {
+  return input.toUpperCase()
+};
+LineProcessingServer server = new LineProcessingServer(10000, "BYE", p);
+```
+]
+
+---
+
+## Syntax
+
+Main option:
+- list of arguments (possibly empty)
+- `->`
+- body
+
+The method name is not needed, because there is only one method!
+
+The interface is not needed, the compiler can infer it from the context!
+
+Recall: just a syntactic shorthand!
+
+---
+
+## `@FunctionalInterface`
+
+It can be applied to interfaces with one single method.  
+It can be omitted (but use it!)
+
+.javadoc[
+An informative annotation type used to indicate that an interface type declaration is intended to be a *functional interface* as defined by the Java Language Specification. Conceptually, a functional interface has exactly one abstract method. Since default methods have an implementation, they are not abstract. If an interface declares an abstract method overriding one of the public methods of `java.lang.Object`, that also does not count toward the interface's abstract method count since any implementation of the interface will have an implementation from `java.lang.Object` or elsewhere.
+
+Note that instances of functional interfaces can be created with lambda expressions, method references, or constructor references.
+
+If a type is annotated with this annotation type, compilers are required to generate an error message unless:
+- The type is an interface type and not an annotation type, enum, or class.
+- The annotated type satisfies the requirements of a functional interface.
+
+However, the compiler will treat any interface meeting the definition of a functional interface as a functional interface regardless of whether or not a `FunctionalInterface` annotation is present on the interface declaration.
+]
+---
+
+## Even more compact
+
+In many cases, type of arguments can be omitted:
+```java
+CommandProcessor p = (input) -> {
+  return input.toUpperCase()
+};
+```
+If there is **exactly one** input argument, parentheses `()` can be omitted:
+```java
+CommandProcessor p = input -> {return input.toUpperCase()};
+```
+
+If the body is composed by **exactly one** statement (possibly `return`), brackets `{}` can be omitted (with `return`, if present):
+```java
+CommandProcessor p = input -> input.toUpperCase();
+```
+
+---
+
+### Method reference operator
+
+If the statement consists only of the invocation of a method, it can be specified with the **method reference operator** `::`:
+```java
+CommandProcessor p = input -> `StringUtils::reverse`;
+```
+
+---
+
+## Usage in practice
+
+Convert to uppercase:
+.compact[
+```java
+server = new LineProcessingServer(10000, "BYE", s -> s.toUpperCase());
+```
+]
+
+Prefix:
+.compact[
+```java
+final String prefix = /* ... */;
+server = new LineProcessingServer(10000, "BYE", s -> prefix + s);
+```
+]
+
+Count tokens:
+.compact[
+```java
+server = new LineProcessingServer(10000, "BYE", s -> s.split(" ").length);
+```
+]
+
+---
+
+### More complex
+
+.compact[
+```java
+@FunctionalInterface
+public interface RealFunction {  
+
+  double apply(double x);
+
+  default RealFunction composeWith(RealFunction other) {
+    return x -> other.apply(apply(x));
+  }
+
+  default RealFunction integrate(double x0, double step) {
+    return x -> {
+      double sum = 0;
+      for (double xv = x0; xv <= x; xv = xv + step) {
+        sum = sum + step * apply(xv);
+      }
+      return sum;
+    };
+  }
+}
+```
+]
+
+- $f$`.composeWith(`$g$`)` gives $f \circ g$, with $(f \circ g)(x) = g(f(x))$
+- $f$`.integrate(`$x_0$`,`$\Delta x$`)` gives
+  - $\sum_{t \in \{x_0, x_0+\Delta x, \dots, x\}} f(t) \Delta x$
+  - i.e., $\approx \int_{x_0}^{x} f(t) dt$
+
+Both return a function!
+
+---
+
+### Usage
+
+.compact[
+```java
+public class RealFunctionUtils {  
+  public static double max(RealFunction f) { /* ... */ };
+  public static double[] zeros(RealFunction f) { /* ... */ };  
+}
+```
+
+```java
+double[] zeros = RealFunctionUtils.zeros(x -> (x * x + 1) / (1 + x));
+RealFunction f = (x -> x + 1);
+double max = RealFunctionUtils.max(f.integrate(-1, 0.1).composeWith(x -> x * x + 1));
+```
+
+Recall: only a syntactic shorthand!
+]
+
+---
+
+## Why?
+
+Goals:
+- favor functional programming
+  - the functiuon as a key concept in design
+- reduce verbosity
+
+Largest concrete exploitment:
+- `java.util.stream`: we'll see them
+
 
 <!-- - generics
 - collections
 - use in code:
   - use always the most general type
 - executors
-- lambdas and streams
+- streams
 - reflection
 - serialization -->
