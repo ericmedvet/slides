@@ -48,7 +48,7 @@ Whenever the JVM needs to use a `.class` file:
 - if not present, it looks for it in the file system and loads it
 
 Hence, a `.class` is loaded in memory at **the first time**:
-- the first time a constructor is executed
+- a constructor is executed
 - a static method is executed (e.g., `main()`)
 - a static field is accessed
 
@@ -82,6 +82,7 @@ public class Greeter {
 ```
 ```bash
 eric@cpu:~$ java Greeter
+hi Eric
 ```
 ]
 ]
@@ -151,7 +152,8 @@ Where do `javac`/`java` look for `.class` files?
 
 ## Where are `.java` files?
 
-`.java` files must be organized in directories corresponding to packages.  
+`.java` files must be organized in directories corresponding to packages.
+
 Suppose source root directory is `~/java-projects/APFinalProject/src/main/java` .note[common choice of many IDEs], then:
 - `it.units.approject.Main` must be a `Main.java` in `~/java-projects/APFinalProject/src/main/java/it/units/approject`
 - `it.units.approject.util.Parser` must be a `Parser.java` in `~/java-projects/APFinalProject/src/main/java/it/units/approject/util`
@@ -165,9 +167,15 @@ IDEs take care of managing proper location of all files, including sources.
 ## Where are `.class` files?
 
 Many options:
-- in the same directory of the corresponding `.java` files (old way)
-- in a directory tree equal to the `.java` one (i.e., based on packages) but rooted elsewhere (e.g., at `~/java-projects/APFinalProject/target/`) (**common easy way**)
-- in a `.jar` file placed properly (**modern way**)
+1. in the JDK directories (for JDK classes)
+2. in the same directory of the corresponding `.java` files (old way)
+3. in a directory tree equal to the `.java` one (i.e., based on packages) but rooted elsewhere (e.g., at `~/java-projects/APFinalProject/target/`) (**common easy way**)
+4. in a `.jar` file placed properly
+
+Multiple options can hold together, usually for different kind of classes:
+- 3 for "this" software
+- 4 for other software used by "this" software
+
 
 ---
 
@@ -176,7 +184,7 @@ Many options:
 Placing of `.class` is part of a complex **build process** that is managed by one or more of:
 - the IDE
 - **build-automation** tools (e.g., for Java, [Maven](https://en.wikipedia.org/wiki/Apache_Maven) or [Gradle](https://en.wikipedia.org/wiki/Gradle))
-  - super powerful, but we'll do not see them
+  - super powerful, but we'll not see them
   - do much more then automating the **building** process (that's more than just compilation)
       - manage dependencies
 
@@ -214,7 +222,7 @@ After that, knowledge can be transferred in many ways:
 - wiki
 - ...
 
-In some cases, providing a documentation API documentation (aka javadoc) may be useful.
+In some cases, providing an API documentation (aka javadoc) may be useful.
 
 ---
 
@@ -266,7 +274,7 @@ public class Greeter {
 
 ## Syntax
 
-- `/**` marks the start of a javadoc comment (normal block comment start with `/*`)
+- `/**` marks the start of a javadoc comment (normal block comments start with `/*`)
 - javadoc tags start with `@`
 - some HTML syntax can be used
 - ...
