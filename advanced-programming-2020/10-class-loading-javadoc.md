@@ -81,7 +81,7 @@ public class Greeter {
 }
 ```
 ```bash
-eric@cpu:~$ java Greeter
+eric@cpu:~$ java Main
 hi Eric
 ```
 ]
@@ -252,14 +252,16 @@ public class Greeter {
   /**
    * Build a new greeter with the provided {@code String} as greeting formula.
    *
-   * @param formula
+   * @param formula A greeting formula.
    */
   public Greeter(String formula) {
     this.formula = formula;
   }
 
   /**
-   * @param name
+   * Produces a greeting string with the given {@code name}.
+   *
+   * @param name The name to be included in the greeting string.
    * @return A {@code String} with a greeting of {@code name}
    * with the formula of this {@code Greeter}.
    */

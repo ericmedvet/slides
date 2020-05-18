@@ -1562,7 +1562,7 @@ Iteration in detail:
 ]
 .c50[
 - write response (3)
-  - $S \rightarrow \text{OS}_C$ (last ok call)
+  - $S \rightarrow \text{OS}_S$ (last ok call)
   - $\text{OS}_S \rightarrow \text{device}_S$
   - $\text{device}_S \rightarrow \text{device}_C$
   - $\text{device}_C \rightarrow \text{OS}_C$
