@@ -79,7 +79,7 @@ Similar to class inheritance:
 
 References to interface can reference implementing classes:
 ```java
-Listener listener = new NullListener();
+Listener listener = new FileListener();
 listener.listen(event);
 ```
 also in method signatures:
@@ -109,6 +109,14 @@ Which code should be executed when `listener` will be invoked?
 ## `instanceof`
 
 Works as expected:
+
+```java
+public class NullListener implements Listener {
+  public void listen(Event event) {
+    /* do nothing */
+  }
+}
+```
 
 ```java
 NullListener listener = new NullListener();
@@ -165,8 +173,9 @@ Suppose an **interface** $I$ extends $I'$ and $I''$ and both have a method $m$ w
 
 ## When to use interfaces?
 
-Key motivation:
-- define something that can perform some operations, without describing how they have to be performed
+Key motivation: define something that can perform some operations, without describing how they have to be performed
+- **abstraction**
+- reduced complexity
 
 ```java
 public interface Listener {
@@ -176,6 +185,17 @@ public interface Listener {
 Definition: "The listener listens"
 
 Then, you can build whatever complex functionalities based on this definition.
+
+---
+
+### Interface and abstraction
+
+It's like when you manipulate mathematical concept:
+
+"let $f: \mathbb{R} \to \mathbb{R}$ be a function"
+
+then you continue your reasoning and complex theory  
+**without the need to specify the actual form of $f$**!
 
 ---
 
@@ -218,6 +238,7 @@ public class Listener {
 
 Key differences:
 - (conceptual) define just what, not how!
+  - what if not `void` return? how to set it in empty behavior?
 - (conceptual & practical) there is no empty/default implementation of operations!
   - you cannot do `new` with interfaces
 - (practical) suppose to have class `A` doing operations of $A$ and class `B` doing operations of $B$, how should one define $C$ doing operations of both $A$ and $B$?
@@ -255,6 +276,16 @@ public interface CommandProcessor {
 }
 ```
 
+E.g.: "uppercaser"
+```java
+public class Uppercaser implements CommandProcessor {
+  public String process(String input) {
+    return input.toUpperCase();
+  }
+}
+```
+
+
 ---
 
 ## Enhanced `LineProcessingServer`
@@ -285,6 +316,28 @@ public class LineProcessingServer {
 .question[how?]
 
 This `LineProcessingServer` is written once and can be used many times for different kinds of processing by implementing many times `CommandProcessor`.
+
+---
+
+### Usage
+
+.compact[
+```java
+LineProcessingServer uppercaserServer = new LineProcessingServer(
+    10000,
+    "BYE",
+    new Uppercaser()
+);
+uppercaserServer.run();
+LineProcessingServer tokenCounterServer = new LineProcessingServer(
+    10001,
+    "BYE",
+    new TokenCounter(" ")
+);
+tokenCounterServer.run();
+```
+
+.question[How could you design/code `TokenCounter`?]
 
 ---
 
@@ -361,14 +414,25 @@ public abstract class CountingListener implements Listener {
 ## Anonymous class
 
 Classes implementing interfaces or extending other classes (including `abstract` ones) can be defined "on the fly" without a name:
+.compact[
 ```java
-final PrintStream ps = /* ... */
-Listener listener = new Listener() {
-  public void listen(Event event) {
-    ps.println(event.toString());
+public class EventGenerator {
+  private String prefix;
+
+  public void doThings() {
+    final PrintStream ps = /* ... */
+    Listener listener = `new Listener() {`
+*      public void listen(Event event) {
+*        ps.println(prefix + event.toString());
+*      }
+    `}`;
   }
-};
+}
 ```
+]
+
+- `listener` references an object that is instance of an **anonymous** class that implements `Listener`
+- `ps.println()` is not executed "here"
 
 ---
 
@@ -418,6 +482,8 @@ Modifiers for methods defined in `interface`s:
 - `default` methods provide a default implementation; implementing class may or may not override it
 - `static` methods provide a static method (like for regular class methods)
 
+(Since Java 8)
+
 ---
 
 ### Examples
@@ -434,18 +500,19 @@ public interface Listener {
     }
   }
 
-  `static` Listener nullListener() {
+  `default` Listener andThen(final Listener other) { // then is a keyword
+    final Listener thisListener = this;
     return new Listener() {
-      public void listen(Event event) {/* do nothing */ };
+      public void listen(Event event) {
+        thisListener.listen(event);
+        other.listen(event);
+      };
     }
   }
 
-  `default` Listener andThen(final Listener other) {
+  `static` Listener nullListener() { // null is a keyword
     return new Listener() {
-      public void listen(Event event) {
-        listen(event);
-        other.listen(event);
-      };
+      public void listen(Event event) {/* do nothing */ };
     }
   }
 
@@ -453,27 +520,25 @@ public interface Listener {
 ```
 ]
 
-- `Listener null()` is a constructor-like utility method
-- `then` is a keyword
+- `Listener nullListener()` is a constructor-like utility method
+- `this` inside the anonymous class would refer the "anonymous" object
 
 ---
 
 ### Usage
 
-.compact[
 ```java
 Listener listener = Listener.nullListener();
 ```
 
 ```java
 Listener listener = new StandardOutputListener()
-                        .then(new FileListener(file));
+                        .andThen(new FileListener(file));
 ```
-]
 
 ---
 
-### More complex example
+### A bit more complex example
 
 .compact[
 ```java
@@ -574,7 +639,7 @@ public class Person {
     } else if (gender.equals(`Gender.MALE`)) {
       prefix = "Mr. ";
     }
-    return prefix + firstName + lastName;
+    return prefix + firstName + " " + lastName;
   }
 }
 ```
@@ -602,7 +667,7 @@ public class Person {
       default:
         prefix = "";
     }
-    return prefix + firstName + lastName;
+    return prefix + firstName + " " + lastName;
   }
 }
 ```
@@ -640,7 +705,7 @@ public enum Gender {
 
 ```java
 public String toString() {
-  return gender.prefix(firstName + lastName);
+  return gender.prefix(firstName + " " + lastName);
 }
 ```
 ]
@@ -651,7 +716,7 @@ public String toString() {
 
 Very very briefly.
 
-- Can be used to annotate class and method definitions (and other things)
+- Can be used to annotate class and method definitions and fields (and other things)
 - Can have arguments
 - Can be defined
 - Can be retained:
