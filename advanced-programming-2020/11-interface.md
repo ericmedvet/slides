@@ -952,13 +952,17 @@ public class RealFunctionUtils {
 ```
 
 ```java
-double[] zeros = RealFunctionUtils.zeros(x -> (x * x + 1) / (1 + x));
+double[] zeros = RealFunctionUtils
+    .zeros(x -> (x * x + 1) / (1 + x));
 RealFunction f = (x -> x + 1);
-double max = RealFunctionUtils.max(f.integrate(-1, 0.1).composeWith(x -> x * x + 1));
+double max = RealFunctionUtils
+    .max(f.integrate(-1, 0.1)
+    .composeWith(x -> x * x + 1));
 ```
+]
 
 Recall: only a syntactic shorthand!
-]
+
 
 ---
 
@@ -971,13 +975,3 @@ Goals:
 
 Largest concrete exploitment:
 - `java.util.stream`: we'll see them
-
-
-<!-- - generics
-- collections
-- use in code:
-  - use always the most general type
-- executors
-- streams
-- reflection
-- serialization -->
