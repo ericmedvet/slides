@@ -955,8 +955,8 @@ public class RealFunctionUtils {
 double[] zeros = RealFunctionUtils
     .zeros(x -> (x * x + 1) / (1 + x));
 RealFunction f = (x -> x + 1);
-double max = RealFunctionUtils
-    .max(f.integrate(-1, 0.1)
+double max = RealFunctionUtils.max(f
+    .integrate(-1, 0.1)
     .composeWith(x -> x * x + 1));
 ```
 ]
