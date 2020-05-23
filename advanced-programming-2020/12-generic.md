@@ -461,7 +461,7 @@ Container<Person> persons = new ArrayContainer<>();
 Container<Person> persons = new LimitedArrayContainer<>();
 ```
 
-Not ok (does not compile):
+**Not ok** (does not compile):
 ```java
 Container<Person> persons = new ArrayContainer<`Worker`>();
 Container<Person> persons = new LimitedArrayContainer<`Worker`>();
@@ -476,8 +476,7 @@ For the references: use always the **most general type** that is specific enough
 ```java
 Container<Person> persons = new ArrayContainer<>();
 ```
-Means: "dear all (other developers, future me), ...""
-- "I am going to use only `Container` operations on `persons`"
+Means: "dear all (other developers, future me), I am going to use only `Container` operations on `persons`"
 - another point of view: "what matters here is that `persons` is a `Container`"
 
 ```java
@@ -499,10 +498,10 @@ public interface Union<W extends Worker> {
 ```
 
 The developer states that:
-- a `Union` makes sense only "of some kind `Worker`s" **and** they have the same type (or subtypes)
+- a `Union` makes sense only "of some kind of `Worker`s" **and** they have the same type (or subtypes)
 - implementing those methods likely require using operations/features of `Worker`s
 
-Here `extends` is used always with `interface`s.
+For this usage, `extends` is used also with `interface`s.
 ```java
 public class ComplexStuff<T extends Doer> { /* ... */ }
 ```
@@ -534,7 +533,7 @@ public void removeShorterThan(
 Basically, every time you are modeling a $X$ **of $Y$**!
 
 Particularly powerful with interface:
-- `interface `$Y$ declares some capabilities
+- `interface` $Y$ declares some capabilities
   - what, not how
 - $X$ defines some functionalities based on $Y$ capabilities
 
