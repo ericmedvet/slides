@@ -336,6 +336,7 @@ LineProcessingServer tokenCounterServer = new LineProcessingServer(
 );
 tokenCounterServer.run();
 ```
+]
 
 .question[How could you design/code `TokenCounter`?]
 

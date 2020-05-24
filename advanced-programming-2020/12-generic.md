@@ -206,9 +206,11 @@ Naming convention:
 - definition of references (local variables)
 - definition of return type
 
-But: **`T` cannot be used as constructor**
-- `new T()` does not compile: what constructor should be invoked? what if not legit?
-- `new T[]` does not compile
+But:
+- **`T` cannot be used as constructor**
+  - `new T()` does not compile: what constructor should be invoked? what if not legit?
+  - `new T[]` does not compile
+- **`T` cannot be valued to primitive type**
 
 ---
 
@@ -227,8 +229,29 @@ doubles.add(3.14d);
 
 This would not compile:
 ```java
+Set<String> strings = new Set<String>();
 strings.add(3d);
 strings.add(new Person("Eric", "Medvet"));
+```
+
+---
+
+## Arrays or primitive types
+
+Does not compile!
+```java
+Set<double> numbers = new Set<double>();
+```
+
+Use wrapper classes:
+```java
+Set<Double> numbers = new Set<Double>(); //compiles!
+```
+
+Arrays are types!
+```java
+Set<double[]> numbers = new Set<double[]>(); //compiles!
+Set<String[]> sentences = new Set<String[]>(); //compiles!
 ```
 
 ---
@@ -551,3 +574,67 @@ By decoupling $X$ from $Y$, software may be made much clearer!
 ### `Comparable<T>`
 
 <iframe width="100%" height="450" src="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Comparable.html"></iframe>
+
+---
+
+## Total ordering
+
+Given $a$ and $b$:
+- $a \le b \land b \le a \Rightarrow a = b$ (**antisymmetry**)
+- $a \le b \land b \le c \Rightarrow a \le c$ (**transitivity**)
+- $a \le b \lor b \le a$ (**connexity**)
+
+`interface Comparable<T>` models this with a single method:
+- `int compareTo(T other)`
+
+"Similar" interface: `Comparator<T>`
+- `int compare(T t1, T t2)`
+- useful when one needs to compare objects of type that does not implement `Comparable`
+- many useful `default` methods
+
+---
+
+### `Comparator<T>`
+
+<iframe width="100%" height="450" src="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Comparator.html"></iframe>
+
+---
+
+## Natural ordering
+
+**Natural ordering** of a type is the ordering dictated by its `compareTo()`
+- i.e., the type must implement `Comparable`
+
+E.g., natural ordering by last name:
+```java
+public class Person implements Comparable<Person> {
+  private final String firstName;
+  private final String lastName;
+  private final Date birthDate;
+  /* getters */
+  public int compareTo(Person other) {
+    return lastName.compareTo(other.lastName); // not null safe
+  }
+}
+```
+
+---
+
+## Custom ordering with `Comparator`
+
+```java
+Comparator<Person> c = Comparator
+    .<Person>naturalOrder()
+    .thenComparing(Person::getBirthDate)
+    .thenComparing(Person::getFirstName)
+    .reversed();
+```
+
+- `<Person>naturalOrder()` is a way of setting the value of a parameter type with no usage of the parameter in the arguments
+- `Person::getBirthDate` is a `Function<Person, Comparable>`
+
+Result:
+1. Eric Medvet, 02/03/1979
+2. Alice Medvet, 07/02/2011
+3. Andrea Medvet, 11/10/2013
+4. Jack Zurrell, 01/03/1982

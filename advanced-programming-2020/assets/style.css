@@ -278,10 +278,12 @@ img {
 .javadoc .remark-inline-code {
   font-family: "DejaVu Sans Mono", monospace;
   color: black;
-  font-size: 85%;
+  font-size: 100%;
 }
 .javadoc tbody tr td:nth-child(1),
-.javadoc:not(.constructors) tbody tr td:nth-child(2) {
+.javadoc tbody tr td:nth-child(1) .remark-inline-code,
+.javadoc:not(.constructors) tbody tr td:nth-child(2),
+.javadoc:not(.constructors) tbody tr td:nth-child(2) .remark-inline-code {
   color: #4a6782;
 }
 .javadoc tbody tr:nth-of-type(2n + 1) {
