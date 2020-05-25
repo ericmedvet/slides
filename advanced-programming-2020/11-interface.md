@@ -878,6 +878,17 @@ If the statement consists only of the invocation of a method, it can be specifie
 ```java
 CommandProcessor p = input -> `StringUtils::reverse`;
 ```
+where (might be):
+```java
+public class StringUtils {
+  public static String reverse(String string) {
+    /* ... */
+    return reversed;
+  }
+}
+```
+
+.note[There is an actual `reverse()` in `StringBuilder`.]
 
 ---
 
@@ -951,6 +962,7 @@ public class RealFunctionUtils {
   public static double[] zeros(RealFunction f) { /* ... */ };  
 }
 ```
+]
 
 ```java
 double[] zeros = RealFunctionUtils
@@ -960,9 +972,13 @@ double max = RealFunctionUtils.max(f
     .integrate(-1, 0.1)
     .composeWith(x -> x * x + 1));
 ```
-]
 
 Recall: only a syntactic shorthand!
+
+- first is $\approx \\{x \in \mathbb{R}: \frac{x^2+1}{1+x}=0\\}$
+- second is $\approx \max_{x \in \mathbb{R}} (f \circ g)(x)$, where
+  - $f(x) = \int_{-1}^x t+1 dt$
+  - $g(x) = x^2+1$
 
 
 ---

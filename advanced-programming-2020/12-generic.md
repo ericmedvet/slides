@@ -154,11 +154,11 @@ The second case was **not supported by the language** up to Java 1.5.
 
 ## The solution: generics
 
-**Generic type**: a type defined with another type as parameters
+**Generic type**: a type defined with one or more other types as parameter
 
-E.g., "a set of strings":
-- set is the generic type
-- string is parameter (still a type)
+E.g., "a set **of** strings":
+- **set** is the generic type
+- **string** is parameter (still a type)
 
 Language:
 - how to define them?
@@ -391,7 +391,7 @@ int n = tokenCounter.composeWith(n -> n*n).apply("Eric Medvet");
 ```java
 Set set = new Set();
 set.add("hi");
-set.add(3.14);
+set.add(3.14); //autoboxing
 set.add(new Object());
 ```
 
@@ -402,7 +402,7 @@ If one still wants to contain any object, it's better to make the type explicit:
 ```java
 Set<Object> set = new Set<>();
 set.add("hi");
-set.add(3.14);
+set.add(3.14); //autoboxing
 set.add(new Object());
 ```
 
@@ -538,12 +538,12 @@ In some cases, any type is ok:
 - usually in method signatures
 
 ```java
-public int count(Set<?> set) { /* ... */ }
+public static int count(Set<?> set) { /* ... */ }
 ```
 - no need to know the type for counting
 
 ```java
-public void removeShorterThan(
+public static void removeShorterThan(
   Set<? extends Sized> set,
   double size
 ) { /* ... */ }
@@ -586,11 +586,24 @@ Given $a$ and $b$:
 
 `interface Comparable<T>` models this with a single method:
 - `int compareTo(T other)`
+  - $< 0$ means `this` **precedes** `other`
+  - $> 0$ means `this` **succeeds** `other`
+  - $=$ means otherwise
 
-"Similar" interface: `Comparator<T>`
+---
+
+## `interface Comparator<T>`
+
+"Similar" to `Comparable<T>`
 - `int compare(T t1, T t2)`
 - useful when one needs to compare objects of type that does not implement `Comparable`
 - many useful `default` methods
+
+`Comparator<T>`, `Comparable<T>`:
+- both define a single method
+- only `Comparator<T>` is a `@FunctionalInterface`
+
+.question[Why?]
 
 ---
 
@@ -634,7 +647,7 @@ Comparator<Person> c = Comparator
 - `Person::getBirthDate` is a `Function<Person, Comparable>`
 
 Result:
-1. Eric Medvet, 02/03/1979
-2. Alice Medvet, 07/02/2011
-3. Andrea Medvet, 11/10/2013
-4. Jack Zurrell, 01/03/1982
+1. Jack Zurrell, 01/03/1982
+2. Andrea Medvet, 11/10/2013
+3. Alice Medvet, 07/02/2011
+4. Eric Medvet, 02/03/1979
