@@ -194,7 +194,7 @@ Some examples of request-response pairs (one request or response, interleaved, p
 MAX_GRID;x0:-1:0.1:1,x1:-10:1:20;((x0+(2.0^x1))/(21.1-x0));(x1*x0)
 OK;0.040;52168.009950
 COUNT_LIST;x0:1:0.001:100;x1
-OK;0.070;99000.000000
+OK;0.070;99001.000000
 MIN_GRID;x0:-1:0.1:1,x1:-10:1:20;((x0+(2.0^x1))/(1-x0));log(x1*x0)
 ERR;(ComputationException) Unvalued variable log
 STAT_MAX_TIME
