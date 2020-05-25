@@ -26,11 +26,11 @@ Examples:
 
 ## Java collection framework
 
-In Java:
+In the JDK:
 
 - a set of **interfaces** modeling key concepts
   - with operations
-  - with implicit properties
+  - with "implicit" properties
 - a set of **classes** implementing those interfaces
 
 ---
@@ -59,7 +59,7 @@ Classes, differ mainly in:
   - `K` stays for **key**, `V` stays for **element**
   - elsewhere called dictionary
 
-They are disjoint and `Map` is not precisely a collection.  
+`Collection` and `Map` are disjoint (with respect to inheritance) and `Map` is not precisely a collection.
 Yet it is traditionally considered part of the Java collection framework.
 
 ---
@@ -93,7 +93,7 @@ Yet it is traditionally considered part of the Java collection framework.
 ]
 
 - `contains()` and `remove()` take `Object`, rather than `E`: historical reasons, but conceptually sound
-  - "does this box of oranges contains an apple?"; no, but the question is legit
+  - "does this box of oranges contains an apple?"; obviously no, but the question is legit
 - `add()` and `remove()` **mutator** methods, since they (potentially) modify the state, i.e., the group
   - modifying one element state is another thing
   - the `boolean` return value specifies if the collection actually mutated
@@ -132,7 +132,7 @@ Yet it is traditionally considered part of the Java collection framework.
 ]
 
 Why `Collection<T>.toArray()` returns an `Object[]` instead of a `T[]`?  
-Because `T[]` cannot be created.
+- Because `T[]` cannot be created.
 
 The other two methods circumvent the limitation:
 - `IntFunction<T[]>` is a function from `int` to `T[]`
@@ -145,7 +145,7 @@ both provided by the caller.
 ## Iterating over a collection
 
 4 ways:
-- `toArray()` and then `for (int i = 0; )`...: **ancient**
+- `toArray()` and then `for (int i = 0; ...)`: **ancient**
 - `iterator()`: **very old**
 - for-each: **current, proper way** (if you don't need the index)
 - stream: fancy, we'll see
@@ -243,9 +243,10 @@ for (String string : strings) {
 }
 ```
 
-Might result in:
-- `hi`, `world`
-- or `world`, `hi`
+- Might result in:
+  - `hi`, `world`
+  - or `world`, `hi`
+- Might be different in two executions
 
 ---
 
@@ -310,7 +311,8 @@ When coding types that might be used inside a `Set` (or a `Map`), **always overr
 
 ## Duplicates and state change
 
-> **Great care** must be exercised if mutable objects are used as set elements. The behavior of a set is **not specified** if the value of an object is changed in a manner that affects equals comparisons while the object is an element in the set. A special case of this prohibition is that it is not permissible for a set to contain itself as an element.
+> **Great care** must be exercised if mutable objects are used as set elements. The behavior of a set is **not specified** if the value of an object is changed in a manner that affects equals comparisons while the object is an element in the set.
+
 
 ---
 
@@ -323,7 +325,8 @@ A `Set` that further provides a *total ordering* on its elements. The elements a
 ]
 
 - **No duplicates**, **ordering**
-  - you can assume iterating over elements has a predictable outcome
+  - iterating over elements has a predictable outcome
+  - natural ordering of `E` or provided `Comparator<E>`
 
 .javadoc.methods[
 | Mod. and Type | Method | Description |
@@ -589,7 +592,7 @@ Recall: implementations differ in
 ## Implementations differences
 
 Key information (more on the documentation):
-- `LinkedHash*` give predictable iteration order (the "same" of insertion)
+- `LinkedHash*` give predictable iteration order (the "same" of insertion); `Hash*` do not
   - additional properties
   - particularly useful when looking for **reproducibility**!
       - should be coupled with proper seeding of `Random`s; still hard to achieve in multithreading scenarios
@@ -630,6 +633,7 @@ The general contract of `hashCode` is:
 ]
 
 **IDEs** know this general contract and can the code for overridding `hashCode()` for us!
+- usually together and consistently with `equals()`
 
 ---
 
@@ -647,7 +651,7 @@ List<String> names = new ArrayList<>();
 /* ... */
 Set<String> uniqueNames = new HashSet<>(names);
 ```
-- it's **not a copy**, **neither a view** of the other collection
+- it's **not a view** (neither a copy) of the other collection
 - each element **is** the same
 
 ---
@@ -669,7 +673,7 @@ ArrayList<String> names = new ArrayList<>();
 
 Recall the deep meaning of "interface" and (one of) its goal(s):
 - abstraction: what is `names`?
-- reduced complexity: what are the properties of `names`?
+- reduced complexity: what are the properties of `names` that really matter?
 
 ---
 
@@ -706,11 +710,12 @@ names.add("Pippi"); // -> java.lang.`UnsupportedOperationException`
 
 ## Multithreading
 
-- **Most** implementations not thread-safe! (all the ones mentioned above)
+- **Most** implementations are not thread-safe! (all the ones mentioned above)
   - they usually throw a `ConcurrentModificationException`
 - Some are thread-safe: e.g.,
-  - `class ConcurrentHashMap<K,​V> implements Map<K,V>` (actually `ConcurrentMap<K,V>`)
+  - `class ConcurrentHashMap<K,​V> implements Map<K,V>` (actually `implements ConcurrentMap<K,V>`)
   - `class ConcurrentSkipListSet<E> implements SortedSet<E>`
+  - ...
 
 ---
 
@@ -720,8 +725,9 @@ names.add("Pippi"); // -> java.lang.`UnsupportedOperationException`
 - basically wrapping key methods in `synchronized` blocks
 - `static * synchronized*()`: e.g.,
   - `static <T> SortedSet<T> synchronizedSortedSet​(SortedSet<T> s)`
-  - `static <T> List<T>	synchronizedList​(List<T> list)`
+  - `static <T> List<T> synchronizedList​(List<T> list)`
 - thread-safety is guaranteed only when using the view!
+- thread-safety is guaranteed on the view, not on each element!
 
 ---
 
@@ -729,6 +735,13 @@ names.add("Pippi"); // -> java.lang.`UnsupportedOperationException`
 
 <iframe width="100%" height="450" src="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Collections.html"></iframe>
 
+---
+
+## Big picture
+
+![Big picture of Java Collections Framework](images/collection-bigpicture.svg)
+
+.note[From: [ICT.social](https://www.ict.social/java/collections-and-streams-in-java/java-collections-framework)]
 ---
 
 ## Example
@@ -771,7 +784,7 @@ System.out.println(wordOccurrences("today the cat is on the table."));
 ```
 ]
 
-- `\\W` is any non-word character
+- `\W` is any non-word character
 - `default V getOrDefault​(Object, V)` returns the second argument if the key (1st argument) is not present
 
 ---
@@ -805,19 +818,359 @@ entries.sort(Comparator.comparing(Map.Entry::getValue));
 System.out.println(entries);
 ```
 ```bash
-{cat=1, is=1, on=1, table=1, the=2, today=1}
+[today=1, cat=1, is=1, table=1, on=1, the=2]
 ```
 ]
 
 - `sort()` line is equivalent to `entries.sort((e1, e2) -> e1.getValue().compareTo(e2.getValue()))`
+- note the `[]` instead of `{}`: come from `ArrayList.toString()` instead of `HashMap.toString()`
 
 ---
 
 ## Other collections
 
-- say that the previous example is actually a multiset, but there is no multiset in JDK
-- mention guava
-- show guava collections
+Word occurrences: actually, this is a **multiset** of words
+- each element $w \in W$ may appear 0 or more times
+- mathematically, often formalized as $f: W \to \mathbb{N}$
+  - consistently, we modeled as `Map<String, Integer>`
+
+Is there a **multiset** in the JDK?
+- no, but there are other external libraries with this and other models
+- Google Guava (with [collections](https://github.com/google/guava/wiki/CollectionUtilitiesExplained))
+  - [`Multiset<E>`](https://guava.dev/releases/snapshot/api/docs/com/google/common/collect/Multiset.html)
+- Apache Commons (with [collections](https://commons.apache.org/proper/commons-collections/userguide.html))
+  - [`Bag<E>`](https://commons.apache.org/proper/commons-collections/javadocs/api-4.4/org/apache/commons/collections4/Bag.html)
+
+---
+
+class:middle,center
+
+### Executors
+
+---
+
+## Motivation
+
+Simplify the design and development of code that executes **tasks** in **asynchronous mode**:
+
+Key concepts:
+- task: a unit of processing with an input and an output
+- executor: a component that executes tasks
+
+The task is not asynchronous/synchronous: that's a property of the execution.
+
+---
+
+## `interface Callable<V>`
+
+.javadoc[
+A task that returns a result and may throw an exception. Implementors define a single method with no arguments called `call`.
+]
+
+
+.javadoc.methods[
+| Mod. and Type | Method | Description |
+| --- | --- | --- |
+| V | call() | Computes a result, or throws an exception if unable to do so. |
+]
+
+Model a **task with a result**:
+- `V` is the type of result (the task output)
+  - the input is implicit in the class instantiating `Callable`
+- `call() throws Exception`
+- it is a `@FunctionalInterface`
+
+---
+
+## Usage
+.compact[
+```java
+final long x = 100000;
+Callable<Long> sumOfFactorialsTask = () -> {
+  long sum = 0;
+  for (int i = 0; i < x; i++) {
+    sum = sum + factorial(i);
+  }
+  return sum;
+};
+try {
+  long result = sumOfFactorialsTask.call();
+  System.out.println("sum=" + result);
+} catch (Exception e) {
+  System.err.println(String.format("Cannot compute due to %s", e));
+}
+```
+```java
+public static long factorial(long n) {
+  return (n <= 1) ? n : (n * factorial(n - 1));
+}
+```
+]
+
+- **Synchronous execution**!
+  - the caller waits until the computation is done
+
+.note[Numbers here are too large...]
+
+---
+
+## `interface Runnable`
+
+.javadoc[
+The `Runnable` interface should be implemented by any class whose instances are intended to be executed by a thread. The class must define a method of no arguments called `run`.
+]
+
+.javadoc.methods[
+| Mod. and Type | Method | Description |
+| --- | --- | --- |
+| void | run() | When an object implementing interface `Runnable` is used to create a thread, starting the thread causes the object's `run` method to be called in that separately executing thread. |
+]
+
+Model a **task without a result**:
+- `run()` does not throw any (checked) exception
+- it is a `@FunctionalInterface`
+- much older than `Callable` in the JDK
+- `Thread implements Runnable`
+
+---
+
+### Usage
+
+Intended usage:
+```java
+final long x = 100000;
+new Thread(() -> {
+  long sum = 0;
+  for (int i = 0; i < x; i++) {
+    sum = sum + factorial(i);
+  }
+}).start();
+```
+
+- `Thread​(Runnable target)` is one of `Thread` constructors
+- **Asynchronous execution**!
+  - the caller immediately return after `start()`
+- No easy way of getting the result!
+  - may be taken with active polling, synchronization, ...
+
+---
+
+## `Callable<V>` vs. `Runnable`
+
+In `Callable<V>`:
+.javadoc[
+The `Callable` interface is similar to `Runnable`, in that both are designed for classes whose instances are potentially executed by another thread. A `Runnable`, however, does not return a result and cannot throw a checked exception.
+
+The `Executors` class contains utility methods to convert from other common forms to `Callable` classes.
+]
+
+- `Executors` class, with the trailing `s`
+
+---
+
+
+## `interface ExecutorService`
+
+.javadoc[
+An `Executor` that provides methods to manage termination and methods that can produce a `Future` for tracking progress of one or more asynchronous tasks.
+
+An `ExecutorService` can be shut down, which will cause it to reject new tasks. Two different methods are provided for shutting down an `ExecutorService`. The `shutdown()` method will allow previously submitted tasks to execute before terminating, while the `shutdownNow()` method prevents waiting tasks from starting and attempts to stop currently executing tasks. Upon termination, an executor has no tasks actively executing, no tasks awaiting execution, and no new tasks can be submitted. An unused `ExecutorService` should be shut down to allow reclamation of its resources.
+
+Method `submit` extends base method `Executor.execute(Runnable)` by creating and returning a `Future` that can be used to cancel execution and/or wait for completion.
+]
+
+Models an **executor** with some additional properties:
+- implementations realize actual asynchronous executions
+
+Key methods:
+.javadoc.methods[
+| Mod. and Type | Method | Description |
+| --- | --- | --- |
+| `Future<?>` | submit​(Runnable task) | Submits a Runnable task for execution and returns a Future representing that task. |
+| `<T> Future<T>` | `submit​(Callable<T> task)` | Submits a value-returning task for execution and returns a Future representing the pending results of the task. |
+]
+
+---
+
+## `interface Future<V>`
+
+.javadoc[
+A `Future` represents the result of an asynchronous computation. Methods are provided to check if the computation is complete, to wait for its completion, and to retrieve the result of the computation. The result can only be retrieved using method `get` when the computation has completed, blocking if necessary until it is ready.
+]
+
+Key method:
+.javadoc.methods[
+| Mod. and Type | Method | Description |
+| --- | --- | --- |
+| V | get() | Waits if necessary for the computation to complete, and then retrieves its result. |
+]
+
+Models a **future result**:
+- the future result exists instantaneously
+- the actual result will exist in the future
+- `get()` blocks until the actual result is ready
+
+---
+
+## Usage: `Executor`+`Callable`+`Future`
+
+.compact[
+```java
+ExecutorService executorService = /* ... */
+long n = 20;
+Future<Long> future = executorService.submit(() -> factorial(n));
+System.out.println("Computing");
+try {
+  long result = future.get();
+  System.out.printf("%d!=%d%n", n, result);
+} catch (InterruptedException | ExecutionException e) {
+  System.err.println(String.format("Cannot compute due to %s", e));
+}
+executorService.shutdown();
+```
+]
+
+- `factorial(n)` is done in asynchronously!
+  - `submit()` returns immediately
+- caller blocks on `long result = future.get();`
+
+---
+
+## Parallel execution of tasks
+
+.compact[
+```java
+ExecutorService executorService = /* ... */
+List<Callable<Long>> callables = new ArrayList<>();
+for (int i = 0; i < 20; i++) {
+  final long n = i;
+  callables.add(() -> factorial(n));
+}
+try {
+  List<Future<Long>> futures = executorService.invokeAll(callables);
+  for (Future<Long> future : futures) {
+    System.out.printf("Got %d%n", future.get());
+  }
+} catch (InterruptedException | ExecutionException e) {
+  System.err.println(String.format("Cannot compute due to %s", e));
+}
+```
+]
+
+- All tasks are submitted together
+- Results are collected sequentially, but could made be ready in different order
+- Exceptions should be handled with greater care
+  - `invokeAll()` throws `InterruptedException`
+  - `get()` throws `ExecutionException`
+
+---
+
+## Creating an `ExecutorService`
+
+Many different implementations for different needs exist.
+They can be created with `static` methods of `Executors`:
+
+.javadoc.methods[
+| Mod. and Type | Method | Description |
+| --- | --- | --- |
+| static ExecutorService | newCachedThreadPool() | Creates a thread pool that creates new threads as needed, but will reuse previously constructed threads when they are available. |
+| static ExecutorService | newFixedThreadPool​(int nThreads) | Creates a thread pool that reuses a fixed number of threads operating off a shared unbounded queue. |
+| static ScheduledExecutorService | newScheduledThreadPool​(int corePoolSize) | Creates a thread pool that can schedule commands to run after a given delay, or to execute periodically. |
+]
+
+- `newFixedThreadPool​()`: at most $n$ threads run do computation at the same time $\Rightarrow$ at most $n$ tasks are executed **on this executor**
+- `interface ScheduledExecutorService`: augments `ExecutorService` with methods for scheduled execution
+  - `schedule​(Callable<V> callable, long delay, TimeUnit unit)`
+  - `scheduleAtFixedRate​(Runnable command, long initialDelay, long period, TimeUnit unit)`
+
+---
+
+## Example
+
+Protocol (upon connection):
+- client sends one text line $l$
+- if $l=l_\text{quit}$, server closes connection, otherwise replies with processed line $l'=p(l)$
+
+Server:
+- listens on port $n_\text{port}$
+- handles many client at a time, **serves up to $n$ clients at the same time**
+- never terminates
+- $p:$ `String` $\to$ `String`, $l_\text{quit}$, port number, $n$ are parameters
+
+---
+
+## Solution
+
+.compact[
+```java
+public class ExecutorLineProcessingServer {
+
+  private final int port;
+  private final String quitCommand;
+  private final Function<String, String> commandProcessingFunction;
+  private final ExecutorService executorService;
+
+  public ExecutorLineProcessingServer(int port, String quitCommand, Function<String, String> commandProcessingFunction, int concurrentClients) {
+    this.port = port;
+    this.quitCommand = quitCommand;
+    this.commandProcessingFunction = commandProcessingFunction;
+*   executorService = Executors.newFixedThreadPool(concurrentClients);
+  }
+
+  public void start() throws IOException {
+    /* ... */
+  }
+
+}
+```
+]
+
+---
+
+### All in one method
+
+.compact[
+```java
+public void start() throws IOException {
+  try (ServerSocket serverSocket = new ServerSocket(port)) {
+    while (true) {
+      try {
+        final Socket socket = serverSocket.accept();
+*       executorService.submit(() -> {
+          try (socket) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            while (true) {
+              String command = br.readLine();
+              if (command == null) {
+                System.err.println("Client abruptly closed connection");
+                break;
+              }
+              if (command.equals(quitCommand)) {
+                break;
+              }
+              bw.write(commandProcessingFunction.apply(command) + System.lineSeparator());
+              bw.flush();
+            }
+          } catch (IOException e) {
+            System.err.printf("IO error: %s", e);
+          }
+*       });
+      } catch (IOException e) {
+        System.err.printf("Cannot accept connection due to %s", e);
+      }
+    }
+  } finally {
+*   executorService.shutdown();
+  }
+}
+```
+]
+---
+
+class:middle,center
+
+### Streams
 
 <!--
 - executors
