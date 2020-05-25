@@ -1172,6 +1172,159 @@ class:middle,center
 
 ### Streams
 
+#### (very briefly)
+
+---
+
+## Motivation
+
+Support **functional-style** operations on **streams** of elements.
+- corresponding code is much more concise and, hopefully, clearer
+
+Stream: "a continuous flow or succession of anything"
+- not the group of elements, but the flow itself
+- not a collection
+
+Example:
+- for each `String`: transform to uppercase, compute letter frequencies, sort by most uneven distribution
+- map-reduce
+
+---
+
+## `interface Stream<T>`
+
+(Since Java 8)
+
+.javadoc[
+A sequence of elements supporting sequential **and parallel** aggregate operations.
+]
+
+From package [`java.util.stream`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/stream/package-summary.html) docs:
+.javadoc[
+The key abstraction introduced in this package is *stream*. The classes `Stream`, `IntStream`, `LongStream`, and `DoubleStream` are streams over objects and the primitive `int`, `long` and `double` types. **Streams differ from collections in several ways**:
+
+- No storage. A stream is not a data structure that stores elements; instead, it conveys elements from a source such as a data structure, an array, a generator function, or an I/O channel, through a pipeline of computational operations.
+- Functional in nature. An operation on a stream produces a result, but does not modify its source. For example, filtering a `Stream` obtained from a collection produces a new `Stream` without the filtered elements, rather than removing elements from the source collection.
+- Laziness-seeking. Many stream operations, such as filtering, mapping, or duplicate removal, can be implemented lazily, exposing opportunities for optimization. For example, "find the first `String` with three consecutive vowels" need not examine all the input strings. Stream operations are divided into intermediate (`Stream`-producing) operations and terminal (value- or side-effect-producing) operations. Intermediate operations are always lazy.
+- Possibly unbounded. While collections have a finite size, streams need not. Short-circuiting operations such as `limit(n)` or `findFirst()` can allow computations on infinite streams to complete in finite time.
+- Consumable. The elements of a stream are only visited once during the life of a stream. Like an `Iterator`, a new stream must be generated to revisit the same elements of the source.
+]
+
+---
+
+## Stream operations
+
+Three phases:
+1. get from a source source (collection, array, ...)
+2. apply a pipeline of **intermediate operations**
+  - transform a stream into another stream
+3. apply one **terminal operation**
+  - stream to sink ("collection" or single value)
+
+---
+
+## Obtaining a `Stream<T>`
+
+From a source:
+- a `Collection<T>`:
+  - `Stream<T> stream()`
+  - `Stream<T> parallelStream()`
+- an array:
+  - `Stream<T> Arrays.stream(T[])`
+- many other types:
+  - `Stream<String> lines()` in `BufferedReader`
+  - `Stream<String> splitAsStream​(CharSequence input)` in `Pattern`
+  - ...
+
+---
+
+## Some intermediate operations
+
+.javadoc.methods[
+| Mod. and Type | Method | Description |
+| --- | --- | --- |
+| `Stream<T>` | distinct() | Returns a stream consisting of the distinct elements (according to `Object.equals(Object))` of this stream. |
+| `Stream<T>` | `filter​(Predicate<? super T> predicate)` | Returns a stream consisting of the elements of this stream that match the given predicate. |
+| `<R> Stream<R>` | `map​(Function<? super T,​? extends R> mapper)` | Returns a stream consisting of the results of applying the given function to the elements of this stream. |
+| DoubleStream | `mapToDouble​(ToDoubleFunction<? super T> mapper)` | Returns a `DoubleStream` consisting of the results of applying the given function to the elements of this stream. |
+| IntStream | `mapToInt​(ToIntFunction<? super T> mapper)` | Returns an `IntStream` consisting of the results of applying the given function to the elements of this stream. |
+| LongStream | `mapToLong​(ToLongFunction<? super T> mapper)` | Returns a `LongStream` consisting of the results of applying the given function to the elements of this stream. |
+| `Stream<T>` | `sorted​(Comparator<? super T> comparator)` |
+Returns a stream consisting of the elements of this stream, sorted according to the provided `Comparator`.
+]
+
+- `interface Predicate<T>` is a `@FunctionalInterface` with a method `boolean test​(T)`
+- `interface ToDoubleFunction<T>` is a `@FunctionalInterface` with a method `double applyAsDouble​(T)` (same for `int`, `long`)
+
+.note[`Function<? super T,​? extends R>` can be applied to something more general than `T` (which includes `T`) and returns something more specific than `R` (which is certainly an `R`).]
+
+---
+
+## Some terminal operations
+
+.javadoc.methods[
+| Mod. and Type | Method | Description |
+| --- | --- | --- |
+| `<R,​A> R` | `collect​(Collector<? super T,​A,​R> collector)` | Performs a mutable reduction operation on the elements of this stream using a `Collector`. |
+| T | `reduce​(T identity, BinaryOperator<T> accumulator)` | Performs a reduction on the elements of this stream, using the provided identity value and an associative accumulation function, and returns the reduced value. |
+| Object[] | toArray() | Returns an array containing the elements of this stream. |
+| `<A> A[]` | `toArray​(IntFunction<A[]> generator)` | Returns an array containing the elements of this stream, using the provided generator function to allocate the returned array, as well as any additional arrays that might be required for a partitioned execution or for resizing. |
+| long | count() | Returns the count of elements in this stream. |
+]
+
+And others such as `average()`, `max()`, `min()`, ... in numeric streams.
+
+- `interface BinaryOperator<T> extends BiFunction<T,​T,​T>` is a `@FunctionalInterface` with no further methods
+- `interface BiFunction<T,​U,​R>` is a `@FunctionalInterface` with a method `R apply​(T, U)`
+
+
+
+---
+
+### Examples
+
+Given a collection of person names (first+last), get the initials corresponding to names with more than 2 words in the names.
+
+.compact[
+```java
+Collection<String> names = List.of(
+    "Andrea De Lorenzo",
+    "Eric Medvet",
+    "Alberto Bartoli",
+    "Felice Andrea Pellegrino"
+);
+names = names.stream()
+    .map(s -> s.split(" "))
+    .filter(ts -> ts.length>2)
+    .map(ts -> Arrays.stream(ts)
+        .map(s -> s.substring(0, 1))
+        .collect(Collectors.joining()))
+    .collect(Collectors.toList());
+System.out.println(names);
+```
+]
+Gives:
+```bash
+[ADL, FAP]
+```
+
+---
+
+### Another example
+
+Given a collection of strings, compute the average number of consonants.
+
+.compact[
+```java
+System.out.println(strings.stream()
+    .map(s -> s.toLowerCase().replaceAll("[aeiou]", ""))
+    .mapToInt(String::length)
+    .average()
+    .orElse(0d)
+);
+```
+]
+
 <!--
 - executors
 - streams
