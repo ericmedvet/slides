@@ -588,7 +588,7 @@ Given $a$ and $b$:
 - `int compareTo(T other)`
   - $< 0$ means `this` **precedes** `other`
   - $> 0$ means `this` **succeeds** `other`
-  - $=$ means otherwise
+  - $= 0$ means otherwise
 
 ---
 

@@ -116,7 +116,7 @@ Yet it is traditionally considered part of the Java collection framework.
 | Mod. and Type | Method | Description |
 | --- | --- | --- |
 | void | clear() | Removes all of the elements from this collection (optional operation). |
-| boolean | isEmpty() | Returns true if this collection contains no elements. |
+| boolean | isEmpty() | Returns `true` if this collection contains no elements. |
 ]
 
 ---
@@ -350,7 +350,7 @@ names.add("Pippi");
 names.add("Eric");
 names.add("Alice");
 for (String name : names) {
-    System.out.println(name);
+  System.out.println(name);
 }
 ```
 
@@ -399,7 +399,7 @@ Basically, can be used in place of an array `T[]` where the size might change at
 ]
 
 Besides those in `Collection<E>`.
-- `intexOf()` uses `equals()`
+- `indexOf()` uses `equals()`
 
 ---
 
@@ -909,6 +909,7 @@ public static long factorial(long n) {
 
 - **Synchronous execution**!
   - the caller waits until the computation is done
+- $\sum_{i=0}^{i=10^5} i!$
 
 .note[Numbers here are too large...]
 
@@ -1078,7 +1079,7 @@ They can be created with `static` methods of `Executors`:
 | static ScheduledExecutorService | newScheduledThreadPool​(int corePoolSize) | Creates a thread pool that can schedule commands to run after a given delay, or to execute periodically. |
 ]
 
-- `newFixedThreadPool​()`: at most $n$ threads run do computation at the same time $\Rightarrow$ at most $n$ tasks are executed **on this executor**
+- `newFixedThreadPool​()`: $\le n$ threads run do computation at the same time $\Rightarrow$ $\le n$ tasks are executed **on this executor**
 - `interface ScheduledExecutorService`: augments `ExecutorService` with methods for scheduled execution
   - `schedule​(Callable<V> callable, long delay, TimeUnit unit)`
   - `scheduleAtFixedRate​(Runnable command, long initialDelay, long period, TimeUnit unit)`
