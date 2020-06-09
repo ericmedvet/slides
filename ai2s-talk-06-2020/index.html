@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Voxel-based Soft Robots</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Livvic:400,400i,700,700i|Ubuntu+Mono:400,700,400i);
+      body { font-family: 'Livvic'; }
+      h1, h2, h3 {
+        font-family: 'Livvic';
+        font-weight: normal;
+      }
+      h1 {color: brown;}
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .cols {display: flex;}
+      .fifty {flex: 50%;}
+      img {max-width: 100%;}
+      .w50p img {width: 50%;}
+      .w75p img {width: 75%;}
+      .h10ex img {height: 10ex;}
+      .h15ex img {height: 15ex;}
+      .h25ex img {height: 25ex;}
+      .h40ex img {height: 40ex;}
+      .footnote {position: absolute; bottom: 2.5em; font-size: 75%}
+      .ref {font-style: italic;}
+      .vam {vertical-align: middle;}
+    </style>
+  </head>
+  <body>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+    <script src='https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML' type="text/javascript"></script>
+    <script>
+      var slideshow = remark.create({
+        sourceUrl: "content.md",
+        ratio: "16:9"
+      });
+      // Setup MathJax
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
