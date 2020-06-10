@@ -470,7 +470,7 @@ class: middle, center
   - 2D-VSR-Sim may ease development
 - Modularity and re-configurability at different scales
   - intelligent robotic tissue
-  - libraruy of modules, tissue
+  - library of modules, tissue
   - optimzation starting from parts in the library
 - Auto assembly
 - Physical building: nanotechnologies?
@@ -483,7 +483,7 @@ class: middle, center
 
 Project: [Representations and Learning Algorithms for Highly Reconfigurable Modular Soft Robots](https://erallab.inginf.units.it/voxel-based-soft-robots)
 
-Partially backed by []**Google Faculty Research Award Program**](https://research.google/outreach/past-programs/faculty-research-awards/)
+Partially backed by [**Google Faculty Research Award Program**](https://research.google/outreach/past-programs/faculty-research-awards/)
 
 .center[
 .w50p[![Google Research](imgs/google_research_lockup.svg)]
