@@ -1,4 +1,4 @@
-# Advanced Programmin A.Y. 19/20: final project
+# Advanced Programming A.Y. 19/20: final project
 
 ## Abstract
 
