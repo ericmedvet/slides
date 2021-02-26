@@ -1,11 +1,11 @@
 class: middle, center
 
 # Advanced Programming
-## 223MI, 558EC
+## 302MI, 316MI, 558EC
 
 [Eric Medvet](http://medvet.inginf.units.it/)
 
-A.Y. 2019/2020
+A.Y. 2020/2021
 
 ---
 
@@ -28,11 +28,11 @@ Labs:
 ## Materials
 
 Teacher slides:
-- available [here](http://medvet.inginf.units.it/teaching/programmazione-avanzata-2019-2020)
+- available [here](https://medvet.inginf.units.it/teaching/2021-advancedprogramming/)
 - might be updated during the course
 
 Intended usage:
-- slides should contain every concept that has to be taught/learnt
+- slides should contain every concept that has to be taught/learned
 - **but**, slides are designed for consumption during a lecture, they might be suboptimal for self-consumption $\rightarrow$ **take notes!**
 
 ---
@@ -155,6 +155,7 @@ Practical motivations:
 
 Teaching-related motivations:
 - favors **abstraction**
+  - the object as the central abstraction
 - realizes many **key concepts** of programming and languages
 
 ---
