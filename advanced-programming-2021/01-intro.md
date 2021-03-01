@@ -209,7 +209,7 @@ A few options:
 ---
 
 ## JDK versions
-We are currently at version **13**.
+We are currently at version **15**.
 History from [Wikipedia](https://en.wikipedia.org/wiki/Java_version_history):
 
 .center.h40ex[![Java Version history](images/jdk-version-history.png)]
