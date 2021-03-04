@@ -324,14 +324,13 @@ ps.`println(s)`;
 ```
 
 .cols[
-.c70[
+.c80[
 .javadoc.methods[
 | Type | Method             | Description                                                       |
 |------|--------------------|-------------------------------------------------------------------|
 | void | println()          | Terminates the current line by writing the line separator string. |
 | void | println​(boolean x) | Prints a boolean and then terminate the line.                     |
 | void | println​(char x)    | Prints a character and then terminate the line.                   |
-| void | println​(char[] x)  | Prints an array of characters and then terminate the line.        |
 | void | println​(double x)  | Prints a double and then terminate the line.                      |
 | void | println​(float x)   | Prints a float and then terminate the line.                       |
 | void | println​(int x)     | Prints an integer and then terminate the line.                    |
@@ -339,7 +338,7 @@ ps.`println(s)`;
 | void | println​(String x)  | **Prints a String and then terminate the line.**                  |   |
 ]
 ]
-.c30[
+.c20[
 Class [`PrintStream`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/PrintStream.html)
 ]
 ]
