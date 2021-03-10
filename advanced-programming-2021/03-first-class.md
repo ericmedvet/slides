@@ -159,7 +159,7 @@ int n = Integer.parseInt(line);
 
 Class [`Integer`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Integer.html)
 .javadoc.methods[
-| Modif. and type | Field | Description |
+| Modif. and type | Method | Description |
 | --- | --- | --- |
 | static int | parseInt​(String s) | Parses the string argument as a signed decimal integer. |
 ]
@@ -430,7 +430,7 @@ Many!
 
 A few examples from the javadoc of [`String`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html)
 .javadoc.methods[
-| Modif. and type | Field | Description |
+| Modif. and type | Method | Description |
 | --- | --- | --- |
 | int | compareTo​(String anotherString) | Compares two strings **lexicographically**. |
 | int | compareToIgnoreCase​(String str) | Compares two strings lexicographically, ignoring case differences. |
@@ -449,7 +449,7 @@ A few examples from the javadoc of [`String`](https://docs.oracle.com/en/java/ja
 ### `String.format()`
 
 .javadoc.methods[
-| Modif. and type | Field | Description |
+| Modif. and type | Method | Description |
 | --- | --- | --- |
 | static String | format​(String format, Object... args) | Returns a formatted string using the specified format string and arguments. |
 ]
@@ -475,7 +475,7 @@ We'll se why `Object...`
 
 Apparently the docs are self-contradictory:
 .javadoc.methods[
-| Modif. and type | Field | Description |
+| Modif. and type | Method | Description |
 | --- | --- | --- |
 | String | concat​(String str) | Concatenates the specified string to the end of this string. |
 | String | toUpperCase() | Converts all of the characters in this `String` to upper case using the rules of the default locale. |
