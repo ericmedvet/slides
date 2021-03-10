@@ -92,7 +92,7 @@ Of what:
 
 Use `System.out`, static field `out` of class `java.lang.System`: it's of class `java.io.PrintStream`
 .javadoc.methods[
-| Type | Field | Description |
+| Type | Method | Description |
 | --- | --- | --- |
 | void | println() | Terminates the current line by writing the line separator string. |
 | void | println​(boolean x) | Prints a boolean and then terminate the line. |
@@ -202,6 +202,7 @@ lastNames[1] = new String("Medvet");
 .center.diagram.or[
 ref(0,20,'firstNames')
 ref(0,80,'lastNames')
+link([0,80,100,80])
 obj(100,60,140,60,'String[]','')
 ref(140,100,'0')
 ref(170,100,'1')

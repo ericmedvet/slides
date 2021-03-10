@@ -1039,7 +1039,7 @@ Common case and convention: package name are all lowercase!
 A **field** of a class C can be defined with the `static` non-access modifier:
 - the corresponding object is **unique**, that is, the same for every instance of C
 - it **always** exists, even if no instances of C exist
-  - if instantiated
+  - if (the field is) instantiated
 
 From another point of view:
 - the reference to a static field is shared (i.e., the same) among the zero or more instances of the class
@@ -1069,7 +1069,7 @@ ref(140,40,'msg')
 ref(200,40,'name')
 obj(300,0,60,40,'String','')
 obj(400,0,60,40,'String','')
-link([140,40,140,90,380,90,380,20,400,20])
+link([140,40,140,90,375,90,375,10,400,10])
 link([200,40,200,80,280,80,280,20,300,20])
 ref(0,160,'g2')
 obj(100,140,140,60,'Greeter','')
@@ -1077,8 +1077,7 @@ link([0,160,100,160])
 ref(140,180,'msg')
 ref(200,180,'name')
 obj(300,140,60,40,'String','')
-obj(400,140,60,40,'String','')
-link([140,180,140,230,380,230,380,160,400,160])
+link([140,180,140,230,385,230,385,30,400,30])
 link([200,180,200,220,280,220,280,160,300,160])
 ]
 
@@ -1248,7 +1247,7 @@ public class Greeter {
 
 Look at [`PrintStream`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/PrintStream.html) class documentation (methods):
 .javadoc.methods[
-| Type | Field | Description |
+| Type | Method | Description |
 | --- | --- | --- |
 | void | println​(int x) | Prints an integer and then terminate the line. |
 | void | println​(long x) | Prints a long and then terminate the line. |
