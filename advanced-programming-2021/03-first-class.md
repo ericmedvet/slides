@@ -529,12 +529,12 @@ String s2 = s1.concat(" Tuesday").concat("!");
 2nd line is the same of:
 
 ```java
-String s2 = s1 + " Tuesday" + "!";
+String s2 = s1 + "  Tuesday" + "!";
 ```
 
 `+` is associative on the left:
 
-- `"today is Tuesday"` is obtained before `"today is Tuesday!"`
+- `"today is  Tuesday"` is obtained before `"today is  Tuesday!"`
 
 ---
 
@@ -546,7 +546,7 @@ If one of the operands of `+` is of type `String` then, at runtime:
 - the concatenation of the two `String`s is done
 
 ```java
-int age = 41;
+int age = 42;
 String statement = "I'm " + age + " years old";
 ```
 
