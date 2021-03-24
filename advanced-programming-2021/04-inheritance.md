@@ -891,7 +891,7 @@ It can be obtained with the `getClass()` method of `Object`:
 
 `Object` class:
 .javadoc.methods[
-| Type | Field | Description |
+| Type | Method | Description |
 | --- | --- | --- |
 | Class<?> | getClass() | Returns the runtime class of this Object. |
 ]
@@ -1053,7 +1053,7 @@ In the worst case, `c` is eventually the `Class` describing `Object`
 
 `Object` class:
 .javadoc.methods[
-| Type | Field | Description |
+| Type | Method | Description |
 | --- | --- | --- |
 |boolean | equals​(Object obj) | Indicates whether some other object is "equal to" this one. |
 | Class<?> | getClass() | Returns the runtime class of this Object. |
@@ -1069,14 +1069,14 @@ What's the difference with respect to `==`?
 ## `==` (and `!=`)
 
 `a == b`
-- if `a` and `b` of different primitive types\*\*, or of primitive and non-primitive\*\*, or of non compatible* non-primitive types, then code does not compile
+- if `a` and `b` of different primitive types², or of primitive and non-primitive², or of non compatible¹ non-primitive types, then code does not compile
 - else if `a` and `b` of same primitive type, then evaluates to boolean `true` iff `a` and `b` have the same value, otherwise evaluates to `false`
 - else evaluates to boolean `true` if `a` and `b` **reference the same object** or both do not reference any object (i.e., they "are" `null`), otherwise evaluates to `false`
 
 `a != b`
 - if it compiles, evaluates to the negation of `a == b`
 
-.note[\*: "compatible" means that types are the same or one derives from the other]
+.note[1: "compatible" means that types are the same or one derives from the other; 2: with some exceptions that we will see later]
 
 ---
 
@@ -1100,6 +1100,8 @@ obj(80,80,100,40,'String','hi!')
 link([0,100,80,100])
 ref(0,160,'s3')
 link([0,160,80,100])
+ref(0,220,'b')
+link([0,220,80,220])
 obj(80,200,60,40,'boolean','true')
 obj(180,200,60,40,'int','3')
 obj(280,200,60,40,'int','3')
