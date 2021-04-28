@@ -503,7 +503,7 @@ Does not compile because:
 ```java
 public void showName(String fullName) {
   try {
-    System.out.println(fullName);
+    System.out.println(getLastName(fullName));
   } catch (Exception e) {
     /* ... */
   } catch (MalformedNameException e) {
