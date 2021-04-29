@@ -1537,7 +1537,7 @@ Iteration in detail:
 ]
 .c50[
 - write response (3)
-  - $S \rightarrow \text{OS}_C$
+  - $S \rightarrow \text{OS}_S$
   - $\text{OS}_S \rightarrow \text{device}_S$
   - $\text{device}_S \rightarrow \text{device}_C$
   - $\text{device}_C \rightarrow \text{OS}_C$
