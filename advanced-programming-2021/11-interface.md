@@ -876,7 +876,7 @@ CommandProcessor p = input -> input.toUpperCase();
 
 If the statement consists only of the invocation of a method, it can be specified with the **method reference operator** `::`:
 ```java
-CommandProcessor p = input -> `StringUtils::reverse`;
+CommandProcessor p = `StringUtils::reverse`;
 ```
 where (might be):
 ```java
@@ -987,7 +987,7 @@ Recall: only a syntactic shorthand!
 
 Goals:
 - favor functional programming
-  - the functiuon as a key concept in design
+  - the function as a key concept in design
 - reduce verbosity
 
 Largest concrete exploitment:
