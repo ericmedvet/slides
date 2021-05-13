@@ -56,7 +56,7 @@ Classes, differ mainly in:
 
 `interface Map<K,V>`:
 - "An object that maps keys to values. A map cannot contain duplicate keys; each key can map to at most one value."
-  - `K` stays for **key**, `V` stays for **element**
+  - `K` stays for **key**, `V` stays for **value**
   - elsewhere called dictionary
 
 `Collection` and `Map` are disjoint (with respect to inheritance) and `Map` is not precisely a collection.
