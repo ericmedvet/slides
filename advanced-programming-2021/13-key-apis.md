@@ -499,8 +499,8 @@ Depending on the specific case:
 .compact[
 ```java
 Map<String, Integer> ages = /* ... */
-ages.put("Eric", 41); //autoboxing
-ages.put("Simba", 13);
+ages.put("Eric", 42); //autoboxing
+ages.put("Simba", 14);
 ```
 ]
 
@@ -1250,8 +1250,7 @@ From a source:
 | DoubleStream | `mapToDouble​(ToDoubleFunction<? super T> mapper)` | Returns a `DoubleStream` consisting of the results of applying the given function to the elements of this stream. |
 | IntStream | `mapToInt​(ToIntFunction<? super T> mapper)` | Returns an `IntStream` consisting of the results of applying the given function to the elements of this stream. |
 | LongStream | `mapToLong​(ToLongFunction<? super T> mapper)` | Returns a `LongStream` consisting of the results of applying the given function to the elements of this stream. |
-| `Stream<T>` | `sorted​(Comparator<? super T> comparator)` |
-Returns a stream consisting of the elements of this stream, sorted according to the provided `Comparator`.
+| `Stream<T>` | `sorted​(Comparator<? super T> comparator)` | Returns a stream consisting of the elements of this stream, sorted according to the provided `Comparator`.
 ]
 
 - `interface Predicate<T>` is a `@FunctionalInterface` with a method `boolean test​(T)`
