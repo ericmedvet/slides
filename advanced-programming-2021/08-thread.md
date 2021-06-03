@@ -625,7 +625,7 @@ Atomicity is guaranteed just on the method!
 .c50[
 .compact[
 ```java
-public class `AtomicCounter` {
+public class `AtomicCounter` extends Coutner {
   private int c = 0;
   public `synchronized` int incAndGet() {
     c = c + 1;
@@ -638,9 +638,9 @@ public class `AtomicCounter` {
 }
 ```
 ```java
-Counter c = new Counter();
-(new IncThread()).start();
-(new DecThread()).start();
+Counter c = new `AtomicCounter()`;
+(new IncThread(c)).start();
+(new DecThread(c)).start();
 ```
 ]
 ]
@@ -649,7 +649,7 @@ Counter c = new Counter();
 ```java
 public class IncThread extends Thread {
   private final Counter c;
-  public CounterThread(Counter c) {
+  public IncThread(Counter c) {
     this.c = c;
   }
   public void run() {
