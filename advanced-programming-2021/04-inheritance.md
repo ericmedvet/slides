@@ -533,7 +533,7 @@ Because otherwise "`Derived` has all fields and methods of `Base`" would not be 
 
 ---
 
-## Same code, difference behavior
+## Same code, different behavior
 
 ```java
 public void greet(Person person) {

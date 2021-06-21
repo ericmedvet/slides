@@ -236,8 +236,8 @@ The compiler translates this to the `iterator()` way of iterating over elements.
 
 ```java
 Collection<String> strings = /* ... */
-string.add("hi");
-string.add("world");
+strings.add("hi");
+strings.add("world");
 for (String string : strings) {
   System.out.println(string);
 }
@@ -632,7 +632,7 @@ The general contract of `hashCode` is:
 - It is *not* required that if two objects are unequal according to the `equals(java.lang.Object)` method, then calling the `hashCode` method on each of the two objects must produce distinct integer results. However, the programmer should be aware that producing distinct integer results for unequal objects may improve the performance of hash tables.
 ]
 
-**IDEs** know this general contract and can the code for overridding `hashCode()` for us!
+**IDEs** know this general contract and can write the code for overridding `hashCode()` for us!
 - usually together and consistently with `equals()`
 
 ---
