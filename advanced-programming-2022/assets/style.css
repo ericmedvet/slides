@@ -1,0 +1,302 @@
+@import url("https://fonts.googleapis.com/css?family=Livvic:400,400i,700,700i|Roboto+Mono:400,700,400i");
+body {
+  font-family: "Livvic";
+}
+.remark-slide-content {
+  font-size: 24px;
+}
+h1,
+h2,
+h3 {
+  font-family: "Livvic";
+  font-weight: normal;
+}
+h1 {
+  color: brown;
+}
+code {
+  border-radius: 0.5em;
+}
+.compact code {
+  line-height: 70%;
+  font-size: 60%;
+}
+pre {
+  margin: 0.1em 0;
+}
+.remark-code,
+.remark-inline-code {
+  font-family: "Roboto Mono";
+}
+.remark-inline-code {
+  color: #812815;
+  font-size: 85%;
+}
+.cols {
+  display: flex;
+}
+.c25 {
+  flex: 25%;
+}
+.c30 {
+  flex: 30%;
+}
+.c40 {
+  flex: 40%;
+}
+.c50 {
+  flex: 50%;
+}
+.c60 {
+  flex: 60%;
+}
+.c70 {
+  flex: 70%;
+}
+.cols > div:nth-child(1) {
+  padding-right: 0.5em;
+}
+.cols > div:nth-last-child(1) {
+  padding-left: 0.5em;
+}
+.cols .vcentered {
+  align-self: center;
+}
+img {
+  max-width: 100%;
+}
+.w50p img {
+  width: 50%;
+}
+.w75p img {
+  width: 75%;
+}
+.h10ex img {
+  height: 10ex;
+}
+.h15ex img {
+  height: 15ex;
+}
+.h25ex img {
+  height: 25ex;
+}
+.h40ex img {
+  height: 40ex;
+}
+.footnote {
+  position: absolute;
+  bottom: 2.5em;
+  font-size: 75%;
+}
+.ref {
+  font-style: italic;
+}
+.vam {
+  vertical-align: middle;
+}
+.big-quote {
+  background-color: lightgray;
+  padding: 0.5em;
+  font-size: 80%;
+  border-radius: 0.5em;
+}
+.important {
+  background-color: #ff5733;
+  padding: 0.5em;
+  font-size: 150%;
+  border-radius: 0.5em;
+  color: white;
+}
+.note {
+  color: darkgray;
+  font-size: 75%;
+}
+.note::before {
+  content: "(";
+}
+.note::after {
+  content: ")";
+}
+.diagram text {
+  dominant-baseline: middle;
+  font-size: 85%;
+}
+.diagram rect,
+.diagram ellipse,
+.diagram path {
+  stroke-width: 2;
+}
+.diagram .textLabel {
+  text-anchor: middle;
+}
+.diagram .invisible {
+  fill-opacity: 0.33;
+  stroke-opacity: 0.33;
+}
+.diagram.or .obj {
+  fill: #fcf3cf;
+  stroke: #f1c40f;
+}
+.diagram.or .zone {
+  fill: none;
+  stroke: #999999;
+  stroke-dasharray: 4 2;
+}
+.diagram.or .link {
+  stroke: #f1c40f;
+  fill: none;
+}
+.diagram.or .ref {
+  fill: #f1c40f;
+}
+.diagram.or .null {
+  fill: #eeeeee;
+  stroke: #aaaaaa;
+}
+.diagram.or .zoneLabel {
+  fill: #999999;
+  font-size: 85%;
+}
+.diagram.or .refLabel,
+.diagram.or .typeLabel,
+.diagram.or .contentLabel {
+  text-anchor: middle;
+}
+.diagram.or .refLabel,
+.diagram.or .typeLabel,
+.diagram.or .contentLabel,
+.diagram text.code {
+  font-family: "Roboto Mono";
+  fill: #812815;
+}
+.diagram.io .cyl {
+  fill: #eeeeee;
+  stroke: #aaaaaa;
+}
+.diagram.io :not(text).device {
+  fill: #cccccc;
+  stroke: #999999;
+}
+.diagram.io .arrow {
+  fill: #eeaaaa;
+  stroke: #ee5555;
+}
+.diagram.io .array {
+  stroke: black;
+  fill: white;
+}
+.diagram.io .cursor {
+  fill: #aaaaee;
+  stroke: #5555ee;
+}
+.diagram.io .eos {
+  fill: #5555ee;
+}
+.diagram.io .link {
+  stroke: gray;
+  fill: none;
+}
+.diagram.io .link.head {
+  stroke: none;
+  fill: gray;
+}
+.diagram.io .axis {
+  stroke: black;
+  fill: none;
+}
+.diagram.io .axis.head {
+  stroke: none;
+  fill: black;
+}
+
+.diagram.io .contentLabel {
+  text-anchor: middle;
+}
+.excercise::before {
+  font-weight: bolder;
+  color: white;
+  background-color: green;
+  padding: 0.2em;
+  content: "for you";
+  margin-right: 0.5em;
+  border-radius: 5px;
+  float: right;
+}
+.exercise {
+  margin-top: 1em;
+  background-color: #daf7a6;
+  padding: 0.5em;
+  border-radius: 0.5em;
+}
+.question {
+  color: green;
+  font-size: 75%;
+}
+.question::before {
+  content: "[";
+}
+.question::after {
+  content: "]";
+}
+.javadoc {
+  font-family: "DejaVu Serif", Georgia, "Times New Roman", Times, serif;
+  border: 1px solid #2c4557;
+  font-size: 50%;
+  padding: 0.25em;
+}
+.javadoc.head {
+  font-family: "DejaVu Sans", Arial, Helvetica, sans-serif;
+  padding: 0.25em;
+}
+.javadoc.head .def {
+  font-weight: bolder;
+  color: #2c4557;
+  font-size: 150%;
+}
+.javadoc.head .pack {
+  color: #4a6782;
+}
+.javadoc.head .indent {
+  width: 2em;
+  display: inline-block;
+}
+.javadoc.head p {
+  margin: 0.5em 0;
+}
+.javadoc table {
+  border-spacing: 0;
+  width: 100%;
+}
+.javadoc thead th {
+  background: #dee3e9;
+  text-align: left;
+  font-family: "DejaVu Sans", Arial, Helvetica, sans-serif;
+}
+.javadoc tbody tr td:nth-child(1),
+.javadoc:not(.constructors) tbody tr td:nth-child(2),
+.javadoc .remark-code,
+.javadoc .remark-inline-code {
+  font-family: "DejaVu Sans Mono", monospace;
+  color: black;
+  font-size: 100%;
+}
+.javadoc tbody tr td:nth-child(1),
+.javadoc tbody tr td:nth-child(1) .remark-inline-code,
+.javadoc:not(.constructors) tbody tr td:nth-child(2),
+.javadoc tbody tr td:nth-child(2) .remark-inline-code {
+  color: #4a6782;
+}
+.javadoc tbody tr:nth-of-type(2n + 1) {
+  background: #ffffff;
+}
+.javadoc tbody tr:nth-of-type(2n) {
+  background: #eeeeee;
+}
+.javadoc td {
+  margin: 0;
+  padding: 0 0.5em;
+  vertical-align: top;
+}
+.remark-slide-content.lab {
+  background-color: #daf7a6;
+}
