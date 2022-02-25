@@ -222,9 +222,9 @@ History from [Wikipedia](https://en.wikipedia.org/wiki/Java_version_history):
 Many excellent options.
 
 Classic, desktop-based:
-- [Apache NetBeans](https://netbeans.apache.org/)
-  - the one I know better
 - [Jetbrains IntelliJ IDEA](https://www.jetbrains.com/idea/)
+  - the one I know better
+- [Apache NetBeans](https://netbeans.apache.org/)
 - [Eclipse IDE](https://www.eclipse.org/ide/)
 
 Cloud-based:
