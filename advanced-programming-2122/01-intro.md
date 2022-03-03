@@ -98,10 +98,7 @@ More details at project assignment.
 
 ---
 
-### Written test and oral exam
-
-Written test:
-- a few questions with short open answers and short programming exercises
+### Oral exam
 
 Oral exam:
 - questions and short programming exercises
@@ -115,7 +112,7 @@ In brief:
 2. Tools and methods for programming
 3. Distributed programming
 
-.note[See the [syllabus](http://medvet.inginf.units.it/teaching/programmazione-avanzata-2019-2020)!]
+.note[See the [syllabus](http://medvet.inginf.units.it/teaching/programmazione-avanzata-2021-2022)!]
 
 ---
 
