@@ -138,6 +138,7 @@ Practice is fundamental!
 
 - How many of you already know object-oriented programming?
 - How many of you already know Java?
+- What do you expect to learn from this course?
 
 ---
 
