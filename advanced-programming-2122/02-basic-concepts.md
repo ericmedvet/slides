@@ -543,7 +543,7 @@ Class [`Date`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java
 | boolean | after​(Date when) | Tests if this date is after the specified date. |
 | boolean | before​(Date when) | Tests if this date is before the specified date. |
 | long | getTime() | Returns the number of milliseconds since January 1, 1970, 00:00:00 GMT represented by this `Date` object. |
-| String | toString() | Converts this `Date` object to a String of the form: |
+| String | toString() | Converts this `Date` object to a `String` of the form: |
 ]
 
 We can do non-trivial manipulation of dates (meant as entities) through the class `Date` without knowing its code!
@@ -1250,8 +1250,8 @@ Look at [`PrintStream`](https://docs.oracle.com/en/java/javase/13/docs/api/java.
 | --- | --- | --- |
 | void | println​(int x) | Prints an integer and then terminate the line. |
 | void | println​(long x) | Prints a long and then terminate the line. |
-| void | println​(Object x) | Prints an Object and then terminate the line. |
-| void | println​(String x) | Prints a String and then terminate the line. |
+| void | println​(Object x) | Prints an `Object` and then terminate the line. |
+| void | println​(String x) | Prints a `String` and then terminate the line. |
 ]
 
 `"Hello World!"` is a string literal and corresponds to `new String("Hello World!")`

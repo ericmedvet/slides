@@ -102,8 +102,8 @@ Use `System.out`, static field `out` of class `java.lang.System`: it's of class 
 | void | println​(float x) | Prints a float and then terminate the line. |
 | void | println​(int x) | Prints an integer and then terminate the line. |
 | void | println​(long x) | Prints a long and then terminate the line. |
-| void | println​(Object x) | Prints an Object and then terminate the line. |
-| void | println​(String x) | Prints a String and then terminate the line. |
+| void | println​(Object x) | Prints an `Object` and then terminate the line. |
+| void | println​(String x) | Prints a `String` and then terminate the line. |
 ]
 
 The same for `print()`, that does not terminate the line.
