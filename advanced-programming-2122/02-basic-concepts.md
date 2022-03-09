@@ -477,9 +477,9 @@ What happens with initialization depends on the constructor.
 Class [`Date`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html): The class `Date` represents a specific instant in time, with millisecond precision.
 
 .javadoc.constructors[
-| Modifier | Constructor | Description |
-| --- | --- | --- |
-| | Date() | Allocates a `Date` object and initializes it so that it represents the time at which it was allocated, measured to the nearest millisecond. |
+| Constructor | Description |
+| --- | --- |
+| Date() | Allocates a `Date` object and initializes it so that it represents the time at which it was allocated, measured to the nearest millisecond. |
 ]
 
 Probably two different initialization outcomes:
@@ -501,11 +501,11 @@ A class C can have more than one constructors:
 
 Class [`String`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html):
 .javadoc.constructors[
-| Modifier | Constructor | Description |
-| --- | --- | --- |
-| | String()| Initializes a newly created `String` object so that it represents an empty character sequence. |
-| | String​(char[] value)	| Allocates a new `String` so that it represents the sequence of characters currently contained in the character array argument. |
-| | String​(String original) | Initializes a newly created `String` object so that it represents the same sequence of characters as the argument; in other words, the newly created string is a copy of the argument string. |
+| Constructor | Description |
+| --- | --- |
+| String()| Initializes a newly created `String` object so that it represents an empty character sequence. |
+| String​(char[] value)	| Allocates a new `String` so that it represents the sequence of characters currently contained in the character array argument. |
+| String​(String original) | Initializes a newly created `String` object so that it represents the same sequence of characters as the argument; in other words, the newly created string is a copy of the argument string. |
 ]
 
 ---
@@ -515,17 +515,17 @@ Class [`String`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/ja
 Class [`Socket`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/net/Socket.html): This class implements client sockets (also called just "sockets"). A socket is an endpoint for communication between two machines.
 
 .javadoc.constructors[
-| Modifier | Constructor | Description |
-| --- | --- | --- |
-|   | Socket() | Creates an unconnected Socket. |
-|   | Socket​(String host, int port) | Creates a stream socket and connects it to the specified port number on the named host. |
-|   | Socket​(String host, int port, boolean stream) | **Deprecated.** Use DatagramSocket instead for UDP transport. |
-|   | Socket​(String host, int port, InetAddress localAddr, int localPort) | Creates a socket and connects it to the specified remote host on the specified remote port. |
-|   | Socket​(InetAddress address, int port) | Creates a stream socket and connects it to the specified port number at the specified IP address. |
-|   | Socket​(InetAddress host, int port, boolean stream) | **Deprecated.** Use DatagramSocket instead for UDP transport. |
-|   | Socket​(InetAddress address, int port, InetAddress localAddr, int localPort) | Creates a socket and connects it to the specified remote address on the specified remote port. |
-|   | Socket​(Proxy proxy) | Creates an unconnected socket, specifying the type of proxy, if any, that should be used regardless of any other settings. |
-| protected | Socket​(SocketImpl impl) | Creates an unconnected Socket with a user-specified SocketImpl. |
+| Constructor | Description |
+| --- | --- |
+| Socket() | Creates an unconnected Socket. |
+| Socket​(String host, int port) | Creates a stream socket and connects it to the specified port number on the named host. |
+| Socket​(String host, int port, boolean stream) | **Deprecated.** Use DatagramSocket instead for UDP transport. |
+| Socket​(String host, int port, InetAddress localAddr, int localPort) | Creates a socket and connects it to the specified remote host on the specified remote port. |
+| Socket​(InetAddress address, int port) | Creates a stream socket and connects it to the specified port number at the specified IP address. |
+| Socket​(InetAddress host, int port, boolean stream) | **Deprecated.** Use DatagramSocket instead for UDP transport. |
+| Socket​(InetAddress address, int port, InetAddress localAddr, int localPort) | Creates a socket and connects it to the specified remote address on the specified remote port. |
+| Socket​(Proxy proxy) | Creates an unconnected socket, specifying the type of proxy, if any, that should be used regardless of any other settings. |
+| Socket​(SocketImpl impl) | Creates an unconnected Socket with a user-specified SocketImpl. |
 ]
 
 ---
