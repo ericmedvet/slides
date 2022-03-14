@@ -244,7 +244,7 @@ dogNames[1] = "Gass";
 
 ---
 
-## Array lenght
+## Array length
 
 The type array has a field `length` of type `int` that contains the array size:
 
@@ -500,7 +500,7 @@ s2 = s1.substring(3, 7);
 System.out.print("s1 = ");
 System.out.println(s1);
 s1 = s1.replace('a', 'b');
-String[] names ={ "John", "Fitzgerald", "Kennedy"}
+String[] names = {"John", "Fitzgerald", "Kennedy"};
 String firstInit, middleInit, lastInit;
 firstInit = names[0].substring(0, 1);
 middleInit = names[1].substring(0, 1);
