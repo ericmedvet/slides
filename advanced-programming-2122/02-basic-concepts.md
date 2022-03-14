@@ -939,7 +939,7 @@ Since Java 9, a new, higher level abstraction for code entities organization has
 
 Every class is identified **unequivocally** by its **Fully Qualified Name** (FQN):
 
-FQN = package name + class name
+FQN = package name + `.` + class name
 - `java.net.Socket`
 - `it.units.erallab.hmsrobots.objects.immutable.Component`
 

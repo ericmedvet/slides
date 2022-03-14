@@ -273,6 +273,7 @@ img {
   font-family: "DejaVu Sans", Arial, Helvetica, sans-serif;
 }
 .javadoc tbody tr td:nth-child(1),
+.javadoc:not(.constructors) tbody tr td:nth-child(2),
 .javadoc .remark-code,
 .javadoc .remark-inline-code {
   font-family: "DejaVu Sans Mono", monospace;
