@@ -689,7 +689,7 @@ boolean b3 = derived instanceof Derived; // -> true
 
 ---
 
-## Typical usage
+### Typical usage of `instanceof`
 
 ```java
 Object obj = someOddMethod();
@@ -708,7 +708,33 @@ if (obj instanceof String string) {
 }
 ```
 Just a language shorthand!
-.note[Called Pattern matching with `instanceof`]
+.note[Called *Pattern matching with `instanceof`*]
+
+---
+
+### Why returning a more general type?
+
+```java
+public static RegularPolygon createPolygon(
+    int nOfSides,
+    double sideLength
+) {
+  return switch (nOfSides) {
+    case 3 -> new Triangle(sideLength);
+    case 4 -> new Square(sideLength);
+    case 5 -> new Pentagon(sideLength);
+    default -> null;
+  };
+}
+```
+
+.note[This is a *switch expression*, introduced since JDK 12]
+
+.note[That `null` is not a good idea...]
+
+```java
+Triangle triangle = (Triangle) GeomUtils.createPolygon(3, 3.14d);
+```
 
 ---
 
@@ -831,6 +857,8 @@ public void println(Object x) {
   }
 }
 ```
+
+.note[`println(String)` is invoked "instead of" `println(Object)` because it's more specific]
 
 ---
 
@@ -1028,7 +1056,7 @@ public void println(Object x) {
 ```
 
 Conceptually:
-1. get `Class c` of `derived`
+1. get `Class c` of `x`
 2. get `methods` of `c`
 3. do `methods` contains `toString()`
   - yes, use that method
