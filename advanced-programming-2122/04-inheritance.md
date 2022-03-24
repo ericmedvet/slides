@@ -1618,7 +1618,7 @@ public class C extends A, B { public void doC() { /*...*/ } }
 Looks legit!
 A `c` can `doA()`, `doB()`, `doC()`, and do `toString()`!
 
-What if then the developer of `A` override `toString()`!
+What if then the developers of `A` and `B` override `toString()`!
 - **Disaster!** The same code of `C` does not compile anymore!
 
 .note[There is a mechanism in Java for modeling the amphibious; we'll see it!]
