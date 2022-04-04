@@ -735,16 +735,17 @@ Primitive types has a precise size in memory:
 | `float` | 4 bytes |
 | `double` | 8 bytes |
 | `char` | 2 bytes |
-| `boolean` | * |
+| `boolean` | *¹ |
 ]
 .c40[
 **Also references**!
 
-4 bytes (heap < 32 GB)  
+4 bytes² (heap < 32 GB)  
 8 bytes (heap ≥ 32 GB)
 ]
 ]
-.note[\*: JVM dependent]
+.note[1: JVM dependent; 2: aligned at 8 bytes groups ]
+
 
 $\rightarrow$ JVM knows in advance how much stack reserve for a method invocation!
 
