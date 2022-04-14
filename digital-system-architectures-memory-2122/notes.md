@@ -31,7 +31,21 @@
 6. This answers b, but not a
 7. Tag for answering a
 8. Validity and valid bit
-9. Example of cache filling upon readings
-10. Detail of the tag for 64-bit, n cache size (blocks), m block size (words); resulting total cache size (bits)
-11. Block size and spatial locality; decrease of miss rate, increase of miss penalty
-12. Optimizations wrt miss penalty: early restart, requested word first, critical word first
+
+### Reads
+1. Example of cache filling upon readings
+2. Detail of the tag for 64-bit, n cache size (blocks), m block size (words); resulting total cache size (bits)
+3. Block size and spatial locality; decrease of miss rate, increase of miss penalty
+4. Optimizations wrt miss penalty: early restart, requested word first, critical word first
+5. Miss management: key steps, pipeline stall
+
+### Writes
+1. Cache-memory inconcistency after writes
+2. Write-through scheme and its issues (~100 cycles per write)
+3. Write-buffer (sketch) and write-back (sketch); impact of write-back on miss
+
+
+
+# Possible excercises/labs/questions
+- Compute the size of a direct-mapped cache of n data size, blocks of k words, m bits memory addresses
+- Given a direct-mapped cache (and its n, k, m) and a sequence of read requests, give miss/hit outcomes
