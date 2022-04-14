@@ -42,10 +42,34 @@
 ### Writes
 1. Cache-memory inconcistency after writes
 2. Write-through scheme and its issues (~100 cycles per write)
-3. Write-buffer (sketch) and write-back (sketch); impact of write-back on miss
+3. Write-buffer (sketch)
+4. Write-back (sketch); impact of write-back on miss
+
+### Examples
+1. Intrinsity FastMATH structure; split cache
+2. Miss rate
+
+## Measuring and improving cache performances
+1. Basic arithmetic for CPU time (and hypothesis)
+2. Trade-off between hit time and hit rate based on cache size
+3. Average memory accesso time (AMAT)
+
+### Alternative schemes
+1. Fully associative
+2. Set-associative (n-way) and generalization
+3. Block search in set-associative
+4. Replacement rule: LRU (sketch)
+5. Impact of tag size on associativity
+6. Multilevel Caches; local and global miss rate
+
+### Example
+1. Comparison of quick sort and radix sort
+2. Autotuning
 
 
 
 # Possible excercises/labs/questions
 - Compute the size of a direct-mapped cache of n data size, blocks of k words, m bits memory addresses
 - Given a direct-mapped cache (and its n, k, m) and a sequence of read requests, give miss/hit outcomes
+- Given an instruction and a data miss rate, the CPI, the miss penalty in cycles, and the percentage of loads (reads) and stores (writes), find the overall CPI
+- Given address size m, block size k, n-associativity, find tag size.
