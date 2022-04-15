@@ -238,68 +238,44 @@ img {
 .question::after {
   content: "]";
 }
-.javadoc {
-  font-family: "DejaVu Serif", Georgia, "Times New Roman", Times, serif;
-  border: 1px solid #2c4557;
-  font-size: 50%;
-  padding: 0.25em;
-}
-.javadoc.head {
-  font-family: "DejaVu Sans", Arial, Helvetica, sans-serif;
-  padding: 0.25em;
-}
-.javadoc.head .def {
-  font-weight: bolder;
-  color: #2c4557;
-  font-size: 150%;
-}
-.javadoc.head .pack {
-  color: #4a6782;
-}
-.javadoc.head .indent {
-  width: 2em;
-  display: inline-block;
-}
-.javadoc.head p {
-  margin: 0.5em 0;
-}
-.javadoc table {
+table {
   border-spacing: 0;
   width: 100%;
 }
-.javadoc thead th {
+thead th {
   background: #dee3e9;
-  text-align: left;
-  font-family: "DejaVu Sans", Arial, Helvetica, sans-serif;
 }
-.javadoc tbody tr td:nth-child(1),
-.javadoc:not(.constructors) tbody tr td:nth-child(2),
-.javadoc .remark-code,
-.javadoc .remark-inline-code {
-  font-family: "DejaVu Sans Mono", monospace;
-  font-size: 100%;
-}
-.javadoc tbody tr td:nth-child(3) .remark-inline-code,
-.javadoc.constructors tbody tr td:nth-child(2) .remark-inline-code {
-  color: black;
-}
-.javadoc tbody tr td:nth-child(1),
-.javadoc tbody tr td:nth-child(1) .remark-inline-code,
-.javadoc:not(.constructors) tbody tr td:nth-child(2),
-.javadoc tbody tr td:nth-child(2) .remark-inline-code {
-  color: #4a6782;
-}
-.javadoc tbody tr:nth-of-type(2n + 1) {
+tbody tr:nth-of-type(2n + 1) {
   background: #ffffff;
 }
-.javadoc tbody tr:nth-of-type(2n) {
+tbody tr:nth-of-type(2n) {
   background: #eeeeee;
 }
-.javadoc td {
+th, td {
   margin: 0;
   padding: 0 0.5em;
   vertical-align: top;
+  text-align: left;
 }
 .remark-slide-content.lab {
   background-color: #daf7a6;
+}
+.cp1-1{ color: #003049ff; }
+.cp1-2{ color: #d62828ff; }
+.cp1-3{ color: #f77f00ff; }
+.cp1-4{ color: #fcbf49ff; }
+.cp1-5{ color: #eae2b7ff; }
+.cp2-1{ color: #f94144ff; }
+.cp2-2{ color: #f3722cff; }
+.cp2-3{ color: #f8961eff; }
+.cp2-4{ color: #f9c74fff; }
+.cp2-5{ color: #90be6dff; }
+.cp2-6{ color: #43aa8bff; }
+.cp2-7{ color: #577590ff; }
+
+.mem{
+  font-family: "Roboto Mono";
+  font-size: 75%;
+  line-height: 75%;
+  color: darkgray;
 }

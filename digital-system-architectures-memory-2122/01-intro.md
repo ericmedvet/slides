@@ -1,7 +1,7 @@
 class: middle, center
 
-# Advanced Programming
-## 316MI, 558EC
+# Digital System Architectures
+## 141IN (last 3 CFU part)
 
 [Eric Medvet](http://medvet.inginf.units.it/)
 
@@ -27,8 +27,9 @@ Labs:
 ---
 
 ## Materials
+**TODO: check URL**
 
-Teacher slides:
+Teacher's slides:
 - available [here](https://medvet.inginf.units.it/teaching/2021-advancedprogramming/)
 - might be updated during the course
 
@@ -36,468 +37,302 @@ Intended usage:
 - slides should contain every concept that has to be taught/learned
 - **but**, slides are designed for consumption during a lecture, they might be suboptimal for self-consumption $\rightarrow$ **take notes!**
 
+Teacher's slides are based on :
+- Patterson, David A., and John L. Hennessy. *Computer organization and design ARM edition: the hardware software interface*. Morgan kaufmann, 2016.
+
 ---
 
 ## Exam
 
-Two options:
-
-1. project + oral exam + home assignments
-  - grade: weighted average with weights 50%, 40%, 10%
-2. project + oral exam
-  - grade: weighted average with weights 50%, 50%
-
-Failed if at least one part is graded <6/10.
-
----
-
-### Home assignments
-
-Home assignments:
-- short exercise assigned **during the course**
-- will start in the classroom, under teacher's supervision
-- student's output to be submitted within the **deadline**, one for each assignment
-- grade, for each assignment:
-  - 0/10: not submitted or missed deadline
-  - up to 5/10: submitted, but not working
-  - up to 8/10: submitted and almost working
-  - 10/10: submitted and fully working
-- grades communicated during the course
-
-More details at first assignment.
-
----
-
-### List of exercises and home assignements
-
-Just for reference:
-1. [Anagrams](#exercise1) (also assignment)
-2. [Equivalence](#exercise2) (also assignment)
-3. [File array](#exercise3)
-4. [Compressed file array](#exercise4) (also assignment)
-5. [Word counter server](#exercise5)
-
----
-
-### Project
-
-Project:
-- assigned at the end of the course
-- student's output: software, tests, brief document
-- to be submitted **within the exam date**
-- grade:
-  - 0/10: not submitted or missed deadline  
-  - 5/10 to 10/10: submitted, depending on
-    - quality of code
-    - software structure
-    - document (mainly clarity)
-    - test coverage
-    - degree of working
-
-More details at project assignment.
-
----
-
-### Oral exam
-
-Oral exam:
-- questions and short programming exercises
+Written test with questions and short open answers
 
 ---
 
 ## Course content
 
 In brief:
-1. **Java** as object-oriented programming language
-2. Tools and methods for programming
-3. Distributed programming
+1. Cache
+2. Virtual memory
 
+**TODO: check URL**
 .note[See the [syllabus](http://medvet.inginf.units.it/teaching/programmazione-avanzata-2021-2022)!]
 
 ---
 
-## Exercises
-
-There we'll be several exercises:
-- approx. 20h on 72h
-- sofware design and implementation exercises
-- bring your own device
-- in classroom
-  - with the teacher actively investigating about your progresses
-
-Practice is fundamental!
-
-.note[**Computational thinking is an outcome of the coding practice**. See Nardelli, Enrico. "[Do we really need computational thinking?](https://cacm.acm.org/magazines/2019/2/234348-do-we-really-need-computational-thinking/abstract)." Communications of the ACM 62.2 (2019): 32-35.]
-
----
-
-## You?
-
-- How many of you already know object-oriented programming?
-- How many of you already know Java?
-- What do you expect to learn from this course?
-
----
-
 class: middle, center
 
-# Java: what and why?
+# Memory: does it matter?
 
 ---
 
-## Why Java?
+## Registers and memory
 
-Practical motivations:
-- write once, run anywhere
-- large community support, solid tools, many APIs
-- free
+Processor operates on data through instructions:
+- instructions operate on registers
+- when needed, **load** (*read*) data from memory to registers
+- when needed, **store** (*write*) data from registers to memory
 
-Teaching-related motivations:
-- favors **abstraction**
-  - the object as the central abstraction
-- realizes many **key concepts** of programming and languages
+Loads and stores take time!
 
----
-
-## Language, platform
-
-Java is both:
-- a programming language
-- a software platform
-
-We will focus on:
-- (mainly) the programming language
-- (secondarily) the Java 2 Platform, Standard Edition (J2SE)
+Overall, how long?
+- depends on **number** of operations
+- depends on **duration** of single operation
 
 ---
 
-## Java platform
+## Load/store: how many? (number)
 
-Mailnly composed of:
-- an execution engine
-- a compiler
-- a set of specifications
-- a set of libraries, with Application Program Interfaces (**APIs**)
+C:
+```C
+float fahreneit2celsius (float f) {
+  return ((5.0 / 9.0 ) * (f - 32.0));
+}
+```
 
-Platforms (also called **editions**) differ mainly in the libraries.
-Most common editions:
-- Java 2 Platform, Standard Edition (J2SE): for general-purpose, desktop applications
-- Java 2 Platform, Enterprise Edition (J2EE): J2SE + APIs/specifications for multi-tier client-server enterprise applications
+LEGv8:
+```Assembly
+LDURS S16, [X27, const5]  ; S16 = 5.0 (5.0 in memory)
+LDURS S18, [X27, const9]  ; S18 = 9.0 (9.0 in memory)
+FDIVS S16, S16, S18       ; S16 = 5.0 / 9.0
+LDURS S18, [X27, const32] ; S18 = 32.0
+FSUBS S18, S12, S18       ; S18 = f – 32.0
+FMULS S0, S16, S18        ; S0 = (5/9)*(fahr – 32.0)
+BR LR                     ; return
+```
 
----
-
-## Main tools
-
-What is needed for developing in Java?
-- Java Development Kit (**JDK**), absolutely necessary
-- API documentation (briefly **javadoc**)
-- Integrated Development Environment (**IDE**)
-  - many options
-  - when used proficiently, makes development more efficient and effective
+3 loads (`LDURS`); might be 2 with compiler optimizations
 
 ---
 
-## JDKs
+### More complex case
 
-One JDK per (vendor, platform, version, os+architecture).
+```C
+// 32x32 matrices
+void matrixMult (double c[][], double a[][], double b[][]) {
+  int i, j, k;
+  for (i = 0; i < 32; i = i + 1) {
+    for (j = 0; j < 32; j = j + 1) {
+      for (k = 0; k < 32; k = k + 1) {
+        c[i][j] = c[i][j] + a[i][k] * b[k][j];
+      }
+    }
+  }
+}
+```
 
-A few options:
-- [Oracle JDK](https://www.oracle.com/java/technologies/javase-downloads.html)
-- [OpenJDK](https://openjdk.java.net/)
-
----
-
-## JDK versions
-We are currently at version **17**.
-History from [Wikipedia](https://en.wikipedia.org/wiki/Java_version_history):
-
-.center.h40ex[![Java Version history](images/jdk-version-history.png)]
-
----
-
-## Java IDEs
-
-Many excellent options.
-
-Classic, desktop-based:
-- [Jetbrains IntelliJ IDEA](https://www.jetbrains.com/idea/)
-  - the one I know better
-- [Apache NetBeans](https://netbeans.apache.org/)
-- [Eclipse IDE](https://www.eclipse.org/ide/)
-
-Cloud-based:
-- Full: [Codenvy](https://codenvy.com/), [Eclipse Che + OpenShift](https://che.openshift.io/)
-  - steeper learning curve
-- Light: [CompileJava.net](https://www.compilejava.net/), [repl.it](https://repl.it/)
+Many more loads and stores!
 
 ---
 
-## IDE: your best friend
+## Load/store: how long? (duration)
+
+Depends on the memory technology:
+
+| Type | Access time [ns] | Cost [$/GB] |
+| - | - | - |
+| SRAM | 0.5–2.5 | 500–1000 |
+| DRAM | 50–70 | 10–20 |
+| Flash | 5000–50000 | 0.75–1.00 |
+| Magnetic disk | 5000000–20000000 | 0.05–0.10 |
+
+Recall: 1 CPU cycle takes $\approx$ 1 ns
+
+.note[Data from 2012]
+
+.note[We'll see more later]
+
+---
+
+## Goal
+
+**Goal**: process more data, faster, cheaper
+
+Ideally, we want to minimize overall time spent accessing memory.
+
+We can work on:
+1. number of accessess (depends *mainly* on the **code**)
+2. duration of each access
+
+How?
+1. write better (optimized)
+2. use faster memory?
+
+➝ access time/cost trade-off!
+
+---
+
+## Guy at the library
 
 .center[
-.h10ex[![Apache NetBeans screenshot](images/ide-netbeans-screenshot.png)]
-.h10ex[![Jetbrains IntelliJ IDEA screenshot](images/ide-intellij-screenshot.png)]
-.h10ex[![Eclipse IDE screenshot](images/ide-eclipse-screenshot.jpg)]
+![German National Library](images/library.jpg)
 ]
 
+A guy is doing some research about some topic.
+Needs to:
+- take a book from shelf (long walk)
+- read some part
+- put back the book on shelf (long walk)
+
+How to work **faster**?
+
+---
+
+### Library ⇿ computer
+
+- Book ⇿ data
+- Shelf ⇿ "main" (farther) memory
+- Desk ⇿ "local" (closer) memory
+- Guy ⇿ processor
+
+---
+
+## Idea: two memories
+
+Suppose to have:
+- close memory $M_1$: small, fast access
+- large memory $M_2$: large, slow access
+
+Whenever you look for data item $x$:
+- if in $M_1$, take it from there
+- otherwise
+  - take it from $M_2$
+  - put it in $M_1$ (removing something)
+
+**Useful** if you **soon** access again $x$
+
+.note[$x$ is the address of the data item]
+.note["look for" means load/read; we'll see store/write later]
+
+---
+
+## Better idea
+
+Whenever you look for data item $x$:
+- if in $M_1$, take it from there
+- otherwise
+  - take $(\dots, x-2, x-1, x, x+1, x+2, \dots)$ from $M_2$
+  - put *them* in $M_1$ (removing something)
+
+**Useful** if you **soon** access again $x$ or something **close** to $x$!
+
+---
+
+## Locality principle
+
+**Useful** if you **soon** access again $x$ or something **close** to $x$!
+
+**Temporal locality**: if a data location $x$ is accessed at $t$, it will be likely accessed again **soon** (at some $t+ \delta t$)
+
+**Spatial locality**: if a data location $x$ is accessed at $t$, data locations **close** to $x$ (some $x+ \delta x$) will be likely accessed again soon
+
+.question[How to exploit spatial locality at the library? What's the assumption?]
+
+---
+
+## Localities in action
+
+.cols[
+
+.c60[
+```C
+float findAvgDiff (
+  float[] a, float[] b, int n
+) {
+  float aSum = 0;
+  float bSum = 0;
+  int i;
+  for (i = 0; i < n; i = i + 1) {
+    aSum = aSum + a[i];
+  }
+  for (i = 0; i < n; i = i + 1) {
+    bSum = bSum + b[i];
+  }
+  return (aSum - bSum) / n;
+}
+```
+]
+
+.c40[
+.cp2-1[●] `a`, .cp2-2[●] `b`, .cp2-3[●] `n` (=3), .cp2-4[●] `aSum`, .cp2-5[●] `bSum`, .cp2-6[●] `i`
+
+Accesses (simplified):
+.mem[
+.cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[w].cp2-5[·].cp2-6[·]  
+.cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[·].cp2-5[w].cp2-6[·]  
+.cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[·].cp2-5[·].cp2-6[w]  
+.cp2-1[···].cp2-2[···].cp2-3[r].cp2-4[·].cp2-5[·].cp2-6[·]  
+.cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[·].cp2-5[·].cp2-6[r]  
+.cp2-1[r··].cp2-2[···].cp2-3[·].cp2-4[·].cp2-5[·].cp2-6[·]  
+.cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[r].cp2-5[·].cp2-6[·]  
+.cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[w].cp2-5[·].cp2-6[·]  
+.cp2-1[···].cp2-2[···].cp2-3[r].cp2-4[·].cp2-5[·].cp2-6[·]  
+.cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[·].cp2-5[·].cp2-6[r]  
+.cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[·].cp2-5[·].cp2-6[r]  
+.cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[·].cp2-5[·].cp2-6[w]  
+.cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[·].cp2-5[·].cp2-6[r]  
+.cp2-1[·r·].cp2-2[···].cp2-3[·].cp2-4[·].cp2-5[·].cp2-6[·]  
+.cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[r].cp2-5[·].cp2-6[·]  
+.cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[w].cp2-5[·].cp2-6[·]  
+.cp2-1[···].cp2-2[···].cp2-3[r].cp2-4[·].cp2-5[·].cp2-6[·]  
+.cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[·].cp2-5[·].cp2-6[r]  
+.cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[·].cp2-5[·].cp2-6[r]  
+.cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[·].cp2-5[·].cp2-6[w]  
+.cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[·].cp2-5[·].cp2-6[r]  
+.cp2-1[··r].cp2-2[···].cp2-3[·].cp2-4[·].cp2-5[·].cp2-6[·]  
+.cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[r].cp2-5[·].cp2-6[·]  
+.cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[w].cp2-5[·].cp2-6[·]  
+...
+]
+]
+
+]
+
+
+---
+
+## More than one level: memory hierarchy
+
+Instead of just two memories $M_1$ (fast and small) and $M_2$ (large and slow), a **hierarchy of memories**:
+- CPU
+- $M_1$: closest to CPU, fastest, smallest
+- $M_2$: a bit farther, a bit slower, a bit larger
+- $M_3$: a bit farther, a bit slower, a bit larger
+- ...
+- $M_k$: far, slow, large
+
+---
+
+## Memory hierarchy
+
+- $M_1$: closest to CPU, fastest, smallest
+- ...
+- $M_k$: far, slow, large
+
 Pros:
-- makes typing much faster
-- greatly helps following conventions
-- makes software lifecycle operations faster
-- helps finding errors
+- **size** of $M_k$ (the largest)
+- (almost) **access time** of $M_1$ (the closest)
+- the overall **cost** is much lower than a $M$ with the size of $M_k$ and the access time of $M_1$ (ideality)
 
 Cons:
-- steep learning curve
-- may hide some programming/development concepts
+- need to implement the access algorithm **within** the CPU/system
+
+---
+
+## Cache
+
+The memory hierarchy is a pattern, a scheme of solution for a common problem
+- local copy of network data
+- storing of complex computation results
+- physical memory
+
+Common name for the closer memory: **cache**
 
 ---
 
 class: middle, center
 
-# Basic operations
-## Compiling and executing
+# Memory technology
+
+(very briefly)
 
 ---
-
-## `.java` vs. `.class` files
-
-- The **source** code is in one or more `.java` files
-- The **executable** code is in one or more `.class` files
-
-**Compilation**: obtaining a `.class` from `.java`
-
-```bash
-javac Greeter.java
-```
-
----
-
-## Class-file
-
-`.java` contains **exactly one** class definition (common case)
-
-```java
-public class Greeter {
-  //...
-}
-```
-
-Or it contains more than one class definitions, at most one non-inner has the `public` modifier (we will see):
-
-.cols[
-.c50[
-```java
-public class Greeter {
-  //...
-}
-*class Helper {
-  //...
-}
-```
-]
-.c50[
-```java
-public class Greeter {
-  //...
-* public class InnerHelper {
-    //...
-  }
-}
-```
-]
-]
-
-Compilation results always in one `.class` for each class definition!
-
----
-
-## Execution
-
-An **application** is a `.class` compiled from a `.java` that has a "special function" `main`
-
-```java
-public class Greeter {
-* public static void main(String[] args) {
-    \\...
-  }
-}
-```
-
-An application can be executed:
-```bash
-java Greeter
-```
-.note[Or `java Greeter.class`, or in other ways]
-
----
-
-## Class and the virtual machine
-
-- A `.class` file contains executable code in a binary format (**bytecode**)
-- The bytecode is **interpreted** by a program (`java`) that simulates a machine: the Java Virtual Machine (**JVM**)
-
-JVM:
-- like a real machine, but simulated: it has an instruction set and manages memory
-- agnostic with respect to the physical machine
-- does not know Java language, knows bytecode
-
----
-
-## JVM language
-
-An example of the JVM specification, the instruction `iadd`:
-
-.big-quote[
-#### Operand Stack
-..., value1, value2 $\rightarrow$
-..., result
-#### Description
-Both value1 and value2 must be of type int. The values are popped from the operand stack. The int result is value1 + value2. The result is pushed onto the operand stack.
-
-The result is the 32 low-order bits of the true mathematical result in a sufficiently wide two's-complement format, represented as a value of type int. If overflow occurs, then the sign of the result may not be the same as the sign of the mathematical sum of the two values.
-]
-
----
-
-## Portability
-
-A `.class` executable can be executed on any machine for which a program exists that simulates the JVM (i.e., a `java`).
-
-"One" `.java` compiled to "one" `.class`, can be executed:
-- on Linux x64, with the `java` program for Linux x64
-- on Solaris SPARC x64, with the `java` program for Solaris SPARC x64
-- Mac OS X, Windows, Android, ...
-
-$\rightarrow$ **Write once, run anywhere**
-
----
-
-## Who executes what
-
-Note:
-- the OS executes `java`
-- `java` executes the bytecode
-  - simulates the JVM which executes the bytecode
-- the OS cannot execute the bytecode!
-
----
-
-## Where is `java`?
-
-`java` is part of the Java Runtime Environment (**JRE**), which includes also necessary libraries.
-The JRE is part of the JDK.
-
-The JDK contains (mainly):
-- the compiler `javac`
-- the JRE (including `java`)
-- many compiled classes (`.class` files)
-- other development tools
-
-It does not contain:
-- the classes source code
-- the documentation
-
----
-
-## Inside the JDK
-```bash
-eric@cpu:~$ ls /usr/lib/jvm/java-11-openjdk-amd64 -la
-totale 48
-*drwxr-xr-x  2 root root  4096 feb  6 12:08 bin
-drwxr-xr-x  4 root root  4096 feb  6 12:08 conf
-drwxr-xr-x  3 root root  4096 feb  6 12:08 include
-drwxr-xr-x  6 root root  4096 feb  6 12:08 lib
-...
-```
-
-```bash
-eric@cpu:~$ ls /usr/lib/jvm/java-11-openjdk-amd64/bin/ -la
-totale 632
--rwxr-xr-x 1 root root  14576 gen 15 16:14 jar
--rwxr-xr-x 1 root root  14576 gen 15 16:14 jarsigner
-*-rwxr-xr-x 1 root root  14560 gen 15 16:14 java
-*-rwxr-xr-x 1 root root  14608 gen 15 16:14 javac
--rwxr-xr-x 1 root root  14608 gen 15 16:14 javadoc
-...
-```
-
-Usually the JDK can be **installed** on the OS; but it can be simply uncompressed somewhere.
-
----
-
-## Documentation and source code
-
-Do you need them?
-- documentation: **yes**, in practice
-- source code: no, but it can be useful for understanding
-
-How to access the documentation?
-- online: [https://docs.oracle.com/en/java/javase/13/docs/api/index.html](https://docs.oracle.com/en/java/javase/13/docs/api/index.html)
-- through IDE, often deeply integrated with autocompletion and suggestions
-
-How to access the source code?
-- download it
-- download it in the IDE, access through the IDE (**ctrl+click**)
-
----
-
-## Consuming the documentation
-
-.cols[
-.c50.center[
-![Javadoc, online](images/javadoc-online-arraycopy.png)
-]
-.c50.center[
-![Javadoc, online](images/javadoc-netbeans-arraycopy.png)
-]
-]
-
----
-
-## Java: interpreted or compiled?
-
-**Both!**
-- `.java` to `.class` through **compilation**
-- `.class` is then **interpreted** by `java` for being executed on OS
-
-Actually, things are much more complex:
-- on the fly optimization
-- recompilation
-- compilation to native code
-- ...
-
----
-
-## Intepretation and efficiency
-
-Is intepretation efficient?
-- unrelevant question
-
-Relevant question: is my software fast enough?
-- it depends: measure!
-
-If not?
-1. profile
-2. find opportunities for improvement
-3. improve
-
-(that is: write good code!)
-
-The problem is rarely in interpretation!
-
----
-
-## Beyond speed of execution
-
-When choosing a language/platform, speed of execution is just one factor.
-
-Other factors:
-- code maintainability
-- documentation/support availability
-- quality of development tools
-- libraries availability
-- ...
-- previous knowledge
-- ...
-
-In general, consider **all costs** and assess options.
