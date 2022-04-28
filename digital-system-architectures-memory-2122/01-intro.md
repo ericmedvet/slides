@@ -27,10 +27,9 @@ Labs:
 ---
 
 ## Materials
-**TODO: check URL**
 
 Teacher's slides:
-- available [here](https://medvet.inginf.units.it/teaching/2021-advancedprogramming/)
+- available [here](https://medvet.inginf.units.it/teaching/2122-digital-system-architectures/)
 - might be updated during the course
 
 Intended usage:
@@ -54,8 +53,7 @@ In brief:
 1. Cache
 2. Virtual memory
 
-**TODO: check URL**
-.note[See the [syllabus](http://medvet.inginf.units.it/teaching/programmazione-avanzata-2021-2022)!]
+.note[See the [syllabus](https://medvet.inginf.units.it/teaching/2122-digital-system-architectures/)!]
 
 ---
 
@@ -84,7 +82,7 @@ Overall, how long?
 
 C:
 ```C
-float fahreneit2celsius (float f) {
+float fahreneit2celsius(float f) {
   return ((5.0 / 9.0 ) * (f - 32.0));
 }
 ```
@@ -196,7 +194,7 @@ Whenever you look for data item $x$:
 - if in $M_1$, take it from there
 - otherwise
   - take it from $M_2$
-  - put it in $M_1$ (removing something)
+  - put it in $M_1$ (freeing some space, if needed)
 
 **Useful** if you **soon** access again $x$
 
@@ -211,7 +209,7 @@ Whenever you look for data item $x$:
 - if in $M_1$, take it from there
 - otherwise
   - take $(\dots, x-2, x-1, x, x+1, x+2, \dots)$ from $M_2$
-  - put *them* in $M_1$ (removing something)
+  - put *them* in $M_1$ (freeing *more* some space, if needed)
 
 **Useful** if you **soon** access again $x$ or something **close** to $x$!
 
@@ -250,6 +248,8 @@ float findAvgDiff (
   return (aSum - bSum) / n;
 }
 ```
+
+.question["Where" in this representation is spatial locality? "where" is temporal locality?]
 ]
 
 .c40[
@@ -320,19 +320,11 @@ Cons:
 
 ## Cache
 
-The memory hierarchy is a pattern, a scheme of solution for a common problem
+The memory hierarchy is a *pattern*, a scheme of solution for a common problem
+
+Other cases:
 - local copy of network data
 - storing of complex computation results
 - physical memory
 
 Common name for the closer memory: **cache**
-
----
-
-class: middle, center
-
-# Memory technology
-
-(very briefly)
-
----
