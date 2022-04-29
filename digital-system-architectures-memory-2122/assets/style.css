@@ -273,9 +273,25 @@ th, td {
 .cp2-6{ color: #43aa8bff; }
 .cp2-7{ color: #577590ff; }
 
-.mem{
-  font-family: "Roboto Mono";
+.vdense{
+  font-size: 85%;
+  line-height: 85%;
+}
+
+.vdenser{
   font-size: 75%;
   line-height: 75%;
+}
+
+.mem{
+  font-family: "Roboto Mono";
   color: darkgray;
+}
+
+.content{
+  color: blue;
+}
+
+.mem sub{
+  font-size: 66%;
 }

@@ -34,7 +34,7 @@ Teacher's slides:
 
 Intended usage:
 - slides should contain every concept that has to be taught/learned
-- **but**, slides are designed for consumption during a lecture, they might be suboptimal for self-consumption $\rightarrow$ **take notes!**
+- **but**, slides are designed for consumption during a lecture, they might be suboptimal for self-consumption $\Rightarrow$ **take notes!**
 
 Teacher's slides are based on :
 - Patterson, David A., and John L. Hennessy. *Computer organization and design ARM edition: the hardware software interface*. Morgan kaufmann, 2016.
@@ -256,7 +256,7 @@ float findAvgDiff (
 .cp2-1[●] `a`, .cp2-2[●] `b`, .cp2-3[●] `n` (=3), .cp2-4[●] `aSum`, .cp2-5[●] `bSum`, .cp2-6[●] `i`
 
 Accesses (simplified):
-.mem[
+.mem.vdenser[
 .cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[w].cp2-5[·].cp2-6[·]  
 .cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[·].cp2-5[w].cp2-6[·]  
 .cp2-1[···].cp2-2[···].cp2-3[·].cp2-4[·].cp2-5[·].cp2-6[w]  
