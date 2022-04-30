@@ -260,38 +260,42 @@ th, td {
 .remark-slide-content.lab {
   background-color: #daf7a6;
 }
-.cp1-1{ color: #003049ff; }
-.cp1-2{ color: #d62828ff; }
-.cp1-3{ color: #f77f00ff; }
-.cp1-4{ color: #fcbf49ff; }
-.cp1-5{ color: #eae2b7ff; }
-.cp2-1{ color: #f94144ff; }
-.cp2-2{ color: #f3722cff; }
-.cp2-3{ color: #f8961eff; }
-.cp2-4{ color: #f9c74fff; }
-.cp2-5{ color: #90be6dff; }
-.cp2-6{ color: #43aa8bff; }
-.cp2-7{ color: #577590ff; }
+.cp1-1 { color: #003049ff; }
+.cp1-2 { color: #d62828ff; }
+.cp1-3 { color: #f77f00ff; }
+.cp1-4 { color: #fcbf49ff; }
+.cp1-5 { color: #eae2b7ff; }
+.cp2-1 { color: #f94144ff; }
+.cp2-2 { color: #f3722cff; }
+.cp2-3 { color: #f8961eff; }
+.cp2-4 { color: #f9c74fff; }
+.cp2-5 { color: #90be6dff; }
+.cp2-6 { color: #43aa8bff; }
+.cp2-7 { color: #577590ff; }
 
-.vdense{
+.vdense {
   font-size: 85%;
   line-height: 85%;
 }
 
-.vdenser{
+.vdenser {
   font-size: 75%;
   line-height: 75%;
 }
 
-.mem{
+.mem {
   font-family: "Roboto Mono";
   color: darkgray;
 }
 
-.content{
+.content {
   color: blue;
 }
 
-.mem sub{
+.mem sub {
   font-size: 66%;
+}
+
+.mem .l {
+  text-decoration: underline;
 }

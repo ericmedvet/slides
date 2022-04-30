@@ -73,7 +73,7 @@ Technology:
 | 2004 | 512 M | 250 | 50 | 5 |
 | 2007 | 1 G | 50 | 45 | 1.25 |
 | 2010 | 2 G | 30 | 40 | 1 |
-| 2012 | 4 G | 1 | 35 | 0.8 |
+| 2012 | 4 G | 10 | 35 | 0.8 |
 
 1: row accessed for the first time  
 2: row recently accessed

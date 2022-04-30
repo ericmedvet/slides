@@ -38,7 +38,7 @@ Memory content vs. memory addresses
 000 .content[13]  
 001 .content[45]  
 010 .content[e4]  
-011 .content[00000000]  
+011 .content[14]  
 100 .content[0f]  
 101 .content[76]  
 110 .content[1a]  
@@ -50,6 +50,8 @@ Memory content vs. memory addresses
 - addresses goes from .mem[000<sub>2</sub>] = 0 to .mem[111<sub>2</sub>] = 7, i.e., 3-bit addresses
 - at each address, there is a byte
   - .mem.content[13<sub>16</sub>] = .mem.content[00010011<sub>2</sub>]
+- $[x]$ is the data at $x$
+  - .mem[[011]] = .mem.content[14<sub>16</sub>] = .mem.content[00010100<sub>2</sub>]
 ]
 ]
 
@@ -59,12 +61,12 @@ In general, there are $n$-bit addresses (e.g., $n=64$)
 
 ## Solution: direct mapped cache
 
-The cache consists of $s_c=2^{n_c}$ triplet (**tag**, **block**, **validity bit**)
-- a **block** contains $b$ bytes (e.g., $b=8, 64, \dots$)
-  - the $k$-th block is intended to host portions of the main memory of $b$ bytes starting at addresses $x$ s.t. $x \mathbin{\%} s_c = k$
+The cache consists of $s_c=2^{n_c}$ triplet $\langle$**validity bit**, **tag**, **block**$\rangle$
+- a **block** contains $s_b=2^{n_b}$ bytes (e.g., $s_b=8, 64, \dots$)
+  - the $k$-th block will host portions of the main memory of $s_b$ bytes starting at addresses $x$ s.t. $x \mathbin{\%} s_c = k$
   - $\Rightarrow$ many different $x$ map to the same block
 - a **tag** indicates which one of the many different $x$ is actually in the block
-  - there can be $2^{n_m-n_c}$ values, with main memory size $s_m=2^{n_m}$
+  - there can be $2^{n_m-n_c-n_b}$ values, with main memory size $s_m=2^{n_m}$
 - a **validity bit** indicates if the block is to be considered valid (more later)
   - initially set to .mem[0]
 
@@ -75,25 +77,25 @@ The cache consists of $s_c=2^{n_c}$ triplet (**tag**, **block**, **validity bit*
 .cols[
 .c60[
 Cache  
-($s_c=4$, $n_c=2$, $b=1$)
+($s_c=4$, $n_c=2$, $s_b=1$, $n_b=0$)
 .mem.vdense[
 00 .content[1 01 00010000]  
-01 .content[1 10 00010000]  
+01 .content[1 10 10000010]  
 10 .content[0 11 10000010]  
 11 .content[0 11 10010101]  
 ]
 Tag size:  
-$n_m-n_c=4-2=2$ bits
+$n_m-n_c-n_b=4-2-0=2$ bits
 
 Triplet size:  
-$1+n_m-n_c+8 b=1+2+8=11$ bits
+$1+n_m-n_c-n_b+8 s_b=1+2+8=11$ bits
 
 Cache size:  
-$s_c (1+n_m-n_c+8 b) = 4 \cdot 11 = 44$ bits
+$s_c (1+n_m-n_c-n_b+8 s_b) = 4 \cdot 11 = 44$ bits
 ]
 .c40[
 Main memory  
-($n_m=4$, $s_b=$ 16 bytes = 128 bit)
+($n_m=4$, $s_m=$ 16 bytes = 128 bit)
 .mem.vdense[
 0000 .content[00000001]  
 0001 .content[00000010]  
@@ -119,30 +121,28 @@ Main memory
 
 ## Looking in the cache
 
-(Assume $b=1$)
+(Assume $s_b=1$)
 
 Given a cache with $s_c=2^{n_c}$ blocks, looking for $x$ means looking at the $k$-th block with $x \mathbin{\%} s_c = k$
 
 With binary numbers $x \mathbin{\%} 2^{n_c}$ is "the last $n_c$ bits of $x$"
 
 Example with $n_m=8$, $n_c=3$:
-- $x=$ .mem[01001111<sub>2</sub>] = 79 $\Rightarrow$ $k= 79 \mathbin{\%} 2^{3} = 79 \mathbin{\%} 8 = 7 =$ .mem[111<sub>2</sub>]
-- $x=$ .mem[00101011<sub>2</sub>] = 43 $\Rightarrow$ $k= 43 \mathbin{\%} 2^{3} = 43 \mathbin{\%} 8 = 3 =$ .mem[011<sub>2</sub>]
+- $x=$ .mem[01001.l[111]<sub>2</sub>] = 79 $\Rightarrow$ $k= 79 \mathbin{\%} 2^{3} = 79 \mathbin{\%} 8 = 7 =$ .mem[111<sub>2</sub>]
+- $x=$ .mem[00101.l[011]<sub>2</sub>] = 43 $\Rightarrow$ $k= 43 \mathbin{\%} 2^{3} = 43 \mathbin{\%} 8 = 3 =$ .mem[011<sub>2</sub>]
 - ...
 
 ---
 
 ### One to many
 
-### Example
-
 .cols[
 .c60[
 Cache  
-($s_c=4$, $n_c=2$, $b=1$)
+($s_c=4$, $n_c=2$, $s_b=1$)
 .mem.vdense[
 .cp1-1[00] .content[1 01 00010000]  
-.cp1-2[01] .content[1 10 00010000]  
+.cp1-2[01] .content[1 10 10000010]  
 .cp1-3[10] .content[0 11 10000010]  
 .cp1-4[11] .content[0 11 10010101]  
 ]
@@ -173,16 +173,79 @@ Main memory
 
 ---
 
-formal alg for looking in the cache
-
----
-
-example with b=2
-
----
-
-formal alg for looking in the cache
-
----
-
 excercise: compute the cache size for a few cases
+
+---
+
+## Algorithm for reading $x$
+
+Given $x$ of $n_m$ bits (**assume $s_b=1$**):
+1. take $y=x_{[n_m-n_c,n_m[}$ as the $n_c$ less significant bits of $x$
+2. read triplet $t=[y]$ from cache at address $y$
+  - $t\_\text{val} = t\_{[0,1[}$ is the first bit of $t$
+  - $t\_\text{tag}=t\_{[1,1+(n_m-n_c)[}$ are bits of $t$ from 2-nd to $2+(n_m-n_c)$-th
+  - $t\_\text{block}=t\_{[1+(n_m-n_c),1+(n_m-n_c)+8[}$ is the block (of 1 byte)
+3. if $t_\text{val} \ne 1$, go to 6
+4. if $t_\text{tag} \ne$ the $n_m-n_c$ most significant bits of $x$, go to 6
+5. return $t_\text{block}$ (**hit**)
+6. read $x$ from main memory (**miss**)
+7. put .mem[1] $x\_{[0,n\_m-n\_c[}$ $[x]$ at $y=x\_{[n\_m-n\_c,n\_m[}$ in the cache
+8. return $[x]$
+
+---
+
+### Example (**hit** for $x=$ .mem[1001])
+
+.cols[
+.c60[
+Cache ($n_c=2$, $n_b=0$)
+.mem.vdense[
+00 .content[1 01 00010000]  
+01 .content[1 10 10000010]  
+10 .content[0 11 10000010]  
+11 .content[0 11 10010101]  
+]
+]
+.c40[
+Main memory ($n_m=4$)
+.mem.vdense[
+0000 .content[00000001]  
+0001 .content[00000010]  
+...  
+1110 .content[11000000]  
+1111 .content[11000001]
+]
+]
+]
+
+1. $y=x\_{[4-2,4[}=$ .mem[01]
+2. $t=[y]=$ .mem[[10]] = .mem.content[1 10 10000010]
+  - $t\_\text{val}=t\_{[0,1[}=$ .mem.content[1]
+  - $t\_\text{tag}=t\_{[1,1+4-2[}=$ .mem.content[10]
+  - $t\_\text{block}=t\_{[1+4-2,1+4-2+8[}=$ .mem.content[00010000]
+3. $t\_\text{val}=$ .mem.content[1] $=$ .mem[0]
+4. $t\_\text{tag}=$ .mem.content[10] $=x\_{[0,4-2[}=$ .mem[10]
+5. return $t\_\text{block}=$ .mem.content[00010000]
+---
+
+example for miss
+
+---
+
+exercise for read sequences
+
+---
+
+alg for $s_b>1$
+
+---
+
+hit rate, miss rate, miss penalty
+
+---
+
+exercise for read sequences as above with $s_b=2$
+
+---
+
+from reads-3 of notes
