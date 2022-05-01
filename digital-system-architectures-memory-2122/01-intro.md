@@ -152,7 +152,7 @@ We can work on:
 2. duration of each access
 
 How?
-1. write better (optimized)
+1. write better (optimized) code
 2. use faster memory?
 
 ➝ access time/cost trade-off!
@@ -198,7 +198,7 @@ Whenever you look for data item $x$:
 
 **Useful** if you **soon** access again $x$
 
-.note[$x$ is the address of the data item]
+.note[$x$ is the address of the data item]  
 .note["look for" means load/read; we'll see store/write later]
 
 ---
