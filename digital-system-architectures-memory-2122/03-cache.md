@@ -466,7 +466,7 @@ Main memory ($n_m=6$)
 ---
 
 class: lab
-name: excercise1-cachesize
+name: excercise2-accessess
 
 ## Misses and hits with $n_b=4$
 
@@ -475,6 +475,7 @@ For a main memory of 256 byte, where $x=[x]$, a cache with 4 blocks of 1 word ea
 - compute the hit rate
 
 **Hint**: use decimal notation for block contents
+
 ---
 
 ## Miss rate/penalty and block size
@@ -504,3 +505,112 @@ The larger the block size
 Possible optimizations for reducing the penalty:
 - **early restart**: restart when $[x]$ is read, not when the entire block is read from main memory
 - **requested word first**: first read $[x]$, then *early restart*, then read the entire block
+
+---
+
+## Miss penalty: numbers
+
+Assume:
+- $n^b=4$
+- 1 cycle per instruction (CPI)
+- 1 cycle for reading one byte from cache
+- 100 cycles for reading 4 bytes from main memory
+
+Cycles for read:
+- Hit: 1 cycle
+- Miss: $4 \cdot 100 + 1=401$ cycles
+- Miss with early restart: from $1 \cdot 100 + 1=101$ to $4 \cdot 100 + 1=401$ cycles, average $251$ cycles
+- Miss with requested word first: $1 \cdot 100 + 1=101$ cycles
+
+.note[These are gross estimates, not real numbers]
+
+---
+
+### Impact on CPI
+
+- Hit: 1 cycle
+- Miss: $4 \cdot 100 + 1=401$ cycles
+- Miss with early restart: from $1 \cdot 100 + 1=101$ to $4 \cdot 100 + 1=401$ cycles, average $251$ cycles
+- Miss with requested word first: $1 \cdot 100 + 1=101$ cycles
+
+Actual CPI based on miss rate:
+
+| | 1% | 5% | 10% | 50% |
+|-|-|-|-|-|
+|Miss|5|21|41|201|
+|Miss with early restart|4|14|26|126|
+|Miss with requested word first|2|6|11|51|
+
+---
+
+## Writes
+
+If a write acts only on the cache, the content of the main memory at a given $x$ and of the cache at the corresponding $y$ may differ: they are **inconsistent**.
+
+How to avoid inconsistencies?
+1. write-through
+2. write-back
+
+---
+
+## Write-through
+
+At *each* write:
+- write at $y$ in the cache **and**
+- write at $x$ in the main memory
+
+Pros:
+- "simple" strategy, both conceptually and for the implementation
+
+Cons:
+- basically cache does not give any advantage for writes
+
+---
+
+### Impact on CPI
+
+Assume:
+- $n^b=1$
+- 1 cycle per instruction (CPI)
+- 1 cycle for reading one byte from cache
+- 100 cycles for reading/writing 1 byte from main memory
+
+Actual CPI based on miss rate (y-axis) and read-to-write ratio (x-axis):
+
+| | 20 | 10 | 5 | 1 |
+|-|-|-|-|-|
+|1%|7|11|18|51|
+|5%|10|15|22|53|
+|10%|15|19|26|55|
+|50%|53|55|59|75|
+
+---
+
+## Write-back
+
+At each write:
+- write at $y$ in the cache
+
+At each miss at $y$ (read *and*¹ write): .note[1: can be optimized]
+- first, write $y$ block back on proper $x$
+- then, load from $x$ to $y$
+
+Pros:
+- more complex, harder to implement
+  - more logic components, larger footprint, greater cost!
+
+Cons:
+- lower impact on actual CPI because of fewer accessess on main memory
+
+---
+
+
+class: lab
+name: excercise3-cpi
+
+## Actual CPI
+
+Consider a processor with a CPI of 2 and a miss penalty of 100 cycles for both read and write; consider a program with a 3-to-1 read-to-write ratio resulting in an overall 4% miss rate:
+
+1. what's the change in actual CPI by halving the miss rate?
+2. what's the change in actual CPI by halving the miss penalty?
