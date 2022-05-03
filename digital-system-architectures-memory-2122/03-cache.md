@@ -378,7 +378,7 @@ hit rate $= 40\%$
 ]
 ]
 
-.question[Is there temporal or spatial locality in this sequence of $x$?]
+.question[Is there temporal or spatial locality in this sequence of $x$? Are they both exploited?]
 
 ---
 
@@ -604,7 +604,6 @@ Cons:
 
 ---
 
-
 class: lab
 name: excercise3-cpi
 
@@ -614,3 +613,17 @@ Consider a processor with a CPI of 2 and a miss penalty of 100 cycles for both r
 
 1. what's the change in actual CPI by halving the miss rate?
 2. what's the change in actual CPI by halving the miss penalty?
+
+---
+
+## A real cache
+.cols[
+.c80[
+.center.w90p[![FastMATH cache scheme](images/fastmath-cache.png)]
+]
+.c20[
+ailo
+]
+]
+
+.note[from Patterson, David A., and John L. Hennessy. Morgan kaufmann, 2016]
