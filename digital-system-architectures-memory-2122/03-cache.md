@@ -622,7 +622,6 @@ Consider a processor with a CPI of 2 and a miss penalty of 100 cycles for both r
 .center.w90p[![FastMATH cache scheme](images/fastmath-cache.png)]
 ]
 .c20[
-ailo
 ]
 ]
 
