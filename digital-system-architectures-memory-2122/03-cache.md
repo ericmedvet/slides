@@ -640,3 +640,33 @@ Miss rate:
 ]
 
 ---
+
+## Decreasing miss rate
+
+One option: increasing block size
+- has some cons
+
+Another option: each $x$ can be hosted in (*associated* with) many $y$, not in just one.  
+➝ increase the degree of **associativity**
+
+.question[What's the counterpart of associativity in the library case?]
+
+---
+
+## Associativity
+
+- each $x$ in exactly one $y$: 1-way associativity
+  - i.e., no associativity
+- each $x$ in $n$ $y$: $k$-way associativity
+  - usually, $k=2^k$ (in practice, 2 or 4)
+- each $x$ in all $y$: full associativity
+  - $k=s_c$
+
+With $k=1$: many-to-one from $x$ to $y$
+
+With $k>1$: many-to-many from $x$ to $y$
+
+---
+
+impact of associativity on "is there $x$ in cache?" (stress many to many)
+impact of associativity on tag size and overall size
