@@ -616,13 +616,27 @@ Consider a processor with a CPI of 2 and a miss penalty of 100 cycles for both r
 
 ---
 
-## A real cache
+## A real cache (FastMATH processor)
+
 .cols[
-.c80[
+.c70[
 .center.w90p[![FastMATH cache scheme](images/fastmath-cache.png)]
+
+.note[from Patterson, David A., and John L. Hennessy. Morgan kaufmann, 2016]
+
+.question[Why is the instruction miss rate much lower?]
 ]
-.c20[
+.c30[
+- 2x cache: data, instructions
+- 16 KB
+- $n_b=4$
+- write-through and write-back with write buffer
+
+Miss rate:
+- instruction: 0.4%
+- data: 11.4%
+- combined: 3.2%
 ]
 ]
 
-.note[from Patterson, David A., and John L. Hennessy. Morgan kaufmann, 2016]
+---
