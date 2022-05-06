@@ -232,11 +232,11 @@ Main memory ($n_m=4$)
 ]
 
 1. $y=x\_{[4-2,4[}=$ .mem[01]
-2. $t=[y]=$ .mem[[10]] = .mem.content[1 10 10000010]
+2. $t=[y]=$ .mem[[01]] = .mem.content[1 10 10000010]
   - $t\_\text{val}=t\_{[0,1[}=$ .mem.content[1]
   - $t\_\text{tag}=t\_{[1,1+4-2[}=$ .mem.content[10]
   - $t\_\text{block}=t\_{[1+4-2,1+4-2+8[}=$ .mem.content[10000010]
-3. $t\_\text{val}=$ .mem.content[1] $=$ .mem[0]
+3. $t\_\text{val}=$ .mem.content[1] $=$ .mem[1]
 4. $t\_\text{tag}=$ .mem.content[10] $=x\_{[0,4-2[}=$ .mem[10]
 5. return $t\_\text{block}=$ .mem.content[10000010]
 
@@ -268,7 +268,7 @@ Main memory ($n_m=4$)
 
 1. $y=x\_{[4-2,4[}=$ .mem[00]
 2. $t=[y]=$ .mem[[00]] = .mem.content[1 01 00010000]
-3. $t\_\text{val}=$ .mem.content[1] $=$ .mem[0]
+3. $t\_\text{val}=$ .mem.content[1] $=$ .mem[1]
 4. $t\_\text{tag}=$ .mem.content[01] $\ne x\_{[0,4-2[}=$ .mem[00]
 6. read .mem[0000] from main memory
 7. put .mem.content[1] .mem.content[00] .mem.content[00000001] at $y=$ .mem[00]
@@ -319,7 +319,7 @@ $x=$ .mem[101], .mem[000], .mem[111], .mem[001], .mem[010] (left), .mem[000], .m
 .mem.vdenser[
 00 .content[1 0 00000001]  
 01 .content[1 0 00000010]  
-.cp2-1[10] .content[1 1 00000100]  
+.cp2-1[10] .content[1 0 00000100]  
 11 .content[1 1 10000000]
 ]
 ]
@@ -327,31 +327,31 @@ $x=$ .mem[101], .mem[000], .mem[111], .mem[001], .mem[010] (left), .mem[000], .m
 .mem.vdenser[
 .cp2-5[00] .content[1 0 00000001]  
 01 .content[1 0 00000010]  
-10 .content[1 1 00000100]  
+10 .content[1 0 00000100]  
 11 .content[1 1 10000000]
 ]
 .mem.vdenser[
 00 .content[1 0 00000001]  
 .cp2-1[01] .content[1 1 00100000]  
-10 .content[1 1 00000100]  
+10 .content[1 0 00000100]  
 11 .content[1 1 10000000]
 ]
 .mem.vdenser[
 00 .content[1 0 00000001]  
 01 .content[1 1 00100000]  
-.cp2-5[10] .content[1 1 00000100]  
+.cp2-1[10] .content[1 1 01000000]  
 11 .content[1 1 10000000]
 ]
 .mem.vdenser[
 00 .content[1 0 00000001]  
 01 .content[1 1 00100000]  
-10 .content[1 1 00000100]  
+10 .content[1 1 01000000]  
 .cp2-5[11] .content[1 1 10000000]
 ]
 .mem.vdenser[
 00 .content[1 0 00000001]  
 01 .content[1 1 00100000]  
-.cp2-5[10] .content[1 1 00000100]  
+.cp2-5[10] .content[1 1 01000000]  
 11 .content[1 1 10000000]
 ]
 ]
@@ -374,7 +374,7 @@ Main memory
 110 .content[01000000]  
 111 .content[10000000]
 ]
-hit rate $= 40\%$
+hit rate $= 30\%$
 ]
 ]
 
@@ -396,12 +396,12 @@ $\Rightarrow$ use larger blocks! (i.e., $s_b>1$)
 
 Assume $n_m=6$, $n_c=2$, $n_b=2$ (block size is $s_b=4$ bytes)
 
-- block at $y=$ .mem[00] host
+- block at $y=$ .mem[00] hosts
   - bytes from $x=$ .mem[00.l[00]00] to .mem[00.l[00]11]
   - bytes from $x=$ .mem[01.l[00]00] to .mem[01.l[00]11]
   - bytes from $x=$ .mem[10.l[00]00] to .mem[10.l[00]11]
   - bytes from $x=$ .mem[11.l[00]00] to .mem[11.l[00]11]
-- block at $y=$ .mem[01] host
+- block at $y=$ .mem[01] hosts
   - bytes from $x=$ .mem[00.l[01]00] to .mem[00.l[01]11]
   - bytes from $x=$ .mem[01.l[01]00] to .mem[01.l[01]11]
   - ...
@@ -420,7 +420,7 @@ $y$ is the bits in $x$ from $n_m-n_c-n_b$ to $n_m-n_b$
   - $t\_\text{block}=t\_{[1+(n_m-n_c-n_b),1+(n_m-n_c-n_b)+8 \cdot 2^{n_b}[}$
 3. if $t_\text{val} \ne$ .mem[1], go to 6
 4. if $t\_\text{tag} \ne x\_{[0,n\_m-n\_c-n\_b[}$, go to 6
-5. return $t\_{\text{block} [8 \cdot 2^z,8 \cdot 2^z+8[}$ with $z=x\_{[n\_m-n\_b, n\_m[}$ (**hit**)
+5. return $t\_{\text{block} [8 z,8 z+8[}$ with $z=x\_{[n\_m-n\_b, n\_m[}$ (**hit**)
 6. read $x\_0, \dots, x\_{s\_b-1}$ from main memory (**miss**)
   - $x\_0 = x\_{[0,n\_m-n\_b[}$ .mem[0]....mem[0] ($n\_b$ .mem[0]s)
   - $x\_k = x\_{[0,n\_m-n\_b[}$ $k$.mem[<sub>2</sub>] ($k$ as binary with $n\_b$ bits)
@@ -461,7 +461,7 @@ Main memory ($n_m=6$)
   - $t\_\text{block}=t\_{[1+4-2,1+4-2+8^2[}=$ .mem.content[00000001 00000010]
 3. $t\_\text{val}=$ .mem.content[1] $=$ .mem[0]
 4. $t\_\text{tag}=$ .mem.content[10] $=x\_{[0,4-2[}=$ .mem[10]
-5. return $t\_{\text{block} [8 \cdot 2^z,8 \cdot 2^z+8[}=$ .mem.content[00000010] with $z=x\_{[5-1, 5[}=$ .mem[1]
+5. return $t\_{\text{block} [8 z,8 z+8[}=$ .mem.content[00000010] with $z=x\_{[5-1, 5[}=$ .mem[1]
 
 ---
 
@@ -470,11 +470,13 @@ name: excercise2-accessess
 
 ## Misses and hits with $n_b=4$
 
-For a main memory of 256 byte, where $x=[x]$, a cache with 4 blocks of 1 word each, and the reads 10, 11, 13, 20, 21, 22, 10, 20, 21 (decimal addresses $x$)
+For a main memory of 256 byte, where $x=[x]$, an initially empty cache with 4 blocks of 1 word each, and the reads 10, 11, 13, 20, 21, 22, 10, 20, 21 (decimal addresses $x$)
 - show the cache content after the 3rd request
 - compute the hit rate
 
 **Hint**: use decimal notation for block contents
+
+.note["Initially empty" means all bits set to .mem.content[0]]
 
 ---
 
@@ -685,35 +687,97 @@ Where should I put an $x$ in the cache?
 
 ## Set of blocks
 
-With associativity, $s_c$ blocks are organized in **sets of blocks**, each consisting of $s_a=2^{n_a}$ contiguous blocks
-- in practice, $s_a \in \{1,2,4,s_c\}$
+With associativity, $s_c$ blocks are organized in **sets of blocks**, each consisting of $s_s=2^{n_s}$ contiguous blocks .note[former $n$ becomes $s_s$]
+- in practice, $s_s \in \{1,2,4,s_c\}$
 
-A given $x$ will go in a block of the $k$-th set, with $x \mathbin{\%} \frac{s_c}{s_a} = k$ (instead of the $k$-th block)
-- $\frac{s_c}{s_a}$ is the number of sets of blocks
+A given $x$ will go in a block of the $k$-th set, with $x \mathbin{\%} \frac{s_c}{s_s} = k$ (instead of the $k$-th block)
+- $\frac{s_c}{s_s}$ is the number of sets of blocks, it takes $n_c-n_s$ bits
 
 Tag indicates which $x$ is in a given $y$
 
 ---
 
-### Example
+## $x$ to $y$
 
-$n_c=3$, $n_a=1$, $n_m=8$, $n_b=1$
+Assume $n_s=2$, $n_c=4$:
 
-.mem[
+Block index $k$ to $y$:
+- set $k=$ .mem[00] contains blocks from $y=$ .mem[.l[00]00] to .mem[.l[00]11]
+- set $k=$ .mem[01] contains blocks from $y=$ .mem[.l[01]00] to .mem[.l[01]11]
+- set $k=$ .mem[10] contains blocks from $y=$ .mem[.l[10]00] to .mem[.l[10]11]
+- set $k=$ .mem[11] contains blocks from $y=$ .mem[.l[11]00] to .mem[.l[11]11]
+
+$x$ to $k$: $x \mathbin{\%} \frac{s\_c}{s\_s} = k$, that is, $k = x\_{[n\_m-(n\_c-n\_s)-n\_b,n\_m-n\_b[}$
+
+Hence, $x \rightarrow Y=\\{y: y\_{[0,n\_c-n\_s[}=x\_{[n\_m-(n\_c-n\_s)-n\_b,n\_m-n\_b[}\\}$
+
+.note[$n\_c$ "becomes" $n\_c-n\_s$]
+
+---
+
+## Algorithm for reading $x$
+
+1. $Y=\\{y: y\_{[0,n\_c-n\_s[}=x\_{[n\_m,n\_m-(n\_c-n\_s)-n\_b[}\\}$
+2. **for each** $y \in Y$
+  1. $t=[y]=(t\_\text{val}, t\_\text{tag}, t\_\text{block})$
+  2. if $t\_\text{val} =$ .mem[1] and $t\_\text{tag} = x\_{[0,n\_m-(n\_c-n\_s)-n\_b[}$
+  3. return $t\_{\text{block} [8 z,8 z+8[}$ with $z=x\_{[n\_m-n\_b, n\_m[}$ (**hit**)
+4. read $x\_0, \dots, x\_{s\_b-1}$ from main memory (**miss**)
+5. **choose** $k$ (with $n_s$ bits)
+6. put .mem.content[1] $x\_{[0,n\_m-(n\_c-n\_s)-n\_b[}$ $[x\_0] \dots [x\_{s\_b-1}]$ at $y=x\_{[n\_m,n\_m-(n\_c-n\_s)-n\_b[} \; k$<sub>.mem[2]</sub>
+7. return $[x]$
+
+Steps 2.1 to 2.3 are actually done in parallel!
+- more comparators, larger footprint
+---
+
+### Example with .cp2-1[misses] and .cp2-5[hits]
+
+$n_c=3$, $n_s=1$, $n_m=8$, $n_b=1$
+
+.mem.vdense[
 .l[00]0 .content[1 00000 00000001 00000010]  
 .l[00]1 .content[1 01010 00100000 00110000]  
-
 .l[01]0 .content[0 11010 00000000 00000000]  
-.l[01]1 .content[1 01111 00000000 00000000]  
-
+.l[01]1 .content[1 01111 00000000 11100000]  
 .l[10]0 .content[1 00101 00000001 00000010]  
 .l[10]1 .content[1 10110 00100000 00110000]  
-
 .l[11]0 .content[1 01100 00000000 00000000]  
 .l[11]1 .content[0 01011 00000000 00000000]  
 ]
 
+$x=$ .mem[00100.l[11]0] $\Rightarrow Y=\\{$.mem[.l[11]0], .mem[.l[11]1]$\\} \Rightarrow$ .cp2-1[miss], .cp2-1[miss] .note[for tags]
+
+$x=$ .mem[01111.l[01]1] $\Rightarrow Y=\\{$.mem[.l[01]0], .mem[.l[01]1]$\\} \Rightarrow$ .cp2-1[miss], .cp2-5[hit]  
+$\Rightarrow$ returns $t\_{\text{block} [8 z,8 z+8[}=$ .mem.content[11100000] with $z=x\_{[8-1,8[}=$ .mem[1]
+
+$x=$ .mem[01011.l[11]0] $\Rightarrow Y=\\{$.mem[.l[11]0], .mem[.l[11]1]$\\} \Rightarrow$ .cp2-1[miss], .cp2-1[miss] .note[tag validity]
+
+.question[Can we have $>1$ hits in a block?]
+
 ---
 
-impact of associativity on "is there $x$ in cache?" (stress many to many)
-impact of associativity on tag size and overall size
+## Choosing a block in set (LRU)
+
+For each block in the set, we need to know *when* it was used last time: it can be done with $n_a$ recency bits (a *recency tag*):
+- .mem[00] for the most recently used
+- .mem[01] for the 2nd most recently used
+- .mem[10] for the 3rd third most recently used
+- .mem[11] for the 4th most recently used
+
+Whenever an $y$ is accessed, if its recency tag is $\ne$ .mem[00], the recency tags of **all blocks in the set** have to be updated:
+- the one at this $y$ becomes .mem[00]
+- each other is increased by 1 (.mem[11] stays .mem[11])
+
+---
+
+## Choosing a block in set (random)
+
+Just random!
+- no recency tags needed
+- no update on hits
+
+Much less complex than LRU:
+- in practice, LRU is used only with $n_s=1$ or $2$
+- impact on miss rate is low: $\approx 10 \%$
+  - negligible with large caches
