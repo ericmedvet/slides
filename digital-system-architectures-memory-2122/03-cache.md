@@ -179,11 +179,11 @@ name: excercise1-cachesize
 
 ## Cache size
 
-1. For a main memory of 4 GB and a cache with 1024 block of 4 words each
+1. For a main memory of 4 GB and a cache with 1024 blocks of 4 words each
   - compute the tag size in bits
-  - compute the ratio between effective data stored in the cache and overall cache size
+  - compute the ratio between actual data stored in the cache and overall cache size
 <!--- solution: n_m=32, n_c=10, n_b=4; tag_size=32-10-4=18; rho=16*8/(16*8+19)=87.1% -->
-2. Repeat for a main memory of 4 GB and a cache with 1024 block of 16 words each
+2. Repeat for a main memory of 4 GB and a cache with 1024 blocks of 16 words each
 <!--- solution: n_m=32, n_c=10, n_b=6; tag_size=32-10-6=15; rho=16*8/(16*8+16)=88.9% -->
 
 .note[1 word is 4 bytes]
@@ -484,6 +484,7 @@ The larger the block size
 - the lower the miss rate (for **better exploitment of spatial locality**)
 - the longer the miss penalty
 - the lower the number of blocks (for the same cache size)
+  - thus, the greater the miss rate
 
 Depends on the specific sequence of memory accesses
 
@@ -657,14 +658,60 @@ Another option: each $x$ can be hosted in (*associated* with) many $y$, not in j
 
 - each $x$ in exactly one $y$: 1-way associativity
   - i.e., no associativity
-- each $x$ in $n$ $y$: $k$-way associativity
-  - usually, $k=2^k$ (in practice, 2 or 4)
+- each $x$ in $n$ $y$: $n$-way associativity
+  - usually, $n=2^k$ (in practice, 2 or 4)
 - each $x$ in all $y$: full associativity
   - $k=s_c$
 
 With $k=1$: many-to-one from $x$ to $y$
 
 With $k>1$: many-to-many from $x$ to $y$
+
+---
+
+## Finding/putting an $x$ with $>1$-associativity
+
+Where should I look in the cache for a given $x$?
+- with 1-way: in exactly one $y$
+- with $n$-way: in $n$ $y$
+
+Where should I put an $x$ in the cache?
+- with 1-way: in exactly one $y$
+- with $n$-way: in exactly one $y$ **chosen among $n$**; how?
+  - less recently used (LRU)
+  - randomly
+
+---
+
+## Set of blocks
+
+With associativity, $s_c$ blocks are organized in **sets of blocks**, each consisting of $s_a=2^{n_a}$ contiguous blocks
+- in practice, $s_a \in \{1,2,4,s_c\}$
+
+A given $x$ will go in a block of the $k$-th set, with $x \mathbin{\%} \frac{s_c}{s_a} = k$ (instead of the $k$-th block)
+- $\frac{s_c}{s_a}$ is the number of sets of blocks
+
+Tag indicates which $x$ is in a given $y$
+
+---
+
+### Example
+
+$n_c=3$, $n_a=1$, $n_m=8$, $n_b=1$
+
+.mem[
+.l[00]0 .content[1 00000 00000001 00000010]  
+.l[00]1 .content[1 01010 00100000 00110000]  
+
+.l[01]0 .content[0 11010 00000000 00000000]  
+.l[01]1 .content[1 01111 00000000 00000000]  
+
+.l[10]0 .content[1 00101 00000001 00000010]  
+.l[10]1 .content[1 10110 00100000 00110000]  
+
+.l[11]0 .content[1 01100 00000000 00000000]  
+.l[11]1 .content[0 01011 00000000 00000000]  
+]
 
 ---
 
