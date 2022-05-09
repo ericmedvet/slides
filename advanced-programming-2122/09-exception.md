@@ -1314,7 +1314,7 @@ Resources are closed in the reversed order they were opened.
 
 .compact[
 ```java
-public void log(String msg, String filePath) `throws IOException` {
+public static void log(String msg, String filePath) `throws IOException` {
   try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
     bw.append(msg + System.lineSeparator());
   }
