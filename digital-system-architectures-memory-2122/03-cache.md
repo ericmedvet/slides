@@ -468,7 +468,7 @@ Main memory ($n_m=6$)
 class: lab
 name: excercise2-accessess
 
-## Misses and hits with $n_b=4$
+## Misses and hits with $s_b=4$
 
 For a main memory of 256 byte, where $x=[x]$, an initially empty cache with 4 blocks of 1 word each, and the reads 10, 11, 13, 20, 21, 22, 10, 20, 21 (decimal addresses $x$)
 - show the cache content after the 3rd request
