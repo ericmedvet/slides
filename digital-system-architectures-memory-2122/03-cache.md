@@ -455,12 +455,12 @@ Main memory ($n_m=6$)
 ]
 
 1. $y=x\_{[5-2-1,5-1[}=$ .mem[00]
-2. $t=[y]=$ .mem[[10]] = .mem.content[1 00 00000001 00000010]
+2. $t=[y]=$ .mem[[00]] = .mem.content[1 00 00000001 00000010]
   - $t\_\text{val}=t\_{[0,1[}=$ .mem.content[1]
   - $t\_\text{tag}=t\_{[1,1+4-2[}=$ .mem.content[00]
   - $t\_\text{block}=t\_{[1+4-2,1+4-2+8^2[}=$ .mem.content[00000001 00000010]
-3. $t\_\text{val}=$ .mem.content[1] $=$ .mem[0]
-4. $t\_\text{tag}=$ .mem.content[10] $=x\_{[0,4-2[}=$ .mem[10]
+3. $t\_\text{val}=$ .mem.content[1] $=$ .mem[1]
+4. $t\_\text{tag}=$ .mem.content[00] $=x\_{[0,4-2[}=$ .mem[00]
 5. return $t\_{\text{block} [8 z,8 z+8[}=$ .mem.content[00000010] with $z=x\_{[5-1, 5[}=$ .mem[1]
 
 ---
