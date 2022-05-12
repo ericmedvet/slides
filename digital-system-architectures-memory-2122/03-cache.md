@@ -420,7 +420,7 @@ $y$ is the bits in $x$ from $n_m-n_c-n_b$ to $n_m-n_b$
   - $t\_\text{block}=t\_{[1+(n_m-n_c-n_b),1+(n_m-n_c-n_b)+8 \cdot 2^{n_b}[}$
 3. if $t_\text{val} \ne$ .mem[1], go to 6
 4. if $t\_\text{tag} \ne x\_{[0,n\_m-n\_c-n\_b[}$, go to 6
-5. return $t\_{\text{block} [8 z,8 z+8[}$ with $z=x\_{[n\_m-n\_b, n\_m[}$ (**hit**)
+5. return $t\_{\text{block} [8 z,8 z+8[}$ with $z=x\_{[n\_m-n\_b, n\_m[}$ (**hit**) .note[$z=0$ if $n_b=0$]
 6. read $x\_0, \dots, x\_{s\_b-1}$ from main memory (**miss**)
   - $x\_0 = x\_{[0,n\_m-n\_b[}$ .mem[0]....mem[0] ($n\_b$ .mem[0]s)
   - $x\_k = x\_{[0,n\_m-n\_b[}$ $k$.mem[<sub>2</sub>] ($k$ as binary with $n\_b$ bits)
@@ -573,7 +573,7 @@ Cons:
 ### Impact on CPI
 
 Assume:
-- $n^b=1$
+- $s_b=1$
 - 1 cycle per instruction (CPI)
 - 1 cycle for reading one byte from cache
 - 100 cycles for reading/writing 1 byte from main memory
