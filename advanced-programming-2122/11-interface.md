@@ -654,6 +654,10 @@ Enums cannot be instantiated:
 
 ## `enum`s with `switch`
 
+.cols[
+.c50[
+Old way:
+.compact[
 ```java
 public class Person {
   public String toString() {    
@@ -668,10 +672,33 @@ public class Person {
       default:
         prefix = "";
     }
-    return prefix + firstName + " " + lastName;
+    return prefix + firstName
+        + " " + lastName;
   }
 }
 ```
+]
+]
+.c50[
+Enhanced switch (with arrows):
+.compact[
+```java
+public class Person {
+  public String toString() {    
+    String prefix = switch (gender) {
+      case `FEMALE`-> "Ms. ";
+      case `MALE` -> "Mr. ";
+      default -> "";
+    }
+    return prefix + firstName
+        + " " + lastName;
+  }
+}
+```
+.note[from JDK 13]
+]
+]
+]
 
 No need to specify `Gender.`.
 
