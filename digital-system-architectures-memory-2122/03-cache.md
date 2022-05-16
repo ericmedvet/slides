@@ -514,7 +514,7 @@ Possible optimizations for reducing the penalty:
 ## Miss penalty: numbers
 
 Assume:
-- $n^b=4$
+- $s_b=4$
 - 1 cycle per instruction (CPI)
 - 1 cycle for reading one byte from cache
 - 100 cycles for reading 4 bytes from main memory
@@ -616,6 +616,8 @@ Consider a processor with a CPI of 2 and a miss penalty of 100 cycles for both r
 
 1. what's the change in actual CPI by halving the miss rate?
 2. what's the change in actual CPI by halving the miss penalty?
+
+.note[Three missing info: cycle to access cache; write policy; if not "actual r/w CPI", percentage of r/w instructions in the program]
 
 ---
 
@@ -781,3 +783,16 @@ Much less complex than LRU:
 - in practice, LRU is used only with $n_s=1$ or $2$
 - impact on miss rate is low: $\approx 10 \%$
   - negligible with large caches
+
+---
+
+class: lab
+name: excercise3-accessess-assoc
+
+## Misses and hits with associativity
+
+For a main memory of 256 byte, where $x=[x]$, an initially empty **associative** cache with 4 blocks of 1 word each, and the reads 10, 11, 13, 20, 21, 22, 10, 20, 21 (**hexadecimal** addresses $x$):
+- compute the percentage improvement in hit rate for $s_s=2$ with respect to the case of no associativity
+- compute the overall size of the cache for $s_s=2$ and LRU
+
+.note["Initially empty" means all bits set to .mem.content[0]]
