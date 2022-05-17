@@ -665,7 +665,7 @@ Another option: each $x$ can be hosted in (*associated* with) many $y$, not in j
 - each $x$ in $n$ $y$: $n$-way associativity
   - usually, $n=2^k$ (in practice, 2 or 4)
 - each $x$ in all $y$: full associativity
-  - $k=s_c$
+  - $k=n_c$
 
 With $k=1$: many-to-one from $x$ to $y$
 
@@ -682,7 +682,7 @@ Where should I look in the cache for a given $x$?
 Where should I put an $x$ in the cache?
 - with 1-way: in exactly one $y$
 - with $n$-way: in exactly one $y$ **chosen among $n$**; how?
-  - less recently used (LRU)
+  - least recently used (LRU)
   - randomly
 
 ---
@@ -719,11 +719,11 @@ Hence, $x \rightarrow Y=\\{y: y\_{[0,n\_c-n\_s[}=x\_{[n\_m-(n\_c-n\_s)-n\_b,n\_m
 
 ## Algorithm for reading $x$
 
-1. $Y=\\{y: y\_{[0,n\_c-n\_s[}=x\_{[n\_m,n\_m-(n\_c-n\_s)-n\_b[}\\}$
+1. $Y=\\{y: y\_{[0,n\_c-n\_s[}=x\_{[n\_m-(n\_c-n\_s)-n\_b,n\_m-n\_b[}\\}$
 2. **for each** $y \in Y$
   1. $t=[y]=(t\_\text{val}, t\_\text{tag}, t\_\text{block})$
   2. if $t\_\text{val} =$ .mem[1] and $t\_\text{tag} = x\_{[0,n\_m-(n\_c-n\_s)-n\_b[}$
-  3. return $t\_{\text{block} [8 z,8 z+8[}$ with $z=x\_{[n\_m-n\_b, n\_m[}$ (**hit**)
+  3. return $t\_{\text{block} [8 z,8 z+8[}$ with $z=x\_{[n\_m-n\_b, n\_m[}$ (**hit**) .note[0 if $n_b=0$]
 4. read $x\_0, \dots, x\_{s\_b-1}$ from main memory (**miss**)
 5. **choose** $k$ (with $n_s$ bits)
 6. put .mem.content[1] $x\_{[0,n\_m-(n\_c-n\_s)-n\_b[}$ $[x\_0] \dots [x\_{s\_b-1}]$ at $y=x\_{[n\_m,n\_m-(n\_c-n\_s)-n\_b[} \; k$<sub>.mem[2]</sub>
@@ -748,12 +748,12 @@ $n_c=3$, $n_s=1$, $n_m=8$, $n_b=1$
 .l[11]1 .content[0 01011 00000000 00000000]  
 ]
 
-$x=$ .mem[00100.l[11]0] $\Rightarrow Y=\\{$.mem[.l[11]0], .mem[.l[11]1]$\\} \Rightarrow$ .cp2-1[miss], .cp2-1[miss] .note[for tags]
+$x=$ .mem[00100.l[11]0] $\Rightarrow Y=\\{$.mem[.l[11]0], .mem[.l[11]1]$\\} \Rightarrow$ .cp2-1[miss] .note[tag], .cp2-1[miss] .note[validity]
 
-$x=$ .mem[01111.l[01]1] $\Rightarrow Y=\\{$.mem[.l[01]0], .mem[.l[01]1]$\\} \Rightarrow$ .cp2-1[miss], .cp2-5[hit]  
+$x=$ .mem[01111.l[01]1] $\Rightarrow Y=\\{$.mem[.l[01]0], .mem[.l[01]1]$\\} \Rightarrow$ .cp2-1[miss] .note[validity], .cp2-5[hit]  
 $\Rightarrow$ returns $t\_{\text{block} [8 z,8 z+8[}=$ .mem.content[11100000] with $z=x\_{[8-1,8[}=$ .mem[1]
 
-$x=$ .mem[01011.l[11]0] $\Rightarrow Y=\\{$.mem[.l[11]0], .mem[.l[11]1]$\\} \Rightarrow$ .cp2-1[miss], .cp2-1[miss] .note[tag validity]
+$x=$ .mem[01011.l[00]0] $\Rightarrow Y=\\{$.mem[.l[00]0], .mem[.l[00]1]$\\} \Rightarrow$ .cp2-1[miss] .note[tag], .cp2-1[miss] .note[tag]
 
 .question[Can we have $>1$ hits in a block?]
 
