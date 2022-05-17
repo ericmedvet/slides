@@ -499,8 +499,8 @@ Depending on the specific case:
 .compact[
 ```java
 Map<String, Integer> ages = /* ... */
-ages.put("Eric", 42); //autoboxing
-ages.put("Simba", 14);
+ages.put("Eric", 43); //autoboxing
+ages.put("Simba", 15);
 ```
 ]
 
@@ -523,7 +523,7 @@ Both matter:
 ```java
 for (Map.Entry<String, Integer> entry : ages.entrySet()) {
   String name = entry.getKey();
-  int age = entry.getValye();
+  int age = entry.getValue();
   /* ... */
 }
 ```
@@ -677,9 +677,9 @@ Recall the deep meaning of "interface" and (one of) its goal(s):
 
 ---
 
-## Constructor-like `default` methods
+## Constructor-like `static` methods
 
-Interfaces provide `default` constructor-like methods for doing contruct-and-fill!
+Interfaces provide `static` constructor-like methods for doing contruct-and-fill!
 Resulting collections are **unmodifiable**!
 
 `Set`:
