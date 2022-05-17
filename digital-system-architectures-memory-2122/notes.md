@@ -66,6 +66,39 @@
 1. Comparison of quick sort and radix sort
 2. Autotuning
 
+## Virtual memory
+
+### Motivation
+1. cache fast and large; what about secure sharing of memory (ie, addresses)?
+2. Secondary motivation, historical: larger addressable memory than actual memory size
+3. Sharing: programs do not touch other programs memory; addressess should be relative, not absolute (not known at compile time)
+
+### Idea
+1. Memory organized in blocks (pages): virtual addressess specify page number and offset in page; then there is a translation (present first the case of single block with a relative starting address)
+2. case of many pages
+3. highlight similarity page/block and necessity of address translation; say historical reasons
+4. say how idea solves the 2+1 problems (say relocation)
+5. say further advantage: page sharing for data sharing
+
+## Address translation
+1. show virtual address and physical address and introduce x and y
+2. show portions of x and y and give numbers
+3. highlight illusion of large memory with num of virtual pages
+
+## Algorithm
+1. assumption: static association of page numbers
+2. give sketch of alg
+3. highlight much larger cost of miss, here called page fault (millions of cycles); show table
+4. say that big page fault cost makes particularly important to reduce miss rate: large page size (mention latency vs bandwidth), associativity, write-back; mapping of pages implemented in sofware by OS
+5. page table, one per program; say in memory with page table registry
+6. define state (process) as registry content, program counter, page table; define active/inactive
+7. define validity bit in page table; comment absence of tag (full associativity)
+8. page fault and swap space
+9. LRU with use bit or reference bit; ask for way to assess the simplified strategy wrt actual LRU
+10. size of page table and mention optimizations (dynamic, bidirectional dynamic, inverted page table, ..., virtual page table)
+11. writes and dirty byte
+12. translation-lookaside buffer (TLB) (maybe)
+
 
 
 # Possible excercises/labs/questions
