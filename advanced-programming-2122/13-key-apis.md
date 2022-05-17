@@ -231,7 +231,7 @@ The compiler translates this to the `iterator()` way of iterating over elements.
 
 ## Iteration and order
 
-**Never assume** that iterating over a collection will result in some specific **ordering**! Neither with **repeatability**!
+**Never assume** that iterating over a collection will result in some specific **ordering**! Neither in **repeatability**!
 - unless it is a property of the actual type of the collection
 
 ```java
