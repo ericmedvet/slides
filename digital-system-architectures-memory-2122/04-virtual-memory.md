@@ -24,7 +24,7 @@ Suppose program $A$ and program $B$ are being executed **concurrently**: .note[w
 
 Trivial, but *wrong*, solution: make $A$ access addresses from $x\_{A,i}$ to $x\_{A,f}$ and $B$ access from $x\_{B,i}$ to $x\_{B,f}$, with $[x\_{A,i},x\_{A,f}]$ and $[x\_{B,i},x\_{B,f}]$ being disjoint...
 - works only for $A$ and $B$, what about $C$, $D$, ...
-- worls only if $[x\_{A,i},x\_{A,f}]$ is free (same for $B$)
+- works only if $[x\_{A,i},x\_{A,f}]$ is free (same for $B$)
 - require knowing $[x\_{A,i},x\_{A,f}]$ at compile time
 
 ---
