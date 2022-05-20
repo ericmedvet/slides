@@ -1216,7 +1216,7 @@ The key abstraction introduced in this package is *stream*. The classes `Stream`
 ## Stream operations
 
 Three phases:
-1. get from a source source (collection, array, ...)
+1. get from a source (collection, array, ...)
 2. apply a pipeline of **intermediate operations**
   - transform a stream into another stream
 3. apply one **terminal operation**
