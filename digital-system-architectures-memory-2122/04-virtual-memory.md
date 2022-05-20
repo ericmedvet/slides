@@ -151,7 +151,7 @@ Assume a program wants to access $x_v$: what happens?
 
 In brief and conceptually:
 1. get page number $p\_v=x\_{v [0, n\_n[}$ from $x\_v$
-2. if page $p$ is in physical memory
+2. if page is in physical memory
   - translate $x\_v$ to $x\_p$
   - access it
 3. otherwise (**page fault**)
@@ -179,7 +179,7 @@ Cache:
 
 Virtual memory:
 - hit (DRAM): $t \approx 50$
-- fault (disk): $t \approx 5 \cdot 10^3$, $100000 \times$ longer
+- fault (disk): $t \approx 5 \cdot 10^6$, $100000 \times$ longer
   - much uglier if said in cycles: millions of!
 
 ---
@@ -270,7 +270,7 @@ Every while, **all** usage bits are unset
 
 .note[for bits, "set" is "set to .memory[1]", "unset" is "set to .memory[0]"]
 
-.question[How to estimate the effectiveness of dirty bit with respect to actual LRU?]
+.question[How to estimate the effectiveness of usage bit with respect to actual LRU?]
 
 ---
 
