@@ -507,14 +507,14 @@ public interface Listener {
       public void listen(Event event) {
         thisListener.listen(event);
         other.listen(event);
-      };
-    }
+      }
+    };
   }
 
   `static` Listener nullListener() { // null is a keyword
     return new Listener() {
       public void listen(Event event) {/* do nothing */ };
-    }
+    };
   }
 
 }
