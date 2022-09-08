@@ -1,8 +1,8 @@
 class: middle, center
 
-# On the Mutual Influence of Human and Artificial Life: an Experimental Investigation
+# Impact of Morphology Variations on Evolved Neural Controllers for Modular Robots
 
-### Stefano Furlan, _Eric Medvet_, Giorgia Nadizar, Federico Pigozzi
+### _Eric Medvet_, Francesco Rusin
 
 .h10ex[![ERAL Lab logo](images/erallab-logo.png)]
 .hspace5[]
@@ -10,18 +10,55 @@ class: middle, center
 
 Evolutionary Robotics and Artificial Life Lab, University of Trieste, Italy
 
-#### ALife 2022, virtual, 20/7/2022
+#### WIVACE 2022, Gaeta, 14/9/2022
 
 ---
 
-# Testing resilience or harming ALife?
+# Scenario
 
-.center[
-<video controls>
-  <source src="videos/robot.mp4" type="video/mp4">
-Your browser does not support the video tag.
-</video>
-]
+autonomous reproduction of robots. are project image. maybe mars image.
+
+---
+
+# Limitations of morphogenesis
+
+errors of assembly. image of badly assembled robots
+
+---
+
+# VSRs
+
+ideal for auto-fabrication, because modules are virtually identical
+
+---
+
+# Precise RQ
+
+---
+
+# Experiment overview
+
+---
+
+# Req of experiment
+
+---
+
+# Background body
+
+---
+
+# Background distributed controller
+
+---
+
+# exp overview - precise
+
+with sub-RQ
+
+---
+
+#
 
 ---
 
