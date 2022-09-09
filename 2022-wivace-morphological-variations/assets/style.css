@@ -89,6 +89,9 @@ img {
 .w75p img {
   width: 75%;
 }
+.w100p img {
+  width: 100%;
+}
 .h10ex img {
   height: 10ex;
 }
@@ -109,8 +112,10 @@ img {
   bottom: 2.5em;
   font-size: 75%;
 }
-.ref {
-  font-style: italic;
+.refnote {
+  font-size: 65%;
+  color: gray;
+  display: block;
 }
 .vam {
   vertical-align: middle;

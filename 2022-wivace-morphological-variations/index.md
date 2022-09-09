@@ -14,21 +14,59 @@ Evolutionary Robotics and Artificial Life Lab, University of Trieste, Italy
 
 ---
 
-# Scenario
+# Autonomous robots
 
-autonomous reproduction of robots. are project image. maybe mars image.
+.cols[
+.c50[
+Dangerous or inaccessible environments, where human operators cannot intervene
+
+Robots should be:
+- autonomous
+- adaptable
+- capable of **auto-fabrication** and re-use
+]
+.c50[
+.w100p.center[![The ARE project](images/are.png)]
+
+.refnote[From Eiben, Agoston E., et al. "Towards autonomous robot evolution." Software Engineering for Robotics. Springer, Cham, 2021. 29-51.]
+]
+]
 
 ---
 
-# Limitations of morphogenesis
+# Modular (soft) robots
+
+.cols[
+.c50[
+
+**Ideal** for auto-fabrication:
+- all modules are virtually identical
+- easy re-use
+- compliance
+- expressive control
+
+.h15ex.center[![Swimming VSR](images/swimming-vsr.png)]
+.refnote[Corucci, Francesco, et al. "Evolving soft locomotion in aquatic and terrestrial environments: effects of material properties and environmental transitions." Soft robotics 5.4 (2018): 475-495.]
+]
+.c50[
+.h30ex.center[![VSR in tight spaces](images/tight-spaces.png)]
+.refnote[Cheney, Nick, Josh Bongard, and Hod Lipson. "Evolving soft robots in tight spaces." Proceedings of the 2015 annual conference on Genetic and Evolutionary Computation. 2015.]
+]
+]
+
+---
+
+# Modular soft robots ecosystems
+
+- few tasks, with corresponding few morphologies+controllers
+- birth (morphogenesis), life, disposal
+
+---
+
+# Limitations of autofabrication
 
 errors of assembly. image of badly assembled robots
 
----
-
-# VSRs
-
-ideal for auto-fabrication, because modules are virtually identical
 
 ---
 
