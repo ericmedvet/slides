@@ -56,37 +56,55 @@ Robots should be:
 
 ---
 
-# Modular soft robots ecosystems
+# Modular soft robots ecosystem
 
-- few tasks, with corresponding few morphologies+controllers
-- birth (morphogenesis), life, disposal
+A few tasks, with corresponding best suited few morphologies+controllers
 
----
-
-# Limitations of autofabrication
-
-errors of assembly. image of badly assembled robots
-
+Life cycle
+1. modules are assembled to form a robot in given morphology and associated with a controller
+2. robot "lives" and does its stuff
+3. robot is disposed: modules become available again
 
 ---
 
-# Precise RQ
+# Limitations of auto-fabrication
+
+What if auto-fabrication sometimes does not work as expected?
+
+.center[
+.vam.h15ex[![VSR plan](images/robot-plan.png)] .large[→]
+.vam.h15ex[![VSR assembly phase](images/robot-assembling.png)] .large[→]
+.vam.h15ex[![VSR result](images/robot-result.png)]
+]
+
 
 ---
 
-# Experiment overview
+# Research question
 
----
+**RQ**: What is the **impact of small morphology variations** on the effectiveness of controllers optimized through neuroevolution?
 
-# Req of experiment
+Overview of the plan (**experimental** answer):
+1. consider a task and a few base morphologies
+2. evolve a controller for each morphology
+3. apply small variations to each morphology
+4. measure impact on controller
+
+**RQ-bis**: how to **re-align** a controller to the varied morphology?
 
 ---
 
 # Background body
 
+img
+say 2d, say what can be controlled, say closed loop, introduce requirement of controller agnostic wrt body shape
+
 ---
 
 # Background distributed controller
+
+img
+explain distributed
 
 ---
 
@@ -111,6 +129,11 @@ with sub-RQ on reopt
 class: middle, center
 
 # Thanks!
+
+title
+pic of authors
+lab
+site
 
 Questions?
 
