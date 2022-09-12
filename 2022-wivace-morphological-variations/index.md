@@ -126,15 +126,28 @@ with sub-RQ on reopt
 
 ---
 
-class: middle, center
+class: center
 
-# Thanks!
+# Recap
 
-title
-pic of authors
-lab
-site
+.cols[
+.c50[
+.h40ex[![Paper mini img](images/paper.png)]
 
-Questions?
+]
+.c50[
+.h20ex[![Horse](images/horse.png)]
+
+Authors/contacts:
+
+.h10ex[![Eric Medvet](images/author-medvet.jpg)]
+.h10ex[![Francesco Rusin](images/author-rusin.jpg)]
 
 <i class="fa fa-envelope" aria-hidden="true"></i> [emedvet@units.it](mailto:emedvet@units.it)
+
+<i class="fa fa-twitter" aria-hidden="true"></i> [@EricMedvetTs](https://twitter.com/EricMedvetTs)
+
+<i class="fa fa-twitter" aria-hidden="true"></i> [@EralLabTs](https://twitter.com/EralLabTs)
+]
+]
+
