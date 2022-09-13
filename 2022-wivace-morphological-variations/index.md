@@ -68,7 +68,7 @@ Life cycle
 
 ---
 
-# Limitations of auto-fabrication
+# Limits of auto-fabrication
 
 What if auto-fabrication sometimes does not work as expected?  
 What if the assmbled **morphology is (slightly) different** from the expected one?
@@ -164,9 +164,9 @@ Simple $\mu + \lambda$ EA:
 
 # Base/varied morphologies
 
-Evolution on base morphologies: biped, comb, worm $\times$ S, L
+Evolution on **base morphologies**: biped, comb, worm $\times$ S, L
 
-Morphology variation: given base and target variation $\delta$, perturbate morpholody
+Morphology **variation**: given base and target variation $\delta$, build 10 perturbate morpholodies
 
 .center.w100p[![Sample of modified morphologies](images/mod-morphs.png)]
 .note[Examples with $\theta=1$ for S, $\theta=2$ for L]
@@ -254,10 +254,8 @@ Authors/contacts:
 .h10ex[![Eric Medvet](images/author-medvet.jpg)]
 .h10ex[![Francesco Rusin](images/author-rusin.jpg)]
 
-<i class="fa fa-envelope" aria-hidden="true"></i> [emedvet@units.it](mailto:emedvet@units.it)
-
-<i class="fa fa-twitter" aria-hidden="true"></i> [@EricMedvetTs](https://twitter.com/EricMedvetTs)
-
+<i class="fa fa-envelope" aria-hidden="true"></i> [emedvet@units.it](mailto:emedvet@units.it)  
+<i class="fa fa-twitter" aria-hidden="true"></i> [@EricMedvetTs](https://twitter.com/EricMedvetTs)  
 <i class="fa fa-twitter" aria-hidden="true"></i> [@EralLabTs](https://twitter.com/EralLabTs)
 ]
 ]
