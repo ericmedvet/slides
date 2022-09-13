@@ -60,7 +60,7 @@ Robots should be:
 
 A few tasks, with corresponding best suited few morphology+controller combinations
 
-Life cycle
+Life cycle:
 1. modules are assembled to form a robot in given morphology
 2. associated with a controller (*auto-fabrication*)
 3. robot "lives" and does its stuff
@@ -85,10 +85,10 @@ Will the **controller work well** with the slightly different morphology?
 
 # Research question
 
-**RQ**: What is the **impact of small morphology variations** on the effectiveness of controllers optimized through neuroevolution?
+**RQ**: What is the **impact of small morphology variations** on the effectiveness of controllers **optimized through neuroevolution** for the task of **locmotion**?
 
 Overview of the plan (**experimental** answer):
-1. consider a task and a few base morphologies
+1. consider a locomotion task and a few base morphologies
 2. evolve a controller for each morphology
 3. apply small variations to each morphology
 4. measure impact on controller
@@ -178,6 +178,7 @@ Morphology **variation**: given base and target variation $\delta$, build 10 per
 .center.w100p[![Velocity drop](images/plot-no-reopt.png)]
 
 - clear drop in $v_x$ also for small variations ($\delta=1$)
+    - **morphological computation** matters
 - small biped appears less robust to variations
 - large morphologies appear more robust
 
@@ -191,8 +192,8 @@ Morphology **variation**: given base and target variation $\delta$, build 10 per
 
 - re-optimized controller achieve on-par performance with (most) varied morphologies
 - re-optimization is **costly**:
-  - red: just apply archived controller
-  - blue: run entire EA on varied morphology
+  - .col1[**blue**]: just apply archived controller
+  - .col2[**purple**]: run entire EA on varied morphology
 
 ---
 
