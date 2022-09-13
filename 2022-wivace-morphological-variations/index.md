@@ -61,15 +61,17 @@ Robots should be:
 A few tasks, with corresponding best suited few morphology+controller combinations
 
 Life cycle
-1. modules are assembled to form a robot in given morphology and associated with a controller (*auto-fabrication*S)
-2. robot "lives" and does its stuff
-3. robot is disposed: modules become available again
+1. modules are assembled to form a robot in given morphology
+2. associated with a controller (*auto-fabrication*)
+3. robot "lives" and does its stuff
+4. robot is disposed: modules become available again
 
 ---
 
 # Limitations of auto-fabrication
 
-What if auto-fabrication sometimes does not work as expected?
+What if auto-fabrication sometimes does not work as expected?  
+What if the assmbled **morphology is (slightly) different** from the expected one?
 
 .center[
 .vam.h15ex[![VSR plan](images/robot-plan.png)] .large[→]
@@ -77,7 +79,7 @@ What if auto-fabrication sometimes does not work as expected?
 .vam.h15ex[![VSR result](images/robot-result.png)]
 ]
 
-Will the controller work well with the slightly different morphology?
+Will the **controller work well** with the slightly different morphology?
 
 ---
 
@@ -117,7 +119,7 @@ Overview of the plan (**experimental** answer):
 .center[
 .h15ex[![Horse](images/horse.png)]
 
-<video width="320" height="240" autoplay controls loop>
+<video width="320" height="240" autoplay loop>
     <source src="videos/hopping-vsr.mp4" type="video/mp4"/>
 </video>
 ]
@@ -136,26 +138,102 @@ $\left[a\_{x,y}^{(k)} \; \boldsymbol{i}\_{x,y}^{\vartriangle(k)} \; \boldsymbol{
 
 .center[![Distributed controller](images/distributed.png)]
 
+**Same NN** on all the voxels!
+Just  one $\boldsymbol{\theta} \in \mathbb{R}^p$ to be optmized.
+
 Bonus: interconnections facilitate effective periodic behaviors  
 .note[$a\_{x,y}^{(k)}$ is applied at 5 Hz (instead of 60 Hz) for discouraging vibrational behaviors (*"reality" gap*)] 
 
 ---
 
-# controller neuroevolution
+# Controller neuroevolution
 
-say type of neuroevolution
+**Search space**: $\mathbb{R}^p$  
+**Fitness**: locomotion velocity $v_x$ of candidate controller $\boldsymbol{\theta}$ coupled with given morphology
+
+Simple $\mu + \lambda$ EA:
+1. randomly select crossover or mutation (80% vs. 20%)
+2. select 2 or 1 parents with tournament selection
+3. apply operator:
+    - crossover: geometric crossover + Gaussian mutation
+    - mutation: Gaussian mutation
+4. add offspring to parents
+5. retain only best individuals
 
 ---
 
-# modified shapes
+# Base/varied morphologies
+
+Evolution on base morphologies: biped, comb, worm $\times$ S, L
+
+Morphology variation: given base and target variation $\delta$, perturbate morpholody
+
+.center.w100p[![Sample of modified morphologies](images/mod-morphs.png)]
+.note[Examples with $\theta=1$ for S, $\theta=2$ for L]
 
 ---
 
-# seeded re-optimization
+# Results
+
+.center.w100p[![Velocity drop](images/plot-no-reopt.png)]
+
+- clear drop in $v_x$ also for small variations ($\delta=1$)
+- small biped appears less robust to variations
+- large morphologies appear more robust
+
+.note[$1 \times 10$ measures for $\delta=0$, $10 \times 10$ measures for $\delta \ge 1$]
 
 ---
 
-# interesting shapes
+# Re-optimization
+
+.center.w100p[![Velocity drop with re-optimization](images/plot-reopt.png)]
+
+- re-optimized controller achieve on-par performance with (most) varied morphologies
+- re-optimization is **costly**:
+  - red: just apply archived controller
+  - blue: run entire EA on varied morphology
+
+---
+
+# Re-optimization
+
+.center[
+<video width="700" height="500" autoplay loop>
+    <source src="videos/video-small.mp4" type="video/mp4"/>
+</video>
+]
+
+---
+
+# Seeded re-optimization
+
+.center.w100p[![Velocity drop with re-optimization](images/plot-seeded-reopt.png)]
+
+- seeded re-optimization always convenient!
+
+.note[For $\delta=1$ and small morphologies]
+
+---
+
+# Side finding
+
+.cols[
+.c50[
+Some varied morphologies are more effective than the base ones!
+
+$\Rightarrow$ **evolving** ecosystem:
+1. assemble robot to target morphology $m$
+2. associated with a controller **and briefly re-align it**, if $m' \ne m$ 
+3. robot "lives" and does its stuff
+4. robot is disposed: modules become available again
+5. if $m'$ is better than $m$, keep it!
+
+]
+.c50[
+.center.w100p[![Biped shape recap](images/plot-shapes.png)]
+]
+]
 
 ---
 
