@@ -40,10 +40,10 @@ Robots should be:
 .c50[
 
 **Ideal** for auto-fabrication:
-- all modules are virtually identical
+- all modules are virtually *identical*
 - easy re-use
 - compliance
-- expressive control
+- *expressive* control
 
 .h15ex.center[![Swimming VSR](images/swimming-vsr.png)]
 .refnote[Corucci, Francesco, et al. "Evolving soft locomotion in aquatic and terrestrial environments: effects of material properties and environmental transitions." Soft robotics 5.4 (2018): 475-495.]
@@ -58,10 +58,10 @@ Robots should be:
 
 # Modular soft robots ecosystem
 
-A few tasks, with corresponding best suited few morphologies+controllers
+A few tasks, with corresponding best suited few morphology+controller combinations
 
 Life cycle
-1. modules are assembled to form a robot in given morphology and associated with a controller
+1. modules are assembled to form a robot in given morphology and associated with a controller (*auto-fabrication*S)
 2. robot "lives" and does its stuff
 3. robot is disposed: modules become available again
 
@@ -77,6 +77,7 @@ What if auto-fabrication sometimes does not work as expected?
 .vam.h15ex[![VSR result](images/robot-result.png)]
 ]
 
+Will the controller work well with the slightly different morphology?
 
 ---
 
@@ -94,23 +95,55 @@ Overview of the plan (**experimental** answer):
 
 ---
 
-# Background body
+# Background: VSR morphology
 
-img
-say 2d, say what can be controlled, say closed loop, introduce requirement of controller agnostic wrt body shape
+.cols[
+.c60[
+- 2D:
+  - faster simulation
+  - discrete time
+- identical soft blocks (*voxels*):
+  - softness as spring-damper systems
+  - active:  
+    $a^\{(k)\}=-1$ → expand  
+    $a^\{(k)\}=+1$ → contract
+- sensors in each voxel:
+  - area ratio
+  - ground contact
+  - $x$- and $y$-velocity
+
+]
+.c40[
+.center[
+.h15ex[![Horse](images/horse.png)]
+
+<video width="320" height="240" autoplay controls loop>
+    <source src="videos/hopping-vsr.mp4" type="video/mp4"/>
+</video>
+]
+]
+]
 
 ---
 
-# Background distributed controller
+# VSR distributed controller
 
-img
-explain distributed
+**Key requirement**: the controller has to be **agnostic wrt the morphology**
+
+.small.center[
+$\left[a\_{x,y}^{(k)} \; \boldsymbol{i}\_{x,y}^{\vartriangle(k)} \; \boldsymbol{i}\_{x,y}^{\triangledown(k)} \; \boldsymbol{i}\_{x,y}^{\triangleleft(k)} \; \boldsymbol{i}\_{x,y}^{\triangleright(k)}\right] = \text{NN}\_{\boldsymbol{\theta}}\left(\left[\boldsymbol{s}\_{x,y}^{(k)} \; \boldsymbol{i}\_{x,y-1}^{\vartriangle(k-1)} \; \boldsymbol{i}\_{x,y+1}^{\triangledown(k-1)} \; \boldsymbol{i}\_{x+1,y}^{\triangleleft(k-1)} \; \boldsymbol{i}\_{x+1,y}^{\triangleright(k-1)}\right] \right)$
+]
+
+.center[![Distributed controller](images/distributed.png)]
+
+Bonus: interconnections facilitate effective periodic behaviors  
+.note[$a\_{x,y}^{(k)}$ is applied at 5 Hz (instead of 60 Hz) for discouraging vibrational behaviors (*"reality" gap*)] 
 
 ---
 
-# exp overview - precise
+# controller neuroevolution
 
-with sub-RQ on reopt
+say type of neuroevolution
 
 ---
 

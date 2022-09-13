@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>On the Mutual Influence of Human and Artificial Life: an Experimental Investigation</title>
+    <title>Impact of Morphology Variations on Evolved Neural Controllers for Modular Robots</title>
     <meta charset="utf-8" />
     <link rel="icon" href="images/icon.png">
     <link rel="stylesheet" type="text/css" href="assets/style.css" />
@@ -46,6 +46,22 @@
         },
         renderMath
       );
+      let slideElements;
+      const body = document.body;
+      function getElementForSlide(slide) {
+	      slideElements = slideElements || document.querySelectorAll('.remark-slide');
+	      return slideElements[slide.getSlideIndex()];
+      }
+      slideshow.on('showSlide', (slide) => {
+	      getElementForSlide(slide).querySelectorAll('video').forEach((vid) => {
+		      vid.play();
+	      });
+      });
+      slideshow.on('hideSlide', (slide) => {
+	      getElementForSlide(slide).querySelectorAll('video').forEach((vid) => {
+		      vid.pause();
+	      });
+      });
     </script>
   </body>
 </html>

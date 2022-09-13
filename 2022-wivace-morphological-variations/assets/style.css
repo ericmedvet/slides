@@ -150,7 +150,9 @@ img {
 .large {
   font-size: 150%;
 }
-
+.small {
+  font-size: 75%;
+}
 .cg {
   color: green;
 }
