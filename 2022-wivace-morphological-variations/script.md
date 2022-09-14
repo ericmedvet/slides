@@ -17,7 +17,7 @@ moreover, due to their softness, these robots can perform many different tasks, 
 
 #4
 so, if we want to use modular soft robots to build a robotic ecosystem, we are likely going to use this pipeline.
-first, we design a few morphology+controller combination, one for each task to be performed.
+first, we design a few morphology+controller combinations, one for each task to be performed.
 then, we start a life cylce where robot are assembled, then associated with the proper controller, used, and finally disposed, making their components, the modules, available for the next life cylce.
 
 #5
