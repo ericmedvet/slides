@@ -61,8 +61,8 @@ Robots should be:
 A few tasks, with corresponding best suited few morphology+controller combinations
 
 Life cycle:
-1. modules are assembled to form a robot in given morphology
-2. associated with a controller (*auto-fabrication*)
+1. modules are assembled to form a robot in given morphology (*auto-fabrication*)
+2. associated with a controller
 3. robot "lives" and does its stuff
 4. robot is disposed: modules become available again
 
@@ -85,7 +85,7 @@ Will the **controller work well** with the slightly different morphology?
 
 # Research question
 
-**RQ**: What is the **impact of small morphology variations** on the effectiveness of controllers **optimized through neuroevolution** for the task of **locmotion**?
+**RQ**: What is the **impact of small morphology variations** on the effectiveness of controllers **optimized through neuroevolution** for the task of **locomotion**?
 
 Overview of the plan (**experimental** answer):
 1. consider a locomotion task and a few base morphologies
