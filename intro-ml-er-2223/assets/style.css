@@ -49,10 +49,11 @@ pre {
 .pseudo-code,
 .pseudo-inline-code {
   font-family: "Roboto Mono";
-  font-size: 80%;
+  font-size: 85%;
 }
 .pseudo-code {
-  background-color: lightgray;
+  color: #DDD;
+  background-color: #111;
   padding: 0.5em;
 }
 .pseudo-code p {

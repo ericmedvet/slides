@@ -58,19 +58,30 @@ Teacher slides:
 
 ---
 
+# Display slide
+
+This is an important formula:
+
 $$y = p(\\htmlClass{col1}{\\vec{x}})$$
 
+Code in R:
 
-```java
-while (true) {
-  $x = x+1$;
-  <b>x</b> = 33;
+```R
+err = function(y, y_p) {
+  length(which(y!=y_p))/length(y)
 }
 ```
-
+Pseudo code:
 .pseudo-code[
 while (true) {  
-.ind[]$x \\gets \\htmlClass{col1}{x}+1$  
+.ind[]$x \\gets \\htmlClass{col1}{x_1}+\\htmlClass{col2}{x_1}+\\htmlClass{col3}{x_1}+\\htmlClass{col4}{x_1}+\\htmlClass{col5}{x_1}+1$  
 .ind[]$x = \sum_x+2$  
 }
 ]
+
+Colors:
+.col1[col]
+.col2[col]
+.col3[col]
+.col4[col]
+.col5[col]
