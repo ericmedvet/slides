@@ -53,3 +53,24 @@ Teacher slides:
 ---
 
 ## You?
+
+---
+
+---
+
+$$y = p(\\htmlClass{col1}{\\vec{x}})$$
+
+
+```java
+while (true) {
+  $x = x+1$;
+  <b>x</b> = 33;
+}
+```
+
+.pseudo-code[
+while (true) {  
+.ind[]$x \\gets \\htmlClass{col1}{x}+1$  
+.ind[]$x = \sum_x+2$  
+}
+]

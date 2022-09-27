@@ -21,7 +21,7 @@
         "04-tree-based.md",
         "05-svm.md",
         "06-nb-knn.md",
-        "01-text-mining.md"
+        "07-text-mining.md"
       ];
       var xmlhttp = new XMLHttpRequest();
       var source = "";
@@ -35,6 +35,8 @@
       }
       var renderMath = function() {
         renderMathInElement(document.body, {
+          strict: "ignore",
+          trust: true,
           delimiters: [
             { left: "$$", right: "$$", display: true },
             { left: "$", right: "$", display: false }
@@ -42,32 +44,16 @@
         });
         diagramTransformer.transformAll(document.body, "diagram");
       };
-      var slideshow = remark.create(
-        {
+      var slideshow = remark.create({
           source: source,
           ratio: "4:3",
           highlightStyle: "monokai",
           highlightLines: true,
-          highlightSpans: true
+          highlightSpans: true,
+          countIncrementalSlides: true
         },
         renderMath
       );
-      let slideElements;
-      const body = document.body;
-      function getElementForSlide(slide) {
-	      slideElements = slideElements || document.querySelectorAll('.remark-slide');
-	      return slideElements[slide.getSlideIndex()];
-      }
-      slideshow.on('showSlide', (slide) => {
-	      getElementForSlide(slide).querySelectorAll('video').forEach((vid) => {
-		      vid.play();
-	      });
-      });
-      slideshow.on('hideSlide', (slide) => {
-	      getElementForSlide(slide).querySelectorAll('video').forEach((vid) => {
-		      vid.pause();
-	      });
-      });
     </script>
   </body>
 </html>

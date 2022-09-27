@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Livvic:400,400i,700,700i|Roboto+Mono:400,700,400i|Concert+One");
+@import url("https://fonts.googleapis.com/css?family=Livvic:400,400i,700,700i|Roboto+Mono:400,700,400i");
 body {
   font-family: "Livvic";
 }
@@ -15,8 +15,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: "Concert One";
-  font-weight: normal;
+  font-weight: bold;
 }
 h1 {
   color: #648FFF;
