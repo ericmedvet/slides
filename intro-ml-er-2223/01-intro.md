@@ -28,8 +28,6 @@ Labs:
 
 ## Computer Engineering group
 
-<!-- fill -->
-
 ---
 
 ## Materials
@@ -39,3 +37,19 @@ Teacher slides:
 - might be updated during the course
 
 <!-- mention lab -->
+
+---
+
+## How to attend lectures
+
+---
+
+## Lab activities and how to attend
+
+---
+
+## Exam
+
+---
+
+## You?

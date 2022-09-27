@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Livvic:400,400i,700,700i|Roboto+Mono:400,700,400i");
-@import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Livvic:ital,wght@0,400;0,700;1,400;1,700&display=swap');body {
+@import url("https://fonts.googleapis.com/css?family=Livvic:400,400i,700,700i|Roboto+Mono:400,700,400i|Concert+One");
+body {
   font-family: "Livvic";
 }
 .remark-slide-content {
@@ -23,7 +23,8 @@ h1 {
   text-decoration-line: underline;
   text-decoration-color: #DC267F;
 }
-code {
+code,
+.pseudo-code {
   border-radius: 0.5em;
 }
 .compact code {
@@ -45,6 +46,22 @@ pre {
 .remark-inline-code {
   color: #648FFF;
   font-size: 85%;
+}
+.pseudo-code,
+.pseudo-inline-code {
+  font-family: "Roboto Mono";
+  font-size: 80%;
+}
+.pseudo-code {
+  background-color: lightgray;
+  padding: 0.5em;
+}
+.pseudo-code p {
+  margin: 0;
+}
+.pseudo-code .ind {
+  display: inline-block;
+  width: 1.5em;
 }
 .cols {
   display: flex;
