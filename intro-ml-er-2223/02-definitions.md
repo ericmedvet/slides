@@ -15,7 +15,7 @@ class: middle, center
 ## Making a decision
 
 - *problem*, *problem instance*, *solution*
-- formalism showing input and output
+- formalism showing input and output (maybe later show connection between math formalism and code, in java/python/r)
 - machine as executor of predict
 - who writes the function predict? machine also in that part
 - sketch of optimization problem
@@ -82,11 +82,18 @@ class: middle, center
 
 ## Phases of the ML design
 
+0. should I use ML? recall "why using ML" above
 1. supervised vs. unsupervised
 2. problem statement: $X$ and $Y$
-3. def of goals (qualities of model); cost of errors
+3. def of goals (qualities of model); cost of errors (relate with 0)
 4. sketch of ML system
 5. implementation
 6. evaluation
 
 iterate
+
+---
+
+## Example of Iris
+
+say the story of the amateur botanist friend
