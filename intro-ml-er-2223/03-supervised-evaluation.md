@@ -1,3 +1,5 @@
+- what to evaluate: effectiveness, efficiency (more broadly, cost), explainability
+
 - $f(x)$ as a distribution over decision instead of decision
 - how to obtain decision from distribution
 - say that we'll discuss measures/methodology of quality on most common cases (on $Y$) based on $f(x)$ as distribution
