@@ -39,6 +39,9 @@
         renderMathInElement(document.body, {
           strict: "ignore",
           trust: true,
+          macros: {
+            "\\vect": "\\boldsymbol"
+          },
           delimiters: [
             { left: "$$", right: "$$", display: true },
             { left: "$", right: "$", display: false }
@@ -52,7 +55,7 @@
           highlightStyle: "monokai",
           highlightLines: true,
           highlightSpans: true,
-          countIncrementalSlides: true
+          countIncrementalSlides: false
         },
         renderMath
       );

@@ -38,36 +38,36 @@ Labs:
 
 .h5ex.vam[![Alberto Bartoli](images/people/bartoli.jpg)]
 [Alberto Bartoli](https://bartoli.inginf.units.it/)  
-<i class="fa-solid fa-chalkboard-user"></i> Reti di calcolatori  
-<i class="fa-solid fa-chalkboard-user"></i> Computer networks 2 and introduction to cybersecurity  
-<i class="fa-regular fa-lightbulb"></i> security, applied ML, evolutionary computation
+<i class="fa-solid fa-chalkboard-user col3"></i> Reti di calcolatori  
+<i class="fa-solid fa-chalkboard-user col3"></i> Computer networks 2 and introduction to cybersecurity  
+<i class="fa-regular fa-lightbulb col3"></i> security, applied ML, evolutionary computation
 
 .h5ex.vam[![Andrea De Lorenzo](images/people/de-lorenzo.jpg)]
 [Andrea De Lorenzo](https://delorenzo.inginf.units.it/)  
-<i class="fa-solid fa-chalkboard-user"></i> Basi di dati  
-<i class="fa-solid fa-chalkboard-user"></i> Programmazione web  
-<i class="fa-regular fa-lightbulb"></i> security, applied AI&ML, information retrieval, GP
+<i class="fa-solid fa-chalkboard-user col3"></i> Basi di dati  
+<i class="fa-solid fa-chalkboard-user col3"></i> Programmazione web  
+<i class="fa-regular fa-lightbulb col3"></i> security, applied AI&ML, information retrieval, GP
 
 ]
 .c50[
 .h5ex.vam[![Eric Medvet](images/people/medvet.jpg)]
 [Eric Medvet](https://medvet.inginf.units.it/)  
-<i class="fa-solid fa-chalkboard-user"></i> Programmazione avanzata  
-<i class="fa-solid fa-chalkboard-user"></i> Introduction to machine learning and evolutionary robotics  
-<i class="fa-regular fa-lightbulb"></i> evolutionary computation, embodied AI, applied ML
+<i class="fa-solid fa-chalkboard-user col3"></i> Programmazione avanzata  
+<i class="fa-solid fa-chalkboard-user col3"></i> Introduction to machine learning and evolutionary robotics  
+<i class="fa-regular fa-lightbulb col3"></i> evolutionary computation, embodied AI, applied ML
 
 .h5ex.vam[![Laura Nenzi](images/people/nenzi.jpg)]
 [Laura Nenzi](https://lauranenzi.github.io/)  
-<i class="fa-solid fa-chalkboard-user"></i> Cyber-physical systems  
-<i class="fa-solid fa-chalkboard-user"></i> Introduction to Artificial Intelligence  
-<i class="fa-regular fa-lightbulb"></i> formal methods, runtime verification
+<i class="fa-solid fa-chalkboard-user col3"></i> Cyber-physical systems  
+<i class="fa-solid fa-chalkboard-user col3"></i> Introduction to Artificial Intelligence  
+<i class="fa-regular fa-lightbulb col3"></i> formal methods, runtime verification
 
 .h5ex.vam[![Martino Trevisan](images/people/trevisan.jpg)]
 [Martino Trevisan](https://trevisan.inginf.units.it/)  
-<i class="fa-solid fa-chalkboard-user"></i> Reti di calcolatori  
-<i class="fa-solid fa-chalkboard-user"></i> Sistemi operativi  
-<i class="fa-solid fa-chalkboard-user"></i> Architetture dei sistemi digitali  
-<i class="fa-regular fa-lightbulb"></i> network measurements, data privacy, big data
+<i class="fa-solid fa-chalkboard-user col3"></i> Reti di calcolatori  
+<i class="fa-solid fa-chalkboard-user col3"></i> Sistemi operativi  
+<i class="fa-solid fa-chalkboard-user col3"></i> Architetture dei sistemi digitali  
+<i class="fa-regular fa-lightbulb col3"></i> network measurements, data privacy, big data
 ]
 ]
 
@@ -75,14 +75,14 @@ Labs:
 
 ## Structure of the course
 
-1st part (6 CFUs, 48 hours):
+1st part (6 CFUs, 48 hours): .note[for all: [IN20](https://corsi.units.it/IN20/descrizione-corso), [IN19](https://corsi.units.it/IN20/descrizione-corso), [SM35](https://dssc.units.it/), [SM34](https://corsi.units.it/SM34/descrizione-corso), and [SM64](https://corsi.units.it/SM64/descrizione-corso)]
 - what is machine learning?
 - evaluating a ML system
 - supervised learning techniques
 - clustering
 - application to text
 
-2nd part (3 CFUs, 24 hours):
+2nd part (3 CFUs, 24 hours): .note[just for [IN20](https://corsi.units.it/IN20/descrizione-corso) and [IN19](https://corsi.units.it/IN20/descrizione-corso)]
 - what is evolutionary computation?
 - significan applications in robotics
 

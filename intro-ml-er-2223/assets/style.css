@@ -11,18 +11,14 @@ body {
 .col4 { color: #FE6100 }
 .col5 { color: #FFB000 }
 
-h1,
-h2,
-h3,
-h4 {
+h1, h2, h3, h4 {
   font-weight: bold;
 }
 h1, h2 {
   text-decoration-line: underline;
   text-decoration-color: #DC267F;
 }
-code,
-.pseudo-code {
+code, .pseudo-code {
   border-radius: 0.5em;
 }
 .compact code {
@@ -41,16 +37,14 @@ a {
 pre {
   margin: 0.1em 0;
 }
-.remark-code,
-.remark-inline-code {
+.remark-code, .remark-inline-code {
   font-family: "Roboto Mono";
 }
 .remark-inline-code {
   color: #648FFF;
   font-size: 85%;
 }
-.pseudo-code,
-.pseudo-inline-code {
+.pseudo-code, .pseudo-inline-code {
   font-family: "Roboto Mono";
   font-size: 85%;
 }
@@ -157,17 +151,16 @@ img {
   vertical-align: middle;
 }
 .big-quote {
-  background-color: lightgray;
-  padding: 0.5em;
+  background-color: #DDD;
+  padding: 0.1em 1em;
   font-size: 80%;
   border-radius: 0.5em;
 }
 .important {
-  background-color: #DC267F;
-  padding: 0.5em;
-  font-size: 150%;
-  border-radius: 0.5em;
-  color: white;
+  background-color: #DDD;
+  padding: 0.1em 1em;
+  font-size: 125%;
+  border-radius: 0.25em;
 }
 .note {
   color: darkgray;
@@ -178,8 +171,6 @@ img {
 }
 .note::after {
   content: ")";
-}
-
 }
 .large {
   font-size: 150%;
@@ -201,4 +192,12 @@ img {
   text-decoration-line: underline;
   background-color: #DC267F33;
   text-decoration-color: #DC267F;
+}
+.center {
+  text-align: center;
+}
+.dict-def {
+  font-family: "Roboto Mono";
+  color: #648FFF;
+  font-size: 85%;
 }
