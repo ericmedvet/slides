@@ -32,9 +32,9 @@ Labs:
 .c50[
 .h5ex.vam[![Sylvio Barbon Jr](images/people/barbon-jr.jpg)]
 [Sylvio Barbon Jr](https://www.barbon.com.br/)  
-<i class="fa-solid fa-chalkboard-user"></i> Fondamenti di informatica  
-<i class="fa-solid fa-chalkboard-user"></i> Progettazione del software e dei sistemi informativi  
-<i class="fa-regular fa-lightbulb"></i> meta learning, applied ML, process mining
+<i class="fa-solid fa-chalkboard-user col3"></i> Fondamenti di informatica  
+<i class="fa-solid fa-chalkboard-user col3"></i> Progettazione del software e dei sistemi informativi  
+<i class="fa-regular fa-lightbulb col3"></i> meta learning, applied ML, process mining
 
 .h5ex.vam[![Alberto Bartoli](images/people/bartoli.jpg)]
 [Alberto Bartoli](https://bartoli.inginf.units.it/)  
@@ -59,11 +59,12 @@ Labs:
 .h5ex.vam[![Laura Nenzi](images/people/nenzi.jpg)]
 [Laura Nenzi](https://lauranenzi.github.io/)  
 <i class="fa-solid fa-chalkboard-user"></i> Cyber-physical systems  
+<i class="fa-solid fa-chalkboard-user"></i> Introduction to Artificial Intelligence  
 <i class="fa-regular fa-lightbulb"></i> formal methods, runtime verification
 
 .h5ex.vam[![Martino Trevisan](images/people/trevisan.jpg)]
-[Martino Trevisan](https://www.telematica.polito.it/member/martino-trevisan/)  
-<i class="fa-solid fa-chalkboard-user"></i> Reti di calcolatori
+[Martino Trevisan](https://trevisan.inginf.units.it/)  
+<i class="fa-solid fa-chalkboard-user"></i> Reti di calcolatori  
 <i class="fa-solid fa-chalkboard-user"></i> Sistemi operativi  
 <i class="fa-solid fa-chalkboard-user"></i> Architetture dei sistemi digitali  
 <i class="fa-regular fa-lightbulb"></i> network measurements, data privacy, big data
@@ -118,6 +119,47 @@ Still, depending on your *learning style and habits*, you might want to **take n
 
 ---
 
+## Visual syntax
+
+.cols[
+.c50[
+This is an **important concept**.
+
+This is a very important .key[key concept], like a definition.
+
+Sometimes there is something that is marginally important, it is an aside.
+.note[like this]
+
+There will be scientific papers or books to be referred to, like this book: .ref[James, Gareth, et al.; An introduction to statistical learning. Vol. 112. New York: springer, 2013]
+
+External resourses (e.g., videos, [software tools](https://en.wikipedia.org/wiki/Comparison_of_deep_learning_software), ...) will be linked directly.
+
+.note[Palette is *color-blind safe*: .col1[⬤].col2[⬤].col3[⬤].col4[⬤].col5[⬤]]
+]
+.c50[
+**Pseudo-code** for describing algorithms in an abstract way:
+.pseudo-code[
+function factorial($n$) {  
+.i[]$p \\gets 1$  
+.i[]while ($n>2$) {  
+.i[].i[]$p \\gets n p$  
+.i[].i[]$n \\gets n -1$  
+.i[]}  
+.i[]return $p$;  
+}
+]
+
+Code in a concrete programming language:
+```java
+public static String sayHello(String name) {
+  return "Hello %s".formatted(name);
+}
+```
+]
+]
+
+---
+
 ## Lab activities and how to attend
 
 Focus on **methodology**:
@@ -146,36 +188,20 @@ You'll practice doing **lab activities**:
 
 ## Exam
 
+The exam consists of two parts:
+- a **written test** .note[might be an oral exam if Covid returns]
+- a **project**
+
+The written test consists of few ($\\approx$ 6) questions, some with medium-length answer, some with short answer, to be done in 1h.
+
+The project consists in the design, development, and assessment of a ML system dealing with one "problem" chosen among a few options ([examples](https://medvet.inginf.units.it/teaching/2223-intro-ml-er/project/)).
+- **the student delivers a description, not the software**
+- the description is evaluated for **clarity**, technical soundness, (amount of) results
+- may be done in group
+
+The grade is the **average** of written test and project grades:
+- both must be $\\ge 18$
+- parts can be repeated
 ---
 
 ## You?
-
----
-
-## Display slide
-
-This is an important formula:
-
-$$y = p(\\htmlClass{col1}{\\vec{x}})$$
-
-Code in R:
-
-```R
-err = function(y, y_p) {
-  length(which(y!=y_p))/length(y)
-}
-```
-Pseudo code:
-.pseudo-code[
-while (true) {  
-.ind[]$x \\gets \\htmlClass{col1}{x_1}+\\htmlClass{col2}{x_1}+\\htmlClass{col3}{x_1}+\\htmlClass{col4}{x_1}+\\htmlClass{col5}{x_1}+1$  
-.ind[]$x = \sum_x+2$  
-}
-]
-
-Colors:
-.col1[col]
-.col2[col]
-.col3[col]
-.col4[col]
-.col5[col]
