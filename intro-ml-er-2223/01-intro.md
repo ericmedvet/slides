@@ -30,8 +30,8 @@ Labs:
 
 .cols.compact[
 .c50[
-.h5ex.vam[![Sylvio Barbon Jr](images/people/barbon-jr.jpg)]
-[Sylvio Barbon Jr](https://www.barbon.com.br/)  
+.h5ex.vam[![Sylvio Barbon Jr.](images/people/barbon-jr.jpg)]
+[Sylvio Barbon Jr.](https://www.barbon.com.br/)  
 <i class="fa-solid fa-chalkboard-user col3"></i> Fondamenti di informatica  
 <i class="fa-solid fa-chalkboard-user col3"></i> Progettazione del software e dei sistemi informativi  
 <i class="fa-regular fa-lightbulb col3"></i> meta learning, applied ML, process mining
