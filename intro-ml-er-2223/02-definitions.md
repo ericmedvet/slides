@@ -417,6 +417,10 @@ Often a learning technique works on a reduced $\\mathcal{F}'\_{X,Y}$ which is ba
 
 E.g., for $X=Y=\\mathbb{R}$, $f'(x)=ax+b$:
 - you need concrete values for $a,b$ in order to apply $f$ to an $x$, i.e., to obtain a response $y$ out of an $x$
+- this is *univariate linear regression*: .note[we'll expand]
+  - *univariate* because $X$ has one dimension
+  - *regression* because $Y=\\mathbb{R}$
+  - *linear* because of the template
 
 ---
 
