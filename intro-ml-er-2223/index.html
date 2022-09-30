@@ -37,6 +37,7 @@
         }
       }
       var renderMath = function() {
+        diagramTransformer.transformAll(document.body, "diagram");
         renderMathInElement(document.body, {
           strict: "ignore",
           trust: true,
@@ -48,7 +49,6 @@
             { left: "$", right: "$", display: false }
           ]
         });
-        diagramTransformer.transformAll(document.body, "diagram");
       };
       var slideshow = remark.create({
           source: source,
@@ -61,5 +61,12 @@
         renderMath
       );
     </script>
+    <svg class="diagram">
+      <defs>
+        <marker id="markerArrow" markerUnits="strokeWidth" markerWidth="5" markerHeight="5" refX="5" refY="2.5" orient="auto">
+          <path d="M0,0 L5,2.5 L0,5"></path>
+        </marker>
+      </defs>
+    </svg>
   </body>
 </html>

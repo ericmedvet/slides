@@ -1,38 +1,46 @@
 var DiagramTransformer = {
   transform: function(code) {
     var statements = code.split("\n");
-    var itemsCode = "";
-    var minX = Number.MAX_VALUE;
+    var itemsInCode = "";
     var maxX = -Number.MAX_VALUE;
-    var minY = Number.MAX_VALUE;
     var maxY = -Number.MAX_VALUE;
     for (var i = 0; i < statements.length; i++) {
       var statement = statements[i].trim();
       if (statement) {
         var result = eval("this.shapes." + statement);
-        itemsCode += result.code;
-        minX = Math.min(result.minX, minX);
-        maxX = Math.max(result.maxX, maxX);
-        minY = Math.min(result.minY, minY);
-        maxY = Math.max(result.maxY, maxY);
+        if (!result.outCode) {
+          itemsInCode += result.code;
+          maxX = Math.max(result.maxX, maxX);
+          maxY = Math.max(result.maxY, maxY);
+        }
+      }
+    }
+    var itemsOutCode = "";
+    for (var i = 0; i < statements.length; i++) {
+      var statement = statements[i].trim();
+      if (statement) {
+        var result = eval("this.shapes." + statement);
+        if (result.outCode) {
+          itemsOutCode += result.code;
+        }
       }
     }
     var processedCode = "";
+    processedCode += '<span class="diagram-container">';
     processedCode +=
-      '<svg width="' +
-      (maxX - minX + 2 * this.shapes.constants.padding) +
-      '" height="' +
-      (maxY - minY + 2 * this.shapes.constants.padding) +
-      '" role="img">';
+      '<svg width="' + (maxX + 2*this.shapes.constants.padding) + '" height="' + (maxY+2*this.shapes.constants.padding) + '" role="img">';
+    //processedCode += '<defs><marker id="markerArrow" markerUnits="strokeWidth" markerWidth="'+this.shapes.constants.linkMarkerSize+'" markerHeight="'+this.shapes.constants.linkMarkerSize+'" refX="'+this.shapes.constants.linkMarkerSize+'" refY="'+(this.shapes.constants.linkMarkerSize/2)+'" orient="auto">';
+    //processedCode += '<path d="M0,0 L'+this.shapes.constants.linkMarkerSize+','+(this.shapes.constants.linkMarkerSize/2)+' L0,'+this.shapes.constants.linkMarkerSize+'"/>';
+    //processedCode += '</marker></defs>';
     processedCode +=
-      '<g transform="translate(' +
-      (-minX + this.shapes.constants.padding) +
-      "," +
-      (-minY + this.shapes.constants.padding) +
+      '<g transform="translate(' + this.shapes.constants.padding +
+      "," + this.shapes.constants.padding +
       ')">';
-    processedCode += itemsCode;
+    processedCode += itemsInCode;
     processedCode += "</g>";
     processedCode += "</svg>";
+    processedCode += itemsOutCode;
+    processedCode += "</span>";
     return processedCode;
   },
   transformAll: function(parent, className) {
@@ -45,16 +53,14 @@ var DiagramTransformer = {
   },
   shapes: {
     constants: {
-      padding: 5,
+      padding: 10,
       charHeight: 20,
       charWidth: 12.5,
       refRadius: 10,
-      cylYRadiusRatio: 0.075,
-      cursorWidth: 5,
-      cursorHeight: 10,
-      linkHeadSize: 10
+      linkHeadSize: 10,
+      linkMarkerSize: 5
     },
-    ref: function(x, y, label, className) {
+    circle: function(x, y, label, className) {
       className = className ? className : "";
       var code = "";
       code +=
@@ -64,7 +70,7 @@ var DiagramTransformer = {
         y +
         '" r="' +
         this.constants.refRadius +
-        '" class="ref ' +
+        '" class="circle ' +
         className +
         '"/>';
       if (label) {
@@ -100,8 +106,10 @@ var DiagramTransformer = {
         code: code
       };
     },
-    obj: function(x, y, w, h, typeLabel, contentLabel, className) {
+    rect: function(x, y, w, h, typeLabel, contentLabel, className) {
       className = className ? className : "";
+      typeLabel = typeLabel ? typeLabel : "";
+      contentLabel = contentLabel ? contentLabel : "";
       var code = "";
       code +=
         '<rect x="' +
@@ -112,7 +120,7 @@ var DiagramTransformer = {
         w +
         '" height="' +
         h +
-        '" class="obj ' +
+        '" class="rect ' +
         className +
         '"/>';
       if (typeLabel) {
@@ -148,234 +156,6 @@ var DiagramTransformer = {
           x +
           w / 2 +
           Math.max((this.constants.charWidth * typeLabel.length) / 2, w / 2),
-        minY: y - this.constants.charHeight,
-        maxY: y + h,
-        code: code
-      };
-    },
-    cyl: function(x, y, w, h, label, className) {
-      className = className ? className : "";
-      var code = "";
-      code += "<g>";
-      code +=
-        '<path d="M ' +
-        x +
-        "," +
-        y +
-        " L " +
-        x +
-        "," +
-        (y + h) +
-        " A " +
-        w / 2 +
-        "," +
-        w * this.constants.cylYRadiusRatio +
-        " 0 0,0 " +
-        (x + w) +
-        "," +
-        (y + h) +
-        " L " +
-        (x + w) +
-        "," +
-        y +
-        " A " +
-        w / 2 +
-        "," +
-        w * this.constants.cylYRadiusRatio +
-        " 0 0,0 " +
-        x +
-        "," +
-        y +
-        " A " +
-        w / 2 +
-        "," +
-        w * this.constants.cylYRadiusRatio +
-        " 0 0,0 " +
-        (x + w) +
-        "," +
-        y +
-        '" class="cyl ' +
-        className +
-        '"/>';
-      if (label) {
-        code +=
-          '<text x="' +
-          (x + w / 2) +
-          '" y="' +
-          (y +
-            10 +
-            w * this.constants.cylYRadiusRatio +
-            this.constants.charHeight / 2) +
-          '" class="contentLabel ' +
-          className +
-          '">' +
-          label +
-          "</text>";
-      }
-      code += "</g>";
-      return {
-        minX: x,
-        maxX: x + w,
-        minY: y - w * this.constants.cylYRadiusRatio,
-        maxY: y + h + w * this.constants.cylYRadiusRatio,
-        code: code
-      };
-    },
-    arrow: function(x, y, w, h, a, className) {
-      className = className ? className : "";
-      a = a ? a : 0;
-      var code = "";
-      code +=
-        '<g transform="rotate(' +
-        a +
-        " " +
-        x +
-        " " +
-        y +
-        ')">' +
-        '<path d="M ' +
-        x +
-        "," +
-        y +
-        " m " +
-        -w / 4 +
-        "," +
-        -h / 2 +
-        " l 0," +
-        h / 2 +
-        " l " +
-        -w / 4 +
-        ",0" +
-        " l " +
-        w / 2 +
-        "," +
-        h / 2 +
-        " l " +
-        w / 2 +
-        "," +
-        -h / 2 +
-        " l " +
-        -w / 4 +
-        ",0" +
-        " l 0," +
-        -h / 2 +
-        'z" class="arrow ' +
-        className +
-        '"/></g>';
-      var r = Math.sqrt((w * w) / 4 + (h * h) / 4);
-      return {
-        minX: x - r,
-        maxX: x + r,
-        minY: y - r,
-        maxY: y + r,
-        code: code
-      };
-    },
-    array: function(x, y, w, h, n, cursor, eos, className) {
-      className = className ? className : "";
-      var code = "";
-      code += "<g>";
-      for (var i = 0; i < n; i++) {
-        code +=
-          '<rect x="' +
-          (x + w * i) +
-          '" y="' +
-          y +
-          '" width="' +
-          w +
-          '" height="' +
-          h +
-          '"' +
-          '" class="array ' +
-          (i == eos ? "eos " : "") +
-          className +
-          '"/>';
-      }
-      if (cursor !== "") {
-        code +=
-          '<path d="' +
-          "M " +
-          (x + w * cursor - this.constants.cursorWidth / 4) +
-          "," +
-          (y - this.constants.cursorHeight) +
-          " " +
-          "l " +
-          -this.constants.cursorWidth / 4 +
-          ",0 " +
-          "l 0," +
-          this.constants.cursorHeight / 2 +
-          " " +
-          "l " +
-          -this.constants.cursorWidth / 4 +
-          ",0 " +
-          "l " +
-          this.constants.cursorWidth / 2 +
-          "," +
-          this.constants.cursorHeight / 2 +
-          " " +
-          "l " +
-          this.constants.cursorWidth / 2 +
-          "," +
-          -this.constants.cursorHeight / 2 +
-          " " +
-          "l " +
-          -this.constants.cursorWidth / 4 +
-          ",0 " +
-          "l 0," +
-          -this.constants.cursorHeight / 2 +
-          " " +
-          'z" class="cursor ' +
-          className +
-          '"/>';
-      }
-      code += "</g>";
-      return {
-        minX: Math.min(
-          x,
-          cursor !== "" ? x + w * cursor - this.constants.cursorWidth : x
-        ),
-        maxX: Math.max(
-          x + w * n,
-          cursor !== "" ? x + w * cursor + this.constants.cursorWidth : x
-        ),
-        minY: y - ((cursor !== "") ? this.constants.cursorHeight : 0),
-        maxY: y + h,
-        code: code
-      };
-    },
-    zone: function(x, y, w, h, label, className) {
-      className = className ? className : "";
-      var code = "";
-      code +=
-        '<rect x="' +
-        x +
-        '" y="' +
-        y +
-        '" width="' +
-        w +
-        '" height="' +
-        h +
-        '" class="zone ' +
-        className +
-        '"/>';
-      if (label) {
-        code +=
-          '<text x="' +
-          (x + this.constants.charWidth) +
-          '" y="' +
-          (y - this.constants.charHeight / 2) +
-          '" class="zoneLabel ' +
-          className +
-          '">' +
-          label +
-          "</text>";
-      }
-      return {
-        minX: x,
-        maxX: Math.max(
-          x + w,
-          x + this.constants.charWidth + this.constants.charWidth * label.length
-        ),
         minY: y - this.constants.charHeight,
         maxY: y + h,
         code: code
@@ -516,6 +296,22 @@ var DiagramTransformer = {
         minY: minY,
         maxY: maxY,
         code: code
+      };
+    },
+    otext: function(x, y, text, className) {
+      className = className ? className : "";
+      var code = "";
+      if (text) {
+        code +=
+          '<span style="top: ' + (y+this.constants.padding) + 'px; left: ' + (x+this.constants.padding) + 'px;"' +
+          ' class="textLabel outer' + className + '">' +
+          text +
+          "</span>";
+        console.log(text);
+      }
+      return {
+        code: code,
+        outCode: true
       };
     }
   }
