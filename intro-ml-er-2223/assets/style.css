@@ -52,6 +52,7 @@ pre {
   color: #111;
   background-color: #DDD;
   padding: 0.5em;
+  line-height: 95%;
 }
 .pseudo-code p {
   margin: 0;

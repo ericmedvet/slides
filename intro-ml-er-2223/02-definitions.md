@@ -14,7 +14,7 @@ class: middle, center
 
 A few considerations:
 - defining a **field of science** is hard: science evolves, its boundaries change
-- ML "comes" from **many communities**' (statistics, computer science, ...) effort: this is just one point of view
+- ML "comes" from **many communities**' (statistics, computer science, ...) effort: this (the use of *computers*) is just one point of view
 - it captures just some "parts" of ML: we'll see
 
 --
@@ -78,7 +78,7 @@ $$f: X \\to Y$$
 ]
 ]
 
-None of the two says **how** $f$ works internally.
+None of the two notations says **how** $f$ works internally.
 
 ---
 
@@ -87,7 +87,7 @@ None of the two says **how** $f$ works internally.
 - $x$ is an .key[observation]
   - something that can be **observed**, right because a decision has to be made about it
 - $y$ is the .key[response] (for a given $x$)
-  - if you feed the decision system with an $x$, the system **respond** with an $y$
+  - if you feed the decision system with an $x$, the system **responds** with an $y$
 
 --
 
@@ -149,7 +149,7 @@ public double f(double[] xs) {
 }
 ```
 
-Most .note[not all, typed ones] languages makes connection clear:  
+Most .note[not all, typed ones] languages make connection clear:  
 `double[]` is $X$, i.e., $\\mathbb{R}^2$ .note[actually $\\mathbb{R}^p$, with $p \ge 1$]  
 `double` is $Y$, i.e., $\\mathbb{R}$  
 `xs` is $\\vect{x}$  
@@ -157,14 +157,6 @@ Most .note[not all, typed ones] languages makes connection clear:
 no explicit counterpart for $y$
 ]
 ]
-
----
-
-## Problem statement
-
-define as a phase including one step in which one formally define X and Y
-
-do the example of the emails
 
 ---
 
@@ -186,7 +178,7 @@ New version:
 
 ## Finding/writing a program
 
-Alice (computer science *instructor*) ask Bob (student):  
+Alice (computer science *instructor*) to Bob (student):  
 "Please, **write a program** that, given a string, returns the number of vowel occurrences in the string"
 
 Alternative version:  
@@ -199,8 +191,118 @@ Alternative version:
 --
 
 In $f$ terms:
-1. consider $\\mathcal{F} = \\{f, f: X \\to Y\\}$
-2. choose one $f^\\star \\in \\mathcal{F}$ that does what expected
+1. consider $\\mathcal{F}\_{X,Y} = \\{f, f: X \\to Y\\}$
+2. choose one $f^\\star \\in \\mathcal{F}\_{X,Y}$ that does what expected
+
+---
+
+## Desired behavior of $f$
+
+1. consider $\\mathcal{F}\_{X,Y} = \\{f, f: X \\to Y\\}$
+2. choose one $f^\\star \\in \\mathcal{F}\_{X,Y}$ **that does what expected**
+
+Step 2 is fundamental in practice
+  - "find a program that, given a string, returns a number" wouldn't make sense alone!
+
+... but it is hard to be further formalized in general.
+
+There has to be some **supervision** facilitating the search for a good $f$.
+
+---
+
+## Supervised learning
+
+When the supervision is in the form of some **examples** (observation $\\rightarrow$ response) and the learned $f$ should *process them correctly*.
+- example: "if I give you this *observation* $x$, you should respond with this *response* $y$"
+
+New version:  
+> .key[Supervised (Machine) Learning] is the science of getting computers to learn $f: X \\to Y$ **from examples** autonomously.
+
+--
+
+In **unsupervised learning** there is no supervision, there are **no examples**
+- nevertheless, there is some implicit expectation about how to process $x$
+- we'll discuss unsupervised learning later
+
+---
+
+## Examples
+
+Formally, examples available for learning $f$ are pairs $(x,y)$.
+
+A .key[dataset] compatible with $X$ and $Y$ is a bag of pairs $(x,y)$:
+$$D = \\{ (x,y): x \\in X \\land y \\in Y\\}$$
+or, more briefly, $D = \\{(x,y)\_i\\}$.
+
+A **bag** (should be called *databag*...):
+- can have duplicates (bag $\\ne$ set)
+- it does not imply any order among its elements (bag $\\ne$ sequence)
+
+.note[In most algorithms, and their program counterparts, dataset are actually processed sequentially, though]
+
+---
+
+## Learning set
+
+A .key[learning set] is a dataset that is used for learning an $f$.
+- often denoted by $L$ .note[or $T$, for *training* set]
+
+The learning set has to be **consistent** with the domain and codomain of the function $f$ to be learned:
+- if $f \\in \\mathcal{F}\_{X,Y}$, then $L \\in \\mathcal{P}^\*(X \\times Y)=\\left\\{D=\\{ (x,y): x \\in X \\land y \\in Y\\}\\right\\}$
+  - $X \\times Y$ is the Cartesian product of $X$ and $Y$, i.e., the set of all possible $(x,y)$ pairs
+  - $\\mathcal{P}(A)$ is the powerset of $A$, i.e., the set of all the possible subsets of $A$
+  - $\\mathcal{P}^\*(A)$ is a *custom notation* for the powerset with duplicates
+
+---
+
+## Learning technique
+
+> .key[Supervised (Machine) Learning] is the science of getting computers to learn $f: X \\to Y$ **from examples** autonomously.
+
+In brief: given a $D \in \\mathcal{P}^\*(X \\times Y)$, learn a $f \\in \\mathcal{F}\_{X,Y}$.
+
+--
+
+A .key[supervised learning technique] is a way for learn a $f \\in \\mathcal{F}\_{X,Y}$ given a $D \in \\mathcal{P}^\*(X \\times Y)$.
+
+--
+
+New version:
+> .key[Supervised (Machine) Learning] is about designing, applying, and assessing supervised learning techniques.
+
+---
+
+## Lerning techniques
+
+> A .key[supervised learning technique] is a way for learn a $f \\in \\mathcal{F}\_{X,Y}$ given a $D \in \\mathcal{P}^\*(X \\times Y)$.
+
+Why don't we suffice a single learning technique?
+Why are there many of them?
+
+They differ in:
+- **applicability** with respect to $X$ and/or $Y$
+  - e.g., some require $X = \\mathbb{R}^p$, some require $Y = \\mathbb{R}$
+- **efficiency** with respect to $|D|$
+  - e.g., some are really fast for producing $f$ ($\\mathcal{O}\\left(|D|^{\\approx 0}\\right)$), some are slow ($\\mathcal{O}\\left(|D|^2\\right)$)
+- **effectiveness** in terms of the quality of the learned $f$
+- attributes of learned $f$
+  - nature/type of $f$ (a formula, a text, a tree...)
+  - interpretability of $f$
+
+---
+
+## Nature of $f$
+
+Supervised learning technique:
+
+.diagram.or.center[
+ref(10,20,'$x$')
+obj(40,0,60,40,'Person','')
+link([20,20,40,20])
+ref(80,20,'')
+obj(120,0,80,40,'String','"Eric"')
+link([80,20,120,20])
+]
 
 ---
 
@@ -214,6 +316,13 @@ say looks like an optimization problem; say that F is too large, vague; say that
 underlying assumption that actual y entity does depend on actual x entity.
 say that optimizing the variable part of the template means obtaing a *model* of the dependency.
 
+---
+
+## Problem statement
+
+define as a phase including one step in which one formally define X and Y
+
+do the example of the emails
 
 ---
 
@@ -226,13 +335,6 @@ say that optimizing the variable part of the template means obtaing a *model* of
 - when to use ML?
 - ML as a universal tool: plots on usage and interest
 
----
-
-## Supervised vs. unsupervised learning
-
-- *examples* as supervision
-- formal notation of dataset
-- *observation/data point/instance/input*, *response/label/dependent variable*
 
 ---
 

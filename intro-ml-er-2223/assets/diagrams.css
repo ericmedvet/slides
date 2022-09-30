@@ -1,0 +1,95 @@
+.diagram text {
+  dominant-baseline: middle;
+  font-size: 85%;
+}
+.diagram rect,
+.diagram ellipse,
+.diagram path {
+  stroke-width: 2;
+}
+.diagram .textLabel {
+  text-anchor: middle;
+}
+.diagram .invisible {
+  fill-opacity: 0.33;
+  stroke-opacity: 0.33;
+}
+.diagram.or .obj {
+  fill: #fcf3cf;
+  stroke: #f1c40f;
+}
+.diagram.or .zone {
+  fill: none;
+  stroke: #999999;
+  stroke-dasharray: 4 2;
+}
+.diagram.or .link {
+  stroke: #f1c40f;
+  fill: none;
+}
+.diagram.or .ref {
+  fill: #f1c40f;
+}
+.diagram.or .null {
+  fill: #eeeeee;
+  stroke: #aaaaaa;
+}
+.diagram.or .zoneLabel {
+  fill: #999999;
+  font-size: 85%;
+}
+.diagram.or .refLabel,
+.diagram.or .typeLabel,
+.diagram.or .contentLabel {
+  text-anchor: middle;
+}
+.diagram.or .refLabel,
+.diagram.or .typeLabel,
+.diagram.or .contentLabel,
+.diagram text.code {
+  font-family: "Roboto Mono";
+  fill: #812815;
+}
+.diagram.io .cyl {
+  fill: #eeeeee;
+  stroke: #aaaaaa;
+}
+.diagram.io :not(text).device {
+  fill: #cccccc;
+  stroke: #999999;
+}
+.diagram.io .arrow {
+  fill: #eeaaaa;
+  stroke: #ee5555;
+}
+.diagram.io .array {
+  stroke: black;
+  fill: white;
+}
+.diagram.io .cursor {
+  fill: #aaaaee;
+  stroke: #5555ee;
+}
+.diagram.io .eos {
+  fill: #5555ee;
+}
+.diagram.io .link {
+  stroke: gray;
+  fill: none;
+}
+.diagram.io .link.head {
+  stroke: none;
+  fill: gray;
+}
+.diagram.io .axis {
+  stroke: black;
+  fill: none;
+}
+.diagram.io .axis.head {
+  stroke: none;
+  fill: black;
+}
+
+.diagram.io .contentLabel {
+  text-anchor: middle;
+}

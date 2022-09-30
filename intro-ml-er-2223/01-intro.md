@@ -115,7 +115,7 @@ Textbooks:
 - hopefully better
   - main concept definitions are more explicit
 
-Still, depending on your *learning style and habits*, you might want to **take notes** based to *augment the slide content*.
+Still, depending on your *learning style and habits*, you might want to **take notes** to *augment the slide content*.
 
 ---
 
@@ -172,7 +172,7 @@ You'll practice doing **lab activities**:
 - in classroom
   - the teacher is there and always available
   - the teacher actively monitors your progresses
-- ... but you can do the activities also at home
+  - ... but **you can** do the activities also **at home**
 - "solution" shown at the end
   - solution = **one** way of doing design, build, evaluate
 - **agnostic w.r.t. concrete tools** used
