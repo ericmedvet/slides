@@ -347,9 +347,13 @@ otext(150,25,'$f\_\\\\text{learn}$')
 otext(50,10,'$D\_\\\\text{learn}$')
 otext(250,10,'$f\_\\\\text{predict}$')
 ]
+]
+]
 
-]
-]
+--
+
+- .key[learning phase]: when $f\_\\text{learn}$ is applied to obtain $f\_\\text{predict}$ from $D$  
+- .key[prediction phase]: when $f\_\\text{predict}$ is applied to obtain a $y$ from a $x$
 
 ---
 
@@ -489,34 +493,218 @@ otext(250,110,'$y$')
 
 ---
 
-## Alternative views
+## Examples of templated $f$
 
-The model is **learned** on a dataset $D$.
-- learned from the examples in $D$
+.cols[
+.c50[
+Problem: compute a number
+$$X=\\mathbb{R}, Y=\\mathbb{R}$$
+$$\\mathcal{F}\_{\\mathbb{R},\\mathbb{R}} = \\{\\dots,x^2, 3, \pi \\frac{x^3+5x}{1-x}, \\dots\\}$$
 
-The model is **trained** on a dataset $D$.
-- trained to correctly work on the examples in $D$
+Learning technique: linear regression
+$$f'\_\\text{predict}(x, a,b) = ax+b$$
+$$M = \\mathbb{R} \\times \\mathbb{R} = \\{(a,b): a \\in \\mathbb{R} \\land b \\in \\mathbb{R} \\}$$
+$$\\mathcal{F}'\_{\\mathbb{R},\\mathbb{R}} = \\{\\dots,x+1, 3, \pi x-5, \\dots\\}$$
+]
+.c50[
+Problem: classify email as spam/not-spam
 
-The model is **fitted** on a dataset $D$.
-- adjusted until it works well on the examples in $D$
+.center[$X=A^\*, Y=\\{\\text{spam},\\neg\\text{spam}\\}$ with $A=$ UTF-8]
 
+.center[
+$\\mathcal{F}\_{A^\*,Y} = \\{ \\dots \\}$
+(all *predicates* on UTF-8 strings)
+]
+
+Learning technique: regex-based classification  
+$$f'\_\\text{predict}(x, r) =
+\\begin{cases}
+\\text{spam} & \\text{if } x \\text{ matches } r \\newline
+\\neg\\text{spam} & \\text{otherwise}
+\\end{cases}$$
+.center[$M = $ regexes $=\\{\\dots, \\text{\\htmlClass{ttt}{ca.++}}, \\text{\\htmlClass{ttt}{[a-z]+agra}}, \\dots\\}$]
+.center[
+$\\mathcal{F}'\_{A^\*,Y} = \\{ \\dots, f'\_\\text{predict}(\\cdot, \\text{\\htmlClass{ttt}{[a-z]+agra}}), \\dots \\}$
+]
+]
+]
+
+**Choosing** the learning technique means choosing one $\\mathcal{F}'\_{X,Y}$!
 
 ---
 
-common cases for M, X and Y (need for comparison)
-what if X is not a common case?
-ml system vs learning technique
+## Alternative views/terminology
+
+The model $m$ is **learned** on a dataset $D$.
+- $m$ learned from the examples in $D$
+
+The model $m$ is **trained** on a dataset $D$.
+- $m$ trained to correctly work on the examples in $D$
+
+The model $m$ is **fitted** on a dataset $D$.
+- $m$ adjusted until it works well on the examples in $D$
+
+--
+
+Formally, a model is **one specific** $m \\in M$ that has been found upon learning.  
+However, often "model" is used to denote a generic (e.g., still untrained/unfitted) artifact.
+- "fit *the* model": a model exists before fitting (e.g., before the learning phase)
+- "learng *a* model": the model is the outcome of the learning phase
+
+---
+
+## Common cases and terminology
+
+Supervised learning techniques may be categorized depending on the kind of $X,Y,M$ they deal with:
+
+With respect to $Y$, most important cases:
+- $Y$ is a **finite** set **without intrinsic ordering** $\\rightarrow$ .key[classification]
+  - $y$ is said a **categorical** (or nominal) variable
+  - if $|Y|=2$ $\\rightarrow$ .key[binary classification]  
+  otherwise $\\rightarrow$ .key[multiclass classification]
+- $Y = \\mathbb{R}$ (or $Y \\subseteq \\mathbb{R}$) $\\rightarrow$ .key[regression]
+  - $y$ is said a **numerical** variable
+
+With respect to $X$, common cases:
+- $X = X\_1 \\times \\dots \\times X\_p$, with each $X\_i$ being $\\mathbb{R}$ or a finite unordered set (each $x$ is a $p$-sized **tuple**)
+- $X$ is the set of *all* strings $\\rightarrow$ **text mining** .note[we'll see]
+
+---
+
+## Variables terminology
+In the common case where $X = X\_1 \\times \\dots \\times X\_p$:
+- each $x_i$ is said a .key[independent variable]
+  - or .key[feature]
+  - or .key[attribute]
+- $y$ is said the .key[dependent variable], since it is hoped to depend on $x$
+  - or .key[response variable]
+
+--
+
+Given a dataset $D$ with $|D|=n$ examples defined over $X,Y$:
+.cols[
+.c50[
+$$D=
+\\begin{pmatrix}
+x\_{1,1} & \\dots & \\htmlClass{col3}{x\_{1,j}} & \\dots  & x\_{1,p} & y\_1 \\newline
+\\dots & \\dots & \\htmlClass{col3}{\\dots} & \\dots & \\dots & \\dots \\newline
+\\htmlClass{col1}{x\_{i,1}} & \\htmlClass{col1}{\\dots} & \\htmlClass{col2}{x\_{i,j}} & \\htmlClass{col1}{\\dots}  & \\htmlClass{col1}{x\_{i,p}} & \\htmlClass{col4}{y\_i} \\newline
+\\dots & \\dots & \\htmlClass{col3}{\\dots} & \\dots & \\dots & \\dots \\newline
+x\_{n,1} & \\dots & \\htmlClass{col3}{x\_{1,j}} & \\dots  & x\_{n,p} & y\_n \\newline
+\\end{pmatrix}
+$$
+]
+.c50[
+- an .col1[**observation**]
+- the values of a .col3[**feature**]
+- the .col2[**value**] of the $j$-th feature for the $i$-th observation .note[recall, order does not matter in $D$]
+- the .col4[**response**] for the $i$-th observation
+  - if $y$ is categorical $\\rightarrow$ .key[label]
+]
+]
+
+---
+
+## Size of the "problem"
+
+The common notation for the size of a dataset is:
+- $n$ number of observations
+- $p$ number of (independent) variables
+
+On the assumption that a dataset $D$ implicitly defines the problem (since it bounds $X$ and $Y$ and hence $\\mathcal{F}\_{X,Y}$), $n$ and $p$ also describe the size of the problem.
+
+---
+
+## What (learning techniques) we will see
+
+A family of learning techniques (**tree-based**) for:
+- $X = X\_1 \\times \\dots \\times X\_p$, each $x$ being categorical or numerical
+- classification (binary or multiclass) and regression
+
+A family of learning techniques (**SVM**) for:
+- $X = \\mathbb{R}^p$
+- binary classification
+
+A learning technique (**kNN**) for:
+- any $X$ with a similarity metric (including $X = \\mathbb{R}^p$)
+- classification (binary or multiclass) and regression
+
+A learning techniques (**naive Bayes**) for:
+- $X = X\_1 \\times \\dots \\times X\_p$, each $x$ being categorical
+- classification (binary or multiclass)
+
+---
+
+## And...
+
+What if the none of the above learning techniques fits the problem ($X,Y$) at hand?
+
+We'll see:
+- a method for applying techniques suitable for $X=\\mathbb{R}^p$ to problems where $X$ includes categorical variables
+- a few methods for applying techniques suitable for $X=\\mathbb{R}^p$ to problems where $X=$ strings
+- two methods for applying techniques suitable for binary classification ($|Y|=2$) to multiclass classification problems ($|Y|\\ge 2$)
+
+What for the other kinds of problems?
+
+---
+
+## ML system
+
+An **information processing system** in which there is:
+- a supervised learning technique (i.e., a pair $f'\_\\text{learn},f'\_\\text{predict}$)
+- other components operating on $X$ or $Y$
+  - **pre-processing**, if "before" the learning technique, i.e., $X \\to X'$
+  - **post-processing**, if "after" the learning technique, i.e., $Y' \\to Y$
+
+---
+
+## ML system example: Twitter profiling
+
+Goal: given a **tweet**, determine **age range** and **gender** of the author
+- problem 1: $X=A^{280}, A=$UTF-16, $Y=\\{ \\text{0--16}, \\text{17--29}, \\text{30--49}, \\text{50--}\\}$
+- problem 1: $X=A^{280}, A=$UTF-16, $Y=\\{ \\text{M}, \\text{F}\\}$ .note[or broader]
+
+One possible ML system for this problem:  
+- $f\_\\text{text-to-num}: A^{280} \\to [0,1]^\{50\}$ (chosen among a few options, maybe adjusted)
+- $f\_\\text{foreach}: X^\* \\times \\mathcal{F}\_{X,Y} \\to Y^\*$ (given a $f: X \\to Y$ and a sequence $\\{x\_i\\}\_i$, apply $f$ to each $x\_i$)
+- $f'\_{\\text{learn},1},f'\_{\\text{predict},1}$ and $f'\_{\\text{learn},2},f'\_{\\text{predict},2}$ (two learning techniques suitable for classification)
+
+.cols[
+.c50[
+Learning phase:
+
+$D' = f\_\\text{foreach}(D, f\_\\text{text-to-num})$ .note[just the $x$ part of $D$]  
+$m\_\\text{age} = f'\_{\\text{learn},1}(D')$  
+$m\_\\text{gender} = f'\_{\\text{learn},2}(D')$
+]
+.c50[
+Prediction phase:
+
+$x' = f\_\\text{text-to-num}(x)$  
+$y\_\\text{age} = f'\_{\\text{predict},1}(x', m\_\\text{age})$  
+$y\_\\text{gender} = f'\_{\\text{predict},2}(x', m\_\\text{gender})$  
+]
+]
+
+---
+
+## Designing a ML system
+
+- Who chooses the learning technique(s)?
+  - And its **parameter** values?
+- Who chooses/design the pre- and post-processing components?
+  - And their **parameter** values?
+
+--
+
+The **designer** of the ML system, that is, you!
+
+.center.h25ex[![You!](images/you.jpg)]
+
+---
+
 activities of the ml practitioner (need for comparison)
-activities of the ml researcher
-
----
-
-## Learning technique vs. ML systems
-
-- example of many steps
-- eval axes of each step: further axis of familiarity with tool/technology
-- potential combinatorial explosion of options
-- even stronger need of comparing
+activities of the ml researcher (need for comparison)
 
 ---
 
@@ -531,6 +719,15 @@ activities of the ml researcher
 6. evaluation
 
 iterate
+
+---
+
+## Learning technique vs. ML systems
+
+- example of many steps
+- eval axes of each step: further axis of familiarity with tool/technology
+- potential combinatorial explosion of options
+- even stronger need of comparing
 
 ---
 
