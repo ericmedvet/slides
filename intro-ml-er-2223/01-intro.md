@@ -12,13 +12,13 @@ A.Y. 2022/2023
 ## Lecturer
 
 Eric Medvet
-- Associate Professor of Computer Engineering at [Departmenet of Engineering and Architecture](https://dia.units.it/), [University of Trieste](https://www.units.it/)
-- Online at: [medvet.inginf.units.it](http://medvet.inginf.units.it/)
+- associate Professor of Computer Engineering at [Departmenet of Engineering and Architecture](https://dia.units.it/), [University of Trieste](https://www.units.it/)
+- online at: [medvet.inginf.units.it](http://medvet.inginf.units.it/)
 
 Research interests:
-- Evolutionary Computation
-- Machine Learning applications
-- Embodied intelligence
+- evolutionary computation
+- machine learning applications
+- embodied intelligence
 
 Labs:
 - [Evolutionary Robotics and Artificial Life lab](https://erallab.inginf.units.it/)
@@ -182,7 +182,31 @@ You'll practice doing **lab activities**:
 
 ---
 
+## Lecture times
+
+Where:
+- .col1[Room 2 (Aula Meccanica Applicata), building C5, Piazzale Europa Campus]
+- .col2[Room TA (Aula Fisica Tecnica), building C5, Piazzale Europa Campus]
+
+When:
+- **Monday**, 12.00–14.00, .col1[room 2, C5] $\\rightarrow$ **12.00–13.30**
+- **Tuesday**, 9.00–11.00, .col2[room TA, C5] $\\rightarrow$ **9.00–10.30**
+- **Wednesday**, 12.00–14.00, .col2[room TA, C5] $\\rightarrow$ **12.00–13.30**
+- **Friday**, 12.00–14.00, .col2[room TA, C5] $\\rightarrow$ **11.00–12.30**
+
+---
+
 ## Tutor
+
+Federico Pigozzi
+- 2nd year PhD student enroled in the Industrial and information engineering PhD program at the [Departmenet of Engineering and Architecture](https://dia.units.it/), [University of Trieste](https://www.units.it/)
+- former student of this course
+- online at: [pigozzif.github.io](https://pigozzif.github.io/)
+
+Role of the tutor:
+- assisting students **during lab activities**, together with the teacher
+- first point-of-contact for course-related questions by students
+  - the teacher is **always available**
 
 ---
 

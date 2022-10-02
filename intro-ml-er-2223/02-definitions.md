@@ -516,7 +516,7 @@ $\\mathcal{F}\_{A^\*,Y} = \\{ \\dots \\}$
 (all *predicates* on UTF-8 strings)
 ]
 
-Learning technique: regex-based classification  
+Learning technique: regex-based flagging  
 $$f'\_\\text{predict}(x, r) =
 \\begin{cases}
 \\text{spam} & \\text{if } x \\text{ matches } r \\newline
@@ -599,7 +599,7 @@ $$
 - the values of a .col3[**feature**]
 - the .col2[**value**] of the $j$-th feature for the $i$-th observation .note[recall, order does not matter in $D$]
 - the .col4[**response**] for the $i$-th observation
-  - if $y$ is categorical $\\rightarrow$ .key[label]
+  - if $y$ is categorical $\\rightarrow$ .key[class label]
 ]
 ]
 
@@ -701,36 +701,120 @@ The **designer** of the ML system, that is, you!
 
 .center.h25ex[![You!](images/you.jpg)]
 
----
-
-activities of the ml practitioner (need for comparison)
-activities of the ml researcher (need for comparison)
+.note[Can those choices be made **automatically**? "Yes", it's called **Auto-ML**]
 
 ---
 
 ## Phases of the ML design
 
-0. should I use ML? recall "why using ML" above
-1. supervised vs. unsupervised
-2. problem statement: $X$ and $Y$
-3. def of goals (qualities of model); cost of errors (relate with 0)
-4. sketch of ML system
-5. implementation
-6. evaluation
+.cols[
+.c50[
+1. Decide: should I use ML?
+2. Decide: supervised vs. unsupervised
+3. Define the problem (**problem statement**):
+  - define $X$ and $Y$
+  - define a **way for assessing** solution
+      - before designing!
+      - applicable to any compatible ML solution
+4. **Design** the ML system
+  - chooses a learning technique
+  - chooses/design pre- and post-processing steps
+5. **Implement** the ML system
+  - learning/prediction phases
+  - **obtain the data**
+6. **Assess** the ML system
 
-iterate
+Steps 4–6 are usually iterated many times
+]
+.c50[
+Skills of the **ML practitioner**/designer:
+- knowing main ML techniques
+- knowing common pre- and post-processing techniques
+- knowing main (comparative) assessment techniques
+- implementing them in production
+- **motivate** all choices
+
+Skills of the **ML researchre**:
+- (as above and)
+  - but implementing them as prototype
+- disigning new ML/pre-/post-processing/assessment techniques
+- formally motivating them
+
+**Experience, practice, knowledge**!
+]
+]
 
 ---
 
-## Learning technique vs. ML systems
+## Should I use ML?
 
-- example of many steps
-- eval axes of each step: further axis of familiarity with tool/technology
-- potential combinatorial explosion of options
-- even stronger need of comparing
+Recall: we need an $f\_\\text{predict}: X \\to Y$ to make a decision $y$ about an $x$
+
+.cols[
+.c50[
+Reasons for running $f\_\\text{predict}$ on a machine:
+- $y$ has to be computed .col1[very quickly]
+  - a human couldn't keep the pace
+- $y$ has to be computed in a .col3[dangerous context]
+  - or a human is simply not available
+- the value of $y$ .col3[is very low]
+- it is believed that a human would be .col3[biased in deciding] $y$
+
+If $f\_\\text{predict}$ is run on a machine, still $f\_\\text{predict}$ might be designed by a human.
+- **human** "learning", not **machine learning**
+]
+.c50[
+Reasons for running $f\_\\text{learn}$ on a machine, i.e., to obtain $f\_\\text{predict}$ through learning:
+- humans cannot design a .col2[reasonable] $f\_\\text{predict}$
+- human-made $f\_\\text{predict}$ is .col1[too costly/slow]
+- human-made $f\_\\text{predict}$ is .col2[not good]
+  - does not make good decisions
+
+Factors:
+- .col1[**efficiency**]
+- .col2[**effectiveness**]
+- .col3[**human dignity**] (cost)
+]
+]
+
+---
+
+## Domain knowledge and data exploration
+
+Reasons for running $f\_\\text{learn}$ on a machine:
+- humans cannot design a reasonable $f\_\\text{predict}$: yes or no?
+- human-made $f\_\\text{predict}$ is too costly/slow: yes or no?
+- human-made $f\_\\text{predict}$ is not good: yes or no?
+
+Answering these questions requires the knowledge of the **domain**
+- (necessary, not sufficient)
+- better/more with exploration of the data
+  - which data?
+  - how to explore it? $\\rightarrow$ **data visualization**
+
+---
+
+## How to choose components?
+
+Component:
+- learning technique
+- pre- or post-processing technique
+- dataset
+- assessment technique
+
+Factors:
+- **effectiveness**
+  - the component works well (experimental **assessment**, **evaluation metrics** and methods)
+- **efficiency**
+  - using the component consumes low resources
+- **interpretability**
+  - the working of the component and/or its outcomes is understandable
+- **familiarity**
+  - the designer does little effort for using the component: e.g., already knows the software tool, good parameter values, ...
+- technological constraints
 
 ---
 
 ## Example of Iris
 
-say the story of the amateur botanist friend
+<!-- say the story of the amateur botanist friend; sketch all phases -->
