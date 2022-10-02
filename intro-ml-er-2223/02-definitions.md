@@ -497,14 +497,14 @@ otext(250,110,'$y$')
 
 .cols[
 .c50[
-Problem: compute a number
-$$X=\\mathbb{R}, Y=\\mathbb{R}$$
-$$\\mathcal{F}\_{\\mathbb{R},\\mathbb{R}} = \\{\\dots,x^2, 3, \pi \\frac{x^3+5x}{1-x}, \\dots\\}$$
+Problem: price of a flat from surface
+$$X=\\mathbb{R}^+, Y=\\mathbb{R}^+$$
+$$\\mathcal{F}\_{\\mathbb{R}^+,\\mathbb{R}^+} = \\{\\dots,x^2, 3, \pi \\frac{x^3+5x}{0.1+x}, \\dots\\}$$
 
 Learning technique: linear regression
 $$f'\_\\text{predict}(x, a,b) = ax+b$$
 $$M = \\mathbb{R} \\times \\mathbb{R} = \\{(a,b): a \\in \\mathbb{R} \\land b \\in \\mathbb{R} \\}$$
-$$\\mathcal{F}'\_{\\mathbb{R},\\mathbb{R}} = \\{\\dots,x+1, 3, \pi x-5, \\dots\\}$$
+$$\\mathcal{F}'\_{\\mathbb{R}^+,\\mathbb{R}^+} = \\{\\dots,x+1, 3, \pi x+5, \\dots\\}$$
 ]
 .c50[
 Problem: classify email as spam/not-spam
