@@ -729,7 +729,7 @@ Steps 4–6 are usually iterated many times
 .c50[
 Skills of the **ML practitioner**/designer:
 - knowing main ML techniques
-- knowing common pre- and post-processing techniques
+- knowing common pre- and post-proc. techs
 - knowing main (comparative) assessment techniques
 - implementing them in production
 - **motivate** all choices

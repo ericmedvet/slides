@@ -17,8 +17,8 @@ Eric Medvet
 
 Research interests:
 - evolutionary computation
+- embodied artificial intelligence
 - machine learning applications
-- embodied intelligence
 
 Labs:
 - [Evolutionary Robotics and Artificial Life lab](https://erallab.inginf.units.it/)
@@ -26,7 +26,7 @@ Labs:
 
 ---
 
-## Computer Engineering group
+## Computer Engineering (ING-INF/05) group
 
 .cols.compact[
 .c50[
@@ -34,19 +34,19 @@ Labs:
 [Sylvio Barbon Jr.](https://www.barbon.com.br/)  
 <i class="fa-solid fa-chalkboard-user col3"></i> Fondamenti di informatica  
 <i class="fa-solid fa-chalkboard-user col3"></i> Progettazione del software e dei sistemi informativi  
-<i class="fa-regular fa-lightbulb col3"></i> meta learning, applied ML, process mining
+<i class="fa-regular fa-lightbulb col3"></i> *meta learning, applied ML, process mining*
 
 .h5ex.vam[![Alberto Bartoli](images/people/bartoli.jpg)]
 [Alberto Bartoli](https://bartoli.inginf.units.it/)  
 <i class="fa-solid fa-chalkboard-user col3"></i> Reti di calcolatori  
 <i class="fa-solid fa-chalkboard-user col3"></i> Computer networks 2 and introduction to cybersecurity  
-<i class="fa-regular fa-lightbulb col3"></i> security, applied ML, evolutionary computation
+<i class="fa-regular fa-lightbulb col3"></i> *security, applied ML, evolutionary computation*
 
 .h5ex.vam[![Andrea De Lorenzo](images/people/de-lorenzo.jpg)]
 [Andrea De Lorenzo](https://delorenzo.inginf.units.it/)  
 <i class="fa-solid fa-chalkboard-user col3"></i> Basi di dati  
 <i class="fa-solid fa-chalkboard-user col3"></i> Programmazione web  
-<i class="fa-regular fa-lightbulb col3"></i> security, applied AI&ML, information retrieval, GP
+<i class="fa-regular fa-lightbulb col3"></i> *security, applied AI&ML, information retrieval, GP*
 
 ]
 .c50[
@@ -54,20 +54,20 @@ Labs:
 [Eric Medvet](https://medvet.inginf.units.it/)  
 <i class="fa-solid fa-chalkboard-user col3"></i> Programmazione avanzata  
 <i class="fa-solid fa-chalkboard-user col3"></i> Introduction to machine learning and evolutionary robotics  
-<i class="fa-regular fa-lightbulb col3"></i> evolutionary computation, embodied AI, applied ML
+<i class="fa-regular fa-lightbulb col3"></i> *evolutionary computation, embodied AI, applied ML*
 
 .h5ex.vam[![Laura Nenzi](images/people/nenzi.jpg)]
 [Laura Nenzi](https://lauranenzi.github.io/)  
 <i class="fa-solid fa-chalkboard-user col3"></i> Cyber-physical systems  
 <i class="fa-solid fa-chalkboard-user col3"></i> Introduction to Artificial Intelligence  
-<i class="fa-regular fa-lightbulb col3"></i> formal methods, runtime verification
+<i class="fa-regular fa-lightbulb col3"></i> *formal methods, runtime verification*
 
 .h5ex.vam[![Martino Trevisan](images/people/trevisan.jpg)]
 [Martino Trevisan](https://trevisan.inginf.units.it/)  
 <i class="fa-solid fa-chalkboard-user col3"></i> Reti di calcolatori  
 <i class="fa-solid fa-chalkboard-user col3"></i> Sistemi operativi  
 <i class="fa-solid fa-chalkboard-user col3"></i> Architetture dei sistemi digitali  
-<i class="fa-regular fa-lightbulb col3"></i> network measurements, data privacy, big data
+<i class="fa-regular fa-lightbulb col3"></i> *network measurements, data privacy, big data*
 ]
 ]
 
@@ -84,7 +84,7 @@ Labs:
 
 2nd part (3 CFUs, 24 hours): .note[just for [IN20](https://corsi.units.it/IN20/descrizione-corso) and [IN19](https://corsi.units.it/IN20/descrizione-corso)]
 - what is evolutionary computation?
-- significan applications in robotics
+- significant applications in robotics
 
 Focus on **methodology**:
 - how to **design**, build, and **evaluate** a ML (or EC) system?
