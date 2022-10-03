@@ -192,7 +192,7 @@ When:
 - **Monday**, 12.00–14.00, .col1[room 2, C5] $\\rightarrow$ **12.00–13.30**
 - **Tuesday**, 9.00–11.00, .col2[room TA, C5] $\\rightarrow$ **9.00–10.30**
 - **Wednesday**, 12.00–14.00, .col2[room TA, C5] $\\rightarrow$ **12.00–13.30**
-- **Friday**, 12.00–14.00, .col2[room TA, C5] $\\rightarrow$ **11.00–12.30**
+- **Friday**, 11.00–13.00, .col2[room TA, C5] $\\rightarrow$ **11.00–12.30**
 
 ---
 
