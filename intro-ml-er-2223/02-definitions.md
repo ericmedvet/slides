@@ -509,7 +509,9 @@ $$\\mathcal{F}'\_{\\mathbb{R}^+,\\mathbb{R}^+} = \\{\\dots,x+1, 3, \pi x+5, \\do
 .c50[
 Problem: classify email as spam/not-spam
 
-.center[$X=A^\*, Y=\\{\\text{spam},\\neg\\text{spam}\\}$ with $A=$ UTF-8]
+.center[$X=A^\*$,
+$Y=\\{ \\text{spam},\\neg\\text{spam} \\}$,
+$A=$ UTF-8]
 
 .center[
 $\\mathcal{F}\_{A^\*,Y} = \\{ \\dots \\}$
@@ -522,9 +524,10 @@ $$f'\_\\text{predict}(x, r) =
 \\text{spam} & \\text{if } x \\text{ matches } r \\newline
 \\neg\\text{spam} & \\text{otherwise}
 \\end{cases}$$
-.center[$M = $ regexes $=\\{\\dots, \\text{\\htmlClass{ttt}{ca.++}}, \\text{\\htmlClass{ttt}{[a-z]+agra}}, \\dots\\}$]
+.center[$M = $ regexes
+$=\\{\\dots, \\text{\\htmlClass{ttt}{ca.++}}, \\text{\\htmlClass{ttt}{[a-z]+a.+}}, \\dots\\}$]
 .center[
-$\\mathcal{F}'\_{A^\*,Y} = \\{ \\dots, f'\_\\text{predict}(\\cdot, \\text{\\htmlClass{ttt}{[a-z]+agra}}), \\dots \\}$
+$\\mathcal{F}'\_{A^\*,Y} = \\{ \\dots, f'\_\\text{predict}(\\cdot, \\text{\\htmlClass{ttt}{[a-z]+a.+}}), \\dots \\}$
 ]
 ]
 ]
@@ -549,7 +552,7 @@ The model $m$ is **fitted** on a dataset $D$.
 Formally, a model is **one specific** $m \\in M$ that has been found upon learning.  
 However, often "model" is used to denote a generic (e.g., still untrained/unfitted) artifact.
 - "fit *the* model": a model exists before fitting (e.g., before the learning phase)
-- "learng *a* model": the model is the outcome of the learning phase
+- "learn *a* model": the model is the outcome of the learning phase
 
 ---
 
@@ -802,7 +805,7 @@ Component:
 - dataset
 - assessment technique
 
-Factors:
+Factors: .note[beyond **applicability**, which is a yes/no matter]
 - **effectiveness**
   - the component works well (experimental **assessment**, **evaluation metrics** and methods)
 - **efficiency**
