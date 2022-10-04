@@ -296,11 +296,11 @@ In **unsupervised learning** there is no supervision, there are **no examples**:
 Formally, examples available for learning $f\_\\text{predict}$ are pairs $(x,y)$.
 
 A .key[dataset] compatible with $X$ and $Y$ is a *bag* of pairs $(x,y)$:
-$$D = \\{(x\_i,y\_i)\\}\_{i=1}^{i=n}$$
-with $\\forall i: x\_i \\in X, y\_i \\in Y$ and $|D|=n$.
+$$D = \\{(x^{(i)},y^{(i)})\\}\_{i=1}^{i=n}$$
+with $\\forall i: x^{(i)} \\in X, y^{(i)} \\in Y$ and $|D|=n$.
 
-Or, more briefly $D = \\{(x\_i,y\_i)\\}\_i$.
-.note[examples are also denoted by $(x^{(i)},y^{(i)})$, depending on the community]
+Or, more briefly $D = \\{(x^{(i)},y^{(i)})(x\_i,y\_i)\\}\_i$.
+.note[examples are also denoted by $(x\_i,y\_i)$, depending on the community]
 
 A **bag** ($D$ should be called *databag*...):
 - can have duplicates (bag $\\ne$ set)
@@ -327,11 +327,11 @@ The learning set has to be **consistent** with the domain and codomain of the fu
 
 > .key[Supervised (Machine) Learning] is the science of getting computers to learn $f\_\\text{predict}: X \\to Y$ **from examples** autonomously.
 
-In brief: given a $D \in \\mathcal{P}^\*(X \\times Y)$, learn a $f \\in \\mathcal{F}\_{X,Y}$.
+In brief: given a $D\_\\text{learn} \in \\mathcal{P}^\*(X \\times Y)$, learn a $f\_\\text{predict} \\in \\mathcal{F}\_{X,Y}$.
 
 --
 
-A .key[supervised learning technique] is a way for learning a $f \\in \\mathcal{F}\_{X,Y}$ given a $D \in \\mathcal{P}^\*(X \\times Y)$.
+A .key[supervised learning technique] is a way for learning a $f\_\\text{predict} \\in \\mathcal{F}\_{X,Y}$ given a $D\_\\text{learn} \in \\mathcal{P}^\*(X \\times Y)$.
 
 .cols[
 .c50[
@@ -359,7 +359,7 @@ otext(250,10,'$f\_\\\\text{predict}$')
 
 ## Lerning techniques
 
-> A .key[supervised learning technique] is a way for learn a $f \\in \\mathcal{F}\_{X,Y}$ given a $D \in \\mathcal{P}^\*(X \\times Y)$.
+> A .key[supervised learning technique] is a way for learn a $f\_\\text{predict} \\in \\mathcal{F}\_{X,Y}$ given a $D\_\\text{learn} \in \\mathcal{P}^\*(X \\times Y)$.
 
 Why don't we suffice a single learning technique?
 Why are there many of them?
@@ -367,12 +367,12 @@ Why are there many of them?
 They differ in:
 - **applicability** with respect to $X$ and/or $Y$
   - e.g., some require $X = \\mathbb{R}^p$, some require $Y = \\mathbb{R}$
-- **efficiency** with respect to $|D|$
-  - e.g., some are really fast for producing $f$ ($\\mathcal{O}\\left(|D|^{\\approx 0}\\right)$), some are slow ($\\mathcal{O}\\left(|D|^2\\right)$)
-- **effectiveness** in terms of the quality of the learned $f$
-- attributes of learned $f$
-  - nature/type of $f$ (a formula, a text, a tree...)
-  - interpretability of $f$
+- **efficiency** with respect to $|D\_\\text{learn}|$
+  - e.g., some are really fast for producing $f\_\\text{predict}$ ($\\mathcal{O}\\left(|D\_\\text{learn}|^{\\approx 0}\\right)$), some are slow ($\\mathcal{O}\\left(|D\_\\text{learn}|^2\\right)$)
+- **effectiveness** in terms of the quality of the learned $f\_\\text{predict}$
+- attributes of learned $f\_\\text{predict}$
+  - nature/type of $f\_\\text{predict}$ (a formula, a text, a tree...)
+  - interpretability of $f\_\\text{predict}$
 
 ---
 
@@ -397,7 +397,7 @@ New version:
 
 A supervised learning technique $f\_\\text{learn}: \\mathcal{P}^\*(X \\times Y) \\to \\mathcal{F}\_{X,Y}$ can be seen as a form of optimization:
 1. consider $\\mathcal{F}\_{X,Y} = \\{f, f: X \\to Y\\}$
-2. find the one $f \\in \\mathcal{F}\_{X,Y}$ that **works best** on $D\_\\text{learn}$
+2. find the one $f\_\\text{predict} \\in \\mathcal{F}\_{X,Y}$ that **works best** on $D\_\\text{learn}$
 
 Could we use a general optimization technique?  
 In principle, yes, but:
@@ -462,8 +462,8 @@ link([0,25,100,25],'a')
 rect(100,0,100,50)
 link([200,25,310,25],'a')
 otext(150,25,'$f\_\\\\text{learn}$')
-otext(50,10,'$D$')
-otext(250,10,'$f$')
+otext(50,10,'$D\_\\\\text{learn}$')
+otext(250,10,'$f\_\\\\text{predict}$')
 ]
 ]
 .c50[
@@ -478,7 +478,7 @@ link([0,25,100,25],'a')
 rect(100,0,100,50)
 link([200,25,310,25],'a')
 otext(150,25,"$f'\_\\\\text{learn}$")
-otext(50,10,'$D$')
+otext(50,10,'$D\_\\\\text{learn}$')
 otext(250,10,'$m$')
 link([0,125,100,125],'a')
 rect(100,100,100,50)
@@ -570,12 +570,13 @@ With respect to $Y$, most important cases:
 
 With respect to $X$, common cases:
 - $X = X\_1 \\times \\dots \\times X\_p$, with each $X\_i$ being $\\mathbb{R}$ or a finite unordered set (each $x$ is a $p$-sized **tuple**)
+  - $X$ is **multivariate** and each $x\_i$ is either numerical or categorical
 - $X$ is the set of *all* strings $\\rightarrow$ **text mining** .note[we'll see]
 
 ---
 
 ## Variables terminology
-In the common case where $X = X\_1 \\times \\dots \\times X\_p$:
+In the common case of a multivariate $X = X\_1 \\times \\dots \\times X\_p$:
 - each $x_i$ is said a .key[independent variable]
   - or .key[feature]
   - or .key[attribute]
@@ -589,19 +590,19 @@ Given a dataset $D$ with $|D|=n$ examples defined over $X,Y$:
 .c50[
 $$D=
 \\begin{pmatrix}
-x\_{1,1} & \\dots & \\htmlClass{col3}{x\_{1,j}} & \\dots  & x\_{1,p} & y\_1 \\newline
+x\_1^{(1)} & \\dots & \\htmlClass{col3}{x\_j^{(1)}} & \\dots  & x\_p^{(1)} & y^{(1)} \\newline
 \\dots & \\dots & \\htmlClass{col3}{\\dots} & \\dots & \\dots & \\dots \\newline
-\\htmlClass{col1}{x\_{i,1}} & \\htmlClass{col1}{\\dots} & \\htmlClass{col2}{x\_{i,j}} & \\htmlClass{col1}{\\dots}  & \\htmlClass{col1}{x\_{i,p}} & \\htmlClass{col4}{y\_i} \\newline
+\\htmlClass{col1}{x\_1^{(i)}} & \\htmlClass{col1}{\\dots} & \\htmlClass{col2}{x\_j^{(i)}} & \\htmlClass{col1}{\\dots}  & \\htmlClass{col1}{x\_p^{(i)}} & \\htmlClass{col4}{y^{(i)}} \\newline
 \\dots & \\dots & \\htmlClass{col3}{\\dots} & \\dots & \\dots & \\dots \\newline
-x\_{n,1} & \\dots & \\htmlClass{col3}{x\_{1,j}} & \\dots  & x\_{n,p} & y\_n \\newline
+x\_1^{(n)} & \\dots & \\htmlClass{col3}{x\_j^{(n)}} & \\dots  & x\_p^{(n)} & y^{(n)} \\newline
 \\end{pmatrix}
 $$
 ]
 .c50[
-- an .col1[**observation**]
-- the values of a .col3[**feature**]
-- the .col2[**value**] of the $j$-th feature for the $i$-th observation .note[recall, order does not matter in $D$]
-- the .col4[**response**] for the $i$-th observation
+- $x^{(i)}$ is the $i$-th .col1[**observation**]
+- $\\left\\{x_j^{(i)}\\right\\}\_i$ are the values of the $j$-th .col3[**feature**]
+- $x^{(i)}\_j$ is the .col2[**value**] of the $j$-th feature for the $i$-th observation .note[recall, order does not matter in $D$]
+- $y^{(i)}$ is the .col4[**response**] for the $i$-th observation
   - if $y$ is categorical $\\rightarrow$ .key[class label]
 ]
 ]
@@ -610,7 +611,7 @@ $$
 
 ## Size of the "problem"
 
-The common notation for the size of a dataset is:
+The common notation for the size of a multivariate dataset (i.e., a dataset with a multivariate $X=X\_1 \\times \\dots \\times X\_p$) is:
 - $n$ number of observations
 - $p$ number of (independent) variables
 
@@ -621,7 +622,7 @@ On the assumption that a dataset $D$ implicitly defines the problem (since it bo
 ## What (sup. learning techniques) we will see
 
 A family of learning techniques (**tree-based**) for:
-- $X = X\_1 \\times \\dots \\times X\_p$, each $x$ being categorical or numerical
+- multivariate $X = X\_1 \\times \\dots \\times X\_p$, each $x$ being categorical or numerical
 - classification (binary or multiclass) and regression
 
 A family of learning techniques (**SVM**) for:
@@ -633,7 +634,7 @@ A learning technique (**kNN**) for:
 - classification (binary or multiclass) and regression
 
 A learning techniques (**naive Bayes**) for:
-- $X = X\_1 \\times \\dots \\times X\_p$, each $x$ being categorical
+- multivariate $X = X\_1 \\times \\dots \\times X\_p$, each $x$ being categorical .note[with mention to the hybrid case]
 - classification (binary or multiclass)
 
 ---
@@ -643,7 +644,7 @@ A learning techniques (**naive Bayes**) for:
 What if the none of the above learning techniques fits the problem ($X,Y$) at hand?
 
 We'll see:
-- a method for applying techniques suitable for $X=\\mathbb{R}^p$ to problems where $X$ includes categorical variables
+- a method for applying techniques suitable for $X=\\mathbb{R}^p$ to problems where a multivariate $X$ includes categorical variables
 - a few methods for applying techniques suitable for $X=\\mathbb{R}^p$ to problems where $X=$ strings
 - two methods for applying techniques suitable for binary classification ($|Y|=2$) to multiclass classification problems ($|Y|\\ge 2$)
 
@@ -673,14 +674,14 @@ One possible ML system for this problem:
 - $f'\_{\\text{learn},1},f'\_{\\text{predict},1}$ and $f'\_{\\text{learn},2},f'\_{\\text{predict},2}$ (two learning techniques suitable for classification)
 
 .cols[
-.c50[
+.c60[
 Learning phase:
 
-$D' = f\_\\text{foreach}(D, f\_\\text{text-to-num})$ .note[just the $x$ part of $D$]  
-$m\_\\text{age} = f'\_{\\text{learn},1}(D')$  
-$m\_\\text{gender} = f'\_{\\text{learn},2}(D')$
+$D'\_\\text{learn} = f\_\\text{foreach}(D\_\\text{learn}, f\_\\text{text-to-num})$ .note[just the $x$ part]  
+$m\_\\text{age} = f'\_{\\text{learn},1}(D'\_\\text{learn})$  
+$m\_\\text{gender} = f'\_{\\text{learn},2}(D'\_\\text{learn})$
 ]
-.c50[
+.c40[
 Prediction phase:
 
 $x' = f\_\\text{text-to-num}(x)$  
@@ -841,17 +842,17 @@ Why a story?
 
 Unce upon a time, there were Alice, a **ML expert**, and Bob, an **amateur botanist**.
 
-Bob likes to **collect Iris flowers** and to sort them properly in his collection boxes at home.
-He organizes collected flowers depending on their **species**.
+Bob liked to **collect Iris flowers** and to sort them properly in his collection boxes at home.
+He organized collected flowers depending on their **species**.
 
 .center[
+.h20ex[![Iris setosa](images/iris-setosa.jpg)]
 .h20ex[![Iris versicolor](images/iris-versicolor.jpg)]
 .h20ex[![Iris virginica](images/iris-virginica.jpg)]
-.h20ex[![Iris setosa](images/iris-setosa.jpg)]
 
-Iris versicolor .hspace5[]
+Iris setosa .hspace5[]
 Iris virginica .hspace5[]
-Iris setosa
+Iris versicolor
 ]
 
 ---
@@ -878,7 +879,7 @@ No car accidents to be avoid (**timing**), no billions of emails to be analyzed 
 
 ---
 
-## Tackling the Iris problem
+## Tackling the Iris problem: phase 1 - ML?
 
 .cols[
 .c60[
@@ -902,5 +903,150 @@ Reasons for **learning** $f\_\\text{predict}$ on a machine:
 4. Design the ML system
 5. Implement the ML system
 6. Assess the ML system
+]
+]
+
+--
+
+**Outcome**: ok, let's use ML!
+
+---
+
+## Phase 2 - supervised vs. unsupervised
+
+.cols[
+.c60[
+Do we have examples at hand?
+
+Yes, Bob already collected some flowers and organized them in *boxes*.
+For each of them, there's a **species label** that has been assigned by an expert (the *professional botanist*).
+We assume those labels are correctly assigned.
+]
+.c40[
+1. Decide: should I use ML?
+2. .col2[Decide: supervised vs. unsupervised]
+3. Define the problem (problem statement)
+4. Design the ML system
+5. Implement the ML system
+6. Assess the ML system
+]
+]
+
+--
+
+**Outcome**: it's supervised learning!
+
+---
+
+## Phase 3 - problem statement
+
+.cols[
+.c60[
+In natural language: given an Iris flower, assign a species
+
+Formally:  
+$X=\\{x: x \\text{ is an Iris flower}\\}$  
+$Y=\\{\\text{setosa}, \\text{versicolor}, \\text{virginica}\\}$
+
+**Issues** with $X$: 🤔
+- is that an useful definition? that is: can it be used for judging the membership of an object to $X$? $\\text{🌸} \\overset{?}{\\in} X$
+- is an $x \\in X$ processable by a machine? recall that in later phases:
+  - we want to take an $f\_\\text{learn}$ that is able to learn an $f\_\\text{predict}: X \\to Y$ and use it on a machine
+  - we want to use the learned $f\_\\text{predict}$ on a machine
+]
+.c40[
+1. Decide: should I use ML?
+2. Decide: supervised vs. unsupervised
+3. .col2[Define the problem (problem statement)]
+4. Design the ML system
+5. Implement the ML system
+6. Assess the ML system
+]
+]
+
+---
+
+## Phases 3 - shaping $X$
+
+.cols[
+.c60[
+We cannot just take *another* X, because the problem is "given an Iris flower, assign a species".
+But we can introduce some **pre-processing** steps that transform an $x \\in X$ in an $x' \\in X'$, with $X'$ being better, more suitable, for later steps.
+
+That is, we can design a $f\_\\text{preproc}: X \\to X'$ and an $X'$!
+
+Requirements:
+- (designing and) applying of $f\_\\text{preproc}$ should have an acceptable **cost**
+- an $x'=f\_\\text{preproc}(x)$ should not lose too much **information** of $x$ that is useful for obtaining a $y$
+- $X'$ should be **compatible** with one or more learning techniques
+]
+.c40[
+1. Decide: should I use ML?
+2. Decide: supervised vs. unsupervised
+3. .col2[Define the problem (problem statement)]
+4. Design the ML system
+5. Implement the ML system
+6. Assess the ML system
+]
+]
+
+---
+
+## Phases 3 - feature engineering
+
+.cols[
+.c60[
+Since most learning techniques are designed to work on a mutlivariate $X$, we are going to design a $f\_\\text{preproc}: X \\to X' = X'\_1 \\times \\dots \\times X'\_p$.
+That is, we are going to **define the features** and the way to **compute them** out of an $x$.
+
+This step is called .key[feature engineering] and is in practice a key step in the design of a ML system, often more important than the choice of the learning technique:
+- for the key requirement concerning the **loss of information** contained in $x$
+- because it is often done before **collecting the dataset**, which may be a costly, hardly repeatable operation
+]
+.c40[
+1. Decide: should I use ML?
+2. Decide: supervised vs. unsupervised
+3. .col2[Define the problem (problem statement)]
+4. Design the ML system
+5. Implement the ML system
+6. Assess the ML system
+]
+]
+
+---
+
+## Phases 3 - feature engineering for Iris
+
+.cols[
+.c60[
+Some options:
+
+.compact.nicetable[
+| Function $f\_\\text{preproc}$ | Set $X'$ | Cost | Info¹ | Comp.² |
+| --- | --- | --- | --- |
+| $x'$ is a textual description of $x$ | strings | .center[🫰🫰] | .center[🫳] | .center[👍] |
+| $x'$ is a digitale picture of $x$ | $[0,1]^{512 \\times 512 \\times 3}$ | .center[🫰] | .center[🫳] | .center[👍³] |
+| $x'$ is "the" DNA of $x$ | $\\{\\text{A}, \\text{C}, \\text{G}, \\text{T}\\}^*$ | .center[🫰🫰🫰] | .center[👍] | .center[👍] |
+| $x'$ is some measurements of $x$ | $\\mathbb{R}^p$ | .center[🫰] | .center[🫳] | .center[👍] |
+]
+
+.note[1: info loss - 👍: small, i.e., good; 🫳: medium; 👎: large, i.e., bad]  
+.note[2: compatibility - 👍: large, i.e., good; 🫳: medium; 👎: small, i.e., bad]  
+.note[3: not if Alice just attends this course...]
+
+The actual decision should be taken by Alice and Bob together, based on **domain knowledge** of the latter.
+]
+.c40[
+1. Decide: should I use ML?
+2. Decide: supervised vs. unsupervised
+3. .col2[Define the problem (problem statement)]
+4. Design the ML system
+5. Implement the ML system
+6. Assess the ML system
+
+Requirements for $f\_\\text{preproc}: X \\to X'$:
+- proper cost
+- avoid information loss
+- compatibility
 ]
 ]

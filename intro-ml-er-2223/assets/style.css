@@ -208,3 +208,14 @@ img {
   color: #648FFF;
   font-size: 85%;
 }
+.nicetable tbody tr:nth-of-type(2n + 1) {
+  background: #dddddd;
+}
+.nicetable tbody tr:nth-of-type(2n) {
+  background: #eeeeee;
+}
+.nicetable td {
+  margin: 0;
+  padding: 0 0.5em;
+  vertical-align: top;
+}
