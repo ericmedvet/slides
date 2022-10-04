@@ -618,7 +618,7 @@ On the assumption that a dataset $D$ implicitly defines the problem (since it bo
 
 ---
 
-## What (learning techniques) we will see
+## What (sup. learning techniques) we will see
 
 A family of learning techniques (**tree-based**) for:
 - $X = X\_1 \\times \\dots \\times X\_p$, each $x$ being categorical or numerical
@@ -638,7 +638,7 @@ A learning techniques (**naive Bayes**) for:
 
 ---
 
-## And...
+## ... and...
 
 What if the none of the above learning techniques fits the problem ($X,Y$) at hand?
 
@@ -741,7 +741,7 @@ Skills of the **ML researchre**:
 - (as above and)
   - but implementing them as prototype
 - disigning new ML/pre-/post-processing/assessment techniques
-- formally motivating them
+- formally/experimentally motivating them
 
 **Experience, practice, knowledge**!
 ]
@@ -749,7 +749,7 @@ Skills of the **ML researchre**:
 
 ---
 
-## Should I use ML?
+## Should I use *Machine* Learning?
 
 Recall: we need an $f\_\\text{predict}: X \\to Y$ to make a decision $y$ about an $x$
 
@@ -820,4 +820,87 @@ Factors: .note[beyond **applicability**, which is a yes/no matter]
 
 ## Example of Iris
 
-<!-- say the story of the amateur botanist friend; sketch all phases -->
+Unce upon a time, there were Alice, a **ML expert**, and Bob, an **amateur botanist**...
+
+--
+
+Why a story?
+- we need a concrete case in order to **practice the phases** of the ML design (.col2[steps 1–3])
+- those steps cannot be made with an abstract case
+
+1. .col2[Decide: should I use ML?]
+2. .col2[Decide: supervised vs. unsupervised]
+3. .col2[Define the problem (problem statement)]
+4. Design the ML system
+5. Implement the ML system
+6. Assess the ML system
+
+---
+
+## Iris species
+
+Unce upon a time, there were Alice, a **ML expert**, and Bob, an **amateur botanist**.
+
+Bob likes to **collect Iris flowers** and to sort them properly in his collection boxes at home.
+He organizes collected flowers depending on their **species**.
+
+.center[
+.h20ex[![Iris versicolor](images/iris-versicolor.jpg)]
+.h20ex[![Iris virginica](images/iris-virginica.jpg)]
+.h20ex[![Iris setosa](images/iris-setosa.jpg)]
+
+Iris versicolor .hspace5[]
+Iris virginica .hspace5[]
+Iris setosa
+]
+
+---
+
+## Bob's need
+
+**Alice**: .col1[What's up, Bob?]  
+**Bob**: I'd like to put new flowers into proper boxes.  
+.col1[Well... I'm not an expert of flowers. Can't you do it by yourself?]  
+No, actually I don't. But I heard you now master the art of *machine learning*...  
+.col1[Ahhh, ok... But I see that you indeed have some flowers in the proper boxes!]  
+Yes, because I used to go to a professional botanist, who is able to tell me the species of each Iris flower I collect. I don't want to bother her anymore and her lab is far from here and it takes time to get there and the fuel is getting more and more pricey... 🦖  
+.col1[Mmmhh, I understand. So you think machine learning can be helpful here. Let's see...]
+
+--
+
+Some information about the context up to here (.col1[Alice's thoughts] 💭):
+- problem **timings**: no real hurry to make a decision
+- **scale** of the problem: how many flowers would Bob collect in the unit of time?
+- **cost** of the solution: Bob is basically trying to replace a free service with another free service...
+- expected **quality** of the solution: how picky will be Bob?
+
+No car accidents to be avoid (**timing**), no billions of emails to be analyzed (**scale**), no big business process invoved (**cost**), no loan decision to be made (**quality**).
+
+---
+
+## Tackling the Iris problem
+
+.cols[
+.c60[
+Reasons for **running** $f\_\\text{predict}$ on a machine:
+- 👎 $y$ has to be computed very quickly
+- 👎 $y$ has to be computed in a dangerous context
+- 🤏 the value of $y$ is very low
+- 🤌 a human would be biased in deciding $y$
+
+Reasons for **learning** $f\_\\text{predict}$ on a machine:
+- 👍 humans cannot design a reasonable $f\_\\text{predict}$
+- 🤌 human-made $f\_\\text{predict}$ is too costly/slow
+- 🤏 human-made $f\_\\text{predict}$ is not good
+
+.note[👍: yes!; 👎: no!; 🤏: maybe a bit; 🤌: who knows...]
+]
+.c40[
+1. .col2[Decide: should I use ML?]
+2. Decide: supervised vs. unsupervised
+3. Define the problem (problem statement)
+4. Design the ML system
+5. Implement the ML system
+6. Assess the ML system
+]
+]
