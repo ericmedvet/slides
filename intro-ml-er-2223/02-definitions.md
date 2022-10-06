@@ -296,10 +296,10 @@ In **unsupervised learning** there is no supervision, there are **no examples**:
 Formally, examples available for learning $f\_\\text{predict}$ are pairs $(x,y)$.
 
 A .key[dataset] compatible with $X$ and $Y$ is a *bag* of pairs $(x,y)$:
-$$D = \\{(x^{(i)},y^{(i)})\\}\_{i=1}^{i=n}$$
+$$D = \\left\\{\\left(x^{(i)},y^{(i)}\\right)\\right\\}\_{i=1}^{i=n}$$
 with $\\forall i: x^{(i)} \\in X, y^{(i)} \\in Y$ and $|D|=n$.
 
-Or, more briefly $D = \\{(x^{(i)},y^{(i)})(x\_i,y\_i)\\}\_i$.
+Or, more briefly $D = \\left\\{\\left(x^{(i)},y^{(i)}\\right)\\right\\}\_i$.
 .note[examples are also denoted by $(x\_i,y\_i)$, depending on the community]
 
 A **bag** ($D$ should be called *databag*...):
@@ -327,11 +327,11 @@ The learning set has to be **consistent** with the domain and codomain of the fu
 
 > .key[Supervised (Machine) Learning] is the science of getting computers to learn $f\_\\text{predict}: X \\to Y$ **from examples** autonomously.
 
-In brief: given a $D\_\\text{learn} \in \\mathcal{P}^\*(X \\times Y)$, learn a $f\_\\text{predict} \\in \\mathcal{F}\_{X,Y}$.
+In brief: given a $D\_\\text{learn} \\in \\mathcal{P}^\*(X \\times Y)$, learn a $f\_\\text{predict} \\in \\mathcal{F}\_{X,Y}$.
 
 --
 
-A .key[supervised learning technique] is a way for learning a $f\_\\text{predict} \\in \\mathcal{F}\_{X,Y}$ given a $D\_\\text{learn} \in \\mathcal{P}^\*(X \\times Y)$.
+A .key[supervised learning technique] is a way for learning a $f\_\\text{predict} \\in \\mathcal{F}\_{X,Y}$ given a $D\_\\text{learn} \\in \\mathcal{P}^\*(X \\times Y)$.
 
 .cols[
 .c50[
@@ -359,7 +359,7 @@ otext(250,10,'$f\_\\\\text{predict}$')
 
 ## Lerning techniques
 
-> A .key[supervised learning technique] is a way for learn a $f\_\\text{predict} \\in \\mathcal{F}\_{X,Y}$ given a $D\_\\text{learn} \in \\mathcal{P}^\*(X \\times Y)$.
+> A .key[supervised learning technique] is a way for learn a $f\_\\text{predict} \\in \\mathcal{F}\_{X,Y}$ given a $D\_\\text{learn} \\in \\mathcal{P}^\*(X \\times Y)$.
 
 Why don't we suffice a single learning technique?
 Why are there many of them?
@@ -717,7 +717,7 @@ The **designer** of the ML system, that is, you!
 2. Decide: supervised vs. unsupervised
 3. Define the problem (**problem statement**):
   - define $X$ and $Y$
-  - define a **way for assessing** solution
+  - define a **way for assessing** solutions
       - before designing!
       - applicable to any compatible ML solution
 4. **Design** the ML system
@@ -862,10 +862,10 @@ Iris versicolor
 **Alice**: .col1[What's up, Bob?]  
 **Bob**: I'd like to put new flowers into proper boxes.  
 .col1[Well... I'm not an expert of flowers. Can't you do it by yourself?]  
-No, actually I don't. But I heard you now master the art of *machine learning*...  
-.col1[Ahhh, ok... But I see that you indeed have some flowers in the proper boxes!]  
-Yes, because I used to go to a professional botanist, who is able to tell me the species of each Iris flower I collect. I don't want to bother her anymore and her lab is far from here and it takes time to get there and the fuel is getting more and more pricey... 🦖  
-.col1[Mmmhh, I understand. So you think machine learning can be helpful here. Let's see...]
+No, actually I cannot. But I heard you now master the art of *machine learning*...  
+.col1[Mmmmhhh... I see that you already have flowers in boxes. How did you sort them? Why ML now?]  
+Well, I used to go to a professional botanist, who was able to tell me the species of each Iris flower I collected. I don't want to bother her anymore and her lab is far from here and it takes time to get there and the fuel is getting more and more pricey... 🦖  
+.col1[Ok, I understand. So you think ML can be helpful here. Let's see...]
 
 --
 
@@ -948,10 +948,10 @@ Formally:
 $X=\\{x: x \\text{ is an Iris flower}\\}$  
 $Y=\\{\\text{setosa}, \\text{versicolor}, \\text{virginica}\\}$
 
-**Issues** with $X$: 🤔
+**Issues** with this $X$: 🤔
 - is that an useful definition? that is: can it be used for judging the membership of an object to $X$? $\\text{🌸} \\overset{?}{\\in} X$
 - is an $x \\in X$ processable by a machine? recall that in later phases:
-  - we want to take an $f\_\\text{learn}$ that is able to learn an $f\_\\text{predict}: X \\to Y$ and use it on a machine
+  - we want to take an $f\_\\text{learn}$ that is able to learn an $f\_\\text{predict}: X \\to Y$ and use $f\_\\text{learn}$ on a machine
   - we want to use the learned $f\_\\text{predict}$ on a machine
 ]
 .c40[
@@ -977,7 +977,7 @@ That is, we can design a $f\_\\text{preproc}: X \\to X'$ and an $X'$!
 
 Requirements:
 - (designing and) applying of $f\_\\text{preproc}$ should have an acceptable **cost**
-- an $x'=f\_\\text{preproc}(x)$ should not lose too much **information** of $x$ that is useful for obtaining a $y$
+- an $x'=f\_\\text{preproc}(x)$ should retain the **information** of $x$ that is useful for obtaining a $y$
 - $X'$ should be **compatible** with one or more learning techniques
 ]
 .c40[
@@ -1000,7 +1000,7 @@ Since most learning techniques are designed to work on a mutlivariate $X$, we ar
 That is, we are going to **define the features** and the way to **compute them** out of an $x$.
 
 This step is called .key[feature engineering] and is in practice a key step in the design of a ML system, often more important than the choice of the learning technique:
-- for the key requirement concerning the **loss of information** contained in $x$
+- for the key requirement concerning the **information retaining** contained in $x$
 - because it is often done before **collecting the dataset**, which may be a costly, hardly repeatable operation
 ]
 .c40[
@@ -1024,17 +1024,17 @@ Some options:
 .compact.nicetable[
 | Function $f\_\\text{preproc}$ | Set $X'$ | Cost | Info¹ | Comp.² |
 | --- | --- | --- | --- |
-| $x'$ is a textual description of $x$ | strings | .center[🫰🫰] | .center[🫳] | .center[👍] |
-| $x'$ is a digitale picture of $x$ | $[0,1]^{512 \\times 512 \\times 3}$ | .center[🫰] | .center[🫳] | .center[👍³] |
+| $x'$ is a textual desc. of $x$ | strings | .center[🫰🫰] | .center[🫳] | .center[👍] |
+| $x'$ is a digital pic. of $x$ | $[0,1]^{512 \\times 512 \\times 3}$ | .center[🫰] | .center[🫳] | .center[👍³] |
 | $x'$ is "the" DNA of $x$ | $\\{\\text{A}, \\text{C}, \\text{G}, \\text{T}\\}^*$ | .center[🫰🫰🫰] | .center[👍] | .center[👍] |
 | $x'$ is some measurements of $x$ | $\\mathbb{R}^p$ | .center[🫰] | .center[🫳] | .center[👍] |
 ]
 
-.note[1: info loss - 👍: small, i.e., good; 🫳: medium; 👎: large, i.e., bad]  
-.note[2: compatibility - 👍: large, i.e., good; 🫳: medium; 👎: small, i.e., bad]  
+.note[1: info retain: 👍: large, i.e., good; 🫳: medium; 👎: small, i.e., bad]  
+.note[2: compatibility: 👍: large, i.e., good; 🫳: medium; 👎: small, i.e., bad]  
 .note[3: not if Alice just attends this course...]
 
-The actual decision should be taken by Alice and Bob together, based on **domain knowledge** of the latter.
+The actual decision should be taken by Alice and Bob together, based on **domain knowledge** of the latter and ML knowledge of the former .
 ]
 .c40[
 1. Decide: should I use ML?
@@ -1046,7 +1046,266 @@ The actual decision should be taken by Alice and Bob together, based on **domain
 
 Requirements for $f\_\\text{preproc}: X \\to X'$:
 - proper cost
-- avoid information loss
+- retaining information
 - compatibility
 ]
+]
+
+---
+
+## Phase 3 - flower to vector
+
+.cols[
+.c60[
+Assume choice "$x'$ is some measurements of $x$", namely 4 measurements, then $f\_\\text{preproc}: X \\to \\mathbb{R}^4$ and $f\_\\text{preproc}(x)=\\vect{x}'=(x'\_1,x'\_2,x'\_3,x'\_4)$ with:
+- $x'\_1$ is the¹ sepal lenght of $x$ in cm
+- $x'\_2$ is the sepal width of $x$ in cm
+- $x'\_3$ is the petal lenght of $x$ in cm
+- $x'\_4$ is the petal width of $x$ in cm
+
+.cols[
+.c40[
+.center.h15ex[![Iris sepal and petal measurements](images/iris-sepal-petal.jpg)]
+]
+.c60[
+.nicetable[
+| $x'\_1$ | $x'\_2$ | $x'\_3$ | $x'\_4$ | $y$ |
+| --- | --- | --- | --- | --- |
+| 5.1 | 3.5 | 1.4 | 0.2 | setosa |
+| 7.0 | 3.2 | 4.7 | 1.4 | versicolor |
+| 6.3 | 3.3 | 6.0 | 2.5 | virginica |
+]
+]
+]
+
+.note[1: which one? it has to be decided! e.g., the longest, mean value, ...]
+]
+.c40[
+1. Decide: should I use ML?
+2. Decide: supervised vs. unsupervised
+3. .col2[Define the problem (problem statement)]
+4. Design the ML system
+5. Implement the ML system
+6. Assess the ML system
+
+Requirements for $f\_\\text{preproc}: X \\to X'$:
+- proper cost
+- retaining information
+- compatibility
+]
+]
+
+---
+
+## Phases 1 and 3 - explore the data
+
+.cols[
+.c60[
+.col1[Alice's thoughts] 💭: Is it true that we cannot design a reasonable $f\_\\text{predict}$? Are we retaining information?
+
+Let's **look at the data**!
+- which data? .col1[Bob, give me your samples and let's measure them]
+- what to look?
+  1. mean values for species and feature
+  2. boxplots of values for species and feature
+  3. pairwise (with respect to feature) scatterplots of observations
+
+How does Alice choose these 3 approaches, in this order?
+- experience
+- nature of $X'$ (here $\\mathbb{R}^4$)
+- knowledge of basic plots and their cost
+​]
+.c40[
+1. .col2[Decide: should I use ML?]
+2. Decide: supervised vs. unsupervised
+3. .col2[Define the problem (problem statement)]
+4. Design the ML system
+5. Implement the ML system
+6. Assess the ML system
+]
+]
+
+---
+
+## Phases 1 and 3 - data mean values
+
+.cols[
+.c60[
+Mean values for species and feature
+```r
+iris %>% group_by(Species) %>% summarise_all(mean)
+```
+```r
+# A tibble: 3 × 5
+  Species    Sepal.Length Sepal.Width Petal.Length Petal.Width
+  <fct>             <dbl>       <dbl>        <dbl>       <dbl>
+1 setosa             5.01        3.43         1.46       0.246
+2 versicolor         5.94        2.77         4.26       1.33
+3 virginica          6.59        2.97         5.55       2.03
+```
+
+Findings: setosa looks more different
+​]
+.c40[
+1. .col2[Decide: should I use ML?]
+2. Decide: supervised vs. unsupervised
+3. .col2[Define the problem (problem statement)]
+4. Design the ML system
+5. Implement the ML system
+6. Assess the ML system
+]
+]
+
+---
+
+## Phases 1 and 3 - boxplots
+
+.cols[
+.c60[
+Boxplots of values for species and feature
+```r
+iris %>% pivot_longer(cols=!Species)
+  %>% ggplot(aes(x=name, y=value, color=Species)) + geom_boxplot()
+```
+.center[![Iris boxplot](images/iris-boxplot.png)]
+
+Findings: **overlap** between versicolor and virginica, for **all** features
+​]
+.c40[
+1. .col2[Decide: should I use ML?]
+2. Decide: supervised vs. unsupervised
+3. .col2[Define the problem (problem statement)]
+4. Design the ML system
+5. Implement the ML system
+6. Assess the ML system
+]
+]
+
+---
+
+## Phases 1 and 3 - pairwise scatterplots
+
+.cols[
+.c60[
+Pairwise scatterplots of observations
+```r
+ggpairs(iris, columns=1:4, aes(color=Species, alpha=0.5),
+  upper=list(continuous="points"))
+```
+.center[![Iris pairwise scatterplots](images/iris-pairs.png)]
+
+Findings: **overlap**!
+​]
+.c40[
+1. .col2[Decide: should I use ML?]
+2. Decide: supervised vs. unsupervised
+3. .col2[Define the problem (problem statement)]
+4. Design the ML system
+5. Implement the ML system
+6. Assess the ML system
+
+Questions:
+- cannot design a $f\_\\text{predict}$?
+- retaining information?
+
+Outcome:  
+**Yes, let's use ML!**
+]
+]
+
+---
+
+## Phase 3 - solution assessment
+
+Problem statement:
+- define $X$ and $Y$
+- define a way for assessing solutions
+
+How?
+- next part
+
+---
+
+class: middle, center
+
+# Basic concepts
+
+## Brief recap
+
+---
+
+## Refining a definition of ML
+
+.key[Machine Learning] is the science of getting computers to learn without being explicitly programmed.
+.center[$\\downarrow$]
+.key[Machine Learning] is the science of getting computers to learn $f: X \\to Y$ without being explicitly programmed.
+.center[$\\downarrow$]
+.key[Machine Learning] is the science of getting computers to learn $f: X \\to Y$ autonomously.
+.center[$\\downarrow$]
+.key[Supervised (Machine) Learning] is the science of getting computers to learn $f: X \\to Y$ from examples autonomously.
+.center[$\\downarrow$]
+.important[
+.key[Supervised (Machine) Learning] is about designing and applying supervised learning techniques.
+A .key[supervised learning technique] is a way for learning a $f\_\\text{predict} \\in \\mathcal{F}\_{X,Y}$ given a $D\_\\text{learn} \\in \\mathcal{P}^\*(X \\times Y)$.
+]
+
+---
+
+## Key terms
+
+.cols[
+.c50[
+- each $x \\in X$ is an .key[observation], .key[input], .key[data point], or .key[instance]
+- each $y \\in Y$ is a .key[response] or .key[output]
+- $D = \\left\\{\\left(x^{(i)},y^{(i)}\\right)\\right\\}\_i$ is a .key[dataset] compatible with $X$ and $Y$; .key[learning set] if used for learning
+- .key[learning phase] is when $f\_\\text{learn}$ is being applied
+- .key[prediction phase] is when $f\_\\text{predict}$ is being applied
+- a .key[model] is the variable part $m$ of a templated $f\_\\text{predict}(x) = f'\_\\text{predict}(x, m)$
+]
+.c50[
+- if $Y$ is finite and without ordering, it's a .key[classification] problem
+  - if $|Y|=2$, it's .key[binary classification]
+  - if $|Y|>2$, it's .key[multiclass classification]
+- if $Y = \\mathbb{R}$, it's a .key[regression] problem
+- if $X = X\_1 \\times \\dots \\times X\_p$ is **multivariate**, each $x_i$ is an .key[independent variable], .key[feature], or .key[attribute]
+- $y$ is .key[dependent variable] or .key[response variable]
+  - in classification, $y$ is the .key[class label]
+]
+]
+
+---
+
+## Supervised learning technique
+
+
+A learning technique **is defined by** $f'\_\\text{learn}, f'\_\\text{predict}$:
+
+.cols[
+.c50[
+$$f'\_\\text{learn}: \\mathcal{P}^\*(X \\times Y) \\to M$$
+$$f'\_\\text{predict}: X \\times M \\to Y$$
+]
+.c50[
+.diagram.center[
+link([0,25,100,25],'a')
+rect(100,0,100,50)
+link([200,25,310,25],'a')
+otext(150,25,"$f'\_\\\\text{learn}$")
+otext(50,10,'$D\_\\\\text{learn}$')
+otext(250,10,'$m$')
+link([0,125,100,125],'a')
+rect(100,100,100,50)
+link([200,125,310,125],'a')
+otext(150,125,"$f'\_\\\\text{predict}$")
+otext(50,110,'$x, m$')
+otext(250,110,'$y$')
+]
+]
+]
+
+.important[
+.key[Supervised (Machine) Learning] is about designing and applying supervised learning techniques.
+A .key[supervised learning technique] is defined by:
+- a way $f'\_\\text{learn}$ for learning a model $m \\in M$ given a $D\_\\text{learn} \\in \\mathcal{P}^\*(X \\times Y)$;
+- a way $f'\_\\text{predict}$ for computing a response $y$ given an observation $x$ and a model $m$.
 ]
