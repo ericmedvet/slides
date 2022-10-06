@@ -1226,6 +1226,23 @@ How?
 
 ---
 
+## The true story of the Iris dataset
+
+.cols[
+.c50[
+.center.w75p[![Iris paper 1](images/iris-paper-1.png)]
+.ref[Anderson, Edgar. "The species problem in Iris." Annals of the Missouri Botanical Garden 23.3 (1936): 457-509.]
+]
+.c50[
+.center.w75p[![Iris paper 2](images/iris-paper-2.png)]
+.ref[Fisher, Ronald A. "The use of multiple measurements in taxonomic problems." Annals of eugenics 7.2 (1936): 179-188.]
+
+**1936**!!!
+]
+]
+
+---
+
 class: middle, center
 
 # Basic concepts
