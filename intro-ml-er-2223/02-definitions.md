@@ -1218,8 +1218,8 @@ Outcome:
 ## Phase 3 - solution assessment
 
 Problem statement:
-- define $X$ and $Y$
-- define a way for assessing solutions
+- define $X$ and $Y$ ✅
+- define a way for assessing solutions ❌
 
 How?
 - next part
@@ -1257,7 +1257,7 @@ A .key[supervised learning technique] is a way for learning a $f\_\\text{predict
 .c50[
 - each $x \\in X$ is an .key[observation], .key[input], .key[data point], or .key[instance]
 - each $y \\in Y$ is a .key[response] or .key[output]
-- $D = \\left\\{\\left(x^{(i)},y^{(i)}\\right)\\right\\}\_i$ is a .key[dataset] compatible with $X$ and $Y$; .key[learning set] if used for learning
+- $D = \\left\\{\\left(x^{(i)},y^{(i)}\\right)\\right\\}\_i$ is a .key[dataset] compatible with $X$ and $Y$; a .key[learning set] if used for learning
 - .key[learning phase] is when $f\_\\text{learn}$ is being applied
 - .key[prediction phase] is when $f\_\\text{predict}$ is being applied
 - a .key[model] is the variable part $m$ of a templated $f\_\\text{predict}(x) = f'\_\\text{predict}(x, m)$
@@ -1268,7 +1268,7 @@ A .key[supervised learning technique] is a way for learning a $f\_\\text{predict
   - if $|Y|>2$, it's .key[multiclass classification]
 - if $Y = \\mathbb{R}$, it's a .key[regression] problem
 - if $X = X\_1 \\times \\dots \\times X\_p$ is **multivariate**, each $x_i$ is an .key[independent variable], .key[feature], or .key[attribute]
-- $y$ is .key[dependent variable] or .key[response variable]
+- $y$ is the .key[dependent variable] or .key[response variable]
   - in classification, $y$ is the .key[class label]
 ]
 ]
