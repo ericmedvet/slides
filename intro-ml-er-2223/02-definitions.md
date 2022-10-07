@@ -738,7 +738,7 @@ Skills of the **ML practitioner**/designer:
 - implementing them in production
 - **motivate** all choices
 
-Skills of the **ML researchre**:
+Skills of the **ML researcher**:
 - (as above and)
   - but implementing them as prototype
 - disigning new ML/pre-/post-processing/assessment techniques
@@ -821,7 +821,7 @@ Factors: .note[beyond **applicability**, which is a yes/no matter]
 
 ## Example of Iris
 
-Unce upon a time, there were Alice, a **ML expert**, and Bob, an **amateur botanist**...
+Once upon a time, there were Alice, a **ML expert**, and Bob, an **amateur botanist**...
 
 --
 
@@ -840,7 +840,7 @@ Why a story?
 
 ## Iris species
 
-Unce upon a time, there were Alice, a **ML expert**, and Bob, an **amateur botanist**.
+Once upon a time, there were Alice, a **ML expert**, and Bob, an **amateur botanist**.
 
 Bob liked to **collect Iris flowers** and to sort them properly in his collection boxes at home.
 He organized collected flowers depending on their **species**.
@@ -1058,9 +1058,9 @@ Requirements for $f\_\\text{preproc}: X \\to X'$:
 .cols[
 .c60[
 Assume choice "$x'$ is some measurements of $x$", namely 4 measurements, then $f\_\\text{preproc}: X \\to \\mathbb{R}^4$ and $f\_\\text{preproc}(x)=\\vect{x}'=(x'\_1,x'\_2,x'\_3,x'\_4)$ with:
-- $x'\_1$ is the¹ sepal lenght of $x$ in cm
+- $x'\_1$ is the¹ sepal length of $x$ in cm
 - $x'\_2$ is the sepal width of $x$ in cm
-- $x'\_3$ is the petal lenght of $x$ in cm
+- $x'\_3$ is the petal length of $x$ in cm
 - $x'\_4$ is the petal width of $x$ in cm
 
 .cols[
