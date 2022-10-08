@@ -36,7 +36,7 @@ Given an axis $a$ of assessment:
   - is a learning technique explainable *enough*?
   - is a ML system efficient *enough*?
 - **comparison**: is one thing better than one other thing in terms of $a$?
-  - is model $m_1$ more effective than model $m_2$?
+  - is model $m_1$ more effective than model $m_2$? .note[maybe obtained with same technique and different parameters]
   - is this learning technique more efficient than that learning technique?
 
 "enough" represents some expectation, some minimum degree of $a$ to be reached.
@@ -179,6 +179,7 @@ Formally, given a $D$ (obtained from $s$) and an $f\_\\text{predict}: X \\to Y$,
 .cols[
 .c50[
 $$f\_\\text{effectiveness}: \\mathcal{P}^*(X \\times Y) \\times \\mathcal{F}\_{X,Y} \\to \\mathbb{R}$$
+$$q = f\_\\text{effectiveness}(D, f\_\\text{predict})$$
 ]
 .c50[
 .diagram.center[
@@ -190,10 +191,13 @@ otext(87.5,10,"$D,f\\\\subtext{predict}$")
 otext(362.5,10,'$q$')
 ]
 .note[
-$q \\in \\mathcal{R}$ for quality
+$q \\in \\mathbb{R}$ for quality
 ]
 ]
 ]
+
+$q$ is the **effectiveness** of $f\_\\text{predict}$ on a **dataset** $D$!
+- effectiveness might be different for a different for another $D' \\ne D$
 
 <!-- special case of behavior comparison -->
 <!-- highlight function operating on pairs of y, put focus on just y -->
