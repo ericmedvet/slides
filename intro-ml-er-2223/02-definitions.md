@@ -709,13 +709,13 @@ The **designer** of the ML system, that is, you!
 
 ---
 
-## Phases of the ML design
+## Phases of design of a ML design
 
 .cols[
 .c50[
 1. Decide: should I use ML?
 2. Decide: supervised vs. unsupervised
-3. Define the problem (**problem statement**):
+3. Define the problem (.key[problem statement]):
   - define $X$ and $Y$
   - define a **way for assessing** solutions
       - before designing!
@@ -978,7 +978,7 @@ That is, we can design a $f\_\\text{preproc}: X \\to X'$ and an $X'$!
 Requirements:
 - (designing and) applying of $f\_\\text{preproc}$ should have an acceptable **cost**
 - an $x'=f\_\\text{preproc}(x)$ should retain the **information** of $x$ that is useful for obtaining a $y$
-- $X'$ should be **compatible** with one or more learning techniques
+- $X'$ should be **compatible** with one or more learning techniques .note[see]
 ]
 .c40[
 1. Decide: should I use ML?
@@ -987,6 +987,10 @@ Requirements:
 4. Design the ML system
 5. Implement the ML system
 6. Assess the ML system
+
+.note[
+If $x \\in X$ is *not digital*, we consider $f\_\\text{preproc}$ to be applied outside the ML system, hence its definition is part of the problem statement; otherwise, if $x \\in X$ is natively digital, then each $f\_\\text{preproc}$ can be considered as part of the ML system, and its definition is done in phase 4.
+]
 ]
 ]
 
@@ -1294,7 +1298,6 @@ A .key[supervised learning technique] is a way for learning a $f\_\\text{predict
 
 ## Supervised learning technique
 
-
 A learning technique **is defined by** $f'\_\\text{learn}, f'\_\\text{predict}$:
 
 .cols[
@@ -1325,4 +1328,39 @@ otext(250,110,'$y$')
 A .key[supervised learning technique] is defined by:
 - a way $f'\_\\text{learn}$ for learning a model $m \\in M$ given a $D\_\\text{learn} \\in \\mathcal{P}^\*(X \\times Y)$;
 - a way $f'\_\\text{predict}$ for computing a response $y$ given an observation $x$ and a model $m$.
+]
+
+---
+
+## Phases of desing of a ML system
+
+.cols[
+.c50[
+1. Decide: should I .col1[**use ML?**]
+2. Decide: supervised vs. unsupervised
+3. Define the problem (.key[problem statement]):
+  - define $X$ and $Y$
+  - .col2[**feature engineering**]
+  - define a way for assessing solutions
+4. Design the ML system
+5. Implement the ML system
+6. Assess the ML system
+]
+.c50[
+.col1[Arguments for $f\_\\text{predict}$ on machine:]
+- computing $y$ quickly
+- dangerous context
+- low $y$ value
+- avoid human bias
+
+.col1[Arguments for $g\_\\text{learn}$ on machine:]
+- cannot build $f\_\\text{predict}$ manually
+- cost building $f\_\\text{predict}$ manually
+- quality of manually built $f\_\\text{predict}$
+
+.col2[Requirements for $f\_\\text{preproc}: X \\to X'$:]
+- proper cost
+- retaining information
+- compatibility
+]
 ]

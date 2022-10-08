@@ -37,6 +37,12 @@ a {
 pre {
   margin: 0.1em 0;
 }
+p, ul, ol {
+  margin: 0.5em 0;
+}
+ul ul, ol ul, ul ol {
+  margin: 0;
+}
 .remark-code, .remark-inline-code {
   font-family: "Roboto Mono";
 }
@@ -170,10 +176,10 @@ img {
   color: darkgray;
   font-size: 75%;
 }
-.note::before {
+span.note::before {
   content: "(";
 }
-.note::after {
+span.note::after {
   content: ")";
 }
 .large {
