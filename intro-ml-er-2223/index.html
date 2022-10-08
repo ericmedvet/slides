@@ -19,8 +19,8 @@
     <script>
       var sourceUrls = [
         "01-intro.md",
-        "02-definitions.md"/*,
-        "03-supervised-evaluation.md",
+        "02-definitions.md",
+        "03-supervised-evaluation.md"/*,
         "04-tree-based.md",
         "05-svm.md",
         "06-nb-knn.md",
@@ -42,7 +42,8 @@
           strict: "ignore",
           trust: true,
           macros: {
-            "\\vect": "\\boldsymbol"
+            "\\vect": "\\boldsymbol",
+            "\\subtext": "\_\\text{#1}"
           },
           delimiters: [
             { left: "$$", right: "$$", display: true },

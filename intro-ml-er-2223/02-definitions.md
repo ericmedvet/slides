@@ -1332,7 +1332,7 @@ A .key[supervised learning technique] is defined by:
 
 ---
 
-## Phases of desing of a ML system
+## Phases of design of a ML system
 
 .cols[
 .c50[
