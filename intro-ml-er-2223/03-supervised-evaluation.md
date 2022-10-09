@@ -524,9 +524,12 @@ In practice:
 If $\\seq{x^{(i)}}{i}$ is collected properly, it is **representative of the behavior** of the real system (together with the corresponding $\\seq{s(x^{(i)})}{i}$), hence the third case is the most relevant one:
 $$f\\subtext{acc}(\\cdot) \\in [\\max\_{y \\in Y} \\text{freq}(y, \\{s(x^{(i)})\\}\_i), 1 - \\epsilon]$$
 
+- do not cry for a missed $100\%$
+- do not be too happy just because you score $> 0\%$ (up to $50\%$ for binary classification)
+
 --
-In practice:
-- for spam, $x$ is an email, i.e., a string of text: are we interested in measuring the accuracy of a spam filter on all possible strings? or are we more interested in knowing its accuracy for actual emails (past, present, and future ones)?
+
+**Example**: for spam, ($x$ is an email, i.e., a string of text) are we interested in measuring the accuracy of a spam filter on all possible strings? or are we more interested in knowing its accuracy for actual emails (past, present, and future ones)?
 
 ---
 
