@@ -92,12 +92,12 @@ Or, there exists in reality some system $s^{-1}: Y \\to X$ that, given an $y$ pr
 
 .cols[
 .c50.center[
-Model $m$ (or $f'\\subtext{predict}$)
+Model $m$ (or $f\\subtext{predict}$)
 .diagram[
 link([0,25,75,25],'a')
 rect(75,0,150,50)
 link([225,25,300,25],'a')
-otext(150,25,"$f'\_\\\\text{predict}(\\\\cdot, m)$")
+otext(150,25,"$f'\\\\subtext{predict}(\\\\cdot, m)$")
 otext(37.5,10,'$x$')
 otext(262.5,10,'$y$')
 ]
@@ -125,12 +125,12 @@ A templated $f'\\subtext{predict}: X \\times M \\to Y$ with a fixed model $m$ is
 
 .cols[
 .c50.center[
-Model $m$ (or $f'\\subtext{predict}$)
+Model $m$ (or $f\\subtext{predict}$)
 .diagram[
 link([0,25,75,25],'a')
 rect(75,0,150,50)
 link([225,25,300,25],'a')
-otext(150,25,"$f'\_\\\\text{predict}(\\\\cdot, m)$")
+otext(150,25,"$f'\\\\subtext{predict}(\\\\cdot, m)$")
 otext(37.5,10,'$x$')
 otext(262.5,10,'$y$')
 ]
@@ -334,7 +334,7 @@ function $\\text{comp-behavior}(f\\subtext{predict}, s)$ {
 
 where $\\{(y^{(i)},\\hat{y}^{(i)})\\}\_i \\in \\mathcal{P}^\*(Y^2)$ is a multiset of pairs of $y$.
 
-Depends only on $Y$, not on X!
+Depends only on $Y$, not on $X$!
 
 We'll see **a few options** for the main cases:
 - classification
@@ -342,6 +342,12 @@ We'll see **a few options** for the main cases:
   - binary: **FPR** and **FNR** (and variants), **EER**, **AUC**
   - multiclass: **weighted accuracy**
 - regression: **MAE**, **MSE**, **MRE**, $R^2$
+
+---
+
+class: middle, center
+
+## Assessing models
 
 ---
 
@@ -417,8 +423,8 @@ Considering **all possibles multisets of responses** $\\mathcal{P}^\*(Y)$, the *
 --
 
 Given **one specific multiset of responses** $\\{y^{(i)}\\}\_i$, a slightly improved random classifier is:
-$$f\_{\\text{rnd},\\{y^{(i)}\\}\_i}(x) = \\argmax\_{y \\in Y} \\frac{1}{n} \\sum\_{i=1}^{i=n} \\mathbf{1}(y,y^{(i)})=\\argmax\_{y \\in Y} \\text{freq}(y, \\{y^{(i)}\\}\_i)$$
-On the $\\{y^{(i)}\\}\_i$ on which it is built, the accuracy of this random classifier is $\\max\_{y \\in Y} \\text{freq}(y, \\{y^{(i)}\\}\_i)$.
+$$f\_{\\text{rnd},\\{y^{(i)}\\}\_i}(x) = \\argmax\_{y \\in Y} \\frac{1}{n} \\sum\_{i=1}^{i=n} \\mathbf{1}(y,y^{(i)})=\\argmax\_{y \\in Y} \\freq{y, \\{y^{(i)}\\}\_i}$$
+On the $\\{y^{(i)}\\}\_i$ on which it is built, the accuracy of this random classifier is $\\max\_{y \\in Y} \\freq{y, \\{y^{(i)}\\}\_i}$.
 
 Recall: we use $f\\subtext{acc}$ on one specific $\\{y^{(i)}\\}\_i$; the latter is a **more "challenging"** lower bound.
 
@@ -517,39 +523,125 @@ In practice:
 | --- | --- | --- |
 | By definition | $0$ | $1$ |
 | In practice, all data | $\\frac{1}{\\lvert Y\\rvert}$ | $\\le 1$ |
-| In practice, with one $\\seq{x^{(i)}}{i}$ | $\\max\_{y \\in Y} \\text{freq}(y, \\{s(x^{(i)})\\}\_i)$ | $\\le 1$ |
+| In practice, with one $\\seq{x^{(i)}}{i}$ | $\\max\_{y \\in Y} \\freq{y, \\{s(x^{(i)})\\}\_i}$ | $\\le 1$ |
 ]
 ]
 
-If $\\seq{x^{(i)}}{i}$ is collected properly, it is **representative of the behavior** of the real system (together with the corresponding $\\seq{s(x^{(i)})}{i}$), hence the third case is the most relevant one:
-$$f\\subtext{acc}(\\cdot) \\in [\\max\_{y \\in Y} \\text{freq}(y, \\{s(x^{(i)})\\}\_i), 1 - \\epsilon]$$
+If $\\seq{x^{(i)}}{i}$ is collected properly, it is **representative of the behavior¹** of the real system (together with the corresponding $\\seq{s(x^{(i)})}{i}$), hence the third case is the most relevant one:
 
-- do not cry for a missed $100\%$
-- do not be too happy just because you score $> 0\%$ (up to $50\%$ for binary classification)
+.center[$f\\subtext{acc}(\\cdot) \\in [\\max\_{y \\in Y} \\freq{y, \\\\{s(x^{(i)})\\\\}\_i}, 1 - \\epsilon]$ .note[$\\epsilon > 0$ is actually unknown]]
+
+In practice, use the **random classifier as a baseline** and
+- do not cry 😭 for a missed $100\%$
+- do not be too happy 🥳 just because you score $> 0\%$
 
 --
 
-**Example**: for spam, ($x$ is an email, i.e., a string of text) are we interested in measuring the accuracy of a spam filter on all possible strings? or are we more interested in knowing its accuracy for actual emails (past, present, and future ones)?
+**1: Example**: for spam, ($x$ is an email, i.e., a string of text) are we interested in measuring the accuracy of a spam filter on all possible strings? or are we more interested in knowing its accuracy for actual emails (past, present, and future ones)?
 
 ---
 
+## Building the random classifier
+
+Consider the supervised learning technique as a random classifier:
+- in learning phase: compute frequencies/probability of classes .note[concrete]
+- in prediction phase: choose the most frequent class .note[concrete]
+
+Hence, formally:
+- a model $m \\in M$ is:
+  - the frequencies classes $\\vect{f} = (f\_1,\\dots,f\_{|Y|})$ with $M=F\_Y=\\{\\vect{f} \\in [0,1]^{|Y|}: \\lVert \\vect{f} \\rVert\_1=1\\}$   .note[
+  $\\lVert \\vect{x} \\rVert\_1$ is the **1-norm** of a vector $\\vect{x}=(x\_1,\\dots,x\_p)$ with $\\lVert \\vect{x} \\rVert\_1$ $=\\sum\_i x\_i$
+  ]
+  - a **discrete probability** $p$ over $Y$, with $M=P\_Y=\\{p: Y \\to [0,1] \\text{ s.t. } 1=\\sum\_{y' \\in Y} p(y')=\\prob{y'=y}\\}$ .note[$\\text{s.t.}$ stays for "such that"]
+- $f'\\subtext{learn}: \\mathcal{P}^*(X \\times Y) \\to P\_Y$ .note[asbtract]
+- $f'\\subtext{predict}: X \\times P\_Y \\to Y$ .note[asbtract]
+
+Works with:
+- any $X$
+- finite $Y$ (categorical $y$)
+
+---
+
+## Building the random classifier
+
+.cols[
+.c60[
+.diagram.center[
+link([0,25,150,25],'a')
+rect(150,0,100,50)
+link([250,25,350,25],'a')
+otext(200,25,"$f'\\\\subtext{learn}$")
+otext(75,10,'$\\\\seq{(x^{(i)},y^{(i)})}{i}$')
+otext(300,10,'$\\\\htmlClass{col2}{m}$')
+]
+]
+.c40[
+.diagram.center[
+link([0,25,100,25],'a')
+rect(100,0,100,50)
+link([200,25,310,25],'a')
+otext(150,25,"$f'\\\\subtext{predict}$")
+otext(50,10,'$x, \\\\htmlClass{col2}{m}$')
+otext(250,10,'$y$')
+]
+]
+]
+
+Option 1: the model .col2[$m$] is a **discrete probability**: .note[here $f'\\subtext{learn}$ a function that returns a function]
+.cols[
+.c60[
+$$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\htmlClass{col2}{p}: p(y)= \\freq{y, \\seq{y^{(i)})}{i}}$$
+]
+.c40[
+$$f'\\subtext{predict}(x,\\htmlClass{col2}{p})=\\argmax\_{y \\in Y} \\htmlClass{col2}{p}(y)$$
+]
+]
+
+Option 2: the model .col2[$m$] is a **vector of frequencies**:
+.note[assume $Y=\\\\{y\_1, y\_2, \\dots\\\\}$]
+.cols[
+.c60[
+$$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\htmlClass{col2}{\\vect{f}} = \\left(\\freq{y\_j, \\seq{y^{(i)})}{i}}\\right)\_j$$
+]
+.c40[
+.center[
+$f'\\subtext{predict}(x,\\htmlClass{col2}{\\vect{f}})=y\_i$
+
+with $i = \\argmax\_i f\_i$]
+]
+]
+
+Option 2: the model .col2[$m$] is simply the learning **dataset**: .note[just the $y$ part of it]
+.cols[
+.c60[
+$$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\htmlClass{col2}{\\seq{y^{(i)}}{i}}$$
+]
+.c40[
+$$f'\\subtext{predict}(x,\\seq{y^{(i)}}{i})=\\argmax\_{y \\in Y} \\freq{y,\\htmlClass{col2}{\\seq{y^{(i)}}{i}}}$$
+]
+]
+
+---
+
+## Binary classification
+
+---
+
+<!--
 - introduce positives, negatives
 - table with all binary classification indexes: fpr, fnr, precision, recall, sensitivity, specificity
-- why accuracy alone is not meaningful: unbalanced data
+- why accuracy alone is not meaningful: example of unbalanced data
 
-- $f(x)$ as a distribution over decision instead of decision
+- $f_predict(x)$ as a distribution over decision instead of decision
 - how to obtain decision from distribution
   - sketch on how to make the opposite: (dirac) distribution from decision
 - eer
 - roc, auc
 - influence of knowledge of cost of errors on choice of eval indexes
 
-- boundaries for accuracy
-- random classifier, most frequent class classifier, introduce *bayes classifier* in the context of classification: say it does errors even if perfect
-- discuss bayes, its error, and their relation with $x$ with respect to the actual entity
-- introduce the concept and the need for *baselines*
-
 - multiclass case: accuracy, weighted accuracy
+
+- regression
 
 - from comparing models to comparing learning techs
 - say: as we took many x,y pairs for assessing a model, we should take many D to assess a f_learn; sketch f_assess_learn as a block
@@ -560,3 +652,4 @@ $$f\\subtext{acc}(\\cdot) \\in [\\max\_{y \\in Y} \\text{freq}(y, \\{s(x^{(i)})\
 - comparing models/param values
 - mean and stdev of many execs
 - motivation and brief sketch statistical significance tests
+-->

@@ -343,9 +343,9 @@ $$f\\subtext{predict} = f\\subtext{learn}\\left(D\\subtext{learn}\\right)$$
 link([0,25,100,25],'a')
 rect(100,0,100,50)
 link([200,25,310,25],'a')
-otext(150,25,'$f\_\\\\text{learn}$')
-otext(50,10,'$D\_\\\\text{learn}$')
-otext(250,10,'$f\_\\\\text{predict}$')
+otext(150,25,'$f\\\\subtext{learn}$')
+otext(50,10,'$D\\\\subtext{learn}$')
+otext(250,10,'$f\\\\subtext{predict}$')
 ]
 ]
 ]
@@ -461,9 +461,9 @@ The learning technique **is defined by** $f\\subtext{learn}$.
 link([0,25,100,25],'a')
 rect(100,0,100,50)
 link([200,25,310,25],'a')
-otext(150,25,'$f\_\\\\text{learn}$')
-otext(50,10,'$D\_\\\\text{learn}$')
-otext(250,10,'$f\_\\\\text{predict}$')
+otext(150,25,'$f\\\\subtext{learn}$')
+otext(50,10,'$D\\\\subtext{learn}$')
+otext(250,10,'$f\\\\subtext{predict}$')
 ]
 ]
 .c50[
@@ -477,13 +477,13 @@ The learning technique **is defined by** $f'\\subtext{learn}, f'\\subtext{predic
 link([0,25,100,25],'a')
 rect(100,0,100,50)
 link([200,25,310,25],'a')
-otext(150,25,"$f'\_\\\\text{learn}$")
-otext(50,10,'$D\_\\\\text{learn}$')
+otext(150,25,"$f'\\\\subtext{learn}$")
+otext(50,10,'$D\\\\subtext{learn}$')
 otext(250,10,'$m$')
 link([0,125,100,125],'a')
 rect(100,100,100,50)
 link([200,125,310,125],'a')
-otext(150,125,"$f'\_\\\\text{predict}$")
+otext(150,125,"$f'\\\\subtext{predict}$")
 otext(50,110,'$x, m$')
 otext(250,110,'$y$')
 ]
@@ -1311,13 +1311,13 @@ $$f'\\subtext{predict}: X \\times M \\to Y$$
 link([0,25,100,25],'a')
 rect(100,0,100,50)
 link([200,25,310,25],'a')
-otext(150,25,"$f'\_\\\\text{learn}$")
-otext(50,10,'$D\_\\\\text{learn}$')
+otext(150,25,"$f'\\\\subtext{learn}$")
+otext(50,10,'$D\\\\subtext{learn}$')
 otext(250,10,'$m$')
 link([0,125,100,125],'a')
 rect(100,100,100,50)
 link([200,125,310,125],'a')
-otext(150,125,"$f'\_\\\\text{predict}$")
+otext(150,125,"$f'\\\\subtext{predict}$")
 otext(50,110,'$x, m$')
 otext(250,110,'$y$')
 ]
