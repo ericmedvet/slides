@@ -58,14 +58,20 @@ ul ul, ol ul, ul ol {
   color: #111;
   background-color: #DDD;
   padding: 0.5em;
-  line-height: 95%;
+  line-height: 90%;
 }
 .pseudo-code p {
   margin: 0;
 }
+.pseudo-code .katex {
+  line-height: 90%;
+}
 .pseudo-code .i {
   display: inline-block;
   width: 1.5em;
+}
+.katex .st {
+  font-size: 82%;
 }
 .cols {
   display: flex;

@@ -124,8 +124,8 @@ New version:
 
 ## Prediction
 
-$f$ is often denoted as $f\_\\text{predict}$ since, given an $x$, **predicts** a $y$
-- when used in practice, i.e., in the **prediction phase**, $f\_\\text{predict}$ guesses about an unknown, real $\\hat{y}$
+$f$ is often denoted as $f\\subtext{predict}$ since, given an $x$, **predicts** a $y$
+- when used in practice, i.e., in the **prediction phase**, $f\\subtext{predict}$ guesses about an unknown, real $\\hat{y}$
 
 
 ---
@@ -228,16 +228,16 @@ otext(150,25,'$x_1+x_2$')
 ## Writing $f$
 
 Usually, computer programs are written by humans, but here:
-> .key[Machine Learning] is the science of getting computers to learn $f\_\\text{predict}: X \\to Y$ without being explicitly programmed.
+> .key[Machine Learning] is the science of getting computers to learn $f\\subtext{predict}: X \\to Y$ without being explicitly programmed.
 
-*without being explicitly programmed* means that $f\_\\text{predict}$ is **not written by a human**!
+*without being explicitly programmed* means that $f\\subtext{predict}$ is **not written by a human**!
 
 It appears verbose, let's get rid of it.
 
 --
 
 New version:  
-> .key[Machine Learning] is the science of getting computers to learn $f\_\\text{predict}: X \\to Y$ **autonomously**.
+> .key[Machine Learning] is the science of getting computers to learn $f\\subtext{predict}: X \\to Y$ **autonomously**.
 
 ---
 
@@ -256,15 +256,15 @@ Alternative version:
 --
 
 In $f$ terms:
-1. consider $\\mathcal{F}\_{X,Y} = \\{f, f: X \\to Y\\}$
-2. choose one $f \\in \\mathcal{F}\_{X,Y}$ that does what expected
+1. consider $\\mathcal{F}\_{X \\to Y} = \\{f, f: X \\to Y\\}$
+2. choose one $f \\in \\mathcal{F}\_{X \\to Y}$ that does what expected
 
 ---
 
 ## Desired behavior of $f$
 
-1. consider $\\mathcal{F}\_{X,Y} = \\{f, f: X \\to Y\\}$
-2. choose one $f \\in \\mathcal{F}\_{X,Y}$ **that does what expected**
+1. consider $\\mathcal{F}\_{X \\to Y} = \\{f, f: X \\to Y\\}$
+2. choose one $f \\in \\mathcal{F}\_{X \\to Y}$ **that does what expected**
 
 Step 2 is fundamental in practice
   - "find a program that, given a string, returns a number" wouldn't make sense alone!
@@ -277,11 +277,11 @@ There has to be some **supervision** facilitating the search for a good $f$.
 
 ## Supervised learning
 
-When the supervision is in the form of some **examples** (observation $\\rightarrow$ response) and the learned $f\_\\text{predict}$ should *process them correctly*.
+When the supervision is in the form of some **examples** (observation $\\rightarrow$ response) and the learned $f\\subtext{predict}$ should *process them correctly*.
 - example: "if I give you this *observation* $x$, you should *predict* this *response* $y$"
 
 New version:  
-> .key[Supervised (Machine) Learning] is the science of getting computers to learn $f\_\\text{predict}: X \\to Y$ **from examples** autonomously.
+> .key[Supervised (Machine) Learning] is the science of getting computers to learn $f\\subtext{predict}: X \\to Y$ **from examples** autonomously.
 
 --
 
@@ -293,7 +293,7 @@ In **unsupervised learning** there is no supervision, there are **no examples**:
 
 ## Examples
 
-Formally, examples available for learning $f\_\\text{predict}$ are pairs $(x,y)$.
+Formally, examples available for learning $f\\subtext{predict}$ are pairs $(x,y)$.
 
 A .key[dataset] compatible with $X$ and $Y$ is a *bag* of pairs $(x,y)$:
 $$D = \\left\\{\\left(x^{(i)},y^{(i)}\\right)\\right\\}\_{i=1}^{i=n}$$
@@ -312,31 +312,31 @@ A **bag** ($D$ should be called *databag*...):
 
 ## Learning set
 
-A .key[learning set] is a dataset that is used for learning an $f\_\\text{predict}$.
-- may be denoted by $D\_\\text{learn}$ .note[or $L$, or $T$, for *training* set]
+A .key[learning set] is a dataset that is used for learning an $f\\subtext{predict}$.
+- may be denoted by $D\\subtext{learn}$ .note[or $L$, or $T$, for *training* set]
 
-The learning set has to be **consistent** with the domain and codomain of the function $f\_\\text{predict}$ to be learned:
-- if $f\_\\text{predict} \\in \\mathcal{F}\_{X,Y}$, then $D\_\\text{learn} \\in \\mathcal{P}^\*(X \\times Y)$
+The learning set has to be **consistent** with the domain and codomain of the function $f\\subtext{predict}$ to be learned:
+- if $f\\subtext{predict} \\in \\mathcal{F}\_{X \\to Y}$, then $D\\subtext{learn} \\in \\mathcal{P}^\*(X \\times Y)$
   - $X \\times Y$ is the Cartesian product of $X$ and $Y$, i.e., the set of all possible $(x,y)$ pairs
   - $\\mathcal{P}(A)$ is the powerset of $A$, i.e., the set of all the possible subsets of $A$
-  - $\\mathcal{P}^\*(A)$ is a *custom notation* for the powerset with duplicates
+  - $\\mathcal{P}^\*(A)$ is a *custom notation* for the powerset with duplicates, i.e., the set of all the possible **multisets** of $A$
 
 ---
 
 ## Learning technique
 
-> .key[Supervised (Machine) Learning] is the science of getting computers to learn $f\_\\text{predict}: X \\to Y$ **from examples** autonomously.
+> .key[Supervised (Machine) Learning] is the science of getting computers to learn $f\\subtext{predict}: X \\to Y$ **from examples** autonomously.
 
-In brief: given a $D\_\\text{learn} \\in \\mathcal{P}^\*(X \\times Y)$, learn a $f\_\\text{predict} \\in \\mathcal{F}\_{X,Y}$.
+In brief: given a $D\\subtext{learn} \\in \\mathcal{P}^\*(X \\times Y)$, learn a $f\\subtext{predict} \\in \\mathcal{F}\_{X \\to Y}$.
 
 --
 
-A .key[supervised learning technique] is a way for learning a $f\_\\text{predict} \\in \\mathcal{F}\_{X,Y}$ given a $D\_\\text{learn} \\in \\mathcal{P}^\*(X \\times Y)$.
+A .key[supervised learning technique] is a way for learning a $f\\subtext{predict} \\in \\mathcal{F}\_{X \\to Y}$ given a $D\\subtext{learn} \\in \\mathcal{P}^\*(X \\times Y)$.
 
 .cols[
 .c50[
-$$f\_\\text{learn}: \\mathcal{P}^\*(X \\times Y) \\to \\mathcal{F}\_{X,Y}$$
-$$f\_\\text{predict} = f\_\\text{learn}\\left(D\_\\text{learn}\\right)$$
+$$f\\subtext{learn}: \\mathcal{P}^\*(X \\times Y) \\to \\mathcal{F}\_{X \\to Y}$$
+$$f\\subtext{predict} = f\\subtext{learn}\\left(D\\subtext{learn}\\right)$$
 ]
 .c50[
 .diagram.center[
@@ -352,14 +352,14 @@ otext(250,10,'$f\_\\\\text{predict}$')
 
 --
 
-- .key[learning phase]: when $f\_\\text{learn}$ is applied to obtain $f\_\\text{predict}$ from $D$  
-- .key[prediction phase]: when $f\_\\text{predict}$ is applied to obtain a $y$ from a $x$
+- .key[learning phase]: when $f\\subtext{learn}$ is applied to obtain $f\\subtext{predict}$ from $D$  
+- .key[prediction phase]: when $f\\subtext{predict}$ is applied to obtain a $y$ from a $x$
 
 ---
 
 ## Lerning techniques
 
-> A .key[supervised learning technique] is a way for learn a $f\_\\text{predict} \\in \\mathcal{F}\_{X,Y}$ given a $D\_\\text{learn} \\in \\mathcal{P}^\*(X \\times Y)$.
+> A .key[supervised learning technique] is a way for learn a $f\\subtext{predict} \\in \\mathcal{F}\_{X \\to Y}$ given a $D\\subtext{learn} \\in \\mathcal{P}^\*(X \\times Y)$.
 
 Why don't we suffice a single learning technique?
 Why are there many of them?
@@ -367,18 +367,18 @@ Why are there many of them?
 They differ in:
 - **applicability** with respect to $X$ and/or $Y$
   - e.g., some require $X = \\mathbb{R}^p$, some require $Y = \\mathbb{R}$
-- **efficiency** with respect to $|D\_\\text{learn}|$
-  - e.g., some are really fast for producing $f\_\\text{predict}$ ($\\mathcal{O}\\left(|D\_\\text{learn}|^{\\approx 0}\\right)$), some are slow ($\\mathcal{O}\\left(|D\_\\text{learn}|^2\\right)$)
-- **effectiveness** in terms of the quality of the learned $f\_\\text{predict}$
-- attributes of learned $f\_\\text{predict}$
-  - nature/type of $f\_\\text{predict}$ (a formula, a text, a tree...)
-  - interpretability of $f\_\\text{predict}$
+- **efficiency** with respect to $|D\\subtext{learn}|$
+  - e.g., some are really fast for producing $f\\subtext{predict}$ ($\\mathcal{O}\\left(|D\\subtext{learn}|^{\\approx 0}\\right)$), some are slow ($\\mathcal{O}\\left(|D\\subtext{learn}|^2\\right)$)
+- **effectiveness** in terms of the quality of the learned $f\\subtext{predict}$
+- attributes of learned $f\\subtext{predict}$
+  - nature/type of $f\\subtext{predict}$ (a formula, a text, a tree...)
+  - interpretability of $f\\subtext{predict}$
 
 ---
 
 ## Who?
 
-> .key[Supervised (Machine) Learning] is the science of getting computers to learn $f\_\\text{predict}: X \\to Y$ **from examples** autonomously.
+> .key[Supervised (Machine) Learning] is the science of getting computers to learn $f\\subtext{predict}: X \\to Y$ **from examples** autonomously.
 
 *getting computer*: **who is doing that?**
 - the **user** of a learning technique, who is likely the designer/developer of a **ML system**
@@ -395,27 +395,27 @@ New version:
 
 ## Learning as optimization
 
-A supervised learning technique $f\_\\text{learn}: \\mathcal{P}^\*(X \\times Y) \\to \\mathcal{F}\_{X,Y}$ can be seen as a form of optimization:
-1. consider $\\mathcal{F}\_{X,Y} = \\{f, f: X \\to Y\\}$
-2. find the one $f\_\\text{predict} \\in \\mathcal{F}\_{X,Y}$ that **works best** on $D\_\\text{learn}$
+A supervised learning technique $f\\subtext{learn}: \\mathcal{P}^\*(X \\times Y) \\to \\mathcal{F}\_{X \\to Y}$ can be seen as a form of optimization:
+1. consider $\\mathcal{F}\_{X \\to Y} = \\{f, f: X \\to Y\\}$
+2. find the one $f\\subtext{predict} \\in \\mathcal{F}\_{X \\to Y}$ that **works best** on $D\\subtext{learn}$
 
 Could we use a general optimization technique?  
 In principle, yes, but:
 - $X$ (and maybe $Y$) might be infinite (e.g., $X=\\mathbb{R}^p$)
 - $X \\times Y$ is "more" infinite
-- $\\mathcal{F}\_{X,Y}$ is "hugely more" infinite
+- $\\mathcal{F}\_{X \\to Y}$ is "hugely more" infinite
 
 --
 
-Practical solution: reduce $\\mathcal{F}\_{X,Y}$ size by considering only the $f$ of some nature:
-- e.g., for $X=Y=\\mathbb{R}$, consider $\\mathcal{F}'\_{X,Y} = \\{f: f(x)=ax+b \\text{ with } a,b \\in \\mathbb{R}\\}$
+Practical solution: reduce $\\mathcal{F}\_{X \\to Y}$ size by considering only the $f$ of some nature:
+- e.g., for $X=Y=\\mathbb{R}$, consider $\\mathcal{F}'\_{\\mathbb{R} \\to \\mathbb{R}} = \\{f: f(x)=ax+b \\text{ with } a,b \\in \\mathbb{R}\\}$
 - e.g., for $x$ a UTF-8 strings and $y$ a Boolean, consider the $f$ as regular expressions
 
 ---
 
 ## Templating $f$
 
-Often a learning technique works on a reduced $\\mathcal{F}'\_{X,Y}$ which is based on an **template** $f'$:
+Often a learning technique works on a reduced $\\mathcal{F}'\_{X \\to Y}$ which is based on an **template** $f'$:
 - most parts of $f'$ are **defined**, some parts are **undefined**, variable
 - $f'$ can be used for prediction only if the undefined parts are defined
 
@@ -431,30 +431,30 @@ E.g., for $X=Y=\\mathbb{R}$, $f'(x)=ax+b$:
 ## Model
 
 We can make explicit the undefined part of the template:
-$$f\_\\text{predict}(x) = f'\_\\text{predict}(x, m)$$
+$$f\\subtext{predict}(x) = f'\\subtext{predict}(x, m)$$
 where $m \\in M$ is the undefined part.
-- e.g., $f'\_\\text{predict}(x, a, b) = ax+b$ and $M=\\mathbb{R}^2$
+- e.g., $f'\\subtext{predict}(x, a, b) = ax+b$ and $M=\\mathbb{R}^2$
 
-Note that $f'\_\\text{predict}$ is fixed for a given learning technique and defines the reduced $\\mathcal{F}'\_{X,Y} \\subset \\mathcal{F}\_{X,Y}$ where the learning will look for an $f\_\\text{predict}$.
+Note that $f'\\subtext{predict}$ is fixed for a given learning technique and defines the reduced $\\mathcal{F}'\_{X \\to Y} \\subset \\mathcal{F}\_{X \\to Y}$ where the learning will look for an $f\\subtext{predict}$.
 
 --
 
-Given a template $f'\_\\text{predict}$, $m$ defines a $f\_\\text{predict}$ that can be used to predict a $y$ from a $x$.  
+Given a template $f'\\subtext{predict}$, $m$ defines a $f\\subtext{predict}$ that can be used to predict a $y$ from a $x$.  
 That is, $m$ is a .key[model] of how $y$ depends on $x$.
 
 ---
 
 ## Learning a model
 
-For techniques based on a template, $f\_\\text{learn}$ actually looks just $\\mathcal{F}'\_{X,Y}$, hence in $M$, for finding a $f\_\\text{predict}$.
+For techniques based on a template, $f\\subtext{learn}$ actually looks just $\\mathcal{F}'\_{X \\to Y}$, hence in $M$, for finding a $f\\subtext{predict}$.
 
 .cols[
 .c50[
 General case:
-$$f\_\\text{learn}: \\mathcal{P}^\*(X \\times Y) \\to \\mathcal{F}\_{X,Y}$$
-$$f\_\\text{predict}: X \\to Y$$
+$$f\\subtext{learn}: \\mathcal{P}^\*(X \\times Y) \\to \\mathcal{F}\_{X \\to Y}$$
+$$f\\subtext{predict}: X \\to Y$$
 
-The learning technique **is defined by** $f\_\\text{learn}$.
+The learning technique **is defined by** $f\\subtext{learn}$.
 
 
 .diagram.center[
@@ -468,10 +468,10 @@ otext(250,10,'$f\_\\\\text{predict}$')
 ]
 .c50[
 With template:
-$$f'\_\\text{learn}: \\mathcal{P}^\*(X \\times Y) \\to M$$
-$$f'\_\\text{predict}: X \\times M \\to Y$$
+$$f'\\subtext{learn}: \\mathcal{P}^\*(X \\times Y) \\to M$$
+$$f'\\subtext{predict}: X \\times M \\to Y$$
 
-The learning technique **is defined by** $f'\_\\text{learn}, f'\_\\text{predict}$.
+The learning technique **is defined by** $f'\\subtext{learn}, f'\\subtext{predict}$.
 
 .diagram.center[
 link([0,25,100,25],'a')
@@ -499,12 +499,12 @@ otext(250,110,'$y$')
 .c50[
 Problem: price of a flat from surface
 $$X=\\mathbb{R}^+, Y=\\mathbb{R}^+$$
-$$\\mathcal{F}\_{\\mathbb{R}^+,\\mathbb{R}^+} = \\{\\dots,x^2, 3, \pi \\frac{x^3+5x}{0.1+x}, \\dots\\}$$
+$$\\mathcal{F}\_{\\mathbb{R}^+ \\to \\mathbb{R}^+} = \\{\\dots,x^2, 3, \pi \\frac{x^3+5x}{0.1+x}, \\dots\\}$$
 
 Learning technique: linear regression
-$$f'\_\\text{predict}(x, a,b) = ax+b$$
+$$f'\\subtext{predict}(x, a,b) = ax+b$$
 $$M = \\mathbb{R} \\times \\mathbb{R} = \\{(a,b): a \\in \\mathbb{R} \\land b \\in \\mathbb{R} \\}$$
-$$\\mathcal{F}'\_{\\mathbb{R}^+,\\mathbb{R}^+} = \\{\\dots,x+1, 3, \pi x+5, \\dots\\}$$
+$$\\mathcal{F}'\_{\\mathbb{R}^+ \\to \\mathbb{R}^+} = \\{\\dots,x+1, 3, \pi x+5, \\dots\\}$$
 ]
 .c50[
 Problem: classify email as spam/not-spam
@@ -514,12 +514,12 @@ $Y=\\{ \\text{spam},\\neg\\text{spam} \\}$,
 $A=$ UTF-8]
 
 .center[
-$\\mathcal{F}\_{A^\*,Y} = \\{ \\dots \\}$
+$\\mathcal{F}\_{A^\* \\to Y} = \\{ \\dots \\}$
 (all *predicates* on UTF-8 strings)
 ]
 
 Learning technique: regex-based flagging  
-$$f'\_\\text{predict}(x, r) =
+$$f'\\subtext{predict}(x, r) =
 \\begin{cases}
 \\text{spam} & \\text{if } x \\text{ matches } r \\newline
 \\neg\\text{spam} & \\text{otherwise}
@@ -527,12 +527,12 @@ $$f'\_\\text{predict}(x, r) =
 .center[$M = $ regexes
 $=\\{\\dots, \\text{\\htmlClass{ttt}{ca.++}}, \\text{\\htmlClass{ttt}{[a-z]+a.+}}, \\dots\\}$]
 .center[
-$\\mathcal{F}'\_{A^\*,Y} = \\{ \\dots, f'\_\\text{predict}(\\cdot, \\text{\\htmlClass{ttt}{[a-z]+a.+}}), \\dots \\}$
+$\\mathcal{F}'\_{A^\* \\to Y} = \\{ \\dots, f'\\subtext{predict}(\\cdot, \\text{\\htmlClass{ttt}{[a-z]+a.+}}), \\dots \\}$
 ]
 ]
 ]
 
-**Choosing** the learning technique means choosing one $\\mathcal{F}'\_{X,Y}$!
+**Choosing** the learning technique means choosing one $\\mathcal{F}'\_{X \\to Y}$!
 
 ---
 
@@ -578,8 +578,9 @@ With respect to $X$, common cases:
 ## Variables terminology
 In the common case of a multivariate $X = X\_1 \\times \\dots \\times X\_p$:
 - each $x_i$ is said a .key[independent variable]
-  - or .key[feature]
-  - or .key[attribute]
+  - or .key[feature], since it is a feature of an $x \\in X$
+  - or .key[attribute], since it is an attribute of an $x \\in X$
+  - or .key[predictor], since it hopefully helps predicting a $y$
 - $y$ is said the .key[dependent variable], since it is hoped to depend on $x$
   - or .key[response variable]
 
@@ -615,7 +616,7 @@ The common notation for the size of a multivariate dataset (i.e., a dataset with
 - $n$ number of observations
 - $p$ number of (independent) variables
 
-On the assumption that a dataset $D$ implicitly defines the problem (since it bounds $X$ and $Y$ and hence $\\mathcal{F}\_{X,Y}$), $n$ and $p$ also describe the size of the problem.
+On the assumption that a dataset $D$ implicitly defines the problem (since it bounds $X$ and $Y$ and hence $\\mathcal{F}\_{X \\to Y}$), $n$ and $p$ also describe the size of the problem.
 
 ---
 
@@ -655,7 +656,7 @@ What for the other kinds of problems?
 ## ML system
 
 An **information processing system** in which there is:
-- a supervised learning technique (i.e., a pair $f'\_\\text{learn},f'\_\\text{predict}$)
+- a supervised learning technique (i.e., a pair $f'\\subtext{learn},f'\\subtext{predict}$)
 - other components operating on $X$ or $Y$
   - **pre-processing**, if "before" the learning technique, i.e., $X \\to X'$
   - **post-processing**, if "after" the learning technique, i.e., $Y' \\to Y$
@@ -669,24 +670,24 @@ Goal: given a **tweet**, determine **age range** and **gender** of the author
 - problem 1: $X=A^{280}, A=$UTF-16, $Y=\\{ \\text{M}, \\text{F}\\}$ .note[or broader]
 
 One possible ML system for this problem:  
-- $f\_\\text{text-to-num}: A^{280} \\to [0,1]^\{50\}$ (chosen among a few options, maybe adjusted)
-- $f\_\\text{foreach}: X^\* \\times \\mathcal{F}\_{X,Y} \\to Y^\*$ (given a $f: X \\to Y$ and a sequence $\\{x\_i\\}\_i$, apply $f$ to each $x\_i$)
+- $f\\subtext{text-to-num}: A^{280} \\to [0,1]^\{50\}$ (chosen among a few options, maybe adjusted)
+- $f\\subtext{foreach}: X^\* \\times \\mathcal{F}\_{X \\to Y} \\to Y^\*$ (given a $f: X \\to Y$ and a sequence $\\{x\_i\\}\_i$, apply $f$ to each $x\_i$)
 - $f'\_{\\text{learn},1},f'\_{\\text{predict},1}$ and $f'\_{\\text{learn},2},f'\_{\\text{predict},2}$ (two learning techniques suitable for classification)
 
 .cols[
 .c60[
 Learning phase:
 
-$D'\_\\text{learn} = f\_\\text{foreach}(D\_\\text{learn}, f\_\\text{text-to-num})$ .note[just the $x$ part]  
-$m\_\\text{age} = f'\_{\\text{learn},1}(D'\_\\text{learn})$  
-$m\_\\text{gender} = f'\_{\\text{learn},2}(D'\_\\text{learn})$
+$D'\\subtext{learn} = f\\subtext{foreach}(D\\subtext{learn}, f\\subtext{text-to-num})$ .note[just the $x$ part]  
+$m\\subtext{age} = f'\_{\\text{learn},1}(D'\\subtext{learn})$  
+$m\\subtext{gender} = f'\_{\\text{learn},2}(D'\\subtext{learn})$
 ]
 .c40[
 Prediction phase:
 
-$x' = f\_\\text{text-to-num}(x)$  
-$y\_\\text{age} = f'\_{\\text{predict},1}(x', m\_\\text{age})$  
-$y\_\\text{gender} = f'\_{\\text{predict},2}(x', m\_\\text{gender})$  
+$x' = f\\subtext{text-to-num}(x)$  
+$y\\subtext{age} = f'\_{\\text{predict},1}(x', m\\subtext{age})$  
+$y\\subtext{gender} = f'\_{\\text{predict},2}(x', m\\subtext{gender})$  
 ]
 ]
 
@@ -752,11 +753,11 @@ Skills of the **ML researcher**:
 
 ## Should I use *Machine* Learning?
 
-Recall: we need an $f\_\\text{predict}: X \\to Y$ to make a decision $y$ about an $x$
+Recall: we need an $f\\subtext{predict}: X \\to Y$ to make a decision $y$ about an $x$
 
 .cols[
 .c50[
-Reasons for running $f\_\\text{predict}$ on a machine:
+Reasons for running $f\\subtext{predict}$ on a machine:
 - $y$ has to be computed .col1[very quickly]
   - a human couldn't keep the pace
 - $y$ has to be computed in a .col3[dangerous context]
@@ -764,14 +765,14 @@ Reasons for running $f\_\\text{predict}$ on a machine:
 - the value of $y$ .col3[is very low]
 - it is believed that a human would be .col3[biased in deciding] $y$
 
-If $f\_\\text{predict}$ is run on a machine, still $f\_\\text{predict}$ might be designed by a human.
+If $f\\subtext{predict}$ is run on a machine, still $f\\subtext{predict}$ might be designed by a human.
 - **human** "learning", not **machine learning**
 ]
 .c50[
-Reasons for running $f\_\\text{learn}$ on a machine, i.e., to obtain $f\_\\text{predict}$ through learning:
-- humans cannot design a .col2[reasonable] $f\_\\text{predict}$
-- human-made $f\_\\text{predict}$ is .col1[too costly/slow]
-- human-made $f\_\\text{predict}$ is .col2[not good]
+Reasons for running $f\\subtext{learn}$ on a machine, i.e., to obtain $f\\subtext{predict}$ through learning:
+- humans cannot design a .col2[reasonable] $f\\subtext{predict}$
+- human-made $f\\subtext{predict}$ is .col1[too costly/slow]
+- human-made $f\\subtext{predict}$ is .col2[not good]
   - does not make good decisions
 
 Factors:
@@ -785,10 +786,10 @@ Factors:
 
 ## Domain knowledge and data exploration
 
-Reasons for running $f\_\\text{learn}$ on a machine:
-- humans cannot design a reasonable $f\_\\text{predict}$: yes or no?
-- human-made $f\_\\text{predict}$ is too costly/slow: yes or no?
-- human-made $f\_\\text{predict}$ is not good: yes or no?
+Reasons for running $f\\subtext{learn}$ on a machine:
+- humans cannot design a reasonable $f\\subtext{predict}$: yes or no?
+- human-made $f\\subtext{predict}$ is too costly/slow: yes or no?
+- human-made $f\\subtext{predict}$ is not good: yes or no?
 
 Answering these questions requires the knowledge of the **domain**
 - (necessary, not sufficient)
@@ -883,16 +884,16 @@ No car accidents to be avoid (**timing**), no billions of emails to be analyzed 
 
 .cols[
 .c60[
-Reasons for **running** $f\_\\text{predict}$ on a machine:
+Reasons for **running** $f\\subtext{predict}$ on a machine:
 - 👎 $y$ has to be computed very quickly
 - 👎 $y$ has to be computed in a dangerous context
 - 🤏 the value of $y$ is very low
 - 🤌 a human would be biased in deciding $y$
 
-Reasons for **learning** $f\_\\text{predict}$ on a machine:
-- 👍 humans cannot design a reasonable $f\_\\text{predict}$
-- 🤌 human-made $f\_\\text{predict}$ is too costly/slow
-- 🤏 human-made $f\_\\text{predict}$ is not good
+Reasons for **learning** $f\\subtext{predict}$ on a machine:
+- 👍 humans cannot design a reasonable $f\\subtext{predict}$
+- 🤌 human-made $f\\subtext{predict}$ is too costly/slow
+- 🤏 human-made $f\\subtext{predict}$ is not good
 
 .note[👍: yes!; 👎: no!; 🤏: maybe a bit; 🤌: who knows...]
 ]
@@ -951,8 +952,8 @@ $Y=\\{\\text{setosa}, \\text{versicolor}, \\text{virginica}\\}$
 **Issues** with this $X$: 🤔
 - is that an useful definition? that is: can it be used for judging the membership of an object to $X$? $\\text{🌸} \\overset{?}{\\in} X$
 - is an $x \\in X$ processable by a machine? recall that in later phases:
-  - we want to take an $f\_\\text{learn}$ that is able to learn an $f\_\\text{predict}: X \\to Y$ and use $f\_\\text{learn}$ on a machine
-  - we want to use the learned $f\_\\text{predict}$ on a machine
+  - we want to take an $f\\subtext{learn}$ that is able to learn an $f\\subtext{predict}: X \\to Y$ and use $f\\subtext{learn}$ on a machine
+  - we want to use the learned $f\\subtext{predict}$ on a machine
 ]
 .c40[
 1. Decide: should I use ML?
@@ -973,11 +974,11 @@ $Y=\\{\\text{setosa}, \\text{versicolor}, \\text{virginica}\\}$
 We cannot just take *another* X, because the problem is "given an Iris flower, assign a species".
 But we can introduce some **pre-processing** steps that transform an $x \\in X$ in an $x' \\in X'$, with $X'$ being better, more suitable, for later steps.
 
-That is, we can design a $f\_\\text{preproc}: X \\to X'$ and an $X'$!
+That is, we can design a $f\\subtext{pre-proc}: X \\to X'$ and an $X'$!
 
 Requirements:
-- (designing and) applying of $f\_\\text{preproc}$ should have an acceptable **cost**
-- an $x'=f\_\\text{preproc}(x)$ should retain the **information** of $x$ that is useful for obtaining a $y$
+- (designing and) applying of $f\\subtext{pre-proc}$ should have an acceptable **cost**
+- an $x'=f\\subtext{pre-proc}(x)$ should retain the **information** of $x$ that is useful for obtaining a $y$
 - $X'$ should be **compatible** with one or more learning techniques .note[see]
 ]
 .c40[
@@ -989,7 +990,7 @@ Requirements:
 6. Assess the ML system
 
 .note[
-If $x \\in X$ is *not digital*, we consider $f\_\\text{preproc}$ to be applied outside the ML system, hence its definition is part of the problem statement; otherwise, if $x \\in X$ is natively digital, then each $f\_\\text{preproc}$ can be considered as part of the ML system, and its definition is done in phase 4.
+If $x \\in X$ is *not digital*, we consider $f\\subtext{pre-proc}$ to be applied outside the ML system, hence its definition is part of the problem statement; otherwise, if $x \\in X$ is natively digital, then each $f\\subtext{pre-proc}$ can be considered as part of the ML system, and its definition is done in phase 4.
 ]
 ]
 ]
@@ -1000,7 +1001,7 @@ If $x \\in X$ is *not digital*, we consider $f\_\\text{preproc}$ to be applied o
 
 .cols[
 .c60[
-Since most learning techniques are designed to work on a mutlivariate $X$, we are going to design a $f\_\\text{preproc}: X \\to X' = X'\_1 \\times \\dots \\times X'\_p$.
+Since most learning techniques are designed to work on a mutlivariate $X$, we are going to design a $f\\subtext{pre-proc}: X \\to X' = X'\_1 \\times \\dots \\times X'\_p$.
 That is, we are going to **define the features** and the way to **compute them** out of an $x$.
 
 This step is called .key[feature engineering] and is in practice a key step in the design of a ML system, often more important than the choice of the learning technique:
@@ -1026,7 +1027,7 @@ This step is called .key[feature engineering] and is in practice a key step in t
 Some options:
 
 .compact.nicetable[
-| Function $f\_\\text{preproc}$ | Set $X'$ | Cost | Info¹ | Comp.² |
+| Function $f\\subtext{pre-proc}$ | Set $X'$ | Cost | Info¹ | Comp.² |
 | --- | --- | --- | --- |
 | $x'$ is a textual desc. of $x$ | strings | .center[🫰🫰] | .center[🫳] | .center[👍] |
 | $x'$ is a digital pic. of $x$ | $[0,1]^{512 \\times 512 \\times 3}$ | .center[🫰] | .center[🫳] | .center[👍³] |
@@ -1048,7 +1049,7 @@ The actual decision should be taken by Alice and Bob together, based on **domain
 5. Implement the ML system
 6. Assess the ML system
 
-Requirements for $f\_\\text{preproc}: X \\to X'$:
+Requirements for $f\\subtext{pre-proc}: X \\to X'$:
 - proper cost
 - retaining information
 - compatibility
@@ -1061,7 +1062,7 @@ Requirements for $f\_\\text{preproc}: X \\to X'$:
 
 .cols[
 .c60[
-Assume choice "$x'$ is some measurements of $x$", namely 4 measurements, then $f\_\\text{preproc}: X \\to \\mathbb{R}^4$ and $f\_\\text{preproc}(x)=\\vect{x}'=(x'\_1,x'\_2,x'\_3,x'\_4)$ with:
+Assume choice "$x'$ is some measurements of $x$", namely 4 measurements, then $f\\subtext{pre-proc}: X \\to \\mathbb{R}^4$ and $f\\subtext{pre-proc}(x)=\\vect{x}'=(x'\_1,x'\_2,x'\_3,x'\_4)$ with:
 - $x'\_1$ is the¹ sepal length of $x$ in cm
 - $x'\_2$ is the sepal width of $x$ in cm
 - $x'\_3$ is the petal length of $x$ in cm
@@ -1092,7 +1093,7 @@ Assume choice "$x'$ is some measurements of $x$", namely 4 measurements, then $f
 5. Implement the ML system
 6. Assess the ML system
 
-Requirements for $f\_\\text{preproc}: X \\to X'$:
+Requirements for $f\\subtext{pre-proc}: X \\to X'$:
 - proper cost
 - retaining information
 - compatibility
@@ -1105,7 +1106,7 @@ Requirements for $f\_\\text{preproc}: X \\to X'$:
 
 .cols[
 .c60[
-.col1[Alice's thoughts] 💭: Is it true that we cannot design a reasonable $f\_\\text{predict}$? Are we retaining information?
+.col1[Alice's thoughts] 💭: Is it true that we cannot design a reasonable $f\\subtext{predict}$? Are we retaining information?
 
 Let's **look at the data**!
 - which data? .col1[Bob, give me your samples and let's measure them]
@@ -1209,7 +1210,7 @@ Findings: **overlap**!
 6. Assess the ML system
 
 Questions:
-- cannot design a $f\_\\text{predict}$?
+- cannot design a $f\\subtext{predict}$?
 - retaining information?
 
 Outcome:  
@@ -1267,7 +1268,7 @@ class: middle, center
 .center[$\\downarrow$]
 .important[
 .key[Supervised (Machine) Learning] is about designing and applying supervised learning techniques.
-A .key[supervised learning technique] is a way for learning a $f\_\\text{predict} \\in \\mathcal{F}\_{X,Y}$ given a $D\_\\text{learn} \\in \\mathcal{P}^\*(X \\times Y)$.
+A .key[supervised learning technique] is a way for learning a $f\\subtext{predict} \\in \\mathcal{F}\_{X \\to Y}$ given a $D\\subtext{learn} \\in \\mathcal{P}^\*(X \\times Y)$.
 ]
 
 ---
@@ -1279,16 +1280,16 @@ A .key[supervised learning technique] is a way for learning a $f\_\\text{predict
 - each $x \\in X$ is an .key[observation], .key[input], .key[data point], or .key[instance]
 - each $y \\in Y$ is a .key[response] or .key[output]
 - $D = \\left\\{\\left(x^{(i)},y^{(i)}\\right)\\right\\}\_i$ is a .key[dataset] compatible with $X$ and $Y$; a .key[learning set] if used for learning
-- .key[learning phase] is when $f\_\\text{learn}$ is being applied
-- .key[prediction phase] is when $f\_\\text{predict}$ is being applied
-- a .key[model] is the variable part $m$ of a templated $f\_\\text{predict}(x) = f'\_\\text{predict}(x, m)$
+- .key[learning phase] is when $f\\subtext{learn}$ is being applied
+- .key[prediction phase] is when $f\\subtext{predict}$ is being applied
+- a .key[model] is the variable part $m$ of a templated $f\\subtext{predict}(x) = f'\\subtext{predict}(x, m)$
 ]
 .c50[
 - if $Y$ is finite and without ordering, it's a .key[classification] problem
   - if $|Y|=2$, it's .key[binary classification]
   - if $|Y|>2$, it's .key[multiclass classification]
 - if $Y = \\mathbb{R}$, it's a .key[regression] problem
-- if $X = X\_1 \\times \\dots \\times X\_p$ is **multivariate**, each $x_i$ is an .key[independent variable], .key[feature], or .key[attribute]
+- if $X = X\_1 \\times \\dots \\times X\_p$ is **multivariate**, each $x_i$ is an .key[independent variable], .key[feature], .key[attribute], or .key[predictor]
 - $y$ is the .key[dependent variable] or .key[response variable]
   - in classification, $y$ is the .key[class label]
 ]
@@ -1298,12 +1299,12 @@ A .key[supervised learning technique] is a way for learning a $f\_\\text{predict
 
 ## Supervised learning technique
 
-A learning technique **is defined by** $f'\_\\text{learn}, f'\_\\text{predict}$:
+A learning technique **is defined by** $f'\\subtext{learn}, f'\\subtext{predict}$:
 
 .cols[
 .c50[
-$$f'\_\\text{learn}: \\mathcal{P}^\*(X \\times Y) \\to M$$
-$$f'\_\\text{predict}: X \\times M \\to Y$$
+$$f'\\subtext{learn}: \\mathcal{P}^\*(X \\times Y) \\to M$$
+$$f'\\subtext{predict}: X \\times M \\to Y$$
 ]
 .c50[
 .diagram.center[
@@ -1326,8 +1327,8 @@ otext(250,110,'$y$')
 .important[
 .key[Supervised (Machine) Learning] is about designing and applying supervised learning techniques.
 A .key[supervised learning technique] is defined by:
-- a way $f'\_\\text{learn}$ for learning a model $m \\in M$ given a $D\_\\text{learn} \\in \\mathcal{P}^\*(X \\times Y)$;
-- a way $f'\_\\text{predict}$ for computing a response $y$ given an observation $x$ and a model $m$.
+- a way $f'\\subtext{learn}$ for learning a model $m \\in M$ given a $D\\subtext{learn} \\in \\mathcal{P}^\*(X \\times Y)$;
+- a way $f'\\subtext{predict}$ for computing a response $y$ given an observation $x$ and a model $m$.
 ]
 
 ---
@@ -1347,18 +1348,18 @@ A .key[supervised learning technique] is defined by:
 6. Assess the ML system
 ]
 .c50[
-.col1[Arguments for $f\_\\text{predict}$ on machine:]
+.col1[Arguments for $f\\subtext{predict}$ on machine:]
 - computing $y$ quickly
 - dangerous context
 - low $y$ value
 - avoid human bias
 
-.col1[Arguments for $g\_\\text{learn}$ on machine:]
-- cannot build $f\_\\text{predict}$ manually
-- cost building $f\_\\text{predict}$ manually
-- quality of manually built $f\_\\text{predict}$
+.col1[Arguments for $g\\subtext{learn}$ on machine:]
+- cannot build $f\\subtext{predict}$ manually
+- cost building $f\\subtext{predict}$ manually
+- quality of manually built $f\\subtext{predict}$
 
-.col2[Requirements for $f\_\\text{preproc}: X \\to X'$:]
+.col2[Requirements for $f\\subtext{pre-proc}: X \\to X'$:]
 - proper cost
 - retaining information
 - compatibility
