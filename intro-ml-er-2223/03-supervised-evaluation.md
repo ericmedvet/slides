@@ -349,8 +349,8 @@ We'll see **a few options** for the main cases:
 - regression: **MAE**, **MSE**, **MRE**, $R^2$
 ]
 .c40[
-<span style="font-size: 600%; line-height: 150px; vertical-align: bottom;">}</span>
-<span style="line-height: 130px; vertical-align: bottom;">.key[performance indexes]</span>
+<span style="font-size: 600%; line-height: 140px; vertical-align: bottom;">}</span>
+<span style="line-height: 120px; vertical-align: bottom;">.key[performance indexes]</span>
 ]
 ]
 
