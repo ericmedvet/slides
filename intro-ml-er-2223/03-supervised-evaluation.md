@@ -222,15 +222,16 @@ function $\\text{comp-behavior}(f\\subtext{predict}, s)$ {
 .i[]return $v\\subtext{effect}$;  
 }
 ]
-.note[
-More correctly $\\seq{(y^{(i)},\\hat{y}^{(i)})}{i} \\gets \\text{foreach}(\\seq{x^{(i)}{i}}, \\text{both}(\\cdot, s, f\\subtext{predict}))$ with $f\\subtext{both}: X \\times \\mathcal{F}^2\_{X \\to Y}$ and $f\\subtext{both}(x, f\_1, f\_2) = (f\_1(x),f\_2(x))$.
-]
 ]
 .c40[
 1. .col1[collect some examples of the behavior of $s$]
 2. .col2[feed $m$ with examples]
 3. .col3[compare responses of $s$ and $m$]
 ]
+]
+
+.footnote[
+More correctly $\\seq{(y^{(i)},\\hat{y}^{(i)})}{i} \\gets \\text{foreach}(\\seq{x^{(i)}{i}}, \\text{both}(\\cdot, s, f\\subtext{predict}))$ with $f\\subtext{both}: X \\times \\mathcal{F}^2\_{X \\to Y}$ and $f\\subtext{both}(x, f\_1, f\_2) = (f\_1(x),f\_2(x))$.
 ]
 
 ---
@@ -397,7 +398,7 @@ The codomain of $f\\subtext{acc}$ is also $[0,1]$:
 For accuracy, the greater, the better.  
 For error, the lower, the better.
 
-.note[
+.footnote[
 In principle, the only requirement concerning $Y$ for both $f\\subtext{acc}$ and $f\\subtext{acc}$ is that there is an *equivalence relation* in $Y$, i.e., that $=$ is defined over $Y$.
 However, in practice $Y$ is a finite set without ordering.
 ]
@@ -431,23 +432,27 @@ Here $A=\\{1,\\dots,|Y|\\}$, hence $f(x)$ gives a random $y$, without using $x$,
 
 Considering **all possibles multisets of responses** $\\mathcal{P}^\*(Y)$, the **accuracy of the random classifier** is, on average, $\\frac{1}{|Y|}$.
 
---
+---
 
-Given **one specific multiset of responses** $\\{y^{(i)}\\}\_i$, a slightly improved random classifier is:
-$$f\_{\\text{rnd},\\{y^{(i)}\\}\_i}(x) = \\argmax\_{y \\in Y} \\frac{1}{n} \\sum\_{i=1}^{i=n} \\mathbf{1}(y,y^{(i)})=\\argmax\_{y \\in Y} \\freq{y, \\{y^{(i)}\\}\_i}$$
-On the $\\{y^{(i)}\\}\_i$ on which it is built, the accuracy of this random classifier is $\\max\_{y \\in Y} \\freq{y, \\{y^{(i)}\\}\_i}$.
+## Dummy classifier (better lower bound)
 
-Recall: we use $f\\subtext{acc}$ on one specific $\\{y^{(i)}\\}\_i$; the latter is a **more "challenging"** lower bound.
+Given **one specific multiset of responses** $\\{y^{(i)}\\}\_i$, the .key[dummy classifier] is the one that always predicts the **most frequent** class in $\\{y^{(i)}\\}\_i$:
+$$f\_{\\text{rnd},\\{y^{(i)}\\}\_i}(x) = \\argmax\_{y \\in Y} \\frac{1}{n} \\sum\_{i=1}^{i=n} \\mathbf{1}(y=y^{(i)})=\\argmax\_{y \\in Y} \\freq{y, \\{y^{(i)}\\}\_i}$$
+On the $\\{y^{(i)}\\}\_i$ on which it is built, the accuracy of the dummy classifier is $\\max\_{y \\in Y} \\freq{y, \\{y^{(i)}\\}\_i}$.
+
+Recall: we use $f\\subtext{acc}$ on one specific $\\{y^{(i)}\\}\_i$.
+
+Like the random classifier, the dummy classifier does not use $x$.
 
 ---
 
-## The random classifier: examples
+## Random/dummy classifier: examples
 
 .cols[
 .c50[
 Case: **coin tossing**, $Y=\\{\\htmlClass{col1}{\\text{heads}},\\htmlClass{col2}{\\text{tails}}\\}$
 
-On average (with $f\\subtext{rnd}$):
+**Random** on average (with $f\\subtext{rnd}$):
 .nicetable[
 | $\\{y^{(i)}\\}\_i$ | $\\{\\hat{y}^{(i)}\\}\_i$ | $f\\subtext{acc}()$ |
 | --- | --- | --- |
@@ -460,14 +465,14 @@ On average (with $f\\subtext{rnd}$):
 ]
 Average accuracy = $50\%$
 
-On $\\seq{y^{(i)}}{i}=\\htmlClass{col2 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}}$ (w/ $f\_{\\text{rnd},\\htmlClass{col2 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}}}$):
+**Dummy** on $\\seq{y^{(i)}}{i}=\\htmlClass{col2 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}}$ (w/ $f\_{\\text{rnd},\\htmlClass{col2 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}}}$):
 
 $$f\\subtext{acc}(\\htmlClass{col2 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}},\\htmlClass{col2 st}{\\text{⬤⬤⬤⬤}}) = 75\%$$
 ]
 .c50[
 Case: **Iris**, $Y=\\{\\htmlClass{col1}{\\text{setosa}},\\htmlClass{col2}{\\text{versicolor}},\\htmlClass{col3}{\\text{virginica}}\\}$
 
-On average (with $f\\subtext{rnd}$):
+**Random** on average (with $f\\subtext{rnd}$):
 .nicetable[
 | $\\{y^{(i)}\\}\_i$ | $\\{\\hat{y}^{(i)}\\}\_i$ | $f\\subtext{acc}()$ |
 | --- | --- | --- |
@@ -480,7 +485,7 @@ On average (with $f\\subtext{rnd}$):
 ]
 Average accuracy $\\approx 33\%$
 
-On $\\seq{y^{(i)}}{i}=\\htmlClass{col3 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}}$ (w/ $f\_{\\text{rnd},\\htmlClass{col3 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}}}$):
+**Dummy** on $\\seq{y^{(i)}}{i}=\\htmlClass{col3 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}}$ (w/ $f\_{\\text{rnd},\\htmlClass{col3 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}}}$):
 
 $$f\\subtext{acc}(\\htmlClass{col3 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}},\\htmlClass{col3 st}{\\text{⬤⬤⬤⬤}}) = 50\%$$
 ]
@@ -488,7 +493,7 @@ $$f\\subtext{acc}(\\htmlClass{col3 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\tex
 
 ---
 
-## The perfect classifier
+## The perfect classifier (upper bound)
 
 A classifier that works exactly as $S$:
 
@@ -504,9 +509,9 @@ Are real systems deterministic in practice?
 
 ---
 
-## The Bayes classifier
+## The Bayes classifier (better upper bound)
 
-A non deterministic system (i.e., a **stochastic** or random system) is one that given the same $x$ may outputs different $y$.
+A non deterministic system (i.e., a **stochastic** or random system) is one that given the same $x$ may output different $y$.
 
 The .key[Bayes classifier] is an **ideal** model of a real system that is not deterministic:
 
@@ -522,7 +527,7 @@ Key facts:
 
 In practice:
 - the Bayes classifier is an ideal classifier: "building" it requires knowing how $s$ works, which is **undoable in practice**
-- however, **the more random the system, the lower the accuracy** of the Bayes classifier.
+- intuitively, **the more random the system, the lower the accuracy** of the Bayes classifier
 
 ---
 
@@ -533,8 +538,8 @@ In practice:
 | | Lower | Upper|
 | --- | --- | --- |
 | By definition | $0$ | $1$ |
-| In practice, all data | $\\frac{1}{\\lvert Y\\rvert}$ | $\\le 1$ |
-| In practice, with one $\\seq{x^{(i)}}{i}$ | $\\max\_{y \\in Y} \\freq{y, \\{s(x^{(i)})\\}\_i}$ | $\\le 1$ |
+| Bounds, all data | $\\frac{1}{\\lvert Y\\rvert}$ | $1$ |
+| Better bounds, with one $\\seq{x^{(i)}}{i}$ | $\\max\_{y \\in Y} \\freq{y, \\{s(x^{(i)})\\}\_i}$ | $\\le 1$ |
 ]
 ]
 
@@ -564,7 +569,7 @@ $$\\max\_i f\_i$$
 
 ---
 
-## Building the random classifier
+## Building the dummy classifier
 
 Consider the random classifier as a supervised learning technique:
 - in **learning phase**: compute frequencies/probability of classes .note[concrete]
@@ -572,7 +577,7 @@ Consider the random classifier as a supervised learning technique:
 
 Hence, formally:
 - a .col2[model $m \\in M$ is]:
-  - the frequencies classes $\\htmlClass{col2}{\\vect{f} = (f\_1,\\dots,f\_{|Y|})}$, with $M=F\_Y=\\{\\vect{f} \\in [0,1]^{|Y|}: \\lVert \\vect{f} \\rVert\_1=1\\}$   .note[
+  - the frequencies classes $\\htmlClass{col2}{\\vect{f} = (f\_1,\\dots,f\_{|Y|})}$, with $M=F\_Y=\\{\\vect{f} \\in [0,1]^{|Y|}: \\lVert \\vect{f} \\rVert\_1=1\\}$ .note[
   $\\lVert \\vect{x} \\rVert\_1$ is the **1-norm** of a vector $\\vect{x}=(x\_1,\\dots,x\_p)$ with $\\lVert \\vect{x} \\rVert\_1$ $=\\sum\_i x\_i$
   ]
   - a **discrete probability** .col2[$p$] over $Y$, with $M=P\_Y=\\{p: Y \\to [0,1] \\text{ s.t. } 1=\\sum\_{y' \\in Y} p(y')=\\prob{y'=y}\\}$ .note[$\\text{s.t.}$ stays for "such that"]
@@ -582,7 +587,7 @@ Hence, formally:
 
 ---
 
-## Building the random classifier
+## Building the dummy classifier
 
 .cols[
 .c60[
@@ -651,13 +656,303 @@ Works with:
 
 ## Binary classification
 
+Binary classification is a **very common** scenario.
+- assessment is particularly important
+- there are many indexes
+
+Examples:
+- spam detection
+- decide whether there is a dog in a picture
+- clinical test (more properly: diagnostic test)
+
+---
+
+## Example: diagnostic test
+
+Suppose there is a (ML-based) diagnostic test for a given disease $d$. .note[just to give a name to it without calling bad luck...]
+
+You are being said the accuracy of the test is $99.8\%$.
+
+.center[**Is this a good test or not?**]
+
+--
+
+In "formal" terms, the test is an $f\\subtext{predict}: X \\to Y$ with:
+- $X=\\{$🧑‍🦰$,$👱‍$,$🙍$,$‍👱$,$🙎‍$,\\dots\\}$ the set of persons¹
+- $Y=\\{\\text{has the diseseas } d, \\text{does not have the disease } d\\}$
+
+Since $|Y|=2$ this is a binary classification problem.
+
+.footnote[
+1: or, from another point of view, $X =\\{$🧑‍🦰$,$👱‍$,$🙍$,$‍👱$,$🙎‍$,\\dots\\} \\times T$, with $T$ being the *time*, because you test a person at a given time $t$, and the outcome might be different from the test outcome for the same person at a later $t'$.
+]
+
+---
+
+## The rare disease
+
+Suppose $d$ is a **rare**¹ disease which affects $\\approx 2$ persons every $1000$ and let be the accuracy again $99.8\%$.
+
+.center[**Is this a good test or not?**]
+
+.footnote[
+1. [definition](https://en.wikipedia.org/wiki/Rare_disease#Definition) of rare for a disease varies from country to country, based on the prevalence with thresholds ranging from 1 on 1538 (Brazil) to 1 in 100000 (Peru).
+]
+
+--
+
+Consider a trivial test that **always** says "you don't have the disease $d$", it's accuracy would be $99.8\%$:
+- on $1000$ persons, the trivial test would make correct decisions on $998$ cases
+- is our test good if it works like the trivial test?
+
+--
+.cols[
+.c50.vcentered[
+The trivial test is actually the **dummy classifier** built knowing that the prevalence is $0.2\%$.
+]
+.c50.center[
+.h20ex[![Dummy classifier meme](images/dummy-classifier-meme.jpg)]
+]
+]
+
+---
+
+## Positives and negatives
+
+$99.8\%$ was soooo nice, but the test was actually just saying always one $y$.
+
+- Can we spot this trivially wrong behavior?
+- From another point of view, can we check how badly the classifier behaves **for each class** $y$?
+
+Yes, because we are in **binary classification** and there are only $2=|Y|$ possible values for $y$ (i.e., 2 classes).
+There are performance indexes designed right with this aim.
+
+--
+
+First, let's give a *standard* name to the two possible $y$ values:
+- **positive** (one case, denoted with $\\text{P}$)
+- **negative** (the other case $\\text{N}$)
+
+How to associate positive/negative with actual $Y$ elements?
+- e.g., $\\text{spam}, \\neg\\text{spam}$
+- e.g. $\\{\\text{has the diseseas } d, \\text{does not have the disease } d$
+
+Common practice:
+- associate positive to the rarest case
+- otherwise, if no rarest case exists or is known, **clearly** state what's your positive
+
+---
+
+## FPR and FNR
+
+**Goal**: measuring the error on each of the two classes in binary classification.
+
+The .key[False Positive Rate (FPR)] is the rate of **negatives** that are **wrongly¹ classified as positives**:
+$$f\\subtext{FPR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=\\frac{1}{n}\\sum\_{i=1}^{i=n}\\mathbf{1}(y^{(i)}=\\text{N} \\land y^{(i)} \\ne \\hat{y}^{(i)})$$
+
+The .key[False Negative Rate (FPR)] is the rate of **positives** that are **wrongly classified as negatives**:
+$$f\\subtext{FPR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=\\frac{1}{n}\\sum\_{i=1}^{i=n}\\mathbf{1}(y^{(i)}=\\text{N} \\land y^{(i)} \\ne \\hat{y}^{(i)})$$
+
+For both:
+- the codomain is $[0,1]$
+- **the lower, the better** (like the error)
+- each one is formally a $f\\subtext{comp-resps}$ considering just a part of the $\\{(y^{(i)},\\hat{y}^{(i)})\\}$
+
+.note[
+1. wrongly $\\rightarrow$ *falsely* $\\rightarrow$ false
+]
+---
+
+## More comfortable notation
+
+.cols[
+.c50[
+$$\\text{FPR}=\\frac{\\text{FP}}{\\text{N}}$$
+]
+.c50[
+$$\\text{FNR}=\\frac{\\text{FN}}{\\text{P}}$$
+]
+]
+
+Assuming that:
+- there is a $\\{(y^{(i)},\\hat{y}^{(i)}\\}$
+- $\\text{FP}$ is the number of false positives $\\text{FN}$ is the number of false negatives
+  - you need both $y^{(i)}$ and $\\hat{y}^{(i)}$ for counting them
+  - *positive/negative* is for $\\hat{y}^{(i)}$; *false* is for $y^{(i)}$, but considering $\\hat{y}^{(i)}$
+- $\\text{P}$ is the number of positives and $\\text{N}$ is the number of negatives
+  - you need only $y^{(i)}$ for counting them
+
+---
+
+## FPR, FNR for the trivial test
+
+Suppose $d$ is a **rare**¹ disease which affects $\\approx 2$ persons every $1000$ and consider a trivial test that **always** says "you don't have the disease $d$"
+- on $1000$ persons, the trivial test would make correct decisions on $998$ cases 😁
+$$\\text{Acc} = 99.8\%$$
+- on the $998$ negative persons, the trivial test does not make any wrong prediction 😁
+$$\\text{FPR}=\\frac{\\text{FP}}{\\text{N}} = \\frac{0}{998} = 0 \%$$
+- on the $2$ positive persons, the trivial test makes wrong predictions only 🙁
+$$\\text{FNR}=\\frac{\\text{FN}}{\\text{P}} = \\frac{2}{2} = 100 \%$$
+
+.footnote[
+$\\text{Acc}$ is the more comfortable notation for the accuracy; $\\text{Err}$ for the error.
+]
+
+---
+
+## Accuracy or FPR, FNR?
+
+When to use accuracy? When to use FPR and FNR?
+
+.center[*tl;dr*¹: **use FPR and FNR in binary classification!**]
+
+--
+
+In decreasing order of informativeness .note[effectiveness of assessment of effectiveness], decreasing order of verbosity:
+- give accuracy, FPR, FNR, frequencies of classes in $Y$, possibly other indexes .note[we'll see later]
+- give accuracy, FPR, FNR, frequencies of classes
+- FPR, FNR, frequencies of classes
+- FPR, FNR
+- accuracy, frequencies of classes
+- .striked[accuracy]
+
+**Accuracy alone in binary classification is evil!** 👿
+
+Just FPR, or just FNR is evil too, but also weird.
+
+.footnote[
+1. too long; didn't read
+]
+
+---
+
+## The many relatives of FPR, FNR: TPR, TNR
+
+Binary classification and its assessment are so practically relevant that there exist many other "synonyms" of FPR and FNR.
+
+.key[True Positive Rate (TPR)], positives correctly classified as positives:
+$$\\text{TPR}=\\frac{\\text{TP}}{\\text{P}}=1-\\text{FNR}$$
+
+.key[True Negative Rate (TNR)], negatives correctly classified as negatives:
+$$\\text{TNR}=\\frac{\\text{TN}}{\\text{N}}=1-\\text{FPR}$$
+
+For both, **the greater, the better** (like accuracy); codomain is $[0,1]$.
+
+Relation with accuracy and error:
+.cols[
+.c40[
+$$\\text{Err}
+=\\frac{\\text{FP}+\\text{FN}}{\\text{N}+\\text{P}}
+=\\frac{\\text{P} \; \\text{FNR}+\\text{N} \; \\text{FPR}}{\\text{P}+\\text{N}}$$
+]
+.c60[
+$$\\text{Acc}
+=1-\\text{Err}
+=\\frac{\\text{TP}+\\text{TN}}{\\text{N}+\\text{P}}
+=\\frac{\\text{P} \; \\text{TPR}+\\text{N} \; \\text{TNR}}{\\text{P}+\\text{N}}$$
+]
+]
+
+---
+
+## On balanced data
+
+In classification (binary and multiclass), a dataset is .key[balanced], with respect to the response variable $y$, if the frequency of each value of $y$ is the same.
+
+For a balanced dataset in binary classification, $\\text{P}=\\text{N}$, hence:
+- the error rate is the **average** of FPR and FNR
+$$\\text{Err}
+=\\frac{\\text{FP}+\\text{FN}}{\\text{N}+\\text{P}}=\\frac{\\text{P} \; \\text{FNR}+\\text{N} \; \\text{FPR}}{\\text{P}+\\text{N}}
+=\\frac{\\text{N} (\\text{FNR} + \\text{FPR})}{\\text{N}+\\text{N}}
+=\\frac{1}{2} (\\text{FNR} + \\text{FPR})$$
+- the accuracy is the **average** of TPR and TNR
+$$\\text{Acc}
+=\\frac{\\text{TP}+\\text{TN}}{\\text{N}+\\text{P}}
+=\\frac{\\text{P} \; \\text{TPR}+\\text{N} \; \\text{TNR}}{\\text{P}+\\text{N}}
+=\\frac{\\text{N} (\\text{TPR}+\\text{TNR})}{\\text{N}+\\text{N}}
+=\\frac{1}{2} (\\text{TNR} + \\text{TPR})$$
+
+The **more unbalanced** a dataset, the farther the error (accuracy) from the average of FPR and FNR (TPR and TNR), the **more misleading** 👿 giving error (accuracy) only!
+
+---
+
+## Precision and recall
+
+.cols[
+.c60[
+.key[Precision]: .note[may be $\\frac{0}{0}$, i.e., `NaN`, if the classifier never says positive]
+$$\\text{Prec}=\\frac{\\text{TP}}{\\text{TP}+\\text{FP}}$$
+]
+.c40[
+.key[Recall]:
+$$\\text{Rec}=\\frac{\\text{TP}}{\\text{P}}=\\text{TPR}$$
+]
+]
+
+They come from the **information retrieval** scenario:
+- imagine a set of documents $D$ (e.g., the web)
+- imagine a query $q$ with an **ideal** subset $D^\\star \\subseteq D$ as response (**relevant** documents)
+- the search engine retrieves a subset $D' \\subseteq D$ of documents (**retrieved** documents)
+- retrieving a document as binary classification: is $d \\in D$ relevant or not? .note[relevant = positive]
+
+.cols[
+.c60[
+**Precision**: how many retrieved document are actually relevant?
+.center[$\\text{Prec}=\\frac{|D' \\cap D^\\star|}{|D'|}=\\frac{|D' \\cap D^\\star|}{|D' \\cap D^\\star|+|D' \\setminus D^\\star|}$]
+]
+.c40[
+**Recall**: how many of the relevant document are actually retrieved?
+.center[$\\text{Prec}=\\frac{|D' \\cap D^\\star|}{|D^\\star|}$]
+]
+]
+
+**The greater, the better** (like accuracy); precision $\\in [0,1] \\cup $ `NaN`, recall $\\in [0,1]$.
+
+---
+
+## Sensitivity and specificity (and more)
+
+.key[Sensitivity]:
+$$\\text{Sensitivity}=\\frac{\\text{TP}}{\\text{P}}=\\text{TPR}$$
+
+.key[Specificity]:
+$$\\text{Specificity}=\\frac{\\text{TN}}{\\text{N}}=1-\\text{FPR}$$
+
+**The greater, the better** (like accuracy); both in $[0,1]$.
+
+--
+
+Other similar indexes:
+- **Type I error** for FPR
+- **Type II error** for FNR
+
+For both, the lower, the better (like error).
+
+---
+
+## Which terminology?
+
+Rule of the thumb¹ (in binary classification)
+- *precision and recall*, if in an **information retrieval** scenario
+  - refer to the act of retrieving
+- *sensitivity and specificity*, if working with a **diagnostic** test
+  - refer to the quality of the text
+- *FPR and FNR*, **otherwise**
+  - refer to the name of the classes
+
+No good reasons .note[imho] for using Type I and Type II error:
+- what do they refer to?
+- is there a Type III? 🤔 (No!)
+
+.footnote[
+1. .dict-def[a method of judging a situation or condition that is not exact but is based on experience]
+]
+
 ---
 
 <!--
-- introduce positives, negatives
-- table with all binary classification indexes: fpr, fnr, precision, recall, sensitivity, specificity
-- why accuracy alone is not meaningful: example of unbalanced data
-
+- type I and type II
+- f1 score and weighted accuracy
 - $f_predict(x)$ as a distribution over decision instead of decision
 - how to obtain decision from distribution
   - sketch on how to make the opposite: (dirac) distribution from decision

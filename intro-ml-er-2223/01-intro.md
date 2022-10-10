@@ -134,7 +134,7 @@ There will be scientific papers or books to be referred to, like this book: .ref
 
 External resourses (e.g., videos, [software tools](https://en.wikipedia.org/wiki/Comparison_of_deep_learning_software), ...) will be linked directly.
 
-.note[Palette is *color-blind safe*: .col1[⬤].col2[⬤].col3[⬤].col4[⬤].col5[⬤]]
+.footnote[Palette is *color-blind safe*: .col1[⬤].col2[⬤].col3[⬤].col4[⬤].col5[⬤]]
 ]
 .c50[
 **Pseudo-code** for describing algorithms in an abstract way:

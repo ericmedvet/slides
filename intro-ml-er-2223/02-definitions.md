@@ -702,11 +702,13 @@ $y\\subtext{gender} = f'\_{\\text{predict},2}(x', m\\subtext{gender})$
 
 --
 
-The **designer** of the ML system, that is, you!
+The **designer** of the ML system, that is, you¹!
 
 .center.h25ex[![You!](images/you.jpg)]
 
-.note[Can those choices be made **automatically**? "Yes", it's called **Auto-ML**]
+.footnote[
+1. Can those choices be made **automatically**? "Yes", it's called **Auto-ML**
+]
 
 ---
 
@@ -972,7 +974,7 @@ $Y=\\{\\text{setosa}, \\text{versicolor}, \\text{virginica}\\}$
 .cols[
 .c60[
 We cannot just take *another* X, because the problem is "given an Iris flower, assign a species".
-But we can introduce some **pre-processing** steps that transform an $x \\in X$ in an $x' \\in X'$, with $X'$ being better, more suitable, for later steps.
+But we can introduce some **pre-processing**¹ steps that transform an $x \\in X$ in an $x' \\in X'$, with $X'$ being better, more suitable, for later steps.
 
 That is, we can design a $f\\subtext{pre-proc}: X \\to X'$ and an $X'$!
 
@@ -989,8 +991,8 @@ Requirements:
 5. Implement the ML system
 6. Assess the ML system
 
-.note[
-If $x \\in X$ is *not digital*, we consider $f\\subtext{pre-proc}$ to be applied outside the ML system, hence its definition is part of the problem statement; otherwise, if $x \\in X$ is natively digital, then each $f\\subtext{pre-proc}$ can be considered as part of the ML system, and its definition is done in phase 4.
+.footnote[
+1. If $x \\in X$ is *not digital*, we consider $f\\subtext{pre-proc}$ to be applied outside the ML system, hence its definition is part of the problem statement; otherwise, if $x \\in X$ is natively digital, then each $f\\subtext{pre-proc}$ can be considered as part of the ML system, and its definition is done in phase 4.
 ]
 ]
 ]
@@ -1035,9 +1037,11 @@ Some options:
 | $x'$ is some measurements of $x$ | $\\mathbb{R}^p$ | .center[🫰] | .center[🫳] | .center[👍] |
 ]
 
-.note[1: info retain: 👍: large, i.e., good; 🫳: medium; 👎: small, i.e., bad]  
-.note[2: compatibility: 👍: large, i.e., good; 🫳: medium; 👎: small, i.e., bad]  
-.note[3: not if Alice just attends this course...]
+.footnote[
+1. Info retain: 👍: large, i.e., good; 🫳: medium; 👎: small, i.e., bad.
+2. Compatibility: 👍: large, i.e., good; 🫳: medium; 👎: small, i.e., bad.
+3. Not if Alice just attends this course...
+]
 
 The actual decision should be taken by Alice and Bob together, based on **domain knowledge** of the latter and ML knowledge of the former .
 ]
@@ -1083,7 +1087,9 @@ Assume choice "$x'$ is some measurements of $x$", namely 4 measurements, then $f
 ]
 ]
 
-.note[1: which one? it has to be decided! e.g., the longest, mean value, ...]
+.footnote[
+1. Which one? it has to be decided! e.g., the longest, mean value, ...
+]
 ]
 .c40[
 1. Decide: should I use ML?
