@@ -212,6 +212,10 @@ span.note::after {
 .center {
   text-align: center;
 }
+.center table {
+  margin-left: auto;
+  margin-right: auto;
+}
 .right {
   text-align: right;
 }

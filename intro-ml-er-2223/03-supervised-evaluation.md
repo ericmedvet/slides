@@ -543,22 +543,19 @@ In practice, use the **random classifier as a baseline** and
 
 ## Building the random classifier
 
-Consider the supervised learning technique as a random classifier:
-- in learning phase: compute frequencies/probability of classes .note[concrete]
-- in prediction phase: choose the most frequent class .note[concrete]
+Consider the random classifier as a supervised learning technique:
+- in **learning phase**: compute frequencies/probability of classes .note[concrete]
+- in **prediction phase**: choose the most frequent class .note[concrete]
 
 Hence, formally:
-- a model $m \\in M$ is:
-  - the frequencies classes $\\vect{f} = (f\_1,\\dots,f\_{|Y|})$ with $M=F\_Y=\\{\\vect{f} \\in [0,1]^{|Y|}: \\lVert \\vect{f} \\rVert\_1=1\\}$   .note[
+- a .col2[model $m \\in M$ is]:
+  - the frequencies classes $\\htmlClass{col2}{\\vect{f} = (f\_1,\\dots,f\_{|Y|})}$, with $M=F\_Y=\\{\\vect{f} \\in [0,1]^{|Y|}: \\lVert \\vect{f} \\rVert\_1=1\\}$   .note[
   $\\lVert \\vect{x} \\rVert\_1$ is the **1-norm** of a vector $\\vect{x}=(x\_1,\\dots,x\_p)$ with $\\lVert \\vect{x} \\rVert\_1$ $=\\sum\_i x\_i$
   ]
-  - a **discrete probability** $p$ over $Y$, with $M=P\_Y=\\{p: Y \\to [0,1] \\text{ s.t. } 1=\\sum\_{y' \\in Y} p(y')=\\prob{y'=y}\\}$ .note[$\\text{s.t.}$ stays for "such that"]
-- $f'\\subtext{learn}: \\mathcal{P}^*(X \\times Y) \\to P\_Y$ .note[asbtract]
-- $f'\\subtext{predict}: X \\times P\_Y \\to Y$ .note[asbtract]
-
-Works with:
-- any $X$
-- finite $Y$ (categorical $y$)
+  - a **discrete probability** .col2[$p$] over $Y$, with $M=P\_Y=\\{p: Y \\to [0,1] \\text{ s.t. } 1=\\sum\_{y' \\in Y} p(y')=\\prob{y'=y}\\}$ .note[$\\text{s.t.}$ stays for "such that"]
+  - the $y$ part .col2[$\\seq{y^{(i)}}{i}$] of a **dataset** $\\seq{x^{(i)},y^{(i)}}{i}$, with $M=\\mathcal{P}^*(Y)$
+- $f'\\subtext{learn}: \\mathcal{P}^*(X \\times Y) \\to M$ .note[asbtract]
+- $f'\\subtext{predict}: X \\times M \\to Y$ .note[asbtract]
 
 ---
 
@@ -589,37 +586,43 @@ otext(250,10,'$y$')
 
 Option 1: the model .col2[$m$] is a **discrete probability**: .note[here $f'\\subtext{learn}$ a function that returns a function]
 .cols[
-.c60[
-$$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\htmlClass{col2}{p}: p(y)= \\freq{y, \\seq{y^{(i)})}{i}}$$
+.c50.center.compact[
+$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\htmlClass{col2}{p}: p(y)= \\freq{y, \\seq{y^{(i)})}{i}}$
 ]
-.c40[
-$$f'\\subtext{predict}(x,\\htmlClass{col2}{p})=\\argmax\_{y \\in Y} \\htmlClass{col2}{p}(y)$$
+.c50.center.compact[
+$f'\\subtext{predict}(x,\\htmlClass{col2}{p})=\\argmax\_{y \\in Y} \\htmlClass{col2}{p}(y)$
 ]
 ]
+
+--
 
 Option 2: the model .col2[$m$] is a **vector of frequencies**:
 .note[assume $Y=\\\\{y\_1, y\_2, \\dots\\\\}$]
 .cols[
-.c60[
-$$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\htmlClass{col2}{\\vect{f}} = \\left(\\freq{y\_j, \\seq{y^{(i)})}{i}}\\right)\_j$$
+.c50.center.compact[
+$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\htmlClass{col2}{\\vect{f}} = \\left(\\freq{y\_j, \\seq{y^{(i)})}{i}}\\right)\_j$
 ]
-.c40[
-.center[
-$f'\\subtext{predict}(x,\\htmlClass{col2}{\\vect{f}})=y\_i$
+.c50.center.compact[
+$f'\\subtext{predict}(x,\\htmlClass{col2}{\\vect{f}})=y\_i$ with $i = \\argmax\_i f\_i$]
+]
 
-with $i = \\argmax\_i f\_i$]
-]
-]
+--
 
 Option 2: the model .col2[$m$] is simply the learning **dataset**: .note[just the $y$ part of it]
 .cols[
-.c60[
-$$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\htmlClass{col2}{\\seq{y^{(i)}}{i}}$$
+.c50.center.compact[
+$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\htmlClass{col2}{\\seq{y^{(i)}}{i}}$
 ]
-.c40[
-$$f'\\subtext{predict}(x,\\seq{y^{(i)}}{i})=\\argmax\_{y \\in Y} \\freq{y,\\htmlClass{col2}{\\seq{y^{(i)}}{i}}}$$
+.c50.center.compact[
+$f'\\subtext{predict}(x,\\seq{y^{(i)}}{i})=\\argmax\_{y \\in Y} \\freq{y,\\htmlClass{col2}{\\seq{y^{(i)}}{i}}}$
 ]
 ]
+
+--
+
+Works with:
+- any $X$ ($x$ never appears in $f'\\subtext{learn}$ and $f'\\subtext{predict}$ bodies)
+- finite $Y$ (categorical $y$)
 
 ---
 
