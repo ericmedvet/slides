@@ -527,7 +527,7 @@ In practice:
 ]
 ]
 
-If $\\seq{x^{(i)}}{i}$ is collected properly, it is **representative of the behavior¹** of the real system (together with the corresponding $\\seq{s(x^{(i)})}{i}$), hence the third case is the most relevant one:
+If $\\seq{x^{(i)}}{i}$ is collected properly, it is **representative of the behavior** of the real system (together with the corresponding $\\seq{s(x^{(i)})}{i}$), hence the third case is the most relevant one:
 
 .center[$f\\subtext{acc}(\\cdot) \\in [\\max\_{y \\in Y} \\freq{y, \\\\{s(x^{(i)})\\\\}\_i}, 1 - \\epsilon]$ .note[$\\epsilon > 0$ is actually unknown]]
 
@@ -535,9 +535,21 @@ In practice, use the **random classifier as a baseline** and
 - do not cry 😭 for a missed $100\%$
 - do not be too happy 🥳 just because you score $> 0\%$
 
---
+---
 
-**1: Example**: for spam, ($x$ is an email, i.e., a string of text) are we interested in measuring the accuracy of a spam filter on all possible strings? or are we more interested in knowing its accuracy for actual emails (past, present, and future ones)?
+## *All* data
+
+All data means all the **theoretically** possible datasets, i.e., for just $y$, $\\mathcal{P}^*(Y)$.
+- on average in $\\mathcal{P}^*(Y)$, the frequency of each $y\_i \\in Y$ is $\\frac{1}{|Y|}$
+
+**In practice** not all possible datasets are equally probable.
+- often, the frequencies $f\_i$ of $y\_i$ are known (at least an approximation of them).
+- in these cases, the (approximate) lower bound for the random classifier is:
+$$\\max\_i f\_i$$
+
+**Example**: for spam, $x$ is an email, i.e., a string of text, $y$ is $\\text{spam}$ or $\\neg\\text{spam}$:
+- are we interested in measuring the accuracy of a spam filter on all possible strings (theory)?
+- or are we more interested in knowing its accuracy for actual emails (practice)?
 
 ---
 
