@@ -951,13 +951,15 @@ No good reasons .note[imho] for using Type I and Type II error:
 ---
 
 <!--
-- type I and type II
-- f1 score and weighted accuracy
+- limit of having 2 indexes: example of two models with no winner with fpr,fnr
+- cost of errors
+- can we tailor a model to take into account the cost of error
 - $f_predict(x)$ as a distribution over decision instead of decision
 - how to obtain decision from distribution
   - sketch on how to make the opposite: (dirac) distribution from decision
 - eer
 - roc, auc
+- f1 score and weighted accuracy
 - influence of knowledge of cost of errors on choice of eval indexes
 
 - multiclass case: accuracy, weighted accuracy
