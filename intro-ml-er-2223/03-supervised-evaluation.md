@@ -294,19 +294,19 @@ Concerning .col1[size $n$]:
 
 Concerning .col2[coverage of $X$]
 - poor coverage, poor effectiveness 👎
-- good $n$, good effectiveness 👍
+- good coverage, good effectiveness 👍
 
 **Focus on coverage, rather than size**, because it has no drawbacks!
 
 ---
 
-## Comparing responses with $f\\subtext{comp-effect}$
+## Comparing responses with $f\\subtext{comp-resps}$
 
 .cols[
 .c60[
 Formally:
 .cols[
-.c40[$$f\\subtext{comp-effect}: \\mathcal{P}^\*(Y^2) \\to \\mathbb{R}$$]
+.c40[$$f\\subtext{comp-resps}: \\mathcal{P}^\*(Y^2) \\to \\mathbb{R}$$]
 .c60[
 .diagram.center[
 link([0,25,150,25],'a')
@@ -336,12 +336,23 @@ where $\\{(y^{(i)},\\hat{y}^{(i)})\\}\_i \\in \\mathcal{P}^\*(Y^2)$ is a multise
 
 Depends only on $Y$, not on $X$!
 
+--
+
 We'll see **a few options** for the main cases:
+
+.cols[
+.c60[
 - classification
   - all (i.e., agnostic with respect to $|Y|$): **error**, **accuracy**
   - binary: **FPR** and **FNR** (and variants), **EER**, **AUC**
   - multiclass: **weighted accuracy**
 - regression: **MAE**, **MSE**, **MRE**, $R^2$
+]
+.c40[
+<span style="font-size: 600%; line-height: 150px; vertical-align: bottom;">}</span>
+<span style="line-height: 130px; vertical-align: bottom;">.key[performance indexes]</span>
+]
+]
 
 ---
 
@@ -356,7 +367,7 @@ class: middle, center
 Recall: in classification $Y$ is a finite set with no ordering
 
 .key[Classification error]: .note[more verbosely: classification error **rate**]
-$$f\\subtext{err}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=\\frac{1}{n}\\sum\_{i=1}^{i=n}\\mathbf{1}(y^{(i)}=\\hat{y}^{(i)})$$
+$$f\\subtext{err}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=\\frac{1}{n}\\sum\_{i=1}^{i=n}\\mathbf{1}(y^{(i)}\\ne \\hat{y}^{(i)})$$
 where $\\mathbf{1}: \\{\\text{false},\\text{true}\\} \\to \\{0,1\\}$ is the indicator function:
 $$\\mathbf{1}(b) =
 \\begin{cases}
@@ -368,14 +379,14 @@ $$\\mathbf{1}(b) =
 - the codomain of $f\\subtext{err}$ is $[0,1]$: .note[$[0,1] \\subseteq{\\mathbb{R}}$, so it can be a concrete instance]
   - $0$ means no errors, it's good 👍
   - $1$ means all errors, it's bad 👎
-- in general, numbers in $[0,1]$ can be expressed as percentages in $[0,100]$: $x$ is the same as $\\frac{x}{100}\%$
+- in general, numbers in $[0,1]$ can be expressed as percentages in $[0,100]$: $x$ is the same as $100 x\%$
 
 ---
 
 ## Classification accuracy
 
 .key[Classification accuracy]:
-$$f\\subtext{acc}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=\\frac{1}{n}\\sum\_{i=1}^{i=n}\\mathbf{1}(y^{(i)} \\htmlClass{col3}{\\ne} \\hat{y}^{(i)})$$
+$$f\\subtext{acc}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=\\frac{1}{n}\\sum\_{i=1}^{i=n}\\mathbf{1}(y^{(i)} \\htmlClass{col3}{=} \\hat{y}^{(i)})$$
 
 Clearly, $f\\subtext{acc}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=1-f\\subtext{err}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})$.
 

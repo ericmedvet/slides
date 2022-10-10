@@ -1354,7 +1354,7 @@ A .key[supervised learning technique] is defined by:
 - low $y$ value
 - avoid human bias
 
-.col1[Arguments for $g\\subtext{learn}$ on machine:]
+.col1[Arguments for $f\\subtext{learn}$ on machine:]
 - cannot build $f\\subtext{predict}$ manually
 - cost building $f\\subtext{predict}$ manually
 - quality of manually built $f\\subtext{predict}$
