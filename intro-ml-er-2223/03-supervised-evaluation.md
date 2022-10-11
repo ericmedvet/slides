@@ -361,6 +361,8 @@ class: middle, center
 
 ## Assessing models
 
+### Classification
+
 ---
 
 ## Classification error
@@ -422,15 +424,21 @@ From another point of view, what would be the accuracy of a:
 
 ## The random classifier (lower bound)
 
-The .key[random classifier] is a $X \\to Y$ doing:
+The .key[random classifier]¹ is a $X \\to Y$ doing:
 
-.center[$f\\subtext{rnd}(x) = y_i$, with $i \\sim U(\\{1,\\dots,|Y|\\})$]
+$$f\\subtext{rnd}(x) = y_i \\text{ with } i \\sim U(\\{1,\\dots,|Y|\\})$$
 
 where $i \\sim U(A)$ means choosing an item of $A$ with uniform probability.
 
 Here $A=\\{1,\\dots,|Y|\\}$, hence $f(x)$ gives a random $y$, without using $x$, i.e., **no dependency**.
 
 Considering **all possibles multisets of responses** $\\mathcal{P}^\*(Y)$, the **accuracy of the random classifier** is, on average, $\\frac{1}{|Y|}$.
+
+.footnote[
+1. .key[classifier] is a *shorthand* for:
+  - a model for doing classifcation, i.e., an $f'\\subtext{predict}$ with categorical $Y$
+  - a supervised learning technique for classification, i.e., a pair $f'\\subtext{learn}, f'\\subtext{predict}$ with categorical $Y$
+]
 
 ---
 
@@ -439,7 +447,7 @@ Considering **all possibles multisets of responses** $\\mathcal{P}^\*(Y)$, the *
 .cols[
 .c70[
 Given **one specific multiset of responses** $\\{y^{(i)}\\}\_i$, the .key[dummy classifier] is the one that always predicts the **most frequent** class in $\\{y^{(i)}\\}\_i$:
-$$f\_{\\text{rnd},\\{y^{(i)}\\}\_i}(x) = \\argmax\_{y \\in Y} \\frac{1}{n} \\sum\_{i=1}^{i=n} \\mathbf{1}(y=y^{(i)})=\\argmax\_{y \\in Y} \\freq{y, \\{y^{(i)}\\}\_i}$$
+$$f\_{\\text{dummy},\\{y^{(i)}\\}\_i}(x) = \\argmax\_{y \\in Y} \\frac{1}{n} \\sum\_{i=1}^{i=n} \\mathbf{1}(y=y^{(i)})=\\argmax\_{y \\in Y} \\freq{y, \\{y^{(i)}\\}\_i}$$
 On the $\\{y^{(i)}\\}\_i$ on which it is built, the accuracy of the dummy classifier is $\\max\_{y \\in Y} \\freq{y, \\{y^{(i)}\\}\_i}$.
 
 Recall: we use $f\\subtext{acc}$ on one specific $\\{y^{(i)}\\}\_i$.
@@ -467,7 +475,7 @@ Case: **coin tossing**, $Y=\\{\\htmlClass{col1}{\\text{heads}},\\htmlClass{col2}
 
 **Random** on average (with $f\\subtext{rnd}$):
 .nicetable[
-| $\\{y^{(i)}\\}\_i$ | $\\{\\hat{y}^{(i)}\\}\_i$ | $f\\subtext{acc}()$ |
+| $\\seq{y^{(i)}}{i}$ | $\\seq{\\hat{y}^{(i)}}{i}$ | $f\\subtext{acc}()$ |
 | --- | --- | --- |
 |.col1[⬤].col2[⬤].col2[⬤].col1[⬤].col1[⬤].col2[⬤]|.col2[⬤].col2[⬤].col2[⬤].col1[⬤].col2[⬤].col1[⬤]|$50\%$|
 |.col2[⬤].col2[⬤].col1[⬤].col2[⬤]|.col2[⬤].col1[⬤].col2[⬤].col1[⬤]|$25\%$|
@@ -478,7 +486,8 @@ Case: **coin tossing**, $Y=\\{\\htmlClass{col1}{\\text{heads}},\\htmlClass{col2}
 ]
 Average accuracy = $50\%$
 
-**Dummy** on $\\seq{y^{(i)}}{i}=\\htmlClass{col2 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}}$ (w/ $f\_{\\text{rnd},\\htmlClass{col2 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}}}$):
+**Dummy** on $\\seq{y^{(i)}}{i}=\\htmlClass{col2 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}}$  
+(with $f\_{\\text{dummy},\\htmlClass{col2 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}}}$):
 
 $$f\\subtext{acc}(\\htmlClass{col2 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}},\\htmlClass{col2 st}{\\text{⬤⬤⬤⬤}}) = 75\%$$
 ]
@@ -487,7 +496,7 @@ Case: **Iris**, $Y=\\{\\htmlClass{col1}{\\text{setosa}},\\htmlClass{col2}{\\text
 
 **Random** on average (with $f\\subtext{rnd}$):
 .nicetable[
-| $\\{y^{(i)}\\}\_i$ | $\\{\\hat{y}^{(i)}\\}\_i$ | $f\\subtext{acc}()$ |
+| $\\seq{y^{(i)}}{i}$ | $\\seq{\\hat{y}^{(i)}}{i}$ | $f\\subtext{acc}()$ |
 | --- | --- | --- |
 |.col1[⬤].col3[⬤].col2[⬤].col1[⬤].col3[⬤].col2[⬤]|.col2[⬤].col2[⬤].col3[⬤].col1[⬤].col2[⬤].col1[⬤]|$\\approx 17\%$|
 |.col2[⬤].col2[⬤].col1[⬤].col3[⬤]|.col2[⬤].col1[⬤].col2[⬤].col3[⬤]|$50\%$|
@@ -498,7 +507,8 @@ Case: **Iris**, $Y=\\{\\htmlClass{col1}{\\text{setosa}},\\htmlClass{col2}{\\text
 ]
 Average accuracy $\\approx 33\%$
 
-**Dummy** on $\\seq{y^{(i)}}{i}=\\htmlClass{col3 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}}$ (w/ $f\_{\\text{rnd},\\htmlClass{col3 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}}}$):
+**Dummy** on $\\seq{y^{(i)}}{i}=\\htmlClass{col3 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}}$  
+(with $f\_{\\text{dummy},\\htmlClass{col3 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}}}$):
 
 $$f\\subtext{acc}(\\htmlClass{col3 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}},\\htmlClass{col3 st}{\\text{⬤⬤⬤⬤}}) = 50\%$$
 ]
@@ -508,7 +518,7 @@ $$f\\subtext{acc}(\\htmlClass{col3 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\tex
 
 ## The perfect classifier (upper bound)
 
-A classifier that works exactly as $S$:
+A classifier that works exactly as $s$:
 
 $$f\\subtext{perfect}(x) = s(x)$$
 
@@ -534,13 +544,65 @@ where $\\prob{s(x)=y \\mid x}$ is the probability that $s$ gives $y$ for $x$.
 
 Key facts:
 - on a given $\\seq{x^{(i)}}{i}$ the accuracy of the Bayes classifier is $\\le 100\%$ (it may be **lower than 100%**)
-- on $\\mathcal{P}^\*(X)$, i.e., on all possible multiset of observations $x$, the Bayes classifier is the **optimal** classifier, i.e., no other classifier can score a better accuracy .note[it can be proven, not here!]
+- on $\\mathcal{P}^\*(X)$, i.e., on all possible multisets of observations $x$, the Bayes classifier is the **optimal** classifier, i.e., no other classifier can score a better accuracy .note[it can be proven, not here!]
 
 --
 
 In practice:
 - the Bayes classifier is an ideal classifier: "building" it requires knowing how $s$ works, which is **undoable in practice**
 - intuitively, **the more random the system, the lower the accuracy** of the Bayes classifier
+
+---
+
+## The Bayes classifier: example
+
+The real system $s$ is the professor deciding if a **student** will **pass or fail** the exam of *Introduction to Machine Learning*.
+The professor just looks at the student course to decide and is a bit **stochastic**.
+
+.center[$X =\\{\\text{IN19},\\text{IN20},\\text{SM34},\\text{SM35},\\text{SM64}\\}$  
+$Y = \\{\\text{fail},\\text{pass}\\}$]
+
+The probability according to which the professor "reasons" is **completeley known**:
+.cols[
+.c30.center[
+.compact.nicetable[
+| | $\\text{fail}$ | $\\text{pass}$ |
+| --- | --- | --- |
+| $\\text{IN19}$ | $20\%$ | $80\%$ |
+| $\\text{IN20}$ | $15\%$ | $85\%$ |
+| $\\text{SM34}$ | $60\%$ | $40\%$ |
+| $\\text{SM35}$ | $80\%$ | $20\%$ |
+| $\\text{SM64}$ | $20\%$ | $80\%$ |
+]
+.note[❗ These are fake numbers!]
+]
+.c40[
+.compact[
+$$\\prob{s(x)=y \\mid x}=\\begin{cases}
+20\% &\\text{if } x=\\text{IN19} \\land y=\\text{fail} \\\\
+80\% &\\text{if } x=\\text{IN19} \\land y=\\text{pass} \\\\
+15\% &\\text{if } x=\\text{IN20} \\land y=\\text{fail} \\\\
+\\dots \\\\
+80\% &\\text{if } x=\\text{SM64} \\land y=\\text{pass}
+\\end{cases}$$
+.note[the table is a compact form for this probability]
+]
+]
+.c30[
+.compact[
+$$f\\subtext{Bayes}(x) = \\begin{cases}
+  \\text{pass} &\\text{if } x=\\text{IN19} \\\\
+  \\text{pass} &\\text{if } x=\\text{IN20} \\\\
+  \\text{fail} &\\text{if } x=\\text{SM34} \\\\
+  \\text{fail} &\\text{if } x=\\text{SM35} \\\\
+  \\text{pass} &\\text{if } x=\\text{SM64}
+\\end{cases}$$
+.note[Built using the definition $f\\subtext{Bayes}(x) = \\argmax_{y \\in Y} \\prob{s(x)=y \\mid x}$]
+]
+]
+]
+
+.note[What's the accuracy of $f\\subtext{Bayes}$? Depends on the dataset! What's the accurcay of $f\\subtext{dummy}$? And of $f\\subtext{rnd}$?]
 
 ---
 
@@ -680,6 +742,24 @@ For all options, works with:
 - any $X$ ($x$ never appears in $f'\\subtext{learn}$ and $f'\\subtext{predict}$ bodies)
 - finite $Y$ (categorical $y$)
 
+Are they different? How?
+
+--
+
+They differ in efficiency, are equal in effectiveness:
+- **effectiveness** as supervised learning techniques, **same by definition**
+- **efficiency**, always low, but: .note[just an implementation matter]
+  - more or less memory for storing the model $m$
+  - computational effort more in the learning or prediction phase
+
+---
+
+class: middle, center
+
+## Assessing models
+
+### Binary lassification
+
 ---
 
 ## Binary classification
@@ -707,7 +787,7 @@ You are being said the accuracy of the test is $99.8\%$.
 
 In "formal" terms, the test is an $f\\subtext{predict}: X \\to Y$ with:
 - $X=\\{$🧑‍🦰$,$👱‍$,$🙍$,$‍👱$,$🙎‍$,\\dots\\}$ the set of persons¹
-- $Y=\\{\\text{has the diseseas } d, \\text{does not have the disease } d\\}$
+- $Y=\\{\\text{has the disesea } d, \\text{does not have the disease } d\\}$
 
 Since $|Y|=2$ this is a binary classification problem.
 
@@ -719,7 +799,7 @@ Since $|Y|=2$ this is a binary classification problem.
 
 ## The rare disease
 
-Suppose $d$ is a **rare**¹ disease which affects $\\approx 2$ persons every $1000$ and let be the accuracy again $99.8\%$.
+Suppose $d$ is a **rare**¹ disease which affects $\\approx 2$ people every $1000$ and let the accuracy be again $99.8\%$.
 
 .center[**Is this a good test or not?**]
 
@@ -729,7 +809,7 @@ Suppose $d$ is a **rare**¹ disease which affects $\\approx 2$ persons every $10
 
 --
 
-Consider a trivial test that **always** says "you don't have the disease $d$", it's accuracy would be $99.8\%$:
+Consider a trivial test that **always** says "you don't have the disease $d$", its accuracy would be $99.8\%$:
 - on $1000$ persons, the trivial test would make correct decisions on $998$ cases
 - is our test good if it works like the trivial test?
 
@@ -763,7 +843,7 @@ First, let's give a *standard* name to the two possible $y$ values:
 
 How to associate positive/negative with actual $Y$ elements?
 - e.g., $\\text{spam}, \\neg\\text{spam}$
-- e.g., $\\text{has the diseseas } d, \\text{does not have the disease } d$
+- e.g., $\\text{has the disease } d, \\text{does not have the disease } d$
 
 Common practice:
 - associate positive to the **rarest case**
