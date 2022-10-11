@@ -585,7 +585,7 @@ $$\\prob{s(x)=y \\mid x}=\\begin{cases}
 \\dots \\\\
 80\% &\\text{if } x=\\text{SM64} \\land y=\\text{pass}
 \\end{cases}$$
-.note[the table is a compact form for this probability]
+.center.note[the table is a compact form for this probability]
 ]
 ]
 .c30[
@@ -597,12 +597,15 @@ $$f\\subtext{Bayes}(x) = \\begin{cases}
   \\text{fail} &\\text{if } x=\\text{SM35} \\\\
   \\text{pass} &\\text{if } x=\\text{SM64}
 \\end{cases}$$
-.note[Built using the definition $f\\subtext{Bayes}(x) = \\argmax_{y \\in Y} \\prob{s(x)=y \\mid x}$]
+.center.note[Built using the definition $f\\subtext{Bayes}(x) = \\argmax_{y \\in Y} \\prob{s(x)=y \\mid x}$]
 ]
 ]
 ]
 
-.note[What's the accuracy of $f\\subtext{Bayes}$? Depends on the dataset! What's the accurcay of $f\\subtext{dummy}$? And of $f\\subtext{rnd}$?]
+.note[
+What's the accuracy of $f\\subtext{Bayes}$? What's the model for the Bayes classifier? What's $M$?  
+What's the accurcay of $f\\subtext{dummy}$? And of $f\\subtext{rnd}$?
+]
 
 ---
 
@@ -825,9 +828,11 @@ The trivial test is actually the **dummy classifier** built knowing that the pre
 
 ---
 
-## Positives and negatives
+## The fallacy of the accuracy
 
 $99.8\%$ was soooo nice, but the test was actually just saying always one $y$.
+
+The **accuracy** alone was not able to capture such a gross error.
 
 - Can we spot this trivially wrong behavior?
 - From another point of view, can we check how badly the classifier behaves **for each class** $y$?
@@ -835,7 +840,9 @@ $99.8\%$ was soooo nice, but the test was actually just saying always one $y$.
 Yes, because we are in **binary classification** and there are only $2=|Y|$ possible values for $y$ (i.e., 2 classes).
 There are performance indexes designed right with this aim.
 
---
+---
+
+## Positives and negatives
 
 First, let's give a *standard* name to the two possible $y$ values:
 - **positive** (one case, denoted with $\\text{P}$)
