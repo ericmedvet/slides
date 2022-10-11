@@ -436,6 +436,8 @@ Considering **all possibles multisets of responses** $\\mathcal{P}^\*(Y)$, the *
 
 ## Dummy classifier (better lower bound)
 
+.cols[
+.c70[
 Given **one specific multiset of responses** $\\{y^{(i)}\\}\_i$, the .key[dummy classifier] is the one that always predicts the **most frequent** class in $\\{y^{(i)}\\}\_i$:
 $$f\_{\\text{rnd},\\{y^{(i)}\\}\_i}(x) = \\argmax\_{y \\in Y} \\frac{1}{n} \\sum\_{i=1}^{i=n} \\mathbf{1}(y=y^{(i)})=\\argmax\_{y \\in Y} \\freq{y, \\{y^{(i)}\\}\_i}$$
 On the $\\{y^{(i)}\\}\_i$ on which it is built, the accuracy of the dummy classifier is $\\max\_{y \\in Y} \\freq{y, \\{y^{(i)}\\}\_i}$.
@@ -443,6 +445,17 @@ On the $\\{y^{(i)}\\}\_i$ on which it is built, the accuracy of the dummy classi
 Recall: we use $f\\subtext{acc}$ on one specific $\\{y^{(i)}\\}\_i$.
 
 Like the random classifier, the dummy classifier does not use $x$.
+]
+.c30[
+.h30ex.center[![Dummy](images/dummy.jpg)]
+.note[
+.dict-def[*dummy \[duhm-ee\]*: a representation of a human figure, as for displaying clothes in store windows]
+
+Looks like a human, but does nothing!
+]
+]
+]
+
 
 ---
 
@@ -582,12 +595,13 @@ Hence, formally:
   ]
   - a **discrete probability** .col2[$p$] over $Y$, with $M=P\_Y=\\{p: Y \\to [0,1] \\text{ s.t. } 1=\\sum\_{y' \\in Y} p(y')=\\prob{y'=y}\\}$ .note[$\\text{s.t.}$ stays for "such that"]
   - the $y$ part .col2[$\\seq{y^{(i)}}{i}$] of a **dataset** $\\seq{x^{(i)},y^{(i)}}{i}$, with $M=\\mathcal{P}^*(Y)$
+  - just the most frequent **class** .col2[$y^\\star$], with $M=Y$
 - $f'\\subtext{learn}: \\mathcal{P}^*(X \\times Y) \\to M$ .note[asbtract]
 - $f'\\subtext{predict}: X \\times M \\to Y$ .note[asbtract]
 
 ---
 
-## Building the dummy classifier
+## Building the dummy classifier (options 1 and 2)
 
 .cols[
 .c60[
@@ -634,9 +648,11 @@ $f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\htmlClass{col2}{\\vect{f}} 
 $f'\\subtext{predict}(x,\\htmlClass{col2}{\\vect{f}})=y\_i$ with $i = \\argmax\_i f\_i$]
 ]
 
---
+---
 
-Option 2: the model .col2[$m$] is simply the learning **dataset**: .note[just the $y$ part of it]
+## Building the dummy classifier (options 3 and 4)
+
+Option 3: the model .col2[$m$] is simply the learning **dataset**: .note[just the $y$ part of it]
 .cols[
 .c50.center.compact[
 $f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\htmlClass{col2}{\\seq{y^{(i)}}{i}}$
@@ -648,7 +664,19 @@ $f'\\subtext{predict}(x,\\seq{y^{(i)}}{i})=\\argmax\_{y \\in Y} \\freq{y,\\htmlC
 
 --
 
-Works with:
+Option 4: the model .col2[$m$] is the most frquent **class** $y^\\star$:
+.cols[
+.c70.center.compact[
+$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\htmlClass{col2}{y^\\star}=\\argmax\_{y \\in Y} \\freq{y,\\seq{y^{(i)}}{i}}$
+]
+.c30.center.compact[
+$f'\\subtext{predict}(x,y^\\star)=\\htmlClass{col2}{y^\\star}$
+]
+]
+
+--
+
+For all options, works with:
 - any $X$ ($x$ never appears in $f'\\subtext{learn}$ and $f'\\subtext{predict}$ bodies)
 - finite $Y$ (categorical $y$)
 
@@ -735,11 +763,11 @@ First, let's give a *standard* name to the two possible $y$ values:
 
 How to associate positive/negative with actual $Y$ elements?
 - e.g., $\\text{spam}, \\neg\\text{spam}$
-- e.g. $\\{\\text{has the diseseas } d, \\text{does not have the disease } d$
+- e.g., $\\text{has the diseseas } d, \\text{does not have the disease } d$
 
 Common practice:
-- associate positive to the rarest case
-- otherwise, if no rarest case exists or is known, **clearly** state what's your positive
+- associate positive to the **rarest case**
+- otherwise, if no rarest case exists or is known, **clearly state what's your positive**
 
 ---
 
