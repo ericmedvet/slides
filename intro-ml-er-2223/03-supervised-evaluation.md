@@ -556,8 +556,8 @@ In practice:
 
 ## The Bayes classifier: example
 
-The real system $s$ is the professor deciding if a **student** will **pass or fail** the exam of *Introduction to Machine Learning*.
-The professor just looks at the student course to decide and is a bit **stochastic**.
+The real system $s$ is the professor deciding if a **student** will **pass or fail** the exam of *Introduction to ML*.
+The professor just looks at the student course to decide .note[❗ fake!] and is a bit **stochastic**.
 
 .center[$X =\\{\\text{IN19},\\text{IN20},\\text{SM34},\\text{SM35},\\text{SM64}\\}$  
 $Y = \\{\\text{fail},\\text{pass}\\}$]
@@ -574,7 +574,7 @@ The probability according to which the professor "reasons" is **completeley know
 | $\\text{SM35}$ | $80\%$ | $20\%$ |
 | $\\text{SM64}$ | $20\%$ | $80\%$ |
 ]
-.note[❗ These are fake numbers!]
+.note[❗ these are fake numbers!]
 ]
 .c40[
 .compact[
@@ -597,7 +597,7 @@ $$f\\subtext{Bayes}(x) = \\begin{cases}
   \\text{fail} &\\text{if } x=\\text{SM35} \\\\
   \\text{pass} &\\text{if } x=\\text{SM64}
 \\end{cases}$$
-.center.note[Built using the definition $f\\subtext{Bayes}(x) = \\argmax_{y \\in Y} \\prob{s(x)=y \\mid x}$]
+.center.note[built using the definition $f\\subtext{Bayes}(x) = \\argmax_{y \\in Y} \\prob{s(x)=y \\mid x}$]
 ]
 ]
 ]
@@ -658,7 +658,7 @@ Hence, formally:
   - the frequencies classes $\\htmlClass{col2}{\\vect{f} = (f\_1,\\dots,f\_{|Y|})}$, with $M=F\_Y=\\{\\vect{f} \\in [0,1]^{|Y|}: \\lVert \\vect{f} \\rVert\_1=1\\}$ .note[
   $\\lVert \\vect{x} \\rVert\_1$ is the **1-norm** of a vector $\\vect{x}=(x\_1,\\dots,x\_p)$ with $\\lVert \\vect{x} \\rVert\_1$ $=\\sum\_i x\_i$
   ]
-  - a **discrete probability** .col2[$p$] over $Y$, with $M=P\_Y=\\{p: Y \\to [0,1] \\text{ s.t. } 1=\\sum\_{y' \\in Y} p(y')=\\prob{y'=y}\\}$ .note[$\\text{s.t.}$ stays for "such that"]
+  - a **discrete probability distribution** .col2[$p$] over $Y$, with $M=P\_Y=\\{p: Y \\to [0,1] \\text{ s.t. } 1=\\sum\_{y' \\in Y} p(y')=\\prob{y'=y}\\}$ .note[$\\text{s.t.}$ stays for "such that"]
   - the $y$ part .col2[$\\seq{y^{(i)}}{i}$] of a **dataset** $\\seq{x^{(i)},y^{(i)}}{i}$, with $M=\\mathcal{P}^*(Y)$
   - just the most frequent **class** .col2[$y^\\star$], with $M=Y$
 - $f'\\subtext{learn}: \\mathcal{P}^*(X \\times Y) \\to M$ .note[asbtract]
@@ -691,7 +691,7 @@ otext(250,10,'$y$')
 ]
 ]
 
-Option 1: the model .col2[$m$] is a **discrete probability**: .note[here $f'\\subtext{learn}$ a function that returns a function]
+Option 1: the model .col2[$m$] is a **discrete probability distribution**: .note[here $f'\\subtext{learn}$ a function that returns a function]
 .cols[
 .c50.center.compact[
 $f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\htmlClass{col2}{p}: p(y)= \\freq{y, \\seq{y^{(i)})}{i}}$
@@ -837,7 +837,8 @@ The **accuracy** alone was not able to capture such a gross error.
 - Can we spot this trivially wrong behavior?
 - From another point of view, can we check how badly the classifier behaves **for each class** $y$?
 
-Yes, because we are in **binary classification** and there are only $2=|Y|$ possible values for $y$ (i.e., 2 classes).
+Yes, also because we are in **binary classification** and there are only $2=|Y|$ possible values for $y$ (i.e., 2 classes).
+
 There are performance indexes designed right with this aim.
 
 ---
@@ -845,8 +846,8 @@ There are performance indexes designed right with this aim.
 ## Positives and negatives
 
 First, let's give a *standard* name to the two possible $y$ values:
-- **positive** (one case, denoted with $\\text{P}$)
-- **negative** (the other case $\\text{N}$)
+- **positive** (one case, denoted with $\\text{pos}$)
+- **negative** (the other case $\\text{neg}$)
 
 How to associate positive/negative with actual $Y$ elements?
 - e.g., $\\text{spam}, \\neg\\text{spam}$
@@ -863,15 +864,15 @@ Common practice:
 **Goal**: measuring the error on each of the two classes in binary classification.
 
 The .key[False Positive Rate (FPR)] is the rate of **negatives** that are **wrongly¹ classified as positives**:
-$$f\\subtext{FPR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=\\frac{1}{n}\\sum\_{i=1}^{i=n}\\mathbf{1}(y^{(i)}=\\text{N} \\land y^{(i)} \\ne \\hat{y}^{(i)})$$
+$$f\\subtext{FPR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=\\frac{1}{n}\\sum\_{i=1}^{i=n}\\mathbf{1}(y^{(i)}=\\text{neg} \\land y^{(i)} \\ne \\hat{y}^{(i)})$$
 
-The .key[False Negative Rate (FPR)] is the rate of **positives** that are **wrongly classified as negatives**:
-$$f\\subtext{FPR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=\\frac{1}{n}\\sum\_{i=1}^{i=n}\\mathbf{1}(y^{(i)}=\\text{N} \\land y^{(i)} \\ne \\hat{y}^{(i)})$$
+The .key[False Negative Rate (FNR)] is the rate of **positives** that are **wrongly classified as negatives**:
+$$f\\subtext{FNR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=\\frac{1}{n}\\sum\_{i=1}^{i=n}\\mathbf{1}(y^{(i)}=\\text{pos} \\land y^{(i)} \\ne \\hat{y}^{(i)})$$
 
 For both:
 - the codomain is $[0,1]$
 - **the lower, the better** (like the error)
-- each one is formally a $f\\subtext{comp-resps}$ considering just a part of the $\\{(y^{(i)},\\hat{y}^{(i)})\\}$
+- each one is formally a $f\\subtext{comp-resps}$ considering just a part  $\\seq{(y^{(i)},\\hat{y}^{(i)})}{i}$
 
 .note[
 1. wrongly $\\rightarrow$ *falsely* $\\rightarrow$ false
@@ -890,8 +891,8 @@ $$\\text{FNR}=\\frac{\\text{FN}}{\\text{P}}$$
 ]
 
 Assuming that:
-- there is a $\\{(y^{(i)},\\hat{y}^{(i)}\\}$
-- $\\text{FP}$ is the number of false positives $\\text{FN}$ is the number of false negatives
+- there is a $\\seq{(y^{(i)},\\hat{y}^{(i)}}{i}$, even if it's not written
+- $\\text{FP}$ is the number of false positives; $\\text{FN}$ is the number of false negatives
   - you need both $y^{(i)}$ and $\\hat{y}^{(i)}$ for counting them
   - *positive/negative* is for $\\hat{y}^{(i)}$; *false* is for $y^{(i)}$, but considering $\\hat{y}^{(i)}$
 - $\\text{P}$ is the number of positives and $\\text{N}$ is the number of negatives
@@ -972,7 +973,7 @@ $$\\text{Acc}
 
 ## On balanced data
 
-In classification (binary and multiclass), a dataset is .key[balanced], with respect to the response variable $y$, if the frequency of each value of $y$ is the same.
+In classification (binary and multiclass), a dataset is .key[balanced], with respect to the response variable $y$, if the frequency of each value of $y$ is *roughly* the same.
 
 For a balanced dataset in binary classification, $\\text{P}=\\text{N}$, hence:
 - the error rate is the **average** of FPR and FNR
@@ -1013,11 +1014,11 @@ They come from the **information retrieval** scenario:
 .cols[
 .c60[
 **Precision**: how many retrieved document are actually relevant?
-.center[$\\text{Prec}=\\frac{|D' \\cap D^\\star|}{|D'|}=\\frac{|D' \\cap D^\\star|}{|D' \\cap D^\\star|+|D' \\setminus D^\\star|}$]
+.center[$\\text{Prec}=\\frac{|D' \\cap D^\\star|}{|D'|}=\\frac{\\htmlClass{col1}{|D' \\cap D^\\star|}}{\\htmlClass{col2}{|D' \\cap D^\\star|}+\\htmlClass{col2}{|D' \\setminus D^\\star|}}=\\frac{\\htmlClass{col1}{\\text{TP}}}{\\htmlClass{col1}{\\text{TP}}+\\htmlClass{col2}{FP}}$]
 ]
 .c40[
 **Recall**: how many of the relevant document are actually retrieved?
-.center[$\\text{Prec}=\\frac{|D' \\cap D^\\star|}{|D^\\star|}$]
+.center[$\\text{Rec}=\\frac{\\htmlClass{col1}{|D' \\cap D^\\star|}}{\\htmlClass{col3}{|D^\\star|}}=\\frac{\\htmlClass{col1}{\\text{TP}}}{\\htmlClass{col3}{\\text{P}}}$]
 ]
 ]
 
@@ -1031,7 +1032,7 @@ They come from the **information retrieval** scenario:
 $$\\text{Sensitivity}=\\frac{\\text{TP}}{\\text{P}}=\\text{TPR}$$
 
 .key[Specificity]:
-$$\\text{Specificity}=\\frac{\\text{TN}}{\\text{N}}=1-\\text{FPR}$$
+$$\\text{Specificity}=\\frac{\\text{TN}}{\\text{N}}=\\text{TNR}$$
 
 **The greater, the better** (like accuracy); both in $[0,1]$.
 
@@ -1053,7 +1054,7 @@ Rule of the thumb¹ (in binary classification)
 - *sensitivity and specificity*, if working with a **diagnostic** test
   - refer to the quality of the text
 - *FPR and FNR*, **otherwise**
-  - refer to the name of the classes
+  - refer to the name of the class
 
 No good reasons .note[imho] for using Type I and Type II error:
 - what do they refer to?
@@ -1065,15 +1066,223 @@ No good reasons .note[imho] for using Type I and Type II error:
 
 ---
 
+## Comparison with FPR and FNR
+
+Suppose you have two models and you compute them on the same data:
+- model $m_1$ .note[with its $f'\\subtext{predict}$] scores $\\text{FPR}=6\%$ and $\\text{FNR}=4\%$
+- model $m_2$ .note[with its $f'\\subtext{predict}$] scores $\\text{FPR}=10\%$ and $\\text{FNR}=1\%$
+
+Which one is the best?
+
+--
+
+In general, it depends on:
+- the **cost of the error**, possibly different between FPs and FNs
+- the number of positives or negatives
+
+---
+
+## Cost of the error
+
+Assumptions:
+- once $f\\subtext{predict}$ outputs a $y$, some **action is taken**
+  - otherwise, taking a decision $y$ is pointless
+- if the action is wrong, there is some **cost** to be paid with respect to the correct action (the other one, in binary classification) .note[assume the correct decision has $0$ cost]
+  - otherwise, making attempting to take the correct decision is pointless
+
+Given $\\text{P}+\\text{N}$ observations, the overall cost $c$ is:
+$$c = c\\subtext{FP} \; \\text{FPR} \; \\text{N} + c\\subtext{FN} \; \\text{FNR} \; \\text{P}$$
+with $c\\subtext{FP}$ and $c\\subtext{FN}$ the cost of FPs and FNs.
+
+If you know $c\\subtext{FP}$, $c\\subtext{FN}$, $\\text{N}$, and $\\text{P}$: (the costs $c\\subtext{FP}$, $c\\subtext{FN}$ should come **from domain knowledge**)
+- you can **compute** $c$ (and **compare** the cost for two models)
+- find a good the trade-off for $\\text{FPR}$ and $\\text{FNR}$ .note[more later]
+
+---
+
+## Balancing FPR and FNR
+
+Given a **model** (not a learning technique), can we "tune" it to **prefer avoiding FPs rathern than FNs** (or viceversa)?
+- e.g., can we make a diagnostic more sensitive to positives (i.e., prefer avoiding FNs) during a pandemic wave?
+
+Yes! It turns out that for **many learning techniques** (for classification), the $f'\\subtext{predict}$ internally computes a **discrete probability distribution** over $Y$ before actually returning one $y$.
+
+---
+
+## Model with probability
+
+Formally:
+.cols[
+.c30[
+$$f''\\subtext{predict}: X \\times M \\to P\_{Y}$$
+$$f''\\subtext{predict}(x, m) = p$$
+]
+.c70[
+$$f'\\subtext{predict}: X \\times M \\to Y$$
+$$f'\\subtext{predict}(x, m)= \\argmax\\sub{y \\in Y} (f''\\subtext{predict}(x, m))(y) = \\argmax\\sub{y \\in Y} p(y)$$
+]
+]
+where $P\_Y$ is the set of discrete probability distributions over $Y$.
+
+Example: for spam detection, given a $m$ and an email $x$, $f'\\subtext{predict}(x, m)$ might return:
+$$p(y)=
+\\begin{cases}
+80\% &\\text{if } y=\\text{spam} \\\\
+20\% &\\text{if } y=\\neg\\text{spam}
+\\end{cases}$$
+For another email, it might return a 30%/70%, instead of an 80%/20%.
+
+---
+
+## Learning technique with probability
+
+A .key[supervised learning technique with probability] (for classification) is defined by:
+- a $f'\\subtext{learn}: \\mathcal{P}^*(X \\times Y) \\to M$, for learning a model from a dataset
+- a $f''\\subtext{predict}: X \\times M \\to P\_{Y}$, for giving a probability distribution from an observation and a model
+
+For all the techniques of this kind, $f'\\subtext{predict}: X \\times M \\to Y$ and $f\\subtext{predict}$ are always **the same**:
+- $f'\\subtext{predict}(x, m)= \\argmax\\sub{y \\in Y} (f''\\subtext{predict}(x, m))(y)$
+- $f\\subtext{predict}(x) = f'\\subtext{predict}(x, m)$
+
+.diagram.center[
+link([0,50,125,50],'a')
+link([75,35,125,35],'a')
+rect(50,0,425,100)
+rect(125,25,100,50)
+link([225,50,275,50],'a')
+rect(275,25,150,50)
+link([425,50,550,50],'a')
+otext(25,35,'$x$')
+otext(100,20,'$m$')
+otext(175,50,"$f''\\\\subtext{predict}$")
+otext(250,35,'$p$')
+otext(350,50,"$\\\\argmax\\\\sub{y \\\\in Y}$")
+otext(512.5,35,'$y$')
+]
+
+"internally computes" $\\rightarrow$ $p$ is indeed available internally, but can be obtained from outside
+- in practice, software tools allow to use both $f'\\subtext{predict}$ and $f''\\subtext{predict}$
+
+---
+
+## Probability and binary classification
+
+In **binary classification**, with $Y=\\{\\text{pos},\\text{neg}\\}$, $p \\in P\_Y$ has always this form:
+$$p(y)=
+\\begin{cases}
+p\\subtext{pos} &\\text{if } y=\\text{pos} \\\\
+1-p\\subtext{pos} &\\text{if } y=\\text{neg}
+\\end{cases}$$
+with $p\\subtext{pos} \\in [0,1]$.
+Hence, it can be seen as:
+.cols[
+.c50[
+$$f'''\\subtext{predict}: X \\times M \\to [0,1]$$
+$$f'''\\subtext{predict}(x,m)=p\\subtext{pos}$$
+]
+.c50[
+$$f'\\subtext{predict}: X \\times M \\to Y$$
+$$f'\\subtext{predict}(x,m)=
+\\begin{cases}
+\\text{pos} &\\text{if } p\\subtext{pos} \\ge 0.5 \\\\
+\\text{neg} &\\text{otherwise}
+\\end{cases}$$
+]
+]
+
+.diagram.center[
+link([0,50,125,50],'a')
+link([75,35,125,35],'a')
+rect(50,0,425,100)
+rect(125,25,100,50)
+link([225,50,300,50],'a')
+rect(300,25,125,50)
+link([425,50,550,50],'a')
+otext(25,35,'$x$')
+otext(100,20,'$m$')
+otext(175,50,"$f'''\\\\subtext{predict}$")
+otext(262.5,35,'$p\\\\subtext{pos}$')
+otext(362.5,50,"$\\\\ge 0.5$")
+otext(512.5,35,'$y$')
+]
+
+---
+
+## Changing the threshold
+
+If we replace the fixed $0.5$ **threshold** with a param $\\tau$ we obtain a new function:
+.cols[
+.c40[
+$$f^\\tau\\subtext{predict}: X \\times [0,1] \\to Y$$
+$$f^\\tau\\subtext{predict}(x,\\tau)=
+\\begin{cases}
+\\text{pos} &\\text{if } f'''\\subtext{predict}(x,m) \\ge \\tau \\\\
+\\text{neg} &\\text{otherwise}
+\\end{cases}$$
+]
+.c60[
+.diagram.center[
+link([0,50,125,50],'a')
+link([0,82.5,262.5,82.5,262.5,65,300,65],'a')
+link([75,35,125,35],'a')
+rect(50,0,425,100)
+rect(125,25,100,50)
+link([225,50,300,50],'a')
+rect(300,25,125,50)
+link([425,50,550,50],'a')
+otext(25,35,'$x$')
+otext(25,67.5,'$\\\\tau$')
+otext(100,20,'$m$')
+otext(175,50,"$f'''\\\\subtext{predict}$")
+otext(262.5,35,'$p\\\\subtext{pos}$')
+otext(362.5,50,"$\\\\ge \\\\tau$")
+otext(512.5,35,'$y$')
+]
+]
+]
+
+Note that:
+- for using $f^\\tau\\subtext{predict}$ on an $x$, you need a concrete value for $\\tau$
+  - $f\\subtext{predict}(x)=f^\\tau\\subtext{predict}(x, 0.5)$, i.e., $0.5$ is the default value for $\\tau$ in $f\\subtext{predict}$
+- like for $f\\subtext{predict}$, the model is *inside* $f^\\tau\\subtext{predict}$
+- you cannot obtain several predictions for the same $x$ by varying $\\tau$
+
+**Example**: if there we want our diagnostic test to be more sensible to positives, we lower $\\tau$ **without changing the model**!
+
+---
+
+## Threshold $\\tau$ vs. FPR, FNR
+
+Given the same $m$ and the same $\\seq{(x^{(i)},y^{(i)})}{i}$:
+- the greater $\\tau$, the less frequent $y=\\text{pos}$, the lower $\\text{FPR}$, the greater $\\text{FNR}$
+- the lower $\\tau$, the more frequent $y=\\text{pos}$, the greater $\\text{FPR}$, the lower $\\text{FNR}$
+
+**Example**:
+.cols[
+.c50[
+.center.w100p[![Example of tau vs. FPR and FNR](images/tau-vs-fpr-fnr.png)]
 <!--
-- limit of having 2 indexes: example of two models with no winner with fpr,fnr
-- cost of errors
-- can we tailor a model to take into account the cost of error
-- $f_predict(x)$ as a distribution over decision instead of decision
-- how to obtain decision from distribution
-  - sketch on how to make the opposite: (dirac) distribution from decision
+x=seq(0,1,by=0.1)
+d=as.data.frame(cbind(tau=x,FPR=0.5/(2+1*(x+abs(rnorm(11,sd=0.05)))),FNR=0.5/(1.75+3*(1-x-abs(rnorm(11,sd=0.05))))))
+d$FNR[1]=0
+d %>% pivot_longer(c(FPR,FNR)) %>% ggplot(aes(x=tau,y=value,color=name)) + geom_line()
+-->
+]
+.c50[
+- for the default threshold $\\tau=0.5$, $\\text{FPR}\\approx 20\%$, $\\text{FNR}\\approx 15\%$
+- if you want to be more sensitive to positives, set, e.g., $\\tau=0.25$, so there will be a lower $\\text{FNR}$
+- if you know the cost of a FN is $\\approx$ double the cost of a FP **and** the data is balanced, then you should set $\\tau\\approx 0.12$
+]
+]
+.note[why $\\text{FNR}=0\%$ for $\\tau=0$ but $\\text{FNR}>0\%$ for $\\tau=1$?]
+
+
+---
+
+<!--
 - eer
 - roc, auc
+- what tau values
 - f1 score and weighted accuracy
 - influence of knowledge of cost of errors on choice of eval indexes
 
