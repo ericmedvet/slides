@@ -863,11 +863,11 @@ Common practice:
 
 **Goal**: measuring the error on each of the two classes in binary classification.
 
-The .key[False Positive Rate (FPR)] is the rate of **negatives** that are **wrongly¹ classified as positives**:
-$$f\\subtext{FPR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=\\frac{1}{n}\\sum\_{i=1}^{i=n}\\mathbf{1}(y^{(i)}=\\text{neg} \\land y^{(i)} \\ne \\hat{y}^{(i)})$$
+The .key[False Positive Rate (FPR)] is the rate of **.col1[negatives]** that are **.col2[wrongly]¹ classified as positives**:
+$$f\\subtext{FPR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=\\frac{1}{n}\\sum\_{i=1}^{i=n}\\mathbf{1}(\\htmlClass{col1}{y^{(i)}=\\text{neg}} \\land \\htmlClass{col2}{y^{(i)} \\ne \\hat{y}^{(i)}})$$
 
-The .key[False Negative Rate (FNR)] is the rate of **positives** that are **wrongly classified as negatives**:
-$$f\\subtext{FNR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=\\frac{1}{n}\\sum\_{i=1}^{i=n}\\mathbf{1}(y^{(i)}=\\text{pos} \\land y^{(i)} \\ne \\hat{y}^{(i)})$$
+The .key[False Negative Rate (FNR)] is the rate of **.col3[positives]** that are **.col2[wrongly] classified as negatives**:
+$$f\\subtext{FNR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=\\frac{1}{n}\\sum\_{i=1}^{i=n}\\mathbf{1}(\\htmlClass{col3}{y^{(i)}=\\text{pos}} \\land \\htmlClass{col2}{y^{(i)} \\ne \\hat{y}^{(i)}})$$
 
 For both:
 - the codomain is $[0,1]$
@@ -894,7 +894,7 @@ Assuming that:
 - there is a $\\seq{(y^{(i)},\\hat{y}^{(i)}}{i}$, even if it's not written
 - $\\text{FP}$ is the number of false positives; $\\text{FN}$ is the number of false negatives
   - you need both $y^{(i)}$ and $\\hat{y}^{(i)}$ for counting them
-  - *positive/negative* is for $\\hat{y}^{(i)}$; *false* is for $y^{(i)}$, but considering $\\hat{y}^{(i)}$
+  - *.col1[negative]/.col3[positive]* is for $\\hat{y}^{(i)}$; *.col2[false]* is for $y^{(i)}$, but considering $\\hat{y}^{(i)}$
 - $\\text{P}$ is the number of positives and $\\text{N}$ is the number of negatives
   - you need only $y^{(i)}$ for counting them
 
@@ -1014,7 +1014,7 @@ They come from the **information retrieval** scenario:
 .cols[
 .c60[
 **Precision**: how many retrieved document are actually relevant?
-.center[$\\text{Prec}=\\frac{|D' \\cap D^\\star|}{|D'|}=\\frac{\\htmlClass{col1}{|D' \\cap D^\\star|}}{\\htmlClass{col2}{|D' \\cap D^\\star|}+\\htmlClass{col2}{|D' \\setminus D^\\star|}}=\\frac{\\htmlClass{col1}{\\text{TP}}}{\\htmlClass{col1}{\\text{TP}}+\\htmlClass{col2}{FP}}$]
+.center[$\\text{Prec}=\\frac{|D' \\cap D^\\star|}{|D'|}=\\frac{\\htmlClass{col1}{|D' \\cap D^\\star|}}{\\htmlClass{col2}{|D' \\cap D^\\star|}+\\htmlClass{col2}{|D' \\setminus D^\\star|}}=\\frac{\\htmlClass{col1}{\\text{TP}}}{\\htmlClass{col1}{\\text{TP}}+\\htmlClass{col2}{\\text{FP}}}$]
 ]
 .c40[
 **Recall**: how many of the relevant document are actually retrieved?
@@ -1124,7 +1124,7 @@ $$f'\\subtext{predict}(x, m)= \\argmax\\sub{y \\in Y} (f''\\subtext{predict}(x, 
 ]
 where $P\_Y$ is the set of discrete probability distributions over $Y$.
 
-Example: for spam detection, given a $m$ and an email $x$, $f'\\subtext{predict}(x, m)$ might return:
+**Example**: for spam detection, given a $m$ and an email $x$, $f'\\subtext{predict}(x, m)$ might return:
 $$p(y)=
 \\begin{cases}
 80\% &\\text{if } y=\\text{spam} \\\\
@@ -1253,7 +1253,7 @@ Note that:
 
 ## Threshold $\\tau$ vs. FPR, FNR
 
-Given the same $m$ and the same $\\seq{(x^{(i)},y^{(i)})}{i}$:
+Given the **same** $m$ and the **same** $\\seq{(x^{(i)},y^{(i)})}{i}$:
 - the greater $\\tau$, the less frequent $y=\\text{pos}$, the lower $\\text{FPR}$, the greater $\\text{FNR}$
 - the lower $\\tau$, the more frequent $y=\\text{pos}$, the greater $\\text{FPR}$, the lower $\\text{FNR}$
 
@@ -1276,15 +1276,89 @@ d %>% pivot_longer(c(FPR,FNR)) %>% ggplot(aes(x=tau,y=value,color=name)) + geom_
 ]
 .note[why $\\text{FNR}=0\%$ for $\\tau=0$ but $\\text{FNR}>0\%$ for $\\tau=1$?]
 
+---
+
+## Equal Error Rate
+
+For a model $m$ and a dataset $\\seq{(x^{(i)},y^{(i)})}{i}$, the .key[Equal Error Rate (EER)] is the value of FPR (and FNR) for the $\\tau$ value for which $\\text{FPR}=\\text{FNR}$.
+
+For EER: **the lower, the better** (like error); codomain is $[0,1]$ .note[in practice $[0,0.5]$]
+
+.cols[
+.c50[
+.center.w100p[![Example of EER](images/eer.png)]
+<!--
+d %>% pivot_longer(c(FPR,FNR)) %>% ggplot(aes(x=tau,y=value,color=name)) + geom_line() + geom_hline(yintercept = 0.186)+geom_vline(xintercept=0.65,linetype="dashed")
+-->
+]
+.c50[
+- for $\\tau=0.65$ (vertical dashed line), $\\text{FPR}=\\text{FNR}$
+- $\\text{EER}\\approx 19\%$ (horizontal solid line)
+]
+]
 
 ---
 
+## The ROC curve
+
+For a model $m$ and a dataset $\\seq{(x^{(i)},y^{(i)})}{i}$ and a sequence $(\\tau\_i)\_i$, the .key[Receiver operating chracteristic¹ (ROC)] curve is the plot of $\\text{TPR}$ ($= 1-\\text{FNR}$) vs. $\\text{FPR}$ for the different values of $\\tau \\in (\\tau\_i)\_i$.
+
+.cols[
+.c30[
+.center.w100p[![Example of EER](images/roc.png)]
 <!--
-- eer
-- roc, auc
-- what tau values
-- f1 score and weighted accuracy
-- influence of knowledge of cost of errors on choice of eval indexes
+d$FPR[1]=1
+d$FNR[11]=1
+d$FPR[11]=0
+d %>% ggplot(aes(x=FPR,y=1-FNR)) + geom_line(color="red") + xlim(c(0,1))+ylim(c(0,1)) + geom_abline(intercept=0, slope=1, linetype="dashed") + geom_abline(intercept=1, slope=-1, linetype="solid")
+-->
+]
+.c70[
+- red line: ROC curve
+  - each point stays at $(\\text{FPR},\\text{TPR})$ for a given $\\tau$
+- solid black line: points for which $\\text{FPR}=\\text{FNR}$
+  - the $x$-coord of the intersection with the red line is $\\text{EER}$
+  - point at top-left ($\\text{FPR}=\\text{FNR}=0$) is the **perfect classifier**
+- the intersection of dashed and solid black lines is at $\\text{FPR}=\\text{FNR}=0.5$
+  - it is the **random classifier**
+- points on the dashed line are random classifiers with $\\tau \\ne 0.5$
+  - a healthy classifier ROC should **never stay on the right of the dashed line**!
+]
+]
+
+
+.footnote[
+1. The name comes from its usage as a graphical tool for assessing radar stations during WW2.
+]
+
+---
+
+## Area Under the Curve (AUC)
+
+For a model $m$ and a dataset $\\seq{(x^{(i)},y^{(i)})}{i}$ and a sequence $(\\tau\_i)\_i$, the .key[Area Under the Curve (AUC)] is the area under the ROC curve.
+
+For AUC: **the greater, the better** (like accuracy); codomain is $[0,1]$ .note[in practice $[0.5,1]$]
+
+.cols[
+.c30[
+.center.w100p[![Example of EER](images/auc.png)]
+<!--
+d %>% ggplot(aes(x=FPR,y=1-FNR)) + geom_line(color="red") + geom_area(fill="red",alpha=0.25) + xlim(c(0,1))+ylim(c(0,1)) + geom_abline(intercept=0, slope=1, linetype="dashed") + geom_abline(intercept=1, slope=-1, linetype="solid")
+-->
+]
+.c70[
+- for the **random classifier**, $\\text{AUC}=0.5$
+- for the **ideal classifier**, $\\text{AUC}=1$
+]
+]
+
+<!--
+- what tau values for plottin the ROC curve
+- cost of the errors and indexes
+- f1 score
+- summary
+- example of tables from papers
+
 
 - multiclass case: accuracy, weighted accuracy
 
