@@ -925,7 +925,7 @@ When to use accuracy? When to use FPR and FNR?
 --
 
 In decreasing order of informativeness .note[effectiveness of assessment of effectiveness], decreasing order of verbosity:
-- give accuracy, FPR, FNR, frequencies of classes in $Y$, possibly other indexes .note[we'll see later]
+- give accuracy, FPR, FNR, frequencies of classes² in $Y$, possibly other indexes .note[we'll see later]
 - give accuracy, FPR, FNR, frequencies of classes
 - FPR, FNR, frequencies of classes
 - FPR, FNR
@@ -938,6 +938,7 @@ Just FPR, or just FNR is evil too, but also weird.
 
 .footnote[
 1. too long; didn't read
+2. you need to show them just once, if using the "natural" distribution
 ]
 
 ---
@@ -1242,10 +1243,10 @@ otext(512.5,35,'$y$')
 ]
 
 Note that:
-- for using $f^\\tau\\subtext{predict}$ on an $x$, you need a concrete value for $\\tau$
+- for using $f^\\tau\\subtext{predict}$ on an $x$, you need a **concrete value** for $\\tau$
   - $f\\subtext{predict}(x)=f^\\tau\\subtext{predict}(x, 0.5)$, i.e., $0.5$ is the default value for $\\tau$ in $f\\subtext{predict}$
 - like for $f\\subtext{predict}$, the model is *inside* $f^\\tau\\subtext{predict}$
-- you cannot obtain several predictions for the same $x$ by varying $\\tau$
+- you can obtain **several predictions for the same observation** $x$ by varying $\\tau$
 
 **Example**: if there we want our diagnostic test to be more sensible to positives, we lower $\\tau$ **without changing the model**!
 
