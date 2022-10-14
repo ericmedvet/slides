@@ -854,7 +854,7 @@ How to associate positive/negative with actual $Y$ elements?
 - e.g., $\\text{has the disease } d, \\text{does not have the disease } d$
 
 Common practice:
-- associate positive to the **rarest case**
+- associate positive with the **rarest case**
 - otherwise, if no rarest case exists or is known, **clearly state what's your positive**
 
 ---
@@ -1014,11 +1014,11 @@ They come from the **information retrieval** scenario:
 
 .cols[
 .c60[
-**Precision**: how many retrieved document are actually relevant?
-.center[$\\text{Prec}=\\frac{|D' \\cap D^\\star|}{|D'|}=\\frac{\\htmlClass{col1}{|D' \\cap D^\\star|}}{\\htmlClass{col2}{|D' \\cap D^\\star|}+\\htmlClass{col2}{|D' \\setminus D^\\star|}}=\\frac{\\htmlClass{col1}{\\text{TP}}}{\\htmlClass{col1}{\\text{TP}}+\\htmlClass{col2}{\\text{FP}}}$]
+**Precision**: how many retrieved documents are actually relevant?
+.center[$\\text{Prec}=\\frac{|D' \\cap D^\\star|}{|D'|}=\\frac{\\htmlClass{col1}{|D' \\cap D^\\star|}}{\\htmlClass{col1}{|D' \\cap D^\\star|}+\\htmlClass{col2}{|D' \\setminus D^\\star|}}=\\frac{\\htmlClass{col1}{\\text{TP}}}{\\htmlClass{col1}{\\text{TP}}+\\htmlClass{col2}{\\text{FP}}}$]
 ]
 .c40[
-**Recall**: how many of the relevant document are actually retrieved?
+**Recall**: how many of the relevant documents are actually retrieved?
 .center[$\\text{Rec}=\\frac{\\htmlClass{col1}{|D' \\cap D^\\star|}}{\\htmlClass{col3}{|D^\\star|}}=\\frac{\\htmlClass{col1}{\\text{TP}}}{\\htmlClass{col3}{\\text{P}}}$]
 ]
 ]
