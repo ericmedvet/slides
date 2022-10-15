@@ -29,9 +29,6 @@ var DiagramTransformer = {
     processedCode += '<span class="diagram-container">';
     processedCode +=
       '<svg width="' + (maxX + 2*this.shapes.constants.padding) + '" height="' + (maxY+2*this.shapes.constants.padding) + '" role="img">';
-    //processedCode += '<defs><marker id="markerArrow" markerUnits="strokeWidth" markerWidth="'+this.shapes.constants.linkMarkerSize+'" markerHeight="'+this.shapes.constants.linkMarkerSize+'" refX="'+this.shapes.constants.linkMarkerSize+'" refY="'+(this.shapes.constants.linkMarkerSize/2)+'" orient="auto">';
-    //processedCode += '<path d="M0,0 L'+this.shapes.constants.linkMarkerSize+','+(this.shapes.constants.linkMarkerSize/2)+' L0,'+this.shapes.constants.linkMarkerSize+'"/>';
-    //processedCode += '</marker></defs>';
     processedCode +=
       '<g transform="translate(' + this.shapes.constants.padding +
       "," + this.shapes.constants.padding +
@@ -304,7 +301,7 @@ var DiagramTransformer = {
       if (text) {
         code +=
           '<span style="top: ' + (y+this.constants.padding) + 'px; left: ' + (x+this.constants.padding) + 'px;"' +
-          ' class="textLabel outer' + className + '">' +
+          ' class="textLabel outer ' + className + '">' +
           text +
           "</span>";
         console.log(text);

@@ -1353,9 +1353,379 @@ d %>% ggplot(aes(x=FPR,y=1-FNR)) + geom_line(color="red") + geom_area(fill="red"
 ]
 ]
 
+---
+
+## How to choose $\\tau$ values?
+
+For computing both $\\text{EER}$ and $\\text{AUC}$, you need to compute $\\text{FPR}$ and $\\text{FNR}$ for many values of $\\tau$.
+
+.cols[
+.c40[
+Ingredients:
+- $f^\\tau\\subtext{predict}$
+  - i.e., $f'''\\subtext{predict}$ and a model $m$
+- a dataset $\\seq{(x^{(i)},y^{(i)})}{i}$
+- a sequence $(\\tau\_i)\_i$ of **threshold values**
+
+]
+.c60[
+.diagram.center[
+link([0,50,125,50],'a')
+link([0,82.5,262.5,82.5,262.5,65,300,65],'a')
+link([75,35,125,35],'a')
+rect(50,0,425,100)
+rect(125,25,100,50)
+link([225,50,300,50],'a')
+rect(300,25,125,50)
+link([425,50,550,50],'a')
+otext(25,35,'$x$')
+otext(25,67.5,'$\\\\tau$')
+otext(100,20,'$m$')
+otext(175,50,"$f'''\\\\subtext{predict}$")
+otext(262.5,35,'$p\\\\subtext{pos}$')
+otext(362.5,50,"$\\\\ge \\\\tau$")
+otext(512.5,35,'$y$')
+]
+]
+]
+
+How to choose $(\\tau\_i)\_i$? .note[recall: $\\tau \\in [0,1]$; by convention, you always take also $\\tau=0$ and $\\tau=1$]
+- evenly spaced $[0,1]$ at $n+1$ points: $(\\tau\_i)\_i=(\\frac{i}{n})\_{i=0}^{i=n}$
+- evenly spaced $[\\tau\\subtext{min},\\tau\\subtext{max}]$: $(\\tau\_i)\_i=(\\tau\\subtext{min}+\\frac{i}{n}(\\tau\\subtext{max}-\\tau\\subtext{min}))\_{i=0}^{i=n}$
+  - with $\\tau\\subtext{min}=\\min_i f'''\\subtext{predict}(x^{(i)},m)$ and $\\tau\\subtext{max}=\\max_i f'''\\subtext{predict}(x^{(i)},m)$
+- taking midpoints of $(p\\subtext{pos}^{(i)})\_i$ .note[i.e., sorted $\\seq{p\\subtext{pos}^{(i)}}{i}$]
+  - with $p\\subtext{pos}^{(i)}=f'''\\subtext{predict}(x^{(i)},m)$
+
+---
+
+## Example: $\\tau$ and its values
+
+.cols[
+.c20[
+$$Y=\\{\\htmlClass{col1}{\\text{pos}},\\htmlClass{col2}{\\text{neg}}\\}$$
+.compact.nicetable[
+| $y^{(i)}$ | $p\\subtext{pos}^{(i)}$ | $\\hat{y}^{(i)}$ | out¹ |
+| --- | --- | --- | --- |
+| .col1[⬤] | 0.49 | .col2[⬤] | FN |
+| .col2[⬤] | 0.29 | .col2[⬤] | TN |
+| .col1[⬤] | 0.63 | .col1[⬤] | TP |
+| .col1[⬤] | 0.51 | .col1[⬤] | TP |
+| .col1[⬤] | 0.52 | .col1[⬤] | TP |
+| .col2[⬤] | 0.47 | .col2[⬤] | TN |
+| .col1[⬤] | 0.94 | .col1[⬤] | TP |
+| .col1[⬤] | 0.75 | .col1[⬤] | TP |
+| .col2[⬤] | 0.53 | .col1[⬤] | FP |
+| .col2[⬤] | 0.45 | .col2[⬤] | TN |
+]
+.note[
+1. with $\\tau=0.5$
+]
+]
+.c80.center[
+
+.cols[
+.c50[
+.diagram.neutral[
+link([-10,10,420,10],'colinv')
+]
+]
+.c10.center[.col3[$\\tau$]]
+.c20.center[$\\text{FPR}$]
+.c20.center[$\\text{FNR}$]
+]
+
+.vspace1[]
+
+.cols[
+.c50[
+.diagram.neutral[
+link([-10,10,420,10],'a coln')
+link([0,0,0,20],'coln')
+link([400,0,400,20],'coln')
+otext(0,-10,'0')
+otext(400,-10,'1')
+link([116,5,116,15],'coln')
+otext(116,25,'⬤','col2 smaller')
+link([180,5,180,15],'coln')
+otext(180,25,'⬤','col2 smaller')
+link([188,5,188,15],'coln')
+otext(188,25,'⬤','col2 smaller')
+link([196,5,196,15],'coln')
+otext(196,25,'⬤','col1 smaller')
+link([204,5,204,15],'coln')
+otext(204,25,'⬤','col1 smaller')
+link([208,5,208,15],'coln')
+otext(208,25,'⬤','col1 smaller')
+link([212,5,212,15],'coln')
+otext(212,25,'⬤','col2 smaller')
+link([252,5,252,15],'coln')
+otext(252,25,'⬤','col1 smaller')
+link([300,5,300,15],'coln')
+otext(300,25,'⬤','col1 smaller')
+link([376,5,376,15],'coln')
+otext(376,25,'⬤','col1 smaller')
+otext(116,-10,'⬤','col2 smaller')
+otext(180,-10,'⬤','col2 smaller')
+otext(188,-10,'⬤','col2 smaller')
+otext(196,-10,'⬤','col2 smaller')
+link([200,0,200,20],'col3')
+otext(204,-10,'⬤','col1 smaller')
+otext(208,-10,'⬤','col1 smaller')
+otext(212,-10,'⬤','col1 smaller')
+otext(252,-10,'⬤','col1 smaller')
+otext(300,-10,'⬤','col1 smaller')
+otext(376,-10,'⬤','col1 smaller')
+]
+]
+.c10.center.compact[$0.5$]
+.c20.center.compact[$\\frac{1}{4}=25\\%$]
+.c20.center.compact[$\\frac{1}{6}\\approx 17\\%$]
+]
+
+.vspace1[]
+
+.cols[
+.c50[
+.diagram.neutral[
+link([-10,10,420,10],'a coln')
+link([0,0,0,20],'coln')
+link([400,0,400,20],'coln')
+otext(0,-10,'0')
+otext(400,-10,'1')
+link([116,5,116,15],'coln')
+otext(116,25,'⬤','col2 smaller')
+link([180,5,180,15],'coln')
+otext(180,25,'⬤','col2 smaller')
+link([188,5,188,15],'coln')
+otext(188,25,'⬤','col2 smaller')
+link([196,5,196,15],'coln')
+otext(196,25,'⬤','col1 smaller')
+link([204,5,204,15],'coln')
+otext(204,25,'⬤','col1 smaller')
+link([208,5,208,15],'coln')
+otext(208,25,'⬤','col1 smaller')
+link([212,5,212,15],'coln')
+otext(212,25,'⬤','col2 smaller')
+link([252,5,252,15],'coln')
+otext(252,25,'⬤','col1 smaller')
+link([300,5,300,15],'coln')
+otext(300,25,'⬤','col1 smaller')
+link([376,5,376,15],'coln')
+otext(376,25,'⬤','col1 smaller')
+otext(116,-10,'⬤','col2 smaller')
+link([160,0,160,20],'col3')
+otext(180,-10,'⬤','col1 smaller')
+otext(188,-10,'⬤','col1 smaller')
+otext(196,-10,'⬤','col1 smaller')
+otext(204,-10,'⬤','col1 smaller')
+otext(208,-10,'⬤','col1 smaller')
+otext(212,-10,'⬤','col1 smaller')
+otext(252,-10,'⬤','col1 smaller')
+otext(300,-10,'⬤','col1 smaller')
+otext(376,-10,'⬤','col1 smaller')
+]
+]
+.c10.center.compact[$0.4$]
+.c20.center.compact[$\\frac{3}{4}=75\\%$]
+.c20.center.compact[$\\frac{0}{6}=0\\%$]
+]
+
+.vspace1[]
+
+.cols[
+.c50[
+.diagram.neutral[
+link([-10,10,420,10],'a coln')
+link([0,0,0,20],'coln')
+link([400,0,400,20],'coln')
+otext(0,-10,'0')
+otext(400,-10,'1')
+link([116,5,116,15],'coln')
+otext(116,25,'⬤','col2 smaller')
+link([180,5,180,15],'coln')
+otext(180,25,'⬤','col2 smaller')
+link([188,5,188,15],'coln')
+otext(188,25,'⬤','col2 smaller')
+link([196,5,196,15],'coln')
+otext(196,25,'⬤','col1 smaller')
+link([204,5,204,15],'coln')
+otext(204,25,'⬤','col1 smaller')
+link([208,5,208,15],'coln')
+otext(208,25,'⬤','col1 smaller')
+link([212,5,212,15],'coln')
+otext(212,25,'⬤','col2 smaller')
+link([252,5,252,15],'coln')
+otext(252,25,'⬤','col1 smaller')
+link([300,5,300,15],'coln')
+otext(300,25,'⬤','col1 smaller')
+link([376,5,376,15],'coln')
+otext(376,25,'⬤','col1 smaller')
+otext(116,-10,'⬤','col2 smaller')
+otext(180,-10,'⬤','col2 smaller')
+otext(188,-10,'⬤','col2 smaller')
+otext(196,-10,'⬤','col2 smaller')
+otext(204,-10,'⬤','col2 smaller')
+otext(208,-10,'⬤','col2 smaller')
+otext(212,-10,'⬤','col2 smaller')
+link([240,0,240,20],'col3')
+otext(252,-10,'⬤','col1 smaller')
+otext(300,-10,'⬤','col1 smaller')
+otext(376,-10,'⬤','col1 smaller')
+]
+]
+.c10.center.compact[$0.6$]
+.c20.center.compact[$\\frac{0}{4}=0\\%$]
+.c20.center.compact[$\\frac{3}{6}=50\\%$]
+]
+
+.vspace1[]
+.vspace1[]
+
+$(\\tau\_i)\_i$ evenly spaced in $[0,1]$ .note[9+2 values] $\\rightarrow$ **raw** .note[7 on 11 different values]
+.diagram.neutral.center[
+link([-10,10,420,10],'a coln')
+link([0,0,0,20],'coln')
+link([400,0,400,20],'coln')
+otext(0,-10,'0')
+otext(400,-10,'1')
+link([116,5,116,15],'coln')
+otext(116,25,'⬤','col2 smaller')
+link([180,5,180,15],'coln')
+otext(180,25,'⬤','col2 smaller')
+link([188,5,188,15],'coln')
+otext(188,25,'⬤','col2 smaller')
+link([196,5,196,15],'coln')
+otext(196,25,'⬤','col1 smaller')
+link([204,5,204,15],'coln')
+otext(204,25,'⬤','col1 smaller')
+link([208,5,208,15],'coln')
+otext(208,25,'⬤','col1 smaller')
+link([212,5,212,15],'coln')
+otext(212,25,'⬤','col2 smaller')
+link([252,5,252,15],'coln')
+otext(252,25,'⬤','col1 smaller')
+link([300,5,300,15],'coln')
+otext(300,25,'⬤','col1 smaller')
+link([376,5,376,15],'coln')
+otext(376,25,'⬤','col1 smaller')
+link([40,0,40,20],'col3')
+link([80,0,80,20],'col3')
+link([120,0,120,20],'col3')
+link([160,0,160,20],'col3')
+link([200,0,200,20],'col3')
+link([240,0,240,20],'col3')
+link([280,0,280,20],'col3')
+link([320,0,320,20],'col3')
+link([360,0,360,20],'col3')
+]
+
+.vspace1[]
+
+$(\\tau\_i)\_i$ evenly spaced in $[0.29,0.84]$ .note[9+2 values] $\\rightarrow$ **better** .note[but still 7 on 11 different values]
+.diagram.neutral.center[
+link([-10,10,420,10],'a coln')
+link([0,0,0,20],'coln')
+link([400,0,400,20],'coln')
+otext(0,-10,'0')
+otext(400,-10,'1')
+link([116,5,116,15],'coln')
+otext(116,25,'⬤','col2 smaller')
+link([180,5,180,15],'coln')
+otext(180,25,'⬤','col2 smaller')
+link([188,5,188,15],'coln')
+otext(188,25,'⬤','col2 smaller')
+link([196,5,196,15],'coln')
+otext(196,25,'⬤','col1 smaller')
+link([204,5,204,15],'coln')
+otext(204,25,'⬤','col1 smaller')
+link([208,5,208,15],'coln')
+otext(208,25,'⬤','col1 smaller')
+link([212,5,212,15],'coln')
+otext(212,25,'⬤','col2 smaller')
+link([252,5,252,15],'coln')
+otext(252,25,'⬤','col1 smaller')
+link([300,5,300,15],'coln')
+otext(300,25,'⬤','col1 smaller')
+link([376,5,376,15],'coln')
+otext(376,25,'⬤','col1 smaller')
+link([116+(376-116)/10\*1,0,116+(376-116)/10\*1,20],'col3')
+link([116+(376-116)/10\*2,0,116+(376-116)/10\*2,20],'col3')
+link([116+(376-116)/10\*3,0,116+(376-116)/10\*3,20],'col3')
+link([116+(376-116)/10\*4,0,116+(376-116)/10\*4,20],'col3')
+link([116+(376-116)/10\*5,0,116+(376-116)/10\*5,20],'col3')
+link([116+(376-116)/10\*6,0,116+(376-116)/10\*6,20],'col3')
+link([116+(376-116)/10\*7,0,116+(376-116)/10\*7,20],'col3')
+link([116+(376-116)/10\*8,0,116+(376-116)/10\*8,20],'col3')
+link([116+(376-116)/10\*9,0,116+(376-116)/10\*9,20],'col3')
+]
+
+.vspace1[]
+
+$(\\tau\_i)\_i$ at midpoints .note[9+2 values] $\\rightarrow$ **optimal** .note[11 on 11 different values]
+.diagram.neutral.center[
+link([-10,10,420,10],'a coln')
+link([0,0,0,20],'coln')
+link([400,0,400,20],'coln')
+otext(0,-10,'0')
+otext(400,-10,'1')
+link([116,5,116,15],'coln')
+otext(116,25,'⬤','col2 smaller')
+link([180,5,180,15],'coln')
+otext(180,25,'⬤','col2 smaller')
+link([188,5,188,15],'coln')
+otext(188,25,'⬤','col2 smaller')
+link([196,5,196,15],'coln')
+otext(196,25,'⬤','col1 smaller')
+link([204,5,204,15],'coln')
+otext(204,25,'⬤','col1 smaller')
+link([208,5,208,15],'coln')
+otext(208,25,'⬤','col1 smaller')
+link([212,5,212,15],'coln')
+otext(212,25,'⬤','col2 smaller')
+link([252,5,252,15],'coln')
+otext(252,25,'⬤','col1 smaller')
+link([300,5,300,15],'coln')
+otext(300,25,'⬤','col1 smaller')
+link([376,5,376,15],'coln')
+otext(376,25,'⬤','col1 smaller')
+link([(116+180)/2,0,(116+180)/2,20],'col3')
+link([(180+188)/2,0,(180+188)/2,20],'col3')
+link([(188+196)/2,0,(188+196)/2,20],'col3')
+link([(196+204)/2,0,(196+204)/2,20],'col3')
+link([(204+208)/2,0,(204+208)/2,20],'col3')
+link([(208+212)/2,0,(208+212)/2,20],'col3')
+link([(212+252)/2,0,(212+252)/2,20],'col3')
+link([(252+300)/2,0,(252+300)/2,20],'col3')
+link([(300+376)/2,0,(300+376)/2,20],'col3')
+]
+
+]
+]
+
+---
+
+## Cost of errors, index, and $\\tau$
+
+If you **know the cost** of error ($c\\subtext{FP}$ and $c\\subtext{FP}$) and the class frequencies:
+- choose a proper $\\tau$ and measure $\\text{FPR}$, $\\text{FNR}$, $c$
+
+If you **don't know the cost** of error and you **know** the classifier will work at a fixed $\\tau$:
+- measure $\\text{FPR}$, $\\text{FNR}$ for $\\tau=0.5$
+- measure  $\\text{EER}$
+
+If you **don't know the cost** of error and **don't know** at which $\\tau$ the classifier will work:
+- measure $\\text{FPR}$, $\\text{FNR}$ for $\\tau=0.5$
+- measure  $\\text{AUC}$
+
+--
+
+If you can afford, i.e., you have time/space:
+- measure "everything"
+
+---
+
 <!--
-- what tau values for plottin the ROC curve
-- cost of the errors and indexes
+
 - f1 score
 - summary
 - example of tables from papers

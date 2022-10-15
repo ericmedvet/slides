@@ -194,9 +194,16 @@ span.note::after {
 .small {
   font-size: 75%;
 }
+.smaller {
+  font-size: 50%;
+}
 .hspace5 {
   width: 5em;
   display: inline-block;
+}
+.vspace1 {
+  height: : 1em;
+  display: block;
 }
 .ttt {
   font-family: "Roboto Mono";
