@@ -1724,9 +1724,78 @@ If you can afford, i.e., you have time/space:
 
 ---
 
+## Confusion matrix
+
+Given a multiset $\\seq{y^{(i)},\\hat{y}^{(i)}}{i}$ of pairs, the .key[confusion matrix] has:
+- one row for each possible value $y$ of $Y$, associated with $y^{(i)}$ (**true** labels)
+- one column for each possible value $\\hat{y}$ of $Y$, associated with $\\hat{y}^{(i)}$ (**predicted** labels)
+- the number of pairs for which $\\hat{y}^{(i)}=\\hat{y}$ and $y^{(i)}=y$ in the cell
+
+.cols[
+.c20[
+$$Y=\\{\\htmlClass{col1}{\\text{pos}},\\htmlClass{col2}{\\text{neg}}\\}$$
+.compact.nicetable[
+| $y^{(i)}$ | $p\\subtext{pos}^{(i)}$ | $\\hat{y}^{(i)}$ | out |
+| --- | --- | --- | --- |
+| .col1[⬤] | 0.49 | .col2[⬤] | FN |
+| .col2[⬤] | 0.29 | .col2[⬤] | TN |
+| .col1[⬤] | 0.63 | .col1[⬤] | TP |
+| .col1[⬤] | 0.51 | .col1[⬤] | TP |
+| .col1[⬤] | 0.52 | .col1[⬤] | TP |
+| .col2[⬤] | 0.47 | .col2[⬤] | TN |
+| .col1[⬤] | 0.94 | .col1[⬤] | TP |
+| .col1[⬤] | 0.75 | .col1[⬤] | TP |
+| .col2[⬤] | 0.53 | .col1[⬤] | FP |
+| .col2[⬤] | 0.45 | .col2[⬤] | TN |
+]
+]
+.c30[
+For this case:
+.confmatrix.center[
+| .cm[$y$].cm[$\\hat{y}$] | .col1[⬤] | .col2[⬤] |
+| --- | --- | --- |
+| .col1[⬤] | 5 | 1 |
+| .col2[⬤] | 1 | 3 |
+]
+
+For binary classification:
+.confmatrix.center.compact[
+| .cm[$y$].cm[$\\hat{y}$] | $\\text{pos}$ | $\\text{neg}$ |
+| --- | --- | --- | --- |
+| $\\text{pos}$ | $\\text{TP}$ | $\\text{FN}$ |
+| $\\text{neg}$ | $\\text{FP}$ | $\\text{TN}$ |
+]
+
+]
+.c50[
+In general it holds, being $\\vect{c}$ the confusion matrix:
+- the **accuracy** is the ratio between the sum of the diagonal and the sum of the matrix: $\\text{Acc} = \\frac{\\lVert \\text{diag}(\\vect{c}) \\rVert\_1}{\\lVert \\vect{c} \\rVert\_1}$
+- **TPR** is $c\_{\\text{pos},\\text{pos}}$ on the sum of the first row, i.e., the row for which $y=\\text{pos}$
+- **TNR** is $c\_{\\text{neg},\\text{neg}}$ on the sum of the second row, i.e., the row for which $y=\\text{neg}$
+]
+]
+
+---
+
+class: middle, center
+
+
+### Multiclass classification and regression
+
+---
+
+## Weighted accuracy
+
+Besides accuracy and error, for unbalanced datasets, the .key[weighted accuracy] (or balanced accuracy) is:
+$$\\text{wAcc}=f\\subtext{wAcc}(\\seq{(y^{(i)},\\hat{y}^{(i)})}{i})=\\frac{1}{|Y|} \\sum\_{y \\in Y} \\left( \\frac{\\sum\_i \\mathbf{1}(y^{(i)}=y \\land y^{(i)}=\\hat{y}^{(i)})}{\\sum\_i \\mathbf{1}(y^{(i)}=y)} \\right)$$
+i.e., the (unweighted) average of the accuracy for each class.
+
+
+
+---
+
 <!--
 
-- f1 score
 - summary
 - example of tables from papers
 
