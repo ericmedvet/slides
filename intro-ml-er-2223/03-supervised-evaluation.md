@@ -231,7 +231,7 @@ function $\\text{comp-behavior}(f\\subtext{predict}, s)$ {
 ]
 
 .footnote[
-More correctly $\\seq{(y^{(i)},\\hat{y}^{(i)})}{i} \\gets \\text{foreach}(\\seq{x^{(i)}{i}}, \\text{both}(\\cdot, s, f\\subtext{predict}))$ with $f\\subtext{both}: X \\times \\mathcal{F}^2\_{X \\to Y}$ and $f\\subtext{both}(x, f\_1, f\_2) = (f\_1(x),f\_2(x))$.
+More correctly $\\seq{(y^{(i)},\\hat{y}^{(i)})}{i} \\gets \\text{foreach}(\\seq{x^{(i)}}{i}, \\text{both}(\\cdot, s, f\\subtext{predict}))$ with $f\\subtext{both}: X \\times \\mathcal{F}^2\_{X \\to Y}$ and $f\\subtext{both}(x, f\_1, f\_2) = (f\_1(x),f\_2(x))$.
 ]
 
 ---
@@ -1141,7 +1141,7 @@ A .key[supervised learning technique with probability] (for classification) is d
 - a $f'\\subtext{learn}: \\mathcal{P}^*(X \\times Y) \\to M$, for learning a model from a dataset
 - a $f''\\subtext{predict}: X \\times M \\to P\_{Y}$, for giving a probability distribution from an observation and a model
 
-For all the techniques of this kind, $f'\\subtext{predict}: X \\times M \\to Y$ and $f\\subtext{predict}$ are always **the same**:
+For all the techniques of this kind, $f'\\subtext{predict}: X \\times M \\to Y$ and $f\\subtext{predict}$ are always **the same**: .note[concrete]
 - $f'\\subtext{predict}(x, m)= \\argmax\\sub{y \\in Y} (f''\\subtext{predict}(x, m))(y)$
 - $f\\subtext{predict}(x) = f'\\subtext{predict}(x, m)$
 
@@ -1248,7 +1248,7 @@ Note that:
 - like for $f\\subtext{predict}$, the model is *inside* $f^\\tau\\subtext{predict}$
 - you can obtain **several predictions for the same observation** $x$ by varying $\\tau$
 
-**Example**: if there we want our diagnostic test to be more sensible to positives, we lower $\\tau$ **without changing the model**!
+**Example**: if we want our diagnostic test to be more sensible to positives, we lower $\\tau$ **without changing the model**!
 
 ---
 
@@ -1271,7 +1271,7 @@ d %>% pivot_longer(c(FPR,FNR)) %>% ggplot(aes(x=tau,y=value,color=name)) + geom_
 ]
 .c50[
 - for the default threshold $\\tau=0.5$, $\\text{FPR}\\approx 20\%$, $\\text{FNR}\\approx 15\%$
-- if you want to be more sensitive to positives, set, e.g., $\\tau=0.25$, so there will be a lower $\\text{FNR}$
+- if you want to be more sensitive to positives, set, e.g., $\\tau=0.25$, so there will be a lower $\\text{FNR} \\approx 13\\%$
 - if you know the cost of a FN is $\\approx$ double the cost of a FP **and** the data is balanced, then you should set $\\tau\\approx 0.12$
 ]
 ]
@@ -1281,7 +1281,7 @@ d %>% pivot_longer(c(FPR,FNR)) %>% ggplot(aes(x=tau,y=value,color=name)) + geom_
 
 ## Equal Error Rate
 
-For a model $m$ and a dataset $\\seq{(x^{(i)},y^{(i)})}{i}$, the .key[Equal Error Rate (EER)] is the value of FPR (and FNR) for the $\\tau$ value for which $\\text{FPR}=\\text{FNR}$.
+For a model $m$ and a dataset $\\seq{(x^{(i)},y^{(i)})}{i}$, the .key[Equal Error Rate (EER)] is **the value of FPR** (and FNR) for the $\\tau=\\tau\\subtext{EER}$ value for which $\\text{FPR}=\\text{FNR}$.
 
 For EER: **the lower, the better** (like error); codomain is $[0,1]$ .note[in practice $[0,0.5]$]
 
@@ -1302,7 +1302,7 @@ d %>% pivot_longer(c(FPR,FNR)) %>% ggplot(aes(x=tau,y=value,color=name)) + geom_
 
 ## The ROC curve
 
-For a model $m$ and a dataset $\\seq{(x^{(i)},y^{(i)})}{i}$ and a sequence $(\\tau\_i)\_i$, the .key[Receiver operating chracteristic¹ (ROC)] curve is the plot of $\\text{TPR}$ ($= 1-\\text{FNR}$) vs. $\\text{FPR}$ for the different values of $\\tau \\in (\\tau\_i)\_i$.
+For a model $m$ and a dataset $\\seq{(x^{(i)},y^{(i)})}{i}$ and a sequence $(\\tau\_i)\_i$, the .key[Receiver operating chracteristic¹ (ROC)] curve is the plot of $\\text{TPR}$ ($= 1-\\text{FNR}$) vs. $\\text{FPR}$ for the **different values** of $\\tau \\in (\\tau\_i)\_i$.
 
 .cols[
 .c30[
@@ -1323,7 +1323,7 @@ d %>% ggplot(aes(x=FPR,y=1-FNR)) + geom_line(color="red") + xlim(c(0,1))+ylim(c(
 - the intersection of dashed and solid black lines is at $\\text{FPR}=\\text{FNR}=0.5$
   - it is the **random classifier**
 - points on the dashed line are random classifiers with $\\tau \\ne 0.5$
-  - a healthy classifier ROC should **never stay on the right of the dashed line**!
+  - the ROC for a healthy classifier should **never stay on the right of the dashed line**!
 ]
 ]
 
@@ -1390,10 +1390,10 @@ otext(512.5,35,'$y$')
 ]
 
 How to choose $(\\tau\_i)\_i$? .note[recall: $\\tau \\in [0,1]$; by convention, you always take also $\\tau=0$ and $\\tau=1$]
-- evenly spaced $[0,1]$ at $n+1$ points: $(\\tau\_i)\_i=(\\frac{i}{n})\_{i=0}^{i=n}$
-- evenly spaced $[\\tau\\subtext{min},\\tau\\subtext{max}]$: $(\\tau\_i)\_i=(\\tau\\subtext{min}+\\frac{i}{n}(\\tau\\subtext{max}-\\tau\\subtext{min}))\_{i=0}^{i=n}$
+- **evenly spaced** in $[0,1]$ at $n+1$ points: $(\\tau\_i)\_i=(\\frac{i}{n})\_{i=0}^{i=n}$
+- **evenly spaced** in $[\\tau\\subtext{min},\\tau\\subtext{max}]$: $(\\tau\_i)\_i=(\\tau\\subtext{min}+\\frac{i}{n}(\\tau\\subtext{max}-\\tau\\subtext{min}))\_{i=0}^{i=n}$
   - with $\\tau\\subtext{min}=\\min_i f'''\\subtext{predict}(x^{(i)},m)$ and $\\tau\\subtext{max}=\\max_i f'''\\subtext{predict}(x^{(i)},m)$
-- taking midpoints of $(p\\subtext{pos}^{(i)})\_i$ .note[i.e., sorted $\\seq{p\\subtext{pos}^{(i)}}{i}$]
+- taking **midpoints** of $(p\\subtext{pos}^{(i)})\_i$ .note[i.e., sorted $\\seq{p\\subtext{pos}^{(i)}}{i}$]
   - with $p\\subtext{pos}^{(i)}=f'''\\subtext{predict}(x^{(i)},m)$
 
 ---
@@ -1770,8 +1770,8 @@ For binary classification:
 .c50[
 In general it holds, being $\\vect{c}$ the confusion matrix:
 - the **accuracy** is the ratio between the sum of the diagonal and the sum of the matrix: $\\text{Acc} = \\frac{\\lVert \\text{diag}(\\vect{c}) \\rVert\_1}{\\lVert \\vect{c} \\rVert\_1}$
-- **TPR** is $c\_{\\text{pos},\\text{pos}}$ on the sum of the first row, i.e., the row for which $y=\\text{pos}$
-- **TNR** is $c\_{\\text{neg},\\text{neg}}$ on the sum of the second row, i.e., the row for which $y=\\text{neg}$
+- **TPR** is the ratio of $c\_{\\text{pos},\\text{pos}}$ on the sum of the first row, i.e., the row for which $y=\\text{pos}$
+- **TNR** is the ratio of $c\_{\\text{neg},\\text{neg}}$ on the sum of the second row, i.e., the row for which $y=\\text{neg}$
 ]
 ]
 
@@ -1779,36 +1779,406 @@ In general it holds, being $\\vect{c}$ the confusion matrix:
 
 class: middle, center
 
-
 ### Multiclass classification and regression
 
 ---
 
-## Weighted accuracy
+## Weighted accuracy for multiclass classification
 
 Besides accuracy and error, for unbalanced datasets, the .key[weighted accuracy] (or balanced accuracy) is:
-$$\\text{wAcc}=f\\subtext{wAcc}(\\seq{(y^{(i)},\\hat{y}^{(i)})}{i})=\\frac{1}{|Y|} \\sum\_{y \\in Y} \\left( \\frac{\\sum\_i \\mathbf{1}(y^{(i)}=y \\land y^{(i)}=\\hat{y}^{(i)})}{\\sum\_i \\mathbf{1}(y^{(i)}=y)} \\right)$$
-i.e., the (unweighted) average of the accuracy for each class.
+$$\\text{wAcc}=f\\subtext{wAcc}(\\seq{(y^{(i)},\\hat{y}^{(i)})}{i})=\\frac{1}{|Y|} \\sum\_{y \\in Y} \\left( \\frac{\\sum\_i \\mathbf{1}(y^{(i)}=y \\land y^{(i)}=\\hat{y}^{(i)})}{\\sum\_i \\mathbf{1}(y^{(i)}=y)} \\right)=\\frac{1}{|Y|} \\sum\_{y \\in Y} \\text{Acc}\_y$$
+i.e., the (unweighted) average of the accuracy **for each class**.
 
+.cols[
+.c30[
+.confmatrix.center[
+| .cm[$y$].cm[$\\hat{y}$] | .col1[⬤] | .col2[⬤] | .col3[⬤] | .col4[⬤] |
+| --- | --- | --- |
+| .col1[⬤] | 15 | 1 | 2 | 2 |
+| .col2[⬤] | 1 | 10 | 4 | 1 |
+| .col3[⬤] | 5 | 3 | 28 | 1 |
+| .col4[⬤] | 1 | 0 | 0 | 9 |
+]
+]
+.c70[
+$\\text{Acc} = \\frac{15+10+28+9}{20+16+38+10} = \\frac{62}{84} = 73.8\%$
 
+$\\text{Acc}\\subtext{\\htmlClass{col1}{⬤}} = \\frac{15}{20} = 75\%$  
+$\\text{Acc}\\subtext{\\htmlClass{col2}{⬤}} = \\frac{10}{16} = 62.5\%$  
+$\\text{Acc}\\subtext{\\htmlClass{col3}{⬤}} = \\frac{28}{37} = 75.7\%$  
+$\\text{Acc}\\subtext{\\htmlClass{col4}{⬤}} = \\frac{9}{10} = 90\%$
+
+$\\text{wAcc} = \\frac{1}{4} \\left( \\frac{15}{20}+\\frac{10}{16}+\\frac{28}{37}+\\frac{9}{10} \\right) = 75.8\%$
+]
+]
+
+$\\text{wAcc}$ overlooks class imbalance, $\\text{Acc}$ does not; $\\text{wAcc} \\in [0,1]$; **the greater, the better**
+- $\\text{wAcc}$ is like $\\frac{1}{2} (\\text{FPR}+\\text{FNR})$
+
+---
+
+## Errors in regression
+
+Differently from classification, a prediction in regression may be more or less wrong:
+- classification: either $y^{(i)}=\\hat{y}^{(i)}$ (**correct**) or $y^{(i)}\\ne\\hat{y}^{(i)}$ (**wrong**)
+- regression: $y^{(i)}=\\hat{y}^{(i)}$ (**perfect**); $y^{(i)}+\\epsilon=\\hat{y}^{(i)}$ with large $\\epsilon$ is **worse** than with small $\\epsilon$
+
+The error in regression measures **how far** is the prediction $\\hat{y}^{(i)}$ from the true value $y^{(i)}$:
+- recall, we are in the context of behavior comparison, i.e., $f\\subtext{comp-resps}$
+
+---
+
+## MAE, MSE, RMSE, MAPE
+
+.nicetable.center[
+| Name | $f\\subtext{comp-resps}(\\seq{(y^{(i)},\\hat{y}^{(i)})}{i})$ |
+| --- | --- |
+| .key[Mean Absolute Error (MAE)] | $\\text{MAE} = \\frac{1}{n} \\sum\_i \\abs{y^{(i)}-\\hat{y}^{(i)}}$ |
+| .key[Mean Squared Error (MSE)] | $\\text{MSE} = \\frac{1}{n} \\sum\_i (y^{(i)}-\\hat{y}^{(i)})^2$ |
+| .key[Root Mean Squared Error (RMSE)] | $\\text{RMSE} = \\sqrt{\\frac{1}{n} \\sum\_i (y^{(i)}-\\hat{y}^{(i)})^2}=\\sqrt{\\text{MSE}}$ |
+| .key[Mean Absolute Percentage Error (MAPE)] | $\\text{MAPE} = \\frac{1}{n} \\sum\_i \\abs{\\frac{y^{(i)}-\\hat{y}^{(i)}}{y^{(i)}}}$ |
+]
+
+Remarks:
+- for all:
+  - **the greater, the better**
+  - domain is $[0, +\\infin[$ .note[MAPE might be $\\infin$]
+- MAE and RMSE **retain the unit of measure**: e.g., $y$ is in meters, MAE is in meters
+- MAPE is **scale-independent** and dimensionless
+- MSE and RMSE are **more influenced** by observations with **large errors**
+- MAPE "does not work" if the true $y$ is $0$
+
+---
+
+class: middle, center
+
+## Assessing learning techniques
+
+---
+
+## Purpose of assessment
+
+Premise:
+- an **effective** learning technique is a pair $f'\\subtext{learn},f'\\subtext{predict}$ that learns a good model $m$
+  - $f'\\subtext{learn}$ needs a dataset for producing $m$
+- an **effective** model $m$ is one that has the same behavior of the real system $s$
+  - we measure this with $f\\subtext{comp-behavior}$, that internally uses a dataset
+
+Goal:
+- we want a measure (a number!) the effectiveness of $f'\\subtext{learn},f'\\subtext{predict}$
+
+Sketch of solution:
+1. **learn** a $m$ with $f'\\subtext{learn}$
+2. **measure the effectiveness** $\\text{Eff}$ of $m$ with $f\\subtext{comp-behavior}$ (and one or more suitable $f\\subtext{comp-resps}$)
+3. say that the effectiveness of the learning technique is  $\\text{Eff}$
+
+.note[$\\text{Eff}$ might be accuracy, TPR and TNR, MAE, error, ...]
+
+---
+
+## What data?
+
+Sketch of solution:
+1. **learn** a $m$ with $f'\\subtext{learn}$
+2. **measure the effectiveness** $\\text{Eff}$ of $m$ with $f\\subtext{comp-behavior}$ (and one or more suitable $f\\subtext{comp-resps}$)
+3. say that the effectiveness of the learning technique is  $\\text{Eff}$
+
+Both steps 1 and 2 need a dataset:
+- can we use the same $D$?
+
+--
+
+In principle yes, in practice no:
+- many learning techniques attempt to learn a model $m$ that, by definition, **perfectly models the learning set**
+- you want to see if it the learned model **generalizes** beyond examples
+
+---
+
+## Effectiveness of a learning technique
+
+.cols[
+.c50[
+$$f\\subtext{learn-effect}: \\mathcal{L}\_{X \\to Y} \\times \\mathcal{P}^*(X \\times Y) \\to \\mathbb{R}$$
+where $\\mathcal{L}\_{X \\to Y}$ is the set of learning techniques:
+-  $\\mathcal{L}\_{X \\to Y}= \\mathcal{F}\_{\\mathcal{P}^*(X \\times Y) \\to \\mathcal{F}\_{X \\to Y}}$
+- or $\\mathcal{L}\_{X \\to Y} = \\mathcal{F}\_{\\mathcal{P}^*(X \\times Y) \\to M} \\times \\mathcal{F}\_{X \\times M \\to Y}$
+]
+.c50.center[
+.diagram[
+link([0,25,200,25],'a')
+rect(200,0,150,50)
+link([350,25,460,25],'a')
+otext(100,10,"$f\\\\subtext{learn}, D$")
+otext(275,25,"$f\\\\subtext{learn-effect}$")
+otext(400,10,"$v\\\\subtext{effect}$")
+]
+or
+.diagram[
+link([0,25,200,25],'a')
+rect(200,0,150,50)
+link([350,25,460,25],'a')
+otext(100,10,"$f'\\\\subtext{learn}, f'\\\\subtext{predict}, D$")
+otext(275,25,"$f\\\\subtext{learn-effect}$")
+otext(400,10,"$v\\\\subtext{effect}$")
+]
+]
+]
+
+Given **a learning technique and a dataset**, returns a number representing the effectiveness of the learning technique on that dataset.
+
+--
+
+For consistency, let's reshape model assessment case:
+.cols[
+.c60[
+.compact.pseudo-code[
+function $\\text{predict-effect}(f'\\subtext{predict}, m, D)$ {  
+.i[]$\\seq{(y^{(i)},\\hat{y}^{(i)})}{i} \\gets \\text{foreach}($  
+.i[].i[]$D,$  
+.i[].i[]$\\text{both}(\\cdot,\\text{second},f'\\subtext{predict}(\\text{first}(\\cdot),m))$  
+.i[]$)$  
+.i[]$v\\subtext{effect} \\gets f\\subtext{comp-resps}(\\seq{(y^{(i)},\\hat{y}^{(i)})}{i})$  
+.i[]return $v\\subtext{effect}$;  
+}
+]
+]
+.c40[
+.diagram.center[
+link([0,25,200,25],'a')
+rect(200,0,150,50)
+link([350,25,460,25],'a')
+otext(100,10,"$f'\\\\subtext{predict}, m, D$")
+otext(275,25,"$f\\\\subtext{predict-effect}$")
+otext(400,10,"$v\\\\subtext{effect}$")
+]
+.note[
+We are just leaving the data collection out of $\\text{predict-effect}()$.
+
+$\\text{first}()$ and $\\text{first}()$ take the first or second element of a pair.
+]
+]
+]
+
+---
+
+## Same dataset
+
+.cols[
+.c50[
+.compact.pseudo-code[
+function $\\text{learn-effect-same}(f'\\subtext{learn},f'\\subtext{predict}, D)$ {  
+.i[]$m \\gets f'\\subtext{learn}(D)$  
+.i[]$v\\subtext{effect} \\gets \\text{predict-effect}(f'\\subtext{predict},m,D)$  
+.i[]return $v\\subtext{effect}$;  
+}
+]
+]
+.c50[
+.diagram.center[
+link([0,25,200,25],'a')
+rect(200,0,150,50)
+link([350,25,460,25],'a')
+otext(100,10,"$f'\\\\subtext{learn}, f'\\\\subtext{predict}, D$")
+otext(275,25,"$f\\\\subtext{learn-effect}$")
+otext(400,10,"$v\\\\subtext{effect}$")
+]
+]
+]
+
+The entire $D$ is used for learning the model and assessing it.
+
+.cols[
+.c60[
+**Effectiveness** of assessment:
+- **generalization is not assessed**
+  - for techniques that, by design, learn a model tha perfectly models the learning data, $\\text{learn-effect-same}$ gives perfect effectiveness, regardless of $m$, regardless of $D$
+- what if $D$ is lucky/unlucky? **no robustness** w.r.t. $D$
+
+.center[**Poor!** 👎]
+]
+.c40[
+**Efficiency** of assessment:
+- learning is executed just once
+
+.center[**Good!** 👍]
+]
+]
+
+---
+
+## Static train/test division
+
+.cols[
+.c50[
+.compact.pseudo-code[
+function $\\text{learn-effect-static}(f'\\subtext{learn},f'\\subtext{predict}, D,r)$ {  
+.i[]$D\\subtext{learn} \\gets \\text{subbag}(D, r)$  
+.i[]$D\\subtext{test} \\gets D \\setminus D\\subtext{learn}$  
+.i[]$m \\gets f'\\subtext{learn}(D\\subtext{learn})$  
+.i[]$v\\subtext{effect} \\gets \\text{predict-effect}(f'\\subtext{predict},m,D\\subtext{test})$  
+.i[]return $v\\subtext{effect}$;  
+}
+]
+]
+.c50[
+.diagram.center[
+link([0,75,200,75],'a')
+rect(200,50,150,50)
+link([350,75,460,75],'a')
+link([275,0,275,50],'a')
+otext(100,60,"$f'\\\\subtext{learn}, f'\\\\subtext{predict}, D$")
+otext(275,75,"$f\\\\subtext{learn-effect}$")
+otext(400,60,"$v\\\\subtext{effect}$")
+otext(290,25,"$r$")
+]
+
+.note[$r \\in [0,1]$ is a parameter]
+]
+]
+
+$D$ is split in $D\\subtext{learn}$ for learning and a $D\\subtext{test}$ for assessment:
+- $D\\subtext{test}$ is called the .key[test set]
+- $D\\subtext{learn}$ and $D\\subtext{test}$ do not overlap and $\\frac{|D\\subtext{learn}|}{|D|}=r$; common values: $r=80\%$, $r=70\%$, ...
+
+.cols[
+.c60[
+**Effectiveness** of assessment:
+- **generalization is assessed**
+- what if $D$ is lucky/unlucky? **no robustness** w.r.t. $D$ division in $D\\subtext{learn}$ and $D\\subtext{test}$
+
+.center[**Fair!** $\\approx$👍]
+]
+.c40[
+**Efficiency** of assessment:
+- learning is executed just once
+
+.center[**Good!** 👍]
+]
+]
+
+---
+
+## Role of $D\\subtext{test}$
+
+$D\\subtext{test}$, with respect to the model $m$, is **unseen** data, because it has not been used for learning.
+
+Assesing $m$ on unseen data answers the questions:
+- to which degree the model generalizes **beyond examples**?
+- does the model work well on **new data**?
+- how well will the ML system work **in the future**? .note[on data that does not exist today]
+
+--
+
+In practice $D\\subtext{test}$ and $D\\subtext{learn}$ are obtained from a $D$ that is collected *all at once*.
+
+---
+
+## Assessment vs. reality
+
+What if the model/ML system does not work well on **actual unseen/new/future** data? I.e., what if the **prediction are wrong** in practice?
+
+.cols[
+.c50[
+**Assessment** 👍 - **Reality** 👎
+
+$D$ was **not representative** w.r.t. the real system:
+- low coverage
+- old, i.e., the system has changed
+
+.note[or some bug in the implementation...]
+]
+.c50[
+**Assessment** 👎 - **Reality** 👎
+
+$D$ is **not informative** w.r.t. the real system:
+- $y$ in $D$ does not depend on $x$ in $D$
+  - wrong features
+  - too much noise in the features
+
+.note[or some bug in the implementation...]
+]
+]
+
+--
+
+.cols[
+.c50[
+**Assessment** 👍 - **Reality** 👍
+
+Nice! We did everything well!
+
+.note[or some bug in the implementation...]
+]
+.c50[
+**Assessment** 👎 - **Reality** 👍
+
+Sooooo lucky! 🍀🍀🍀
+
+.note[or some bug in the implementation...]
+]
+]
+
+.note[you *never* know if there is some bug in the implementation...]
+
+---
+
+## Repeated random train/test division
+
+.cols[
+.c50[
+.compact.pseudo-code[
+function $\\text{learn-effect-static}(f'\\subtext{learn},f'\\subtext{predict}, D,r,k)$ {  
+.i[]for ($j \\in 1,\\dots,k$) {  
+.i[].i[]$D\\subtext{learn} \\gets \\text{subbag}(D, r)$  
+.i[].i[]$D\\subtext{test} \\gets D \\setminus D\\subtext{learn}$  
+.i[].i[]$m \\gets f'\\subtext{learn}(D\\subtext{learn})$  
+.i[].i[]$v\_j \\gets \\text{predict-effect}(f'\\subtext{predict},m,D\\subtext{test})$  
+.i[]}  
+.i[]return $\\frac{1}{k}\\sum\_j v\_j$;  
+}
+]
+]
+.c50[
+.diagram.center[
+link([0,75,200,75],'a')
+rect(200,50,150,50)
+link([350,75,460,75],'a')
+link([275,0,275,50],'a')
+otext(100,60,"$f'\\\\subtext{learn}, f'\\\\subtext{predict}, D$")
+otext(275,75,"$f\\\\subtext{learn-effect}$")
+otext(400,60,"$v\\\\subtext{effect}$")
+otext(310,25,"$r,k$")
+]
+
+.note[$r \\in [0,1]$ and $k \\in \\mathbb{N}^+$ is a parameter]
+
+]
+]
+
+$D$ is split in $D\\subtext{learn}$ and $D\\subtext{test}$ for $k$ times and measures **are averaged**: .note[$\\text{subbag}()$ has to be not deterministic]
+- common values: $k=10$, $k=5$, ...
+
+.cols[
+.c60[
+**Effectiveness** of assessment:
+- **generalization is assessed**
+- measures are repeated with different $D\\subtext{learn}$ and $D\\subtext{test}$: **robustness** w.r.t. data
+
+.center[**Good!** 👍]
+]
+.c40[
+**Efficiency** of assessment:
+- learning is executed $k$ times: might be heavy
+
+.center[$\\propto k$ 🫳]
+]
+]
 
 ---
 
 <!--
 
-- summary
-- example of tables from papers
-
-
-- multiclass case: accuracy, weighted accuracy
-
-- regression
-
-- from comparing models to comparing learning techs
-- say: as we took many x,y pairs for assessing a model, we should take many D to assess a f_learn; sketch f_assess_learn as a block
-- unseen data, data of tomorrow, D different that learning, *test dataset*
-- static learn/test division
-- k-fold cross validation, loocv, discusse effectiveness/efficiency trade-off
+- k-fold cross validation, loocv, discusse effectiveness
 
 - comparing models/param values
 - mean and stdev of many execs
