@@ -864,10 +864,10 @@ Common practice:
 **Goal**: measuring the error on each of the two classes in binary classification.
 
 The .key[False Positive Rate (FPR)] is the rate of **.col1[negatives]** that are **.col2[wrongly]¹ classified as positives**:
-$$f\\subtext{FPR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=\\frac{1}{n}\\sum\_{i=1}^{i=n}\\mathbf{1}(\\htmlClass{col1}{y^{(i)}=\\text{neg}} \\land \\htmlClass{col2}{y^{(i)} \\ne \\hat{y}^{(i)}})$$
+$$f\\subtext{FPR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_i)=\\frac{\\sum\_i\\mathbf{1}(\\htmlClass{col1}{y^{(i)}=\\text{neg}} \\land \\htmlClass{col2}{y^{(i)} \\ne \\hat{y}^{(i)}})}{\\sum\_i\\mathbf{1}(\\htmlClass{col1}{y^{(i)}=\\text{neg}})}$$
 
 The .key[False Negative Rate (FNR)] is the rate of **.col3[positives]** that are **.col2[wrongly] classified as negatives**:
-$$f\\subtext{FNR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=\\frac{1}{n}\\sum\_{i=1}^{i=n}\\mathbf{1}(\\htmlClass{col3}{y^{(i)}=\\text{pos}} \\land \\htmlClass{col2}{y^{(i)} \\ne \\hat{y}^{(i)}})$$
+$$f\\subtext{FNR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_i)=\\frac{\\sum\_i\\mathbf{1}(\\htmlClass{col3}{y^{(i)}=\\text{pos}} \\land \\htmlClass{col2}{y^{(i)} \\ne \\hat{y}^{(i)}})}{\\sum\_i\\mathbf{1}(\\htmlClass{col3}{y^{(i)}=\\text{pos}})}$$
 
 For both:
 - the codomain is $[0,1]$
@@ -1275,7 +1275,7 @@ d %>% pivot_longer(c(FPR,FNR)) %>% ggplot(aes(x=tau,y=value,color=name)) + geom_
 - if you know the cost of a FN is $\\approx$ double the cost of a FP **and** the data is balanced, then you should set $\\tau\\approx 0.12$
 ]
 ]
-.note[why $\\text{FNR}=0\%$ for $\\tau=0$ but $\\text{FNR}>0\%$ for $\\tau=1$?]
+.note[why $\\text{FNR}=0\%$ for $\\tau=0$ but $\\text{FPR}>0\%$ for $\\tau=1$?]
 
 ---
 
@@ -1706,7 +1706,7 @@ link([(300+376)/2,0,(300+376)/2,20],'col3')
 
 ## Cost of errors, index, and $\\tau$
 
-If you **know the cost** of error ($c\\subtext{FP}$ and $c\\subtext{FP}$) and the class frequencies:
+If you **know the cost** of error ($c\\subtext{FP}$ and $c\\subtext{FN}$) and the class frequencies:
 - choose a proper $\\tau$ and measure $\\text{FPR}$, $\\text{FNR}$, $c$
 
 If you **don't know the cost** of error and you **know** the classifier will work at a fixed $\\tau$:
@@ -1726,7 +1726,7 @@ If you can afford, i.e., you have time/space:
 
 ## Confusion matrix
 
-Given a multiset $\\seq{y^{(i)},\\hat{y}^{(i)}}{i}$ of pairs, the .key[confusion matrix] has:
+Given a multiset $\\seq{(y^{(i)},\\hat{y}^{(i)})}{i}$ of pairs, the .key[confusion matrix] has:
 - one row for each possible value $y$ of $Y$, associated with $y^{(i)}$ (**true** labels)
 - one column for each possible value $\\hat{y}$ of $Y$, associated with $\\hat{y}^{(i)}$ (**predicted** labels)
 - the number of pairs for which $\\hat{y}^{(i)}=\\hat{y}$ and $y^{(i)}=y$ in the cell
