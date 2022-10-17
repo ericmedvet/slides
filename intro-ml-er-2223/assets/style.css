@@ -155,6 +155,9 @@ img {
 .h30ex img {
   height: 30ex;
 }
+.h35ex img {
+  height: 35ex;
+}
 .h40ex img {
   height: 40ex;
 }
@@ -294,3 +297,24 @@ span.note::after {
 .r {
   color: red;
 }
+.hcl {
+  display: inline-block;
+  overflow: hidden;
+  width: 0.5em;
+}
+.hcr {
+  display: inline-block;
+  overflow: hidden;
+  width: 0.5em;
+}
+.hc12 {
+  color: linear-gradient(to right, #7db9e8 50%,#1e5799 50%);
+}
+.sb1, .sb2, .sb12 {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+}
+.sb1 { background: #648FFF }
+.sb2 { background: #DC267F }
+.sb12 { background: linear-gradient(45deg, #648FFF 50%, #DC267F 50%) }

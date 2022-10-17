@@ -1175,13 +1175,14 @@ p\\subtext{pos} &\\text{if } y=\\text{pos} \\\\
 1-p\\subtext{pos} &\\text{if } y=\\text{neg}
 \\end{cases}$$
 with $p\\subtext{pos} \\in [0,1]$.
-Hence, it can be seen as:
+
+Hence, prediction can be seen as:
 .cols[
-.c50[
+.c50.compact[
 $$f'''\\subtext{predict}: X \\times M \\to [0,1]$$
 $$f'''\\subtext{predict}(x,m)=p\\subtext{pos}$$
 ]
-.c50[
+.c50.compact[
 $$f'\\subtext{predict}: X \\times M \\to Y$$
 $$f'\\subtext{predict}(x,m)=
 \\begin{cases}
@@ -1206,6 +1207,27 @@ otext(262.5,35,'$p\\\\subtext{pos}$')
 otext(362.5,50,"$\\\\ge 0.5$")
 otext(512.5,35,'$y$')
 ]
+
+---
+
+## Probability and confidence
+
+$$p(y)=
+\\begin{cases}
+p\\subtext{pos} &\\text{if } y=\\text{pos} \\\\
+1-p\\subtext{pos} &\\text{if } y=\\text{neg}
+\\end{cases}$$
+
+The closer $p\\subtext{pos}$ to $0.5$, the lower the .key[confidence] of the model in its decision:
+- $p\\subtext{pos}=0.51$ means "I think it's a positive, but I'm not sure"
+- $p\\subtext{pos}=0.49$ means "I think it's a negative, but I'm not sure"
+- $p\\subtext{pos}=0.98$ means "I'm rather sure it's a positive!"
+
+We may measure the confidence in the binary decision as:
+$$\\text{conf}(x,m)=\\frac{\\abs{p\\subtext{pos}-0.5}}{0.5}=\\frac{\\abs{f'''\\subtext{predict}(x,m)-0.5}}{0.5}$$
+
+$\\text{conf} \\in [0,1]$: **the greater, the more confident**.
+
 
 ---
 
@@ -1821,7 +1843,11 @@ $\\text{wAcc}$ overlooks class imbalance, $\\text{Acc}$ does not; $\\text{wAcc} 
 
 Differently from classification, a prediction in regression may be more or less wrong:
 - classification: either $y^{(i)}=\\hat{y}^{(i)}$ (**correct**) or $y^{(i)}\\ne\\hat{y}^{(i)}$ (**wrong**)
-- regression: $y^{(i)}=\\hat{y}^{(i)}$ (**perfect**); $y^{(i)}+\\epsilon=\\hat{y}^{(i)}$ with large $\\epsilon$ is **worse** than with small $\\epsilon$
+- regression:
+  - $y^{(i)}=\\hat{y}^{(i)}$ (**perfect**);
+  - $y^{(i)}+1=\\hat{y}^{(i)}$ is **wrong**
+  - $y^{(i)}+100=\\hat{y}^{(i)}$ is **much more wrong**
+  - ...
 
 The error in regression measures **how far** is the prediction $\\hat{y}^{(i)}$ from the true value $y^{(i)}$:
 - recall, we are in the context of behavior comparison, i.e., $f\\subtext{comp-resps}$
@@ -2036,7 +2062,7 @@ otext(290,25,"$r$")
 ]
 ]
 
-$D$ is split in $D\\subtext{learn}$ for learning and a $D\\subtext{test}$ for assessment:
+$D$ is split in $D\\subtext{learn}$ for learning and a $D\\subtext{test}$ for assessment: .note["split"="partitioned", but $D\\subtext{learn} \\cap D\\subtext{test}$ might be $\\ne \\emptyset$]
 - $D\\subtext{test}$ is called the .key[test set]
 - $D\\subtext{learn}$ and $D\\subtext{test}$ do not overlap and $\\frac{|D\\subtext{learn}|}{|D|}=r$; common values: $r=80\%$, $r=70\%$, ...
 
@@ -2069,7 +2095,8 @@ Assesing $m$ on unseen data answers the questions:
 
 --
 
-In practice $D\\subtext{test}$ and $D\\subtext{learn}$ are obtained from a $D$ that is collected *all at once*.
+In practice $D\\subtext{test}$ and $D\\subtext{learn}$ are obtained from a $D$ that is collected *all at once*:
+- $D\\subtext{test}$ might represent future data only roughly
 
 ---
 
@@ -2127,7 +2154,7 @@ Sooooo lucky! 🍀🍀🍀
 .cols[
 .c50[
 .compact.pseudo-code[
-function $\\text{learn-effect-static}(f'\\subtext{learn},f'\\subtext{predict}, D,r,k)$ {  
+function $\\text{learn-effect-repeated}(f'\\subtext{learn},f'\\subtext{predict}, D,r,k)$ {  
 .i[]for ($j \\in 1,\\dots,k$) {  
 .i[].i[]$D\\subtext{learn} \\gets \\text{subbag}(D, r)$  
 .i[].i[]$D\\subtext{test} \\gets D \\setminus D\\subtext{learn}$  
@@ -2176,11 +2203,467 @@ $D$ is split in $D\\subtext{learn}$ and $D\\subtext{test}$ for $k$ times and mea
 
 ---
 
-<!--
+## Cross-fold validation (CV)
 
-- k-fold cross validation, loocv, discusse effectiveness
+.cols[
+.c50[
+.compact.pseudo-code[
+function $\\text{learn-effect-cv}(f'\\subtext{learn},f'\\subtext{predict}, D, k)$ {  
+.i[]for ($j \\in 1,\\dots,k$) {  
+.i[].i[]$D\\subtext{test} \\gets \\text{fold}(D, j)$  
+.i[].i[]$D\\subtext{learn} \\gets D \\setminus D\\subtext{test}$  
+.i[].i[]$m \\gets f'\\subtext{learn}(D\\subtext{learn})$  
+.i[].i[]$v\_j \\gets \\text{predict-effect}(f'\\subtext{predict},m,D\\subtext{test})$  
+.i[]}  
+.i[]return $\\frac{1}{k}\\sum\_j v\_j$;  
+}
+]
+]
+.c50[
+.diagram.center[
+link([0,75,200,75],'a')
+rect(200,50,150,50)
+link([350,75,460,75],'a')
+link([275,0,275,50],'a')
+otext(100,60,"$f'\\\\subtext{learn}, f'\\\\subtext{predict}, D$")
+otext(275,75,"$f\\\\subtext{learn-effect}$")
+otext(400,60,"$v\\\\subtext{effect}$")
+otext(310,25,"$r,k$")
+]
 
-- comparing models/param values
-- mean and stdev of many execs
-- motivation and brief sketch statistical significance tests
--->
+.note[$r \\in [0,1]$ and $k \\in \\mathbb{N}^+$ is a parameter]
+
+]
+]
+
+.key[Cross-fold validation] is like $\\text{learn-effect-repeated}$, but the $k$ $D\\subtext{test}$ are mutually disjoint (**folds**).
+
+.cols[
+.c60[
+**Effectiveness** of assessment:
+- **generalization is assessed**
+- measures are repeated with different $D\\subtext{learn}$ and $D\\subtext{test}$: **robustness** w.r.t. data
+
+.center[**Good!** 👍]
+]
+.c40[
+**Efficiency** of assessment:
+- learning is executed $k$ times: might be heavy
+
+.center[**Bad** 👎]
+]
+]
+
+---
+
+## Leave-one-out CV (LOOCV)
+
+Simply a CV where the number of folds $k$ is $|D|$:
+- each $D\\subtext{test}$ consists of just one observation
+
+.cols[
+.c60[
+**Effectiveness** of assessment:
+- **generalization is assessed**
+- measures are repeated with different $D\\subtext{learn}$ and $D\\subtext{test}$: **robustness** w.r.t. data
+
+.center[**Good!** 👍]
+]
+.c40[
+**Efficiency** of assessment:
+- learning is executed $k=|D|$ times: might be heavy
+
+.center[$\\propto k$ 🫳]
+]
+]
+
+---
+
+## Visual summary
+
+.cols[
+.c50[
+**Same**
+
+.sb12[] .sb12[] .sb12[] .sb12[] .sb12[] .sb12[] .sb12[] .sb12[] .sb12[] .sb12[]
+$\\rightarrow \\text{Eff}$
+
+.note[1 learning; $|D|$ predictions]
+
+**Static** ($r=0.8$)
+
+.sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb2[] .sb2[]
+$\\rightarrow \\text{Eff}$
+
+.note[1 learning; $|D|(1-r)$ predictions]
+
+**Repeated random** ($r=0.8$, $k=4$)
+
+<span style="display: inline-block">
+.sb1[] .sb1[] .sb2[] .sb1[] .sb1[] .sb1[] .sb2[] .sb1[] .sb1[] .sb1[] $\\rightarrow \\text{Eff}\_1$  
+.sb1[] .sb1[] .sb1[] .sb1[] .sb2[] .sb1[] .sb1[] .sb1[] .sb2[] .sb1[] $\\rightarrow \\text{Eff}\_2$  
+.sb1[] .sb2[] .sb2[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] $\\rightarrow \\text{Eff}\_3$  
+.sb2[] .sb2[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] $\\rightarrow \\text{Eff}\_4$
+</span>
+<span style="font-size: 550%; line-height: 100px; vertical-align: top;">}</span>
+<span style="line-height: 120px; vertical-align: top;">$\\rightarrow \\text{Eff}$</span>
+
+.note[$k$ learnings; $k|D|(1-r)$ predictions]
+
+]
+.c50[
+**CV** ($k=5$)
+
+<span style="display: inline-block">
+.sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb2[] .sb2[] $\\rightarrow \\text{Eff}\_1$  
+.sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb2[] .sb2[] .sb1[] .sb1[] $\\rightarrow \\text{Eff}\_2$  
+.sb1[] .sb1[] .sb1[] .sb1[] .sb2[] .sb2[] .sb1[] .sb1[] .sb1[] .sb1[] $\\rightarrow \\text{Eff}\_3$  
+.sb1[] .sb1[] .sb2[] .sb2[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] $\\rightarrow \\text{Eff}\_4$  
+.sb2[] .sb2[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] $\\rightarrow \\text{Eff}\_5$
+</span>
+<span style="font-size: 650%; line-height: 130px; vertical-align: top;">}</span>
+<span style="line-height: 155px; vertical-align: top;">$\\rightarrow \\text{Eff}$</span>
+
+.note[$k$ learnings; $(k-1)|D|$ predictions]
+
+**LOOCV**
+
+<span style="display: inline-block">
+.sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb2[] $\\rightarrow \\text{Eff}\_1$  
+.sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb2[] .sb1[] $\\rightarrow \\text{Eff}\_2$  
+...  
+.sb2[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] $\\rightarrow \\text{Eff}\_{|D|}$
+</span>
+<span style="font-size: 550%; line-height: 100px; vertical-align: top;">}</span>
+<span style="line-height: 120px; vertical-align: top;">$\\rightarrow \\text{Eff}$</span>
+
+.note[$|D|$ learnings; $k(|D|-1)$ predictions]
+]
+]
+
+---
+
+## More than the average
+
+.cols[
+.c50[
+Repeated random, CV, and LOOCV internally compute the model effectiveness for **several models** learned on (slightly) **different datasets**:
+
+$$\\text{Eff}\_1, \\text{Eff}\_2, \\dots, \\text{Eff}\_k \\rightarrow \\text{Eff}=\\htmlClass{col2}{\\frac{1}{k} \\sum\_j \\text{Eff}\_j}$$
+]
+.c50[
+.compact.pseudo-code[
+function $\\text{learn-effect-cv}(f'\\subtext{learn},f'\\subtext{predict}, D, k)$ {  
+.i[].col2[for ($j \\in 1,\\dots,k$)] {  
+.i[].i[]$D\\subtext{test} \\gets \\text{fold}(D, j)$  
+.i[].i[]$D\\subtext{learn} \\gets D \\setminus D\\subtext{test}$  
+.i[].i[]$m \\gets f'\\subtext{learn}(D\\subtext{learn})$  
+.i[].i[]$v\_j \\gets \\text{predict-effect}(f'\\subtext{predict},m,D\\subtext{test})$  
+.i[]}  
+.i[]return .col2[$\\frac{1}{k}\\sum\_j v\_j$];  
+}
+]
+]
+]
+
+We can compute both the mean **and the standard deviation** from $(\\text{Eff}\_i)\_i$:
+.cols[
+.c50[
+$$\\text{Eff}\_\\mu=\\frac{1}{k} \\sum\_j \\text{Eff}\_j$$
+]
+.c50[
+$$\\text{Eff}\_\\sigma=\\sqrt{\\frac{1}{k} \\sum\_j \\left(\\text{Eff}\_j-\\text{Eff}\_\\mu\\right)^2}$$
+]
+]
+
+- **Mean** $\\text{Eff}\_\\mu$: what's the learning technique effectiveness on average?
+- **Standard deviation** $\\text{Eff}\_\\sigma$: how **consistent** is the learning technique w.r.t. different datasets?
+
+---
+
+## Comparison with many measures
+
+Suppose you have assessed two learning techniques with 10-CV and AUC (with midpoints $\\tau$):
+- for LT1: $\\text{AUC}\_\\mu=0.83$ and $\\text{AUC}\_\\sigma=0.04$
+- for LT2: $\\text{AUC}\_\\mu=0.75$ and $\\text{AUC}\_\\sigma=0.03$
+
+What's the best learning technique?
+
+--
+
+Now, suppose that you insted find:
+- for LT1: $\\text{AUC}\_\\mu=0.81$ and $\\text{AUC}\_\\sigma=0.12$
+- for LT2: $\\text{AUC}\_\\mu=0.78$ and $\\text{AUC}\_\\sigma=0.02$
+
+What's the best learning technique?
+
+--
+
+- LT1 is better, on average, but less consistent
+- on actual, unseen data, LT1 might give a worse model than LT2
+
+Can we really **state that LT1 is better than LT2**?
+
+---
+
+## Comparison and statistics
+
+**Broader example**:  
+suppose you meet $10$ guys from Udine and $10$ from Trieste and ask them how tall they are:
+
+.nicetable.center[
+| City | Measures | $\\mu$ | $\\sigma$ |
+| --- | --- | --- | --- |
+| Udine | $154, 193, 170, 175, 172, 183, 160, 162, 161, 179$ | $170.9$ | $12.02$ |
+| Trieste | $167, 166, 180, 175, 168, 167, 173, 181, 169, 173$ | $171.9$ | $5.44$ |
+]
+
+Questions:
+1. are **these** $10$ guys from Trieste taller than **these** $10$ guys from Udine?
+2. are guys from Trieste taller than guys from Udine?
+
+--
+
+Possible ways of answering:
+- laziest: **yes** and **yes** .note[$\\mu\\subtext{Ts} > \\mu\\subtext{Ud}$ and you assume these 10+10 are representative]
+- lazy: **yes** and **I don't know** .note[$\\mu\\subtext{Ts} > \\mu\\subtext{Ud}$ but you don't assume representativeness]
+- smart: **yes** and let's look at **boxplot** .note[assume "these" means "these on average"]
+- stats-geek: **yes** and let's do a **statistical significance test** .note[assume "these" means "these on average"]
+
+---
+
+## Comparing with boxplot
+
+.cols[
+.c50[
+.w100p.center[![Boxplot of Ts and Ud guys height](images/ts-ud-h-boxplot.png)]
+]
+.c50[
+Questions:
+1. are **these** $10$ guys from Trieste taller than **these** $10$ guys from Udine?
+2. are guys from Trieste taller than guys from Udine?
+
+Answers **with the boxplot**:
+1. **yes**, but just a bit
+2. prefer not to say
+  - as an aside: people from Udine is much less consistent in height
+]
+]
+
+---
+
+## Statistical significance test
+
+**Disclaimer**: here, just a brief overview; go to statisticians for more details/theory
+
+--
+
+*For us*, a .key[statistical significance test] is a procedure that, given two **samples** $\\seq{x\_{a,i}}{i}$ and $\\seq{x\_{b,i}}{i}$  (i.e., collections of observations) of **two random variables** $X_a$ and $X_b$ and a **set of hypotheses** $H_0$ (the .key[null hypothess]), returns a number $p \\in [0,1]$, called the .key[$p$-value].
+
+.diagram.center[
+link([0,25,250,25],'a')
+rect(250,0,100,50)
+link([350,25,460,25],'a')
+otext(125,10,"$\\\\seq{x\\\_{a,i}}{i}, \\\\seq{x\\\_{b,i}}{i}, H\\_0$")
+otext(300,25,"$f\\\\subtext{stat-test}$")
+otext(400,10,"$p$")
+]
+
+The $p$-value represents the probability that, by collecting other two samples from the same random variables **and assuming that $H\_0$ still holds**, the new two samples are **more unlikely** than $\\seq{x\_{a,i}}{i}, \\seq{x\_{b,i}}{i}$.
+
+---
+
+## Example
+
+.cols[
+.c60[
+$H\_0$: (**you assume all are true**)
+- $X\_a$ is normally distributed
+- $X\_b$ is normally distributed
+- $\\mu\_a=E[X_a] > \\mu\_b=E[X_b]$ (**our question**, indeed)
+]
+.c40[
+Samples:
+- $X\_a$ sample: $\\{1,1,2,2,3,3\\}$
+- $X\_b$ sample: $\\{0,0,1,0,1,1\\}$
+]
+]
+
+--
+
+$p=0.90$ means:
+- if you resample $X\_a$, $X\_b$, very **likely** you will find samples that are **more unlikely**, given $H\_0$
+- so, these samples are indeed **likely**, given $H\_0$
+- so, I can assume $H\_0$ is true
+
+--
+
+$p=0.01$ means:
+- if you resample $X\_a$, $X\_b$, very **unlikely** you will find samples that are **more unlikely**, given $H\_0$
+- so, these samples are indeed **unlikely**, given $H\_0$
+- so, I can think that $H\_0$ is likely false
+  - **not necessarily** the $\\mu\_a > \\mu\_a$, maybe the normality part
+
+---
+
+## In practice
+
+.diagram.center[
+link([0,25,250,25],'a')
+rect(250,0,100,50)
+link([350,25,460,25],'a')
+otext(125,10,"$\\\\seq{x\\\_{a,i}}{i}, \\\\seq{x\\\_{b,i}}{i}, H\\_0$")
+otext(300,25,"$f\\\\subtext{stat-test}$")
+otext(400,10,"$p$")
+]
+
+There exist several concrete statistical significance tests, e.g.:
+- Wilcoxon (in many versions)
+- Friedman (in many versions)
+
+Usually, you aim at "argumenting" $\\mu\_a > \\mu\_a$ (**one-tailed**) or $\\mu\_a \\ne \\mu\_a$ (**inequality**):
+1. you **choose** one test based on the other parts of $H\_0$
+2. you compute the $p$-value
+3. you hope it is low
+  - and compare it against a prededefined threshold $\\alpha$, usually $0.05$
+  - with $\\ne$, if $p<\\alpha$, you say that there is a statistically significant difference (between the mean values)
+
+---
+
+## Trieste vs. Udine
+
+```bash
+> wilcox.test(h_ts, h_ud)
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  h_ts and h_ud
+W = 54.5, p-value = 0.7621
+alternative hypothesis: true location shift is not equal to 0
+```
+
+$H\_0 \\ni$ `true location shift is equal to 0`
+
+$p=0.7621 > 0.05$: we cannot reject the null hypothesis  
+$\\Rightarrow$ people from Trieste is **not taller** than people from Udine .note[or, at least, we cannt state this]
+
+.footnote[
+More on statistical significance tests:
+- .ref[Joaquín Derrac et al. "A practical tutorial on the use of nonparametric statistical tests as a methodology for comparing evolutionary and swarm intelligence algorithms". In: Swarm and Evolutionary Computation 1.1 (2011)]
+- .ref[Colas, Cédric, Olivier Sigaud, and Pierre-Yves Oudeyer. "How many random seeds? statistical power analysis in deep reinforcement learning experiments." arXiv preprint arXiv:1806.08295 (2018).]
+- .ref[Greenland, Sander, et al. "Statistical tests, P values, confidence intervals, and power: a guide to misinterpretations." European journal of epidemiology 31.4 (2016): 337-350.]
+]
+
+---
+
+class: middle, center
+
+## Assessing supervised ML
+
+### Examples from research papers
+
+---
+
+## Android malware detection¹ (1)
+
+.cols[
+.c40[
+.h40ex.center[![Results presentation for Android malware detection](images/assessment-example1-android.png)]
+]
+.c60[
+- binary lassification
+- a few learning techniques
+- 10-CV
+- just **effectiveness**
+  - $\\mu$, $\\sigma$ for accuracy, FPR, FNR
+
+Similar:  
+.compact.ref[Canfora, Gerardo, et al. "Detecting android malware using sequences of system calls." Proceedings of the 3rd International Workshop on Software Development Lifecycle for Mobile. 2015.]
+- one dataset, three variants of effectiveness
+  - unseen run of known app
+  - unseen app of known family
+  - unseen app of unseen family
+]
+]
+
+.footnote[
+1. .ref[Canfora, Gerardo, et al. "Acquiring and analyzing app metrics for effective mobile malware detection." Proceedings of the 2016 ACM on International Workshop on Security And Privacy Analytics. 2016.]
+]
+
+---
+
+## Twitter botnet detection¹
+
+.w75p.center[![Results presentation for Twitter botnet detection](images/assessment-example2-twitter.png)]
+
+.cols[
+.c40[
+- binary lassification
+- a few learning techniques
+- a baseline
+- just **effectiveness**
+]
+.c60[
+- F1 is the F- or F1-score
+  - geometric mean of precision and recall
+- MCC is the Matthews correlation coefficient
+  - $\\text{MCC}=\\frac{\\text{TP} \; \\text{TN} - \\text{FP} \; \\text{FN}}{\\sqrt{(\\text{TP} + \\text{FP})(\\text{TP} + \\text{FN})(\\text{TN} + \\text{FP})(\\text{TN} + \\text{FN})}}$
+]
+]
+
+.footnote[
+1. .ref[Mazza, Michele, et al. "Rtbust: Exploiting temporal patterns for botnet detection on twitter." Proceedings of the 10th ACM conference on web science. 2019.]
+]
+
+---
+
+## Anomaly detection in cyber-physical systems¹
+
+.w50p.center[![Results presentation for CPS anomaly detection](images/assessment-example3-cps.png)]
+
+.cols[
+.c40[
+- **anomaly detection**
+  - binary classification with only negative examples in learning
+- many datasets
+- two methods
+]
+.c60[
+- $f\\subtext{evals}$ is a measure of **efficiency** of learning
+- TPR, FPR, AUC for **effectiveness**
+]
+]
+
+.footnote[
+1. .ref[Indri, Patrick, et al. "One-Shot Learning of Ensembles of Temporal Logic Formulas for Anomaly Detection in Cyber-Physical Systems." European Conference on Genetic Programming (Part of EvoStar). Springer, Cham, 2022.]
+]
+
+---
+
+## AutoML approaches comparison¹
+
+.cols[
+.c70[
+.h40ex.center[![Results presentation for AutoML comparison](images/assessment-example4-automl.png)]
+]
+.c30[
+- 6 approaches
+- 10 scenarios
+- box plots
+  - accuracy
+  - F1 for unbalanced case
+]
+]
+
+.footnote[
+1. .ref[Truong, Anh, et al. "Towards automated machine learning: Evaluation and comparison of AutoML approaches and tools." 2019 IEEE 31st international conference on tools with artificial intelligence (ICTAI). IEEE, 2019.]
+]
+
+
+---
+
+class: middle, center
+
+# Assessing supervised ML
+
+## Brief recap
