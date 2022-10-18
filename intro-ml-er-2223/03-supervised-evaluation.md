@@ -1867,7 +1867,7 @@ The error in regression measures **how far** is the prediction $\\hat{y}^{(i)}$ 
 
 Remarks:
 - for all:
-  - **the greater, the better**
+  - **the lower, the better**
   - domain is $[0, +\\infin[$ .note[MAPE might be $\\infin$]
 - MAE and RMSE **retain the unit of measure**: e.g., $y$ is in meters, MAE is in meters
 - MAPE is **scale-independent** and dimensionless
@@ -2017,7 +2017,7 @@ The entire $D$ is used for learning the model and assessing it.
 .c60[
 **Effectiveness** of assessment:
 - **generalization is not assessed**
-  - for techniques that, by design, learn a model tha perfectly models the learning data, $\\text{learn-effect-same}$ gives perfect effectiveness, regardless of $m$, regardless of $D$
+  - for techniques that, by design, learn a model that perfectly models the learning data, $\\text{learn-effect-same}$ gives perfect effectiveness, regardless of $m$, regardless of $D$
 - what if $D$ is lucky/unlucky? **no robustness** w.r.t. $D$
 
 .center[**Poor!** 👎]
@@ -2228,7 +2228,7 @@ link([275,0,275,50],'a')
 otext(100,60,"$f'\\\\subtext{learn}, f'\\\\subtext{predict}, D$")
 otext(275,75,"$f\\\\subtext{learn-effect}$")
 otext(400,60,"$v\\\\subtext{effect}$")
-otext(310,25,"$r,k$")
+otext(300,25,"$k$")
 ]
 
 .note[$r \\in [0,1]$ and $k \\in \\mathbb{N}^+$ is a parameter]
@@ -2258,9 +2258,22 @@ otext(310,25,"$r,k$")
 
 ## Leave-one-out CV (LOOCV)
 
+.cols[
+.c50[
 Simply a CV where the number of folds $k$ is $|D|$:
 - each $D\\subtext{test}$ consists of just one observation
-
+]
+.c50[
+.diagram.center[
+link([0,25,200,25],'a')
+rect(200,00,150,50)
+link([350,25,460,25],'a')
+otext(100,10,"$f'\\\\subtext{learn}, f'\\\\subtext{predict}, D$")
+otext(275,25,"$f\\\\subtext{learn-effect}$")
+otext(400,10,"$v\\\\subtext{effect}$")
+]
+]
+]
 .cols[
 .c60[
 **Effectiveness** of assessment:
@@ -2337,7 +2350,7 @@ $\\rightarrow \\text{Eff}$
 <span style="font-size: 550%; line-height: 100px; vertical-align: top;">}</span>
 <span style="line-height: 120px; vertical-align: top;">$\\rightarrow \\text{Eff}$</span>
 
-.note[$|D|$ learnings; $k(|D|-1)$ predictions]
+.note[$|D|$ learnings; $|D|(|D|-1)$ predictions]
 ]
 ]
 
