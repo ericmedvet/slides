@@ -2756,7 +2756,7 @@ otext(262.5,10,'$y$')
 
 **Effectiveness of the single technique**
 
-Sketch: learn a model on $D\\subtext{learn}$, assess the model on $D\\subtext{test}$.
+**Sketch**: learn a model on $D\\subtext{learn}$, assess the model on $D\\subtext{test}$; which **leargning/test division**?
 
 .cols[
 .c20[
@@ -2794,3 +2794,56 @@ Sketch: learn a model on $D\\subtext{learn}$, assess the model on $D\\subtext{te
 ]
 
 **Comparison between techniques**
+
+- just compare one measure: $\\text{Eff}\_1$ vs. $\\text{Eff}\_2$
+- compare $\\mu$ of several measures: $\\text{Eff}\_{\\mu,1}$ vs. $\\text{Eff}\_{\\mu,2}$
+- compare $\\mu$ and $\\sigma$ of several measures: $\\text{Eff}\_{\\mu,1},\\text{Eff}\_{\\sigma,1}$ vs. $\\text{Eff}\_{\\mu,2}, \\text{Eff}\_{\\sigma,2}$
+- compare using **boxplots**
+- compare using a **statistical significance test**
+
+---
+
+## Effectiveness and efficiency of assessment
+
+.cols[
+.c50.center[
+**Indexes**¹
+
+.diagram.neutral[
+link([0,350,350,350],'a coln')
+link([0,350,0,0],'a coln')
+otext(-30,0,'large')
+otext(350,365,'large')
+otext(-20,365,'low')
+otext(-80,175,'Effectiveness','rotated-ccw')
+otext(175,365,'Efficiency')
+otext(280,320,'$\\\\text{Acc}$/$\\\\text{Err}$', 'small')
+otext(240,280,'$\\\\text{FPR}$+²$\\\\text{FNR}$', 'small')
+otext(70,70,'$\\\\text{EER}$', 'small')
+otext(40,40,'$\\\\text{AUC}$', 'small')
+]
+]
+.c50[
+**Learning/test division**
+
+.diagram.neutral[
+link([0,350,350,350],'a coln')
+link([0,350,0,0],'a coln')
+otext(-30,0,'large')
+otext(350,365,'large')
+otext(-20,365,'low')
+otext(-80,175,'Effectiveness','rotated-ccw')
+otext(175,365,'Efficiency')
+otext(240,320,'Same','small')
+otext(280,280,'Static rnd','small')
+otext(140,55,'CV/Repeated rnd','small')
+otext(40,40,'LOOCV','small')
+]
+
+]
+]
+
+.footnote[
+1. Mainly for binary classification
+2. \+ here means "use both"
+]

@@ -11,6 +11,8 @@ body {
 .col3 { color: #FE6100 }
 .col5 { color: #FFB000 }
 
+/* "#648FFF", "#DC267F", "#FE6100", "#785EF0", "#FFB000" */
+
 h1, h2, h3, h4 {
   font-weight: bold;
 }
