@@ -2303,7 +2303,7 @@ $\\rightarrow \\text{Eff}$
 
 .note[1 learning; $|D|$ predictions]
 
-**Static** ($r=0.8$)
+**Static random** ($r=0.8$)
 
 .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb2[] .sb2[]
 $\\rightarrow \\text{Eff}$
@@ -2493,7 +2493,7 @@ The $p$-value represents the probability that, by collecting other two samples f
 $H\_0$: (**you assume all are true**)
 - $X\_a$ is normally distributed
 - $X\_b$ is normally distributed
-- $\\mu\_a=E[X_a] > \\mu\_b=E[X_b]$ (**our question**, indeed)
+- $\\mu\_a=E[X_a] = \\mu\_b=E[X_b]$ (**our question**, indeed)
 ]
 .c40[
 Samples:
@@ -2514,7 +2514,7 @@ $p=0.90$ means:
 $p=0.01$ means:
 - if you resample $X\_a$, $X\_b$, very **unlikely** you will find samples that are **more unlikely**, given $H\_0$
 - so, these samples are indeed **unlikely**, given $H\_0$
-- so, I can think that $H\_0$ is likely false
+- so, I can think that $H\_0$ is likely false .note[I've been "very lucky" with these samples, if $H\_0$ is true; or no luck if it's false]
   - **not necessarily** the $\\mu\_a > \\mu\_a$, maybe the normality part
 
 ---
@@ -2539,7 +2539,7 @@ Usually, you aim at "argumenting" $\\mu\_a > \\mu\_a$ (**one-tailed**) or $\\mu\
 2. you compute the $p$-value
 3. you hope it is low
   - and compare it against a prededefined threshold $\\alpha$, usually $0.05$
-  - with $\\ne$, if $p<\\alpha$, you say that there is a statistically significant difference (between the mean values)
+  - with $\\ne$, if $p<\\alpha$, you say that there is a **statistically significant difference** (between the mean values)
 
 ---
 
@@ -2571,9 +2571,7 @@ More on statistical significance tests:
 
 class: middle, center
 
-## Assessing supervised ML
-
-### Examples from research papers
+## Examples from research papers
 
 ---
 
@@ -2680,3 +2678,119 @@ class: middle, center
 # Assessing supervised ML
 
 ## Brief recap
+
+---
+
+## Assessing a model
+
+.cols[
+.c40[
+**Question**: is the model modeling the real system?
+
+Answer: **compare responses** on the same data and compute one or more **performance indexes**!
+]
+.c30.center[
+Model $m$ (or $f\\subtext{predict}$)
+.diagram[
+link([0,25,75,25],'a')
+rect(75,0,150,50)
+link([225,25,300,25],'a')
+otext(150,25,"$f'\\\\subtext{predict}(\\\\cdot, m)$")
+otext(37.5,10,'$x$')
+otext(262.5,10,'$y$')
+]
+]
+.c30.center[
+Real system $s$
+.diagram[
+link([0,25,75,25],'a')
+rect(75,0,150,50)
+link([225,25,300,25],'a')
+otext(150,25,"$s$")
+otext(37.5,10,'$x$')
+otext(262.5,10,'$y$')
+]
+]
+]
+
+.cols[
+.c30[
+**Binary classification**
+.compact[
+- FPR and FNR .sem[.g[▼].r[▲]]
+  - TNR and TPR .sem[.g[▲].r[▼]]
+  - precision and recall .sem[.g[▲].r[▼]]
+  - sensitivity and spec. .sem[.g[▲].r[▼]]
+- EER .sem[.g[▼].r[▲]] .note[greater cost, lower efficiency]
+- AUC .sem[.g[▲].r[▼]] .note[greater cost, lower efficiency]
+
+]
+]
+.c30[
+**Classification (w/ binary)**
+.compact[
+- accuracy .sem[.g[▲].r[▼]]
+- error .sem[.g[▼].r[▲]]
+- weighted accuracy .sem[.g[▲].r[▼]]
+]
+]
+.c30[
+**Regression**
+.compact[
+- MAE .sem[.g[▼].r[▲]]
+- MSE .sem[.g[▼].r[▲]]
+- RMSE .sem[.g[▼].r[▲]]
+- MAPE .sem[.g[▼].r[▲]]
+]
+]
+]
+
+**Bounds for classification effectiveness**:
+- random classifier (lower bound)
+- dummy classifier (better lower bound, **baseline**)
+- Bayes classifier (**ideal** upper bound)
+
+---
+
+## Assessing a learning techniques
+
+**Effectiveness of the single technique**
+
+Sketch: learn a model on $D\\subtext{learn}$, assess the model on $D\\subtext{test}$.
+
+.cols[
+.c20[
+**Same**
+
+.sb12[] .sb12[] .sb12[] .sb12[] .sb12[] .sb12[]
+]
+.c20[
+**Static rnd**
+
+.sb1[] .sb1[] .sb1[] .sb1[] .sb2[] .sb2[]
+]
+.c20[
+**Repeated rnd**
+
+.sb1[] .sb2[] .sb1[] .sb1[] .sb2[] .sb1[]  
+.sb1[] .sb1[] .sb1[] .sb2[] .sb2[] .sb1[]  
+.sb2[] .sb2[] .sb1[] .sb1[] .sb2[] .sb2[]
+]
+.c20[
+**CV**
+
+.sb1[] .sb1[] .sb1[] .sb1[] .sb2[] .sb2[]  
+.sb1[] .sb1[] .sb2[] .sb2[] .sb1[] .sb1[]  
+.sb2[] .sb2[] .sb1[] .sb1[] .sb1[] .sb1[]
+]
+.c20[
+**LOOCV**
+
+.sb1[] .sb1[] .sb1[] .sb1[] .sb1[] .sb2[]  
+.sb1[] .sb1[] .sb1[] .sb1[] .sb2[] .sb1[]  
+...  
+.sb2[] .sb1[] .sb1[] .sb1[] .sb1[] .sb1[]  
+]
+]
+
+**Comparison between techniques**

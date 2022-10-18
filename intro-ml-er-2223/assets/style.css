@@ -318,3 +318,14 @@ span.note::after {
 .sb1 { background: #648FFF }
 .sb2 { background: #DC267F }
 .sb12 { background: linear-gradient(45deg, #648FFF 50%, #DC267F 50%) }
+.sem span {
+  display: inline-block;
+  width: 0.5em;
+  font-size: 125%;
+}
+.sem :first-child {
+  margin-left: 0.25em;
+}
+.sem :last-child {
+  margin-right: 0.25em;
+}
