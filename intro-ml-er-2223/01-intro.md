@@ -1,6 +1,6 @@
 class: middle, center
 
-# Introduction to Machine Learning and Evolutionary Computation
+# Introduction to Machine Learning and Evolutionary Robotics
 ## 332MI, 470SM
 
 [Eric Medvet](http://medvet.inginf.units.it/)

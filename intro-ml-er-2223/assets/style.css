@@ -72,7 +72,7 @@ ul ul, ol ul, ul ol {
 .pseudo-code .katex {
   line-height: 90%;
 }
-.pseudo-code .i {
+.i {
   display: inline-block;
   width: 1.5em;
 }
@@ -85,6 +85,9 @@ ul ul, ol ul, ul ol {
 }
 .cols {
   display: flex;
+}
+.c0 {
+  flex: 0%;
 }
 .c10 {
   flex: 10%;
@@ -122,6 +125,9 @@ ul ul, ol ul, ul ol {
 .c90 {
   flex: 90%;
 }
+.c100 {
+  flex: 100%;
+}
 .cols > div:nth-child(1) {
   padding-right: 0.5em;
 }
@@ -130,6 +136,9 @@ ul ul, ol ul, ul ol {
 }
 .cols .vcentered {
   align-self: center;
+}
+.cols.pcompact p {
+  margin: 0;
 }
 img {
   max-width: 100%;
@@ -292,7 +301,9 @@ span.note::after {
 .confmatrix tbody tr:nth-of-type(n+2) td:nth-of-type(n+1) {
   border-top: 1px solid #111111;
 }
-
+.inline {
+  display: inline-block;
+}
 .striked {
   text-decoration: line-through;
   text-decoration-color: #DC267F;
@@ -302,19 +313,6 @@ span.note::after {
 }
 .r {
   color: red;
-}
-.hcl {
-  display: inline-block;
-  overflow: hidden;
-  width: 0.5em;
-}
-.hcr {
-  display: inline-block;
-  overflow: hidden;
-  width: 0.5em;
-}
-.hc12 {
-  color: linear-gradient(to right, #7db9e8 50%,#1e5799 50%);
 }
 .sb1, .sb2, .sb12 {
   display: inline-block;

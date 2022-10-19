@@ -2394,7 +2394,7 @@ $$\\text{Eff}\_\\sigma=\\sqrt{\\frac{1}{k} \\sum\_j \\left(\\text{Eff}\_j-\\text
 
 ---
 
-## Comparison with many measures
+## Comparison using many measures
 
 Suppose you have assessed two learning techniques with 10-CV and AUC (with midpoints $\\tau$):
 - for LT1: $\\text{AUC}\_\\mu=0.83$ and $\\text{AUC}\_\\sigma=0.04$
