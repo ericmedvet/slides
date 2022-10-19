@@ -125,7 +125,7 @@ d %>% ggplot(aes(age,height,color=y))+geom_point()+xlim(c(1,20))+ylim(c(55,190))
 .c50[
 .pseudo-code[
 function $\\text{predict}(\\vect{x})$ {  
-.i[]if $x\\subtext{age}\\le 10$ then {  
+.i[]if $x\\subtext{age}\\le 10$) then {  
 .i[].i[]return .col1[●]  
 .i[]} else {  
 .i[].i[]if $x\\subtext{height}\\le 120$ then {  
@@ -196,11 +196,172 @@ We call this a .key[decision tree], since we use it inside an $f\\subtext{predic
 
 ---
 
-<!--
-can we generalize f_predict?
-say that $m$ is a tree, formalize its domain
-pseudocode for f_predict
+## De-hard-coding $f\\subtext{predict}$
 
+.cols[
+.c50[
+**Now**: our human learned $f\\subtext{predict}$
+.diagram.center[
+link([0,25,75,25],'a')
+rect(75,0,150,50)
+link([225,25,300,25],'a')
+otext(150,25,"$f\\\\subtext{predict}$")
+otext(37.5,10,'$x$')
+otext(262.5,10,'$y$')
+]
+
+.pseudo-code.compact[
+function $\\text{predict}(\\vect{x})$ {  
+.i[]if $x\\subtext{age}\\le 10$ then {  
+.i[].i[]return .col1[●]  
+.i[]} else {  
+.i[].i[]if $x\\subtext{height}\\le 120$ then {  
+.i[].i[].i[]return .col1[●]  
+.i[].i[]} else {  
+.i[].i[].i[]return .col2[●]  
+.i[].i[]}  
+.i[]}  
+}
+]
+]
+.c50[
+**Goal**: a $f'\\subtext{predict}$ working on any tree
+.diagram.center[
+link([0,25,75,25],'a')
+rect(75,0,150,50)
+link([225,25,300,25],'a')
+otext(150,25,"$f'\\\\subtext{predict}$")
+otext(37.5,10,'$\\\\vect{x},m$')
+otext(262.5,10,'$y$')
+]
+
+.pseudo-code.compact[
+function $\\text{predict}(\\vect{x}, m)$ {  
+.i[]...  
+}
+]
+]
+]
+
+We *human learned* (i.e., manually designed) a function where the **decision tree** is **hard-coded** in the $\\text{predict}()$ function in the form of an `if-then-else` structure:
+- can we *pull out* the decision tree out of it and make $\\text{predict}()$ a templated function?
+
+---
+
+## Formalizing
+
+**Scenario**: classification with multivariate numerical features:
+- $X = X\_1 \\times \\dots \\times X\_p$, with each $X\_i\\subseteq\\mathbb{R}$
+  - we write $\\vect{x} = (x\_1,\\dots,x\_p)=(x\_i)\_i$
+- $Y$, finite without ordering
+
+The **model** $t \\in T\_{X,Y}$ is a decision tree defined over $X,Y$, i.e.:
+- each $t$ is a binary tree
+- each **non-terminal** node is .note[labeled with] a **pair $(j,\\tau)$**, with $j \\in \\{1,\\dots,p\\}$ and $\\tau \\in \\mathbb{R}$
+  - $j$ is the index of the independent variable
+  - $\\tau$ is a threshold for comparison
+- each **terminal** node is .note[labeled with] a $y \\in Y$
+
+---
+
+## Templated $f'\\subtext{predict}$
+
+.cols[
+.c50[
+.pseudo-code.compact[
+function $\\text{predict}(\\vect{x}, t)$ {  
+.i[]$r \\gets \\text{root}(t)$  
+.i[]if $\\text{isTerminal}(r)$ then {  
+.i[].i[]$y \\gets \\text{label}(r)$  
+.i[].i[]return $y$  
+.i[]} else { .comment[//hence $r$ is a branch node]  
+.i[].i[]$(j, \\tau) \\gets \\text{label}(r)$  
+.i[].i[]if $x\_j \\le \\tau$ then {  
+.i[].i[].i[]return $\\text{predict}(\\vect{x}, \\text{leftChildOf}(r))$ .comment[//recursion]  
+.i[].i[]} else {  
+.i[].i[].i[]return $\\text{predict}(\\vect{x}, \\text{rightChildOf}(r))$ .comment[//recursion]  
+.i[].i[]}  
+.i[]}  
+}
+]
+]
+.c50[
+- $\\text{root}(t)$ returns the **root node** of $t$
+- $\\text{label}(n)$ returns the label, i.e., the content of $n$
+  - a $y \\in Y$ for terminal nodes
+  - a $(j,\\tau) \\in \\{1,\\dots,p\\} \\times \\mathbb{R}$ for non-terminal nodes
+- $\\text{leftChildOf}(n)$ and $\\text{rightChildOf}(n)$ returns the left or right **subtree** of a node $n$
+]
+]
+
+.cols[
+.c50[
+It's a **recursive** function that:
+- works with any $t \\in T\_{X,Y}$ and any $\\vect{x} \\in \\mathbb{R}^p$
+- always returns a $y \\in Y$
+]
+.c50[
+.diagram.center[
+link([0,25,75,25],'a')
+rect(75,0,150,50)
+link([225,25,300,25],'a')
+otext(150,25,"$f'\\\\subtext{predict}$")
+otext(37.5,10,'$\\\\vect{x},t$')
+otext(262.5,10,'$y$')
+]
+]
+]
+
+---
+
+## Towards tree learning
+
+We have our $f'\\subtext{predict}: \\mathbb{R}^p \\times T\_{X,Y} \\to Y$; for having a learning technique we miss only the learning function, i.e., $f'\\subtext{learn}: \\mathcal{P}^*(\\mathbb{R}^p, Y) \\to T\_{X,Y}$:
+.diagram.center[
+link([0,25,150,25],'a')
+rect(150,0,150,50)
+link([300,25,400,25],'a')
+otext(225,25,"$f'\\\\subtext{learn}$")
+otext(75,10,'$\\\\seq{(\\\\vect{x}^{(i)},y^{(i)})}{i}$')
+otext(350,10,'$t$')
+]
+
+What we did manually (i.e., how we *human learned*):
+1. until we are satisfied
+  - put a vertical/horizontal line that well separates the data
+  - **repeat** step 1 once for each on the two resulting regions
+
+Let's rewrite it as (pseudo-)code!
+
+---
+
+## Recursive binary splitting
+
+.cols[
+.c70[
+.pseudo-code.compact[
+function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$ {  
+.i[]$r \\gets \\text{root}(t)$  
+.i[]if $\\text{shouldStop}(y^{(i)})$ then {  
+.i[].i[]$y^\\star \\gets \\argmax\_{y \\in Y} \\sum\_i \\mathbf{1}(y^{(i)}=y)$ .comment[//$y^\\star$ is the most frequent class]  
+.i[].i[]return $\\text{nodeFrom}(y)$  
+.i[]} else { .comment[//hence $r$ is a branch node]  
+.i[].i[]$(j, \\tau) \\gets \\text{findBestBranch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$  
+.i[].i[]$n \\gets \\text{nodeFrom}(j, \\tau)$  
+.i[].i[]$\\text{appendRightChild}(n, \\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x\_j \\le \\tau}))$ .comment[//recursion]  
+.i[].i[]$\\text{appendRightChild}(n, \\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x\_j > \\tau}))$ .comment[//recursion]  
+.i[].i[]return $n$  
+.i[].i[]}  
+.i[]}  
+}
+]
+]
+.c30[
+
+]
+]
+
+<!--
 for having a learning tech we miss f_learn
 how can write it?
 sketch idea, dividi et impera

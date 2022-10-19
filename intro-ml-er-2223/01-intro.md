@@ -141,7 +141,7 @@ External resourses (e.g., videos, [software tools](https://en.wikipedia.org/wiki
 .pseudo-code[
 function $\\text{factorial}(n)$ {  
 .i[]$p \\gets 1$  
-.i[]while ($n>2$) {  
+.i[]while $n>2$ {  
 .i[].i[]$p \\gets n p$  
 .i[].i[]$n \\gets n -1$  
 .i[]}  

@@ -76,6 +76,10 @@ ul ul, ol ul, ul ol {
   display: inline-block;
   width: 1.5em;
 }
+.pseudo-code .comment {
+  color: #FE6100;
+  font-size: small;  
+}
 .katex .st {
   font-size: 82%;
 }
