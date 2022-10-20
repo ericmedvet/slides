@@ -702,7 +702,7 @@ otext(45,-5,'●','col1')
 .cols.pcompact[
 .c40[
 .i[].i[]**1st-l-r call:**  
-.i[].i[]$(j,\\tau) = (1,2)$
+.i[].i[]$(j,\\tau) = (1,4)$
 ]
 .c60[
 .diagram.neutral.center[
@@ -828,8 +828,8 @@ Assume:
 - $k\\subtext{min}=3$
 
 .pseudo-code.compact[
-function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$ {  
-.i[]if $\\text{should-stop}(\\seq{y^{(i)}}{i})$ then {  
+function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, k\\subtext{min})$ {  
+.i[]if $\\text{should-stop}(\\seq{y^{(i)}}{i}, k\\subtext{min})$ then {  
 .i[].i[]$y^\\star \\gets \\argmax\_{y \\in Y} \\sum\_i \\mathbf{1}(y^{(i)}=y)$  
 .i[].i[]return $\\text{node-from}(y,\\varnothing,\\varnothing)$  
 .i[]} else {  
