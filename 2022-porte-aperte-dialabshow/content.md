@@ -33,3 +33,20 @@ class: nomargin
 <video width="950" height="550" autoplay loop><source src="videos/bipeds-struggling.mp4" type="video/mp4"/></video>
 ]
 
+---
+
+class: nomargin
+
+## Evolving (simulated) robots
+
+.cols[
+.c50.center[
+<video width="450" height="260" autoplay loop><source src="videos/robot-1.mp4" type="video/mp4"/></video>
+<video width="450" height="260" autoplay loop><source src="videos/robot-2.mp4" type="video/mp4"/></video>
+]
+.c50[
+<video width="450" height="260" autoplay loop><source src="videos/robot-3.mp4" type="video/mp4"/></video>
+<video width="450" height="260" autoplay loop><source src="videos/robot-4.mp4" type="video/mp4"/></video>
+]
+]
+
