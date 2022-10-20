@@ -1,0 +1,73 @@
+.diagram-container {
+  position: relative;
+  display: inline-block;
+}
+.diagram-container .outer {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: max-content;
+}
+.diagram text {
+  dominant-baseline: middle;
+  font-size: 85%;
+}
+.diagram rect,
+.diagram ellipse,
+.diagram path {
+  stroke-width: 2;
+}
+.diagram .textLabel {
+  text-anchor: middle;
+}
+.diagram .invisible {
+  fill-opacity: 0.33;
+  stroke-opacity: 0.33;
+}
+.diagram .rect, .diagram .circle {
+  fill: #648FFF22;
+  stroke: #648FFF;
+}
+.diagram .link {
+  stroke: #648FFF;
+  fill: none;
+}
+.diagram #markerArrow {
+  stroke: none;
+  fill: #648FFF;
+}
+.diagram #markerArrowBlack {
+  stroke: none;
+  fill: #111111;
+}
+.diagram .link.a {
+  marker-end: url(#markerArrow);
+}
+.diagram .refLabel,
+.diagram .typeLabel,
+.diagram .contentLabel {
+  text-anchor: middle;
+}
+.diagram.neutral .link.a {
+  marker-end: url(#markerArrowBlack);
+}
+.diagram .coln { color: #111111; stroke: #111111; fill: #11111122 }
+.diagram .colinv { color: none; stroke: none; fill: none }
+.diagram .col1 { color: #648FFF; stroke: #648FFF; fill: #648FFF22 }
+.diagram .col4 { color: #785EF0, stroke: #785EF0; fill: #785EF022 }
+.diagram .col2 { color: #DC267F; stroke: #DC267F; fill: #DC267F22 }
+.diagram .col3 { color: #FE6100; stroke: #FE6100; fill: #FE610022 }
+.diagram .col5 { color: #FFB000; stroke: #FFB000; fill: #FFB00022 }
+.diagram.tree .rect, .diagram.tree .circle {
+  fill: #785EF022;
+  stroke: #785EF0;
+}
+.diagram.tree .link {
+  stroke: #785EF0;
+  fill: none;
+}
+.textLabel.outer.rotated-ccw {
+  transform: rotate(-90deg);
+}
+.textLabel.outer.rotated-cw {
+  transform: rotate(90deg);
+}
