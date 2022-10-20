@@ -68,10 +68,10 @@ The data exploration suggests that using ML is not a *terrible* idea.
 Assume we are computer scientists and we *like* `if-then-else` (nested) structures:
 can we **manually** build an `if-then-else` structure that allows to make a decision.
 
-**Requirements** (to keep if feasible manually):
+**Requirements** (to keep it feasible manually):
 - each `if` condition should:
   - involve **just one independent** variable
-  - consist of a threshold comparison
+  - consist of a **threshold comparison**
 - the decision has to be .col2[●] or .col1[●]
 
 **Strategy**:
@@ -191,7 +191,7 @@ function $\\text{predict}(\\vect{x})$ {
 
 We call this a .key[decision tree], since we use it inside an $f\\subtext{predict}$ for making a decision:
 - it's a binary tree, since **nodes** have exactly 0 or 2 children
-- non-terminal nodes (or **branch nodes**) hold a pair (independent variable, threshold¹)
+- non-terminal nodes (or **branch nodes**) hold a pair (independent variable, threshold)
 - terminal nodes (or **leaf nodes**) hold one value $y \\in Y$
 
 ---
@@ -248,7 +248,7 @@ We *human learned* (i.e., manually designed) a function where the **decision tre
 
 ---
 
-## Formalizing the decision trees
+## Formalizing the decision tree
 
 .cols[
 .c50[
@@ -295,8 +295,8 @@ otext(370,180,'●','col2')
 .cols[
 .c50[
 We represent a tree $t \\in T\_L$ as:
-.center[$t = \\tree{l}{t'}{t''}$]
-where $t', t \\in T \\cup \\{\\varnothing\\}$ are the left and right **children** trees and $l \\in L$ is the **label**.
+.center[$t = \\tree{\\htmlClass{col3}{l}}{\\htmlClass{col4}{t'}}{\\htmlClass{col4}{t''}}$]
+where $t', t'' \\in T \\cup \\{\\varnothing\\}$ are the left and right .col4[**children**] trees and $l \\in L$ is the .col3[**label**].
 
 If the tree is a **terminal node**¹, it has no children (i.e., $t'=t''=\\varnothing$) and we write:
 .center[$t = \\tree{l}{\\varnothing}{\\varnothing}=\\treel{l}$]
@@ -457,8 +457,8 @@ otext(350,10,'$t$')
 ]
 
 What we did manually (i.e., how we *human learned*):
-1. until we are satisfied
-2. put a vertical/horizontal line that well separates the data
+1. **until** we are satisfied
+2. put a vertical/horizontal line that **well separates** the data
 3. **repeat** from step 1 once for each on the two resulting regions
 
 Let's rewrite it as (pseudo-)code!
@@ -510,6 +510,7 @@ This $f'\\subtext{learn}$ is called .key[recursive binary splitting]:
 - it's **recursive**
 - when recurses, **splits** the data in two parts (**binary**)
   - it's a top-down approach: starts from the big problem and makes it smaller (**dividi-et-impera**)
+- when stopping recursion, put a node with the **most frequent class**
 
 ---
 
@@ -518,7 +519,7 @@ This $f'\\subtext{learn}$ is called .key[recursive binary splitting]:
 **Intuitively**:
 - consider all variables (i.e., all $j$) and *all*¹ threshold values
 - choose the pair (variable, threshold) that best separate the data
-  - i.e., that results in the lowest number of **misclassified** examples
+  - i.e., that results in the lowest rate of **misclassified** examples
 
 .cols[
 .c60[
@@ -849,11 +850,125 @@ function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, k\\subtext{min})$ {
 .note[
 What's the accuracy of this $t$ on the learning set?
 ]
+
 ---
 
+## Alternatives for $\\text{find-best-branch}()$
+
+.pseudo-code.compact[
+function $\\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$ {  
+.i[]$(j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} \\left(\\htmlClass{col1}{\\text{error}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j \\le \\tau}})+\\htmlClass{col1}{\\text{error}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j > \\tau}})\\right)$  
+.i[]return $(j^\\star, \\tau^\\star)$  
+}
+]
+
+$\\text{error}(\\seq{y^{(i)}}{i})$ is the error the dummy classifier would do on $\\seq{y^{(i)}}{i}$:
+.center[$\\htmlClass{col1}{\\text{error}(\\seq{y^{(i)}}{i})}=1 - \\max\_y \\freq{y, \\seq{y^{(i)}}{i}}$]
+
+Instead of $\\text{error}()$, two other variants can be used:
+- **Gini index**: $\\htmlClass{col1}{\\text{gini}(\\seq{y^{(i)}}{i})}=\\sum\_y \\freq{y, \\seq{y^{(i)}}{i}} \\left(1-\\freq{y, \\seq{y^{(i)}}{i}}\\right)$
+- **Cross entropy**: $\\htmlClass{col1}{\\text{cross-entropy}(\\seq{y^{(i)}}{i})}=-\\sum\_y \\freq{y, \\seq{y^{(i)}}{i}} \\log \\freq{y, \\seq{y^{(i)}}{i}}$
+
+--
+
+For all:
+.cols[
+.c70[
+- **the lower, the better**
+- they measure the .key[node inpurity], i.e., the *amount* $e$ of cases different from the most frequent one among the examples *arrived* at a certain node
+]
+.c30[
+.diagram.center[
+link([0,25,75,25],'a')
+rect(75,0,150,50)
+link([225,25,325,25],'a')
+otext(150,25,"$f\\\\subtext{inpurity}$")
+otext(37.5,10,'$\\\\seq{y^{(i)}}{i}$')
+otext(275,10,'$e \\\\in \\\\mathbb{R}^+$')
+]
+]
+]
+
+---
+
+## Node inpurity
+
+.pseudo-code.compact[
+function $\\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, \\htmlClass{col1}{f\\subtext{impurity}})$ {  
+.i[]$(j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} \\left(\\htmlClass{col1}{f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j \\le \\tau}})+\\htmlClass{col1}{f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j > \\tau}})\\right)$  
+.i[]return $(j^\\star, \\tau^\\star)$  
+}
+]
+
+The way to measure the node inpurity might be a .col1[parameter] of $\\text{find-best-branch}()$, but it has been found that **Gini is better** for learning trees than error.
+
+.cols[
+.c40[
+.h30ex.center[![Gini, error, cross-entropy vs. frequency of the most frequent class](images/impurity.png)]
 <!--
-example of application with p=1
-alternative best branch (with gini and x-entropy)
+f=seq(0,1,length.out=100)
+error = 1-pmax(f,1-f)
+gini = 2*f*(1-f)
+cross.entropy = -f*log(f)-(1-f)*log(1-f)
+-->
+]
+.c60[
+Here, for binary classification:
+- on the $x$-axis: the frequency $f=\\freq{\\text{pos}, \\seq{y^{(i)}}{i}}$ of the positive class
+  - $f=0.5$ is the worst case
+  - $f=0$ and $f=1$ are the best cases
+- on the $y$-axis: the three impurity indexes
+
+Gini and cross-entropy are smoother than the error.
+]
+]
+
+---
+
+## Alternatives for $\\text{should-stop}()$
+
+.cols[
+.c50[
+*Original* version: (**data size**)
+- no errors or
+- too few examples
+
+.center[.col1[$\\text{error}(\\seq{y^{(i)}}{i})=0$] or .col1[$n \\le k\\subtext{min}$]]
+
+Alternative 1 (**tree depth**):
+- no errors or
+- node depth deeper than $\\tau_m$
+
+.note[requires propagating recursively the depth of the node being currently built]
+
+Alternative 1 (**node inpurity**):
+- impurity lower than a $\\tau\_\\epsilon$
+
+]
+.c50[
+.pseudo-code.compact[
+function $\\text{should-stop}(\\seq{y^{(i)}}{i}, k\\subtext{min})$ {  
+.i[]if .col1[$\\text{error}(\\seq{y^{(i)}}{i})=0$] then {  
+.i[].i[] return $\\text{true}$;  
+.i[]}  
+.i[]if .col1[$n \\le k\\subtext{min}$] then { .comment[//$n=|\\seq{y^{(i)}}{i}|$]  
+.i[].i[] return $\\text{true}$;  
+.i[]}  
+.i[]return $\\text{false}$
+]
+
+Impact of the parameter:
+- the lower $k\\subtext{min}$, the **larger** the tree
+- the greater $\\tau\_m$, the **larger** the tree
+- the lower $\\tau\_\\epsilon$, the **larger** the tree
+
+(for the same dataset, in general)
+]
+]
+
+
+
+<!--
 example of overfitting
 variance & bias, overfitting and underfitting
 method to spot it
