@@ -564,11 +564,11 @@ This approach is **greedy**, since it tries to obtain the maximum result (findin
 .c50[
 **In detail** (and formally):
 .pseudo-code.compact[
-function $\\text{should-stop}(\\seq{y^{(i)}}{i}, k\\subtext{min})$ {  
+function $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ {  
 .i[]if .col1[$\\text{error}(\\seq{y^{(i)}}{i})=0$] then {  
 .i[].i[] return $\\text{true}$;  
 .i[]}  
-.i[]if .col2[$n \\le k\\subtext{min}$] then { .comment[//$n=|\\seq{y^{(i)}}{i}|$]  
+.i[]if .col2[$n \\le n\\subtext{min}$] then { .comment[//$n=|\\seq{y^{(i)}}{i}|$]  
 .i[].i[] return $\\text{true}$;  
 .i[]}  
 .i[]return $\\text{false}$  
@@ -577,9 +577,10 @@ function $\\text{should-stop}(\\seq{y^{(i)}}{i}, k\\subtext{min})$ {
 ]
 .c50[
 - only $\\seq{y^{(i)}}{i}$ is needed to decide whether to stop, $\\seq{x^{(i)}}{i}$ is not used!
-- $k\\subtext{min}$ is a **parameter** of $f\\subtext{should-stop}$
+- $n\\subtext{min}$ is a **parameter** of $f\\subtext{should-stop}$
   - it represents the "very small" criterion
   - it propagates to $f'\\subtext{learn}$, which uses $f\\subtext{should-stop}$
+  - (also denoted as $k\\subtext{min}$)
 - since $\\text{error()}$ is the classification error done by the dummy classifier, it is $=0$ iff the most frequent class $y^\\star$ is the only class in $\\seq{y^{(i)}}{i}$
 ]
 ]
@@ -826,11 +827,11 @@ return $\\tree{(1,7)}{\\tree{(1,2)}{\\treel{\\htmlClass{col1}{●}}}{\\tree{(1,4
 .c40.compact[
 Assume:
 - $X=\\mathbb{R}^1=\\mathbb{R}$, $Y=\\{\\htmlClass{col1}{●},\\htmlClass{col2}{●},\\htmlClass{col3}{●}\\}$
-- $k\\subtext{min}=3$
+- $n\\subtext{min}=3$
 
 .pseudo-code.compact[
-function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, k\\subtext{min})$ {  
-.i[]if $\\text{should-stop}(\\seq{y^{(i)}}{i}, k\\subtext{min})$ then {  
+function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {  
+.i[]if $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ then {  
 .i[].i[]$y^\\star \\gets \\argmax\_{y \\in Y} \\sum\_i \\mathbf{1}(y^{(i)}=y)$  
 .i[].i[]return $\\text{node-from}(y,\\varnothing,\\varnothing)$  
 .i[]} else {  
@@ -933,7 +934,7 @@ Gini and cross-entropy are smoother than the error.
 - no errors or
 - too few examples
 
-.center[.col1[$\\text{error}(\\seq{y^{(i)}}{i})=0$] or .col1[$n \\le k\\subtext{min}$]]
+.center[.col1[$\\text{error}(\\seq{y^{(i)}}{i})=0$] or .col1[$n \\le n\\subtext{min}$]]
 
 Alternative 1 (**tree depth**):
 - no errors or
@@ -947,18 +948,18 @@ Alternative 1 (**node inpurity**):
 ]
 .c50[
 .pseudo-code.compact[
-function $\\text{should-stop}(\\seq{y^{(i)}}{i}, k\\subtext{min})$ {  
+function $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ {  
 .i[]if .col1[$\\text{error}(\\seq{y^{(i)}}{i})=0$] then {  
 .i[].i[] return $\\text{true}$;  
 .i[]}  
-.i[]if .col1[$n \\le k\\subtext{min}$] then { .comment[//$n=|\\seq{y^{(i)}}{i}|$]  
+.i[]if .col1[$n \\le n\\subtext{min}$] then { .comment[//$n=|\\seq{y^{(i)}}{i}|$]  
 .i[].i[] return $\\text{true}$;  
 .i[]}  
 .i[]return $\\text{false}$
 ]
 
 Impact of the parameter:
-- the lower $k\\subtext{min}$, the **larger** the tree
+- the lower $n\\subtext{min}$, the **larger** the tree
 - the greater $\\tau\_m$, the **larger** the tree
 - the lower $\\tau\_\\epsilon$, the **larger** the tree
 
@@ -966,9 +967,51 @@ Impact of the parameter:
 ]
 ]
 
+---
+
+## Tree learning with probability
+
+.cols[
+.c40[
+Learning technique with probability:
+- $f'\\subtext{learn}: \\mathcal{P}^*(X,Y) \\to M$
+- $f'\\subtext{predict}: X \\times M \\to P\_Y$
+]
+.c60[
+.diagram.center[
+link([0,50,125,50],'a')
+link([75,35,125,35],'a')
+rect(50,0,425,100)
+rect(125,25,100,50)
+link([225,50,275,50],'a')
+rect(275,25,150,50)
+link([425,50,550,50],'a')
+otext(25,35,'$x$')
+otext(100,20,'$m$')
+otext(175,50,"$f''\\\\subtext{predict}$")
+otext(250,35,'$p$')
+otext(350,50,"$\\\\argmax\\\\sub{y \\\\in Y}$")
+otext(512.5,35,'$y$')
+]
+]
+]
+
+For tree learning:
+- $f'\\subtext{learn}: \\mathcal{P}^*(X\_1 \\times \\dots \\times X\_p,Y) \\to T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}$
+  - given a multivariate dataset, returns a tree in $T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}$
+- $f'\\subtext{predict}: X\_1 \\times \\dots \\times X\_p \\times T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y} \\to P\_Y$
+  - given a multivariate observation and a tree, returns a discrete probability distribution $p \\in P\_Y$
+
+Set of trees $T\_{\\htmlClass{col1}{(\\{1,\\dots,p\\}\\times\\mathbb{R})} \\cup \\htmlClass{col2}{P\_Y}}$:
+- $L=\\htmlClass{col1}{(\\{1,\\dots,p\\}\\times\\mathbb{R})} \\cup \\htmlClass{col2}{P\_Y}$ is the set of node labels
+- $\\htmlClass{col1}{(\\{1,\\dots,p\\}\\times\\mathbb{R})}$ are branch node labels
+- $\\htmlClass{col2}{P\_Y}$ are terminal node labels
+  - i.e., terminal nodes **return discrete probabiliy distributions**
 
 
 <!--
+variant with probability
+
 example of overfitting
 variance & bias, overfitting and underfitting
 method to spot it
