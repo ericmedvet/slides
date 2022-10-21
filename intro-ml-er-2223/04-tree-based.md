@@ -1033,8 +1033,8 @@ function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {
 ]
 .c50[
 - $y \\mapsto \\freq{y, \\seq{y^{(i)}}{i}}$ is a way to specify the concrete function that, given a $y \\in Y$ returns its frequency $\\freq{y, \\seq{y^{(i)}}{i}} \\in [0,1]$
-- "$p \\gets \\dots$" means "the variable¹ $p$ takes the value $\\dots$"
-- hence, .col1[$p \\gets y \\mapsto \\freq{y, \\seq{y^{(i)}}{i}}$] means ".col1[$p$ takes the value of a function that maps each $y$ its frequency $\\freq{y, \\seq{y^{(i)}}{i}}$ in  $\\seq{y^{(i)}}{i}$]"
+- "$p \\gets \\dots$" means "the variable¹ $p$ takes the value $\\dots$" or "the variable $p$ becomes $\\dots$"
+- hence, .col1[$p \\gets y \\mapsto \\freq{y, \\seq{y^{(i)}}{i}}$] means ".col1[$p$ becomes the function that maps each $y$ its frequency $\\freq{y, \\seq{y^{(i)}}{i}}$ in  $\\seq{y^{(i)}}{i}$]"
 
 .note[
 1. here, in as a computer programming term
@@ -1109,7 +1109,7 @@ function $\\text{predict-with-prob}(\\vect{x}, t)$ {
 ]
 ]
 
-Usually, ML software libraries/tools provide way to access both $\\hat{y}$ and $p$.
+Usually, ML software libraries/tools provide way to access both $\\hat{y}$ and $p$, that are produced out of a single execution.
 
 ---
 
@@ -1384,36 +1384,97 @@ If we apply our $f'\\subtext{learn}$ to the carousel dataset with $n\\subtext{mi
 .w100p.center[![Carousel data](images/carousel-points.png)]
 ]
 .c50[
+<!--
+1) root 103 25.2038800 0.42718450  
+   2) height< 120.086 57  1.9298250 0.03508772  
+     4) age< 8.954265 43  0.0000000 0.00000000 *
+     5) age>=8.954265 14  1.7142860 0.14285710  
+      10) age>=9.001593 13  0.9230769 0.07692308  
+        20) age>=9.489772 10  0.0000000 0.00000000 *
+        21) age< 9.489772 3  0.6666667 0.33333330  
+          42) age< 9.306067 2  0.0000000 0.00000000 *
+          43) age>=9.306067 1  0.0000000 1.00000000 *
+      11) age< 9.001593 1  0.0000000 1.00000000 *
+   3) height>=120.086 46  3.6521740 0.91304350  
+     6) age< 9.886902 4  0.0000000 0.00000000 *
+     7) age>=9.886902 42  0.0000000 1.00000000 *
+-->
 .diagram.center.tree[
 rect(100,0,140,30)
 otext(170,15,'$x\\\\subtext{height}$ vs. $120$', 'small')
+link([170,30,70,60])
+otext(70,45,'$\\\\le$','small')
 rect(0,60,140,30)
+otext(70,75,'$x\\\\subtext{age}$ vs. $8.954$', 'small')
+link([170,30,270,60])
+otext(270,45,'$>$','small')
 rect(200,60,140,30)
-link([170,40,70,80])
-otext(70,60,'$\\\\le$','small')
-rect(45,80,50,40)
-otext(70,100,'●','col1')
-rect(200,80,140,40)
-otext(270,60,'$>$','small')
-link([170,40,270,80])
-otext(270,100,'$x\\\\subtext{height}$ vs. $120$', 'small')
-link([270,120,170,160])
-otext(170,140,'$\\\\le$','small')
-rect(145,160,50,40)
-otext(170,180,'●','col1')
-link([270,120,370,160])
-otext(370,140,'$>$','small')
-rect(345,160,50,40)
-otext(370,180,'●','col2')
+otext(270,75,'$x\\\\subtext{age}$ vs. $9.887$', 'small')
+link([70,90,15,120])
+otext(15,105,'$\\\\le$','small')
+rect(0,120,30,30)
+otext(15,135,'●$\\\\smaller{1}$','col1')
+link([70,90,130,120])
+otext(130,105,'$>$','small')
+rect(60,120,140,30)
+otext(130,135,'$x\\\\subtext{age}$ vs. $9.002$', 'small')
+link([270,90,225,120])
+otext(225,105,'$\\\\le$','small')
+rect(220,120,30,30)
+otext(235,135,'●$\\\\smaller{1}$','col1')
+link([270,90,305,120])
+otext(305,105,'$>$','small')
+rect(290,120,30,30)
+otext(305,135,'●$\\\\smaller{1}$','col2')
+link([130,150,70,180])
+otext(70,165,'$\\\\le$','small')
+rect(0,180,140,30)
+otext(70,195,'$x\\\\subtext{age}$ vs. $9.49$', 'small')
+link([130,150,185,180])
+otext(185,165,'$>$','small')
+rect(170,180,30,30)
+otext(185,195,'●$\\\\smaller{1}$','col2')
+link([70,210,15,240])
+otext(15,225,'$\\\\le$','small')
+rect(0,240,30,30)
+otext(15,255,'●$\\\\smaller{1}$','col1')
+link([70,210,130,240])
+otext(130,225,'$>$','small')
+rect(60,240,140,30)
+otext(130,255,'$x\\\\subtext{age}$ vs. $9.306$', 'small')
+link([130,270,95,300])
+otext(95,285,'$\\\\le$','small')
+rect(80,300,30,30)
+otext(95,315,'●$\\\\smaller{1}$','col1')
+link([130,270,165,300])
+otext(165,285,'$>$','small')
+rect(150,300,30,30)
+otext(165,315,'●$\\\\smaller{1}$','col2')
 ]
+
+**Is this tree ok for you?**
+
+.note[hint: recall the *other* way of assessing a model, w/o the behavior]
 ]
 ]
 
 
 <!--
-example of overfitting
-variance & bias, overfitting and underfitting
+the tree is too large, i.e., too complex, with too related with the system, i.e., the attendant
+
+the size/complexity of the tree depends on the data and on n_min
+generalize saying that this applies to many learning techniques
+
+say: also on data -> with n_min you actually set a maximum complexity, not the actual, which depends on data. say hence it is an availability of complexity, that is also called flexibility, because the model, when fitting the data, may fit More
+
+say reasons for this specific case: the two points. mention possible causes. say that we wanted to measure the reasoning of the attendant, not the noise of these two cases. we fitted too much them. say overfitting
+
+mention the opposite: underfitting, with the example on the same data. say no flexibility. make connection with too simple modeled reasoning
+
+introduce and explain bias and variance
+
 method to spot it
+how to set the proper value of the flexibility parameter?
 
 auto-tuning
 assessment of auto-tuning (nested cv)
