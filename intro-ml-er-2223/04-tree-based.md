@@ -1059,7 +1059,7 @@ $p \\gets y \\mapsto \\freq{y, \\seq{y^{(i)}}{i}}$
 return $p$
 ]
 with $\\seq{y^{(i)}}{i}$ being .col1[●].col3[●].col1[●].col1[●].col2[●]  
-returns $\\treel{(\\htmlClass{col1}{● \\smaller{60\\%}}, \\htmlClass{col2}{● \\smaller{20\\%}}, \\htmlClass{col3}{● \\smaller{20\%}})}$
+returns $\\treel{(\\htmlClass{col1}{● \\smaller{\\frac{3}{5}}}, \\htmlClass{col2}{● \\smaller{\\frac{1}{5}}}, \\htmlClass{col3}{● \\smaller{\\frac{1}{5}}})}$
 ]
 ]
 
