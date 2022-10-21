@@ -296,7 +296,7 @@ otext(370,180,'●','col2')
 .c50[
 We represent a tree $t \\in T\_L$ as:
 .center[$t = \\tree{\\htmlClass{col3}{l}}{\\htmlClass{col4}{t'}}{\\htmlClass{col4}{t''}}$]
-where $t', t'' \\in T \\cup \\{\\varnothing\\}$ are the left and right .col4[**children**] trees and $l \\in L$ is the .col3[**label**].
+where $t', t'' \\in T\_L \\cup \\{\\varnothing\\}$ are the left and right .col4[**children**] trees and $l \\in L$ is the .col3[**label**].
 
 If the tree is a **terminal node**¹, it has no children (i.e., $t'=t''=\\varnothing$) and we write:
 .center[$t = \\tree{l}{\\varnothing}{\\varnothing}=\\treel{l}$]
@@ -358,7 +358,7 @@ function $\\text{predict}(\\vect{x}, t)$ {
 .i[].i[]$y \\gets \\text{label-of}(t)$  
 .i[].i[]return $y$  
 .i[]} else { .comment[//hence $r$ is a branch node]  
-.i[].i[]$(j, \\tau) \\gets \\text{label}(t)$  
+.i[].i[]$(j, \\tau) \\gets \\text{label-of}(t)$  
 .i[].i[]if $x\_j \\le \\tau$ then {  
 .i[].i[].i[]return $\\text{predict}(\\vect{x}, \\text{left-child-of}(t))$ .comment[//recursion]  
 .i[].i[]} else {  
@@ -430,7 +430,7 @@ function $\\text{predict}(\\vect{x}, t)$ {
 .i[].i[]$y \\gets \\text{label-of}(t)$  
 .i[].i[]return $y$  
 .i[]} else {  
-.i[].i[]$(j, \\tau) \\gets \\text{label}(t)$  
+.i[].i[]$(j, \\tau) \\gets \\text{label-of}(t)$  
 .i[].i[]if $x\_j \\le \\tau$ then {  
 .i[].i[].i[]return $\\text{predict}(\\vect{x}, \\text{left-child-of}(t))$  
 .i[].i[]} else {  
@@ -473,7 +473,7 @@ Let's rewrite it as (pseudo-)code!
 function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$ {  
 .i[]if .col1[$\\text{should-stop}(\\seq{y^{(i)}}{i})$] then {  
 .i[].i[]$y^\\star \\gets \\argmax\_{y \\in Y} \\sum\_i \\mathbf{1}(y^{(i)}=y)$ .comment[//$y^\\star$ is the most frequent class]  
-.i[].i[]return $\\text{node-from}(y,\\varnothing,\\varnothing)$  
+.i[].i[]return $\\text{node-from}(y^\\star,\\varnothing,\\varnothing)$  
 .i[]} else { .comment[//hence $r$ is a branch node]  
 .i[].i[].col2[$(j, \\tau) \\gets \\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$]  
 .i[].i[]$t \\gets \\text{node-from}($  
@@ -833,13 +833,13 @@ Assume:
 function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {  
 .i[]if $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ then {  
 .i[].i[]$y^\\star \\gets \\argmax\_{y \\in Y} \\sum\_i \\mathbf{1}(y^{(i)}=y)$  
-.i[].i[]return $\\text{node-from}(y,\\varnothing,\\varnothing)$  
+.i[].i[]return $\\text{node-from}(y^\\star,\\varnothing,\\varnothing)$  
 .i[]} else {  
 .i[].i[]$(j, \\tau) \\gets \\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$  
 .i[].i[]$t \\gets \\text{node-from}($  
 .i[].i[].i[]$(j,\\tau),$  
-.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x\_j \\le \\tau}),$  
-.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x\_j > \\tau})$  
+.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x\_j \\le \\tau}, n\\subtext{min}),$  
+.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x\_j > \\tau}, n\\subtext{min})$  
 .i[].i[])  
 .i[].i[]return $t$  
 .i[]}  
@@ -916,11 +916,11 @@ cross.entropy = -f*log(f)-(1-f)*log(1-f)
 .c60[
 Here, for binary classification:
 - on the $x$-axis: the frequency $f=\\freq{\\text{pos}, \\seq{y^{(i)}}{i}}$ of the positive class
-  - $f=0.5$ is the worst case
-  - $f=0$ and $f=1$ are the best cases
+  - $f=0.5$ (.col1[●].col1[●].col1[●].col2[●].col2[●].col2[●]) is the worst case
+  - $f=0$ (.col1[●].col1[●].col1[●].col1[●].col1[●].col1[●]) and $f=1$ (.col2[●].col2[●].col2[●].col2[●].col2[●].col2[●]) are the best cases
 - on the $y$-axis: the three impurity indexes
 
-Gini and cross-entropy are smoother than the error.
+Gini and cross-entropy are **smoother** than the error.
 ]
 ]
 
@@ -997,10 +997,10 @@ otext(512.5,35,'$y$')
 ]
 
 For tree learning:
-- $f'\\subtext{learn}: \\mathcal{P}^*(X\_1 \\times \\dots \\times X\_p,Y) \\to T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}$
-  - given a multivariate dataset, returns a tree in $T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}$
-- $f'\\subtext{predict}: X\_1 \\times \\dots \\times X\_p \\times T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y} \\to P\_Y$
-  - given a multivariate observation and a tree, returns a discrete probability distribution $p \\in P\_Y$
+- $f'\\subtext{learn}: \\htmlClass{col1}{\\mathcal{P}^*(X\_1 \\times \\dots \\times X\_p,Y)} \\to \\htmlClass{col2}{T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}}$
+  - given a .col1[multivariate dataset], returns a .col2[tree] in $T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}$
+- $f'\\subtext{predict}: \\htmlClass{col1}{X\_1 \\times \\dots \\times X\_p} \\times \\htmlClass{col2}{T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}} \\to \\htmlClass{col3}{P\_Y}$
+  - given a .col1[multivariate observation] and a .col2[tree], returns a .col3[discrete probability distribution] $p \\in P\_Y$
 
 Set of trees $T\_{\\htmlClass{col1}{(\\{1,\\dots,p\\}\\times\\mathbb{R})} \\cup \\htmlClass{col2}{P\_Y}}$:
 - $L=\\htmlClass{col1}{(\\{1,\\dots,p\\}\\times\\mathbb{R})} \\cup \\htmlClass{col2}{P\_Y}$ is the set of node labels
@@ -1008,10 +1008,409 @@ Set of trees $T\_{\\htmlClass{col1}{(\\{1,\\dots,p\\}\\times\\mathbb{R})} \\cup 
 - $\\htmlClass{col2}{P\_Y}$ are terminal node labels
   - i.e., terminal nodes **return discrete probabiliy distributions**
 
+---
+
+## $f'\\subtext{learn}$ with probability
+
+.cols[
+.c50[
+.pseudo-code.compact[
+function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {  
+.i[]if $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ then {  
+.i[].i[].col1[$p \\gets y \\mapsto \\freq{y, \\seq{y^{(i)}}{i}}$]  
+.i[].i[].col1[return $p$]  
+.i[]} else {  
+.i[].i[]$(j, \\tau) \\gets \\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$  
+.i[].i[]$t \\gets \\text{node-from}($  
+.i[].i[].i[]$(j,\\tau),$  
+.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x\_j \\le \\tau}, n\\subtext{min}),$  
+.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x\_j > \\tau}, n\\subtext{min})$  
+.i[].i[])  
+.i[].i[]return $t$  
+.i[]}  
+}
+]
+]
+.c50[
+- $y \\mapsto \\freq{y, \\seq{y^{(i)}}{i}}$ is a way to specify the concrete function that, given a $y \\in Y$ returns its frequency $\\freq{y, \\seq{y^{(i)}}{i}} \\in [0,1]$
+- "$p \\gets \\dots$" means "the variable¹ $p$ takes the value $\\dots$"
+- hence, .col1[$p \\gets y \\mapsto \\freq{y, \\seq{y^{(i)}}{i}}$] means ".col1[$p$ takes the value of a function that maps each $y$ its frequency $\\freq{y, \\seq{y^{(i)}}{i}}$ in  $\\seq{y^{(i)}}{i}$]"
+
+.note[
+1. here, in as a computer programming term
+]
+]
+]
+
+.cols[
+.c50[
+**Before** (without probability):
+.pseudo-code.compact[
+$y^\\star \\gets \\argmax\_{y \\in Y} \\sum\_i \\mathbf{1}(y^{(i)}=y)$  
+return $\\text{node-from}(y^\\star,\\varnothing,\\varnothing)$
+]
+with $\\seq{y^{(i)}}{i}$ being .col1[●].col3[●].col1[●].col1[●].col2[●]  
+returns $\\treel{\\htmlClass{col1}{●}}$
+]
+.c50[
+**Before** (with probability):
+.pseudo-code.compact[
+$p \\gets y \\mapsto \\freq{y, \\seq{y^{(i)}}{i}}$  
+return $p$
+]
+with $\\seq{y^{(i)}}{i}$ being .col1[●].col3[●].col1[●].col1[●].col2[●]  
+returns $\\treel{(\\htmlClass{col1}{● \\smaller{60\\%}}, \\htmlClass{col2}{● \\smaller{20\\%}}, \\htmlClass{col3}{● \\smaller{20\%}})}$
+]
+]
+
+---
+
+## $f'\\subtext{predict}$ with probability
+
+.cols[
+.c50[
+$f'\\subtext{predict}: X \\times M \\to Y$
+
+.pseudo-code.compact[
+function $\\text{predict}(\\vect{x}, t)$ {  
+.i[]if $\\neg\\text{has-children}(t)$ then {  
+.i[].i[].col1[$p \\gets \\text{label-of}(t)$]  
+.i[].i[].col1[$y^\\star \\gets \\argmax\_{y \\in Y} p(y)$]  
+.i[].i[].col1[return $y^\\star$]  
+.i[]} else {  
+.i[].i[]$(j, \\tau) \\gets \\text{label-of}(t)$  
+.i[].i[]if $x\_j \\le \\tau$ then {  
+.i[].i[].i[]return $\\text{predict}(\\vect{x}, \\text{left-child-of}(t))$  
+.i[].i[]} else {  
+.i[].i[].i[]return $\\text{predict}(\\vect{x}, \\text{right-child-of}(t))$  
+.i[].i[]}  
+.i[]}  
+}
+]
+]
+.c50[
+$f''\\subtext{predict}: X \\times M \\to P\_Y$
+
+.pseudo-code.compact[
+function $\\text{predict-with-prob}(\\vect{x}, t)$ {  
+.i[]if $\\neg\\text{has-children}(t)$ then {  
+.i[].i[].col1[$p \\gets \\text{label-of}(t)$]  
+.i[].i[].col1[return $p$]  
+.i[]} else {  
+.i[].i[]$(j, \\tau) \\gets \\text{label-of}(t)$  
+.i[].i[]if $x\_j \\le \\tau$ then {  
+.i[].i[].i[]return $\\text{predict}(\\vect{x}, \\text{left-child-of}(t))$  
+.i[].i[]} else {  
+.i[].i[].i[]return $\\text{predict}(\\vect{x}, \\text{right-child-of}(t))$  
+.i[].i[]}  
+.i[]}  
+}
+]
+]
+]
+
+Usually, ML software libraries/tools provide way to access both $\\hat{y}$ and $p$.
+
+---
+
+## $f'\\subtext{learn}$ with probability application example
+
+.cols[
+.c60.compact[
+
+.cols.pcompact[
+.c40[
+**1st call:**  
+$(j,\\tau) = (1,7)$
+]
+.c60[
+.diagram.neutral.center[
+link([-10,5,310,5],'a coln')
+link([0,0,0,10],'coln')
+otext(0,-10,'0')
+otext(300,-10,'10')
+link([30,0,30,10],'coln')
+link([60,0,60,10],'coln')
+link([90,0,90,10],'coln')
+link([120,0,120,10],'coln')
+link([150,0,150,10],'coln')
+link([180,0,180,10],'coln')
+link([210,0,210,10],'col3')
+link([240,0,240,10],'coln')
+link([270,0,270,10],'coln')
+link([300,0,300,10],'coln')
+otext(15,-5,'●','col1')
+otext(45,-5,'●','col1')
+otext(75,-5,'●','col2')
+otext(105,-5,'●','col2')
+otext(135,-5,'●','col1')
+otext(165,-5,'●','col1')
+otext(195,-5,'●','col2')
+otext(225,-5,'●','col3')
+otext(255,-5,'●','col3')
+otext(285,-5,'●','col3')
+otext(30,20,'$\\\\htmlClass{col1}{\\\\frac{0}{1}} \\\\htmlClass{col1}{\\\\frac{6}{9}}$','smaller')
+otext(60,20,'$\\\\htmlClass{col1}{\\\\frac{0}{2}} \\\\htmlClass{col2}{\\\\frac{5}{8}}$','smaller')
+otext(90,20,'$\\\\htmlClass{col1}{\\\\frac{1}{3}} \\\\htmlClass{col3}{\\\\frac{4}{7}}$','smaller')
+otext(120,20,'$\\\\htmlClass{col1}{\\\\frac{2}{4}} \\\\htmlClass{col3}{\\\\frac{3}{6}}$','smaller')
+otext(150,20,'$\\\\htmlClass{col1}{\\\\frac{2}{5}} \\\\htmlClass{col3}{\\\\frac{2}{5}}$','smaller')
+otext(180,20,'$\\\\htmlClass{col1}{\\\\frac{2}{6}} \\\\htmlClass{col3}{\\\\frac{1}{4}}$','smaller')
+otext(210,20,'$\\\\htmlClass{col1}{\\\\frac{3}{7}} \\\\htmlClass{col3}{\\\\frac{0}{3}}$','smaller')
+otext(240,20,'$\\\\htmlClass{col1}{\\\\frac{4}{8}} \\\\htmlClass{col3}{\\\\frac{0}{2}}$','smaller')
+otext(270,20,'$\\\\htmlClass{col1}{\\\\frac{5}{9}} \\\\htmlClass{col3}{\\\\frac{0}{1}}$','smaller')
+]
+]
+]
+
+.cols.pcompact[
+.c40[
+.i[]**1st-l call:**  
+.i[]$(j,\\tau) = (1,2)$
+]
+.c60[
+.diagram.neutral.center[
+link([-10,5,310,5],'a coln')
+link([0,0,0,10],'coln')
+otext(0,-10,'0')
+otext(300,-10,'10')
+link([30,0,30,10],'coln')
+link([60,0,60,10],'col3')
+link([90,0,90,10],'coln')
+link([120,0,120,10],'coln')
+link([150,0,150,10],'coln')
+link([180,0,180,10],'coln')
+link([210,0,210,10],'coln')
+link([240,0,240,10],'coln')
+link([270,0,270,10],'coln')
+link([300,0,300,10],'coln')
+otext(15,-5,'●','col1')
+otext(45,-5,'●','col1')
+otext(75,-5,'●','col2')
+otext(105,-5,'●','col2')
+otext(135,-5,'●','col1')
+otext(165,-5,'●','col1')
+otext(195,-5,'●','col2')
+otext(30,20,'$\\\\htmlClass{col1}{\\\\frac{0}{1}} \\\\htmlClass{col1}{\\\\frac{3}{6}}$','smaller')
+otext(60,20,'$\\\\htmlClass{col1}{\\\\frac{0}{2}} \\\\htmlClass{col2}{\\\\frac{2}{5}}$','smaller')
+otext(90,20,'$\\\\htmlClass{col1}{\\\\frac{1}{3}} \\\\htmlClass{col1}{\\\\frac{2}{4}}$','smaller')
+otext(120,20,'$\\\\htmlClass{col1}{\\\\frac{2}{4}} \\\\htmlClass{col1}{\\\\frac{1}{3}}$','smaller')
+otext(150,20,'$\\\\htmlClass{col1}{\\\\frac{2}{5}} \\\\htmlClass{col1}{\\\\frac{1}{2}}$','smaller')
+otext(180,20,'$\\\\htmlClass{col1}{\\\\frac{2}{6}} \\\\htmlClass{col1}{\\\\frac{0}{1}}$','smaller')
+]
+]
+]
+
+.cols.pcompact[
+.c40[
+.i[].i[]**1st-l-l call:**  
+.i[].i[]return $\\treel{(\\htmlClass{col1}{● \\smaller{1}})}$
+]
+.c60[
+.diagram.neutral.center[
+link([-10,5,310,5],'a coln')
+link([0,0,0,10],'coln')
+otext(0,-10,'0')
+otext(300,-10,'10')
+link([30,0,30,10],'coln')
+link([60,0,60,10],'coln')
+link([90,0,90,10],'coln')
+link([120,0,120,10],'coln')
+link([150,0,150,10],'coln')
+link([180,0,180,10],'coln')
+link([210,0,210,10],'coln')
+link([240,0,240,10],'coln')
+link([270,0,270,10],'coln')
+link([300,0,300,10],'coln')
+otext(15,-5,'●','col1')
+otext(45,-5,'●','col1')
+]
+]
+]
+
+.cols.pcompact[
+.c40[
+.i[].i[]**1st-l-r call:**  
+.i[].i[]$(j,\\tau) = (1,4)$
+]
+.c60[
+.diagram.neutral.center[
+link([-10,5,310,5],'a coln')
+link([0,0,0,10],'coln')
+otext(0,-10,'0')
+otext(300,-10,'10')
+link([30,0,30,10],'coln')
+link([60,0,60,10],'coln')
+link([90,0,90,10],'coln')
+link([120,0,120,10],'col3')
+link([150,0,150,10],'coln')
+link([180,0,180,10],'coln')
+link([210,0,210,10],'coln')
+link([240,0,240,10],'coln')
+link([270,0,270,10],'coln')
+link([300,0,300,10],'coln')
+otext(75,-5,'●','col2')
+otext(105,-5,'●','col2')
+otext(135,-5,'●','col1')
+otext(165,-5,'●','col1')
+otext(195,-5,'●','col2')
+otext(90,20,'$\\\\htmlClass{col2}{\\\\frac{0}{1}} \\\\htmlClass{col2}{\\\\frac{2}{4}}$','smaller')
+otext(120,20,'$\\\\htmlClass{col2}{\\\\frac{0}{2}} \\\\htmlClass{col1}{\\\\frac{1}{3}}$','smaller')
+otext(150,20,'$\\\\htmlClass{col2}{\\\\frac{1}{3}} \\\\htmlClass{col1}{\\\\frac{1}{2}}$','smaller')
+otext(180,20,'$\\\\htmlClass{col2}{\\\\frac{2}{4}} \\\\htmlClass{col2}{\\\\frac{0}{1}}$','smaller')
+]
+]
+]
+
+.cols.pcompact[
+.c40[
+.i[].i[].i[]**1st-l-r-l call:**  
+.i[].i[].i[]return $\\treel{(\\htmlClass{col2}{● \\smaller{1}})}$
+]
+.c60[
+.diagram.neutral.center[
+link([-10,5,310,5],'a coln')
+link([0,0,0,10],'coln')
+otext(0,-10,'0')
+otext(300,-10,'10')
+link([30,0,30,10],'coln')
+link([60,0,60,10],'coln')
+link([90,0,90,10],'coln')
+link([120,0,120,10],'coln')
+link([150,0,150,10],'coln')
+link([180,0,180,10],'coln')
+link([210,0,210,10],'coln')
+link([240,0,240,10],'coln')
+link([270,0,270,10],'coln')
+link([300,0,300,10],'coln')
+otext(75,-5,'●','col2')
+otext(105,-5,'●','col2')
+]
+]
+]
+
+.cols.pcompact[
+.c40[
+.i[].i[].i[]**1st-l-r-r call:**  
+.i[].i[].i[]ret. $\\treel{(\\htmlClass{col1}{● \\smaller{\\frac{2}{3}}}, \\htmlClass{col2}{● \\smaller{\\frac{1}{3}}})}$
+]
+.c60[
+.diagram.neutral.center[
+link([-10,5,310,5],'a coln')
+link([0,0,0,10],'coln')
+otext(0,-10,'0')
+otext(300,-10,'10')
+link([30,0,30,10],'coln')
+link([60,0,60,10],'coln')
+link([90,0,90,10],'coln')
+link([120,0,120,10],'coln')
+link([150,0,150,10],'coln')
+link([180,0,180,10],'coln')
+link([210,0,210,10],'coln')
+link([240,0,240,10],'coln')
+link([270,0,270,10],'coln')
+link([300,0,300,10],'coln')
+otext(135,-5,'●','col1')
+otext(165,-5,'●','col1')
+otext(195,-5,'●','col2')
+]
+]
+]
+
+.i[].i[]return $\\tree{(1,4)}{\\treel{\\htmlClass{col2}{●  \\smaller{1}}}}{\\treel{(\\htmlClass{col1}{● \\smaller{\\frac{2}{3}}}, \\htmlClass{col2}{● \\smaller{\\frac{1}{3}}})}}$  
+.i[]return $\\tree{(1,2)}{\\treel{\\htmlClass{col1}{● \\smaller{1}}}}{\\tree{(1,4)}{\\treel{\\htmlClass{col2}{●  \\smaller{1}}}}{\\treel{(\\htmlClass{col1}{● \\smaller{\\frac{2}{3}}}, \\htmlClass{col2}{● \\smaller{\\frac{1}{3}}})}}}$
+
+.cols.pcompact[
+.c40[
+.i[]**1st-r call:**  
+.i[]return $\\treel{\\htmlClass{col3}{● \\smaller{1}}}$
+]
+.c60[
+.diagram.neutral.center[
+link([-10,5,310,5],'a coln')
+link([0,0,0,10],'coln')
+otext(0,-10,'0')
+otext(300,-10,'10')
+link([30,0,30,10],'coln')
+link([60,0,60,10],'coln')
+link([90,0,90,10],'coln')
+link([120,0,120,10],'coln')
+link([150,0,150,10],'coln')
+link([180,0,180,10],'coln')
+link([210,0,210,10],'coln')
+link([240,0,240,10],'coln')
+link([270,0,270,10],'coln')
+link([300,0,300,10],'coln')
+otext(225,-5,'●','col3')
+otext(255,-5,'●','col3')
+otext(285,-5,'●','col3')
+]
+]
+]
+
+return $\\tree{(1,7)}{\\tree{(1,2)}{\\treel{\\htmlClass{col1}{● \\smaller{1}}}}{\\tree{(1,4)}{\\treel{\\htmlClass{col2}{●  \\smaller{1}}}}{\\treel{(\\htmlClass{col1}{● \\smaller{\\frac{2}{3}}}, \\htmlClass{col2}{● \\smaller{\\frac{1}{3}}})}}}}{\\treel{\\htmlClass{col3}{● \\smaller{1}}}}$
+
+]
+.c40.compact[
+Assume:
+- $X=\\mathbb{R}^1=\\mathbb{R}$, $Y=\\{\\htmlClass{col1}{●},\\htmlClass{col2}{●},\\htmlClass{col3}{●}\\}$
+- $n\\subtext{min}=3$
+
+.pseudo-code.compact[
+function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {  
+.i[]if $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ then {  
+.i[].i[]$y^\\star \\gets \\argmax\_{y \\in Y} \\sum\_i \\mathbf{1}(y^{(i)}=y)$  
+.i[].i[]return $\\text{node-from}(y^\\star,\\varnothing,\\varnothing)$  
+.i[]} else {  
+.i[].i[]$(j, \\tau) \\gets \\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$  
+.i[].i[]$t \\gets \\text{node-from}($  
+.i[].i[].i[]$(j,\\tau),$  
+.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x\_j \\le \\tau}, n\\subtext{min}),$  
+.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x\_j > \\tau}, n\\subtext{min})$  
+.i[].i[])  
+.i[].i[]return $t$  
+.i[]}  
+}
+]
+]
+]
+
+---
+
+## Let's use the learning technique
+
+If we apply our $f'\\subtext{learn}$ to the carousel dataset with $n\\subtext{min}=1$ we obtain:
+.cols[
+.c50[
+.w100p.center[![Carousel data](images/carousel-points.png)]
+]
+.c50[
+.diagram.center.tree[
+rect(100,0,140,30)
+otext(170,15,'$x\\\\subtext{height}$ vs. $120$', 'small')
+rect(0,60,140,30)
+rect(200,60,140,30)
+link([170,40,70,80])
+otext(70,60,'$\\\\le$','small')
+rect(45,80,50,40)
+otext(70,100,'●','col1')
+rect(200,80,140,40)
+otext(270,60,'$>$','small')
+link([170,40,270,80])
+otext(270,100,'$x\\\\subtext{height}$ vs. $120$', 'small')
+link([270,120,170,160])
+otext(170,140,'$\\\\le$','small')
+rect(145,160,50,40)
+otext(170,180,'●','col1')
+link([270,120,370,160])
+otext(370,140,'$>$','small')
+rect(345,160,50,40)
+otext(370,180,'●','col2')
+]
+]
+]
+
 
 <!--
-variant with probability
-
 example of overfitting
 variance & bias, overfitting and underfitting
 method to spot it
