@@ -53,11 +53,10 @@ var DiagramTransformer = {
       padding: 10,
       charHeight: 20,
       charWidth: 12.5,
-      refRadius: 10,
       linkHeadSize: 10,
       linkMarkerSize: 5
     },
-    circle: function(x, y, label, className) {
+    circle: function(x, y, r, className) {
       className = className ? className : "";
       var code = "";
       code +=
@@ -66,40 +65,15 @@ var DiagramTransformer = {
         '" cy="' +
         y +
         '" r="' +
-        this.constants.refRadius +
+        r +
         '" class="circle ' +
         className +
         '"/>';
-      if (label) {
-        code +=
-          '<text x="' +
-          x +
-          '" y="' +
-          (y - (this.constants.charHeight / 2 + this.constants.refRadius)) +
-          '" class="refLabel ' +
-          className +
-          '">' +
-          label +
-          "</text>";
-      }
       return {
-        minX:
-          x -
-          Math.max(
-            (this.constants.charWidth * label.length) / 2,
-            this.constants.refRadius
-          ),
-        maxX:
-          x +
-          Math.max(
-            (this.constants.charWidth * label.length) / 2,
-            this.constants.refRadius
-          ),
-        minY:
-          y -
-          (this.constants.charHeight / 2 + this.constants.refRadius) -
-          this.constants.charHeight / 2,
-        maxY: y + this.constants.refRadius,
+        minX: x - r,
+        maxX: x + r,
+        minY: y - r,
+        maxY: y + r,
         code: code
       };
     },

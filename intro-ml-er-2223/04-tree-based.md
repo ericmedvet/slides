@@ -1,4 +1,4 @@
-class: middle, center
+impurityclass: middle, center
 
 # Tree-based learning techniques
 
@@ -876,14 +876,14 @@ For all:
 .cols[
 .c70[
 - **the lower, the better**
-- they measure the .key[node inpurity], i.e., the *amount* $e$ of cases different from the most frequent one among the examples *arrived* at a certain node
+- they measure the .key[node impurity], i.e., the *amount* $e$ of cases different from the most frequent one among the examples *arrived* at a certain node
 ]
 .c30[
 .diagram.center[
 link([0,25,75,25],'a')
 rect(75,0,150,50)
 link([225,25,325,25],'a')
-otext(150,25,"$f\\\\subtext{inpurity}$")
+otext(150,25,"$f\\\\subtext{impurity}$")
 otext(37.5,10,'$\\\\seq{y^{(i)}}{i}$')
 otext(275,10,'$e \\\\in \\\\mathbb{R}^+$')
 ]
@@ -892,7 +892,7 @@ otext(275,10,'$e \\\\in \\\\mathbb{R}^+$')
 
 ---
 
-## Node inpurity
+## Node impurity
 
 .pseudo-code.compact[
 function $\\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, \\htmlClass{col1}{f\\subtext{impurity}})$ {  
@@ -901,7 +901,7 @@ function $\\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, \\htmlCl
 }
 ]
 
-The way to measure the node inpurity might be a .col1[parameter] of $\\text{find-best-branch}()$, but it has been found that **Gini is better** for learning trees than error.
+The way to measure the node impurity might be a .col1[parameter] of $\\text{find-best-branch}()$, but it has been found that **Gini is better** for learning trees than error.
 
 .cols[
 .c40[
@@ -911,6 +911,7 @@ f=seq(0,1,length.out=100)
 error = 1-pmax(f,1-f)
 gini = 2*f*(1-f)
 cross.entropy = -f*log(f)-(1-f)*log(1-f)
+as.data.frame(cbind(f,error,gini,cross.entropy)) %>% pivot_longer(!f,values_to="impurity") %>% ggplot(aes(x=f,y=impurity,color=name))+geom_line()
 -->
 ]
 .c60[
@@ -942,7 +943,7 @@ Alternative 1 (**tree depth**):
 
 .note[requires propagating recursively the depth of the node being currently built]
 
-Alternative 1 (**node inpurity**):
+Alternative 1 (**node impurity**):
 - impurity lower than a $\\tau\_\\epsilon$
 
 ]
@@ -955,7 +956,8 @@ function $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ {
 .i[]if .col1[$n \\le n\\subtext{min}$] then { .comment[//$n=|\\seq{y^{(i)}}{i}|$]  
 .i[].i[] return $\\text{true}$;  
 .i[]}  
-.i[]return $\\text{false}$
+.i[]return $\\text{false}$  
+}
 ]
 
 Impact of the parameter:
@@ -975,7 +977,7 @@ Impact of the parameter:
 .c40[
 Learning technique with probability:
 - $f'\\subtext{learn}: \\mathcal{P}^*(X,Y) \\to M$
-- $f'\\subtext{predict}: X \\times M \\to P\_Y$
+- $f''\\subtext{predict}: X \\times M \\to P\_Y$
 ]
 .c60[
 .diagram.center[
@@ -999,7 +1001,7 @@ otext(512.5,35,'$y$')
 For tree learning:
 - $f'\\subtext{learn}: \\htmlClass{col1}{\\mathcal{P}^*(X\_1 \\times \\dots \\times X\_p,Y)} \\to \\htmlClass{col2}{T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}}$
   - given a .col1[multivariate dataset], returns a .col2[tree] in $T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}$
-- $f'\\subtext{predict}: \\htmlClass{col1}{X\_1 \\times \\dots \\times X\_p} \\times \\htmlClass{col2}{T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}} \\to \\htmlClass{col3}{P\_Y}$
+- $f''\\subtext{predict}: \\htmlClass{col1}{X\_1 \\times \\dots \\times X\_p} \\times \\htmlClass{col2}{T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}} \\to \\htmlClass{col3}{P\_Y}$
   - given a .col1[multivariate observation] and a .col2[tree], returns a .col3[discrete probability distribution] $p \\in P\_Y$
 
 Set of trees $T\_{\\htmlClass{col1}{(\\{1,\\dots,p\\}\\times\\mathbb{R})} \\cup \\htmlClass{col2}{P\_Y}}$:
@@ -1358,8 +1360,8 @@ Assume:
 .pseudo-code.compact[
 function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {  
 .i[]if $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ then {  
-.i[].i[]$y^\\star \\gets \\argmax\_{y \\in Y} \\sum\_i \\mathbf{1}(y^{(i)}=y)$  
-.i[].i[]return $\\text{node-from}(y^\\star,\\varnothing,\\varnothing)$  
+.i[].i[].col1[$p \\gets y \\mapsto \\freq{y, \\seq{y^{(i)}}{i}}$]  
+.i[].i[].col1[return $p$]  
 .i[]} else {  
 .i[].i[]$(j, \\tau) \\gets \\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$  
 .i[].i[]$t \\gets \\text{node-from}($  
@@ -1458,22 +1460,351 @@ otext(165,315,'●$\\\\smaller{1}$','col2')
 ]
 ]
 
+---
+
+## Tree size
+
+If we compare the tree (i.e., the **model**) against the attendand reasoning (i.e., the **real system**), **this tree appears too large**!
+
+We can do this, because:
+- trees are inherently **inspectionable**
+- we **know** (actually, we have a rough idea about) how the real system works
+
+.cols[
+.c50[
+.w100p.center[![The carousel](images/carousel.jpg)]
+]
+.c50[
+.diagram.center.tree[
+rect(100,0,140,30)
+otext(170,15,'$x\\\\subtext{height}$ vs. $120$', 'small')
+link([170,30,70,60])
+otext(70,45,'$\\\\le$','small')
+rect(0,60,140,30)
+otext(70,75,'$x\\\\subtext{age}$ vs. $8.954$', 'small')
+link([170,30,270,60])
+otext(270,45,'$>$','small')
+rect(200,60,140,30)
+otext(270,75,'$x\\\\subtext{age}$ vs. $9.887$', 'small')
+link([70,90,15,120])
+otext(15,105,'$\\\\le$','small')
+rect(0,120,30,30)
+otext(15,135,'●$\\\\smaller{1}$','col1')
+link([70,90,130,120])
+otext(130,105,'$>$','small')
+rect(60,120,140,30)
+otext(130,135,'$x\\\\subtext{age}$ vs. $9.002$', 'small')
+link([270,90,225,120])
+otext(225,105,'$\\\\le$','small')
+rect(220,120,30,30)
+otext(235,135,'●$\\\\smaller{1}$','col1')
+link([270,90,305,120])
+otext(305,105,'$>$','small')
+rect(290,120,30,30)
+otext(305,135,'●$\\\\smaller{1}$','col2')
+link([130,150,70,180])
+otext(70,165,'$\\\\le$','small')
+rect(0,180,140,30)
+otext(70,195,'$x\\\\subtext{age}$ vs. $9.49$', 'small')
+link([130,150,185,180])
+otext(185,165,'$>$','small')
+rect(170,180,30,30)
+otext(185,195,'●$\\\\smaller{1}$','col2')
+link([70,210,15,240])
+otext(15,225,'$\\\\le$','small')
+rect(0,240,30,30)
+otext(15,255,'●$\\\\smaller{1}$','col1')
+link([70,210,130,240])
+otext(130,225,'$>$','small')
+rect(60,240,140,30)
+otext(130,255,'$x\\\\subtext{age}$ vs. $9.306$', 'small')
+link([130,270,95,300])
+otext(95,285,'$\\\\le$','small')
+rect(80,300,30,30)
+otext(95,315,'●$\\\\smaller{1}$','col1')
+link([130,270,165,300])
+otext(165,285,'$>$','small')
+rect(150,300,30,30)
+otext(165,315,'●$\\\\smaller{1}$','col2')
+]
+]
+]
+
+---
+
+## Model complexity
+
+The tree was large because:
+- $n\\subtext{min}$ was $1$, i.e., $f'\\subtext{learn}$ had no bounds while learning the tree
+- **and**, the dataset made $f'\\subtext{learn}$ to exploit the low value of $n\\subtext{min}$
+  - i.e., the dataset required a large tree to be modeled completely
+
+--
+
+In general, *almost every* kind of model can have different degrees of .key[model complexity].
+- for trees, captured by the size the tree
+
+Moreover, *almost every* learning technique has at least one parameter affecting the maximum complexity of the learnable models, often called **flexibility**:
+.cols[
+.c60[
+- a sort of **availability of complexity**
+- for trees learned with recursive binary splitting, $n\\subtext{min}$
+
+Usually, to obtain a complex model, you should have:
+- a learning technique with great flexibility
+- a dataset requiring flexibility
+]
+.c40[
+.diagram.center[
+link([0,75,150,75],'a')
+rect(150,50,100,50)
+link([250,75,350,75],'a')
+otext(200,75,"$f'\\\\subtext{learn}$")
+otext(75,60,'$\\\\seq{(x^{(i)},y^{(i)})}{i}$')
+otext(300,60,'$m$')
+link([200,20,200,50],'a')
+otext(200,5,'flexibility')
+]
+]
+]
+
+---
+
+## This tree complexity: motivation
+
+Why is our tree *too* complex?
+
+.cols[
+.c50[
+.cols[
+.c80.vcentered[
+**Because of these two points**! .col2[●●] $\\rightarrow$
+]
+.c20[
+<div style="width:100px;height:100px;background: no-repeat -150px -220px url('images/carousel-points.png')"></div>
+]
+]
+
+What are they?
+- maybe the attendant was distracted
+- maybe they were two Portoguese
+- maybe they were the attendant's kids
+  - i.e., the real system is stochastic and we observed a case were the least probable case happened
+- maybe the owner wrongly wrote down observation
+
+More in general: there's some **noise in the data**!
+]
+.c50[
+.w100p.center[![Carousel data](images/carousel-points.png)]
+]
+]
+
+---
+
+## Fitting the noise?
+
+.diagram.center[
+link([0,75,100,75],'a')
+rect(100,50,100,50)
+link([200,75,300,75],'a')
+circle(325,75,25)
+link([350,75,450,75],'a')
+otext(150,75,"$s$")
+otext(75,60,'$x$')
+otext(250,60,'$y$')
+otext(325,75,"$+$")
+otext(400,60,'$y\\\\prime$')
+link([325,20,325,50],'a')
+otext(325,5,'noise')
+]
+
+In practice, we *often* don't have a noise-free dataset $\\seq{(x^{i},y^{(i)})}{i}$, but have instead a dataset $\\seq{(x^{i},y'^{(i)})}{i}$ with some noise, i.e., **we have the $y'$ instead of the $y$**:
+- errors in data collection
+- $s$ being stochastic and having produced unlikely behaviors
+
+However, our goal is to **model $s$, not $s+ $ noise**!
+
+---
+
+## Overfitting
+
+When we have a **noisy dataset** (potentially *always*) **and we allow for large complexity**, by setting a flexibility parameter to a **high flexibility**, the learning technique fits the noisy data $\\seq{(x^{i},y'^{(i)})}{i}$ instead of fitting the real system $s$, that is, .key[overfitting] occurs.
+
+--
+
+.cols[
+.c40[
+.w100p.center[![Snake and elephant from Il Piccolo Principe](images/piccolo-principe-serpente-elefante.png)]
+.note[Image from "Il piccolo principe"]
+]
+.c60.vcentered[
+**Overfits** = "fits too much", hence making apparent also those **artifacts** that are **not part** of the object being wrapped
+- the model: the snake skin
+- the real system: the snake body
+- the (exhaggerated) artifact: the elephant...
+]
+]
+
+---
+
+## Underfitting
+
+When instead we do not allow for enough complexity to model a complex real system, by setting a flexibility parameter to **low flexibility**, the learning technique learns **does not fits neither the data, nor the system**, that is, .key[underfitting] occurs.
+
+--
+
+.cols[
+.c40[
+.w100p.center[![T-rex in a cardboard box](images/t-rex-in-cardboard-box.png)]
+]
+.c60.vcentered[
+**Underfits** = "doesn't fit enough", hence **proper characteristic** of the object being wrapped are **not captured**
+- the model: the cardboard box
+- the real system: the T-rex
+- the uncaptured characteristics: everything of the T-rex...
+]
+]
+
+---
+
+## Overfitting/underfitting with trees
+
+In $f'\\subtext{learn}$, $n\\subtext{min}$ represents the flexibility:
+- the greater $n\\subtext{min}$, the lower the flexibility
+
+Extreme values:
+- $n\\subtext{min}=1$ $\\rightarrow$ **maximum flexibility**
+  - the tree will always be as large as it has to be to perfectly¹ model the dataset
+- $n\\subtext{min}=+\\infty$ $\\rightarrow$ minimum, i.e., **no flexibility**
+  - the tree will be the smallest possible
+
+.footnote[
+1. Always perfectly? Give a counterexample.
+]
+
+---
+
+## Carousel tree with $n\\subtext{min}=+\\infty$
+
+.cols[
+.c50[
+.w100p.center[![Carousel data](images/carousel-points.png)]
+]
+.c50[
+.pseudo-code.compact[
+function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {  
+.i[]if .col1[$\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$] then {  
+.i[].i[]$p \\gets y \\mapsto \\freq{y, \\seq{y^{(i)}}{i}}$  
+.i[].i[]return $p$  
+.i[]} else {  
+.i[].i[]...  
+.i[]}  
+}
+]
+
+.vspace[]
+
+.pseudo-code.compact[
+function $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ {  
+.i[]...  
+.i[]if .col1[$n \\le n\\subtext{min}$] then {  
+.i[].i[] return $\\text{true}$;  
+.i[]}  
+.i[]return $\\text{false}$  
+}
+]
+
+The learned tree is a **dummy classifier** (with probability):
+.cols[
+.c50[
+.diagram.center.tree[
+rect(0,0,100,40)
+otext(50,20,'$\\\\htmlClass{col1}{\\\\text{●}\\\\smaller{\\\\frac{59}{103}}}, \\\\htmlClass{col2}{\\\\text{●}\\\\smaller{\\\\frac{44}{103}}}$')
+]
+]
+.c50.center[
+$t=\\treel{\\htmlClass{col1}{\\text{●}\\smaller{\\frac{59}{103}}}, \\htmlClass{col2}{\\text{●}\\smaller{\\frac{44}{103}}}}$
+]
+]
+
+]
+]
+.compact[$t$ does not attempt to model the dependency between $x$ and $y$, because it's complexity budget is completely exhausted by the single leaf node]
+
+---
+
+## Bias and variance
+
+As an alternative name for **underfitting**, we say that a learning technique exhibits .key[high bias]:
+- because it tends to generate models that incorporate a **bias towards some $y$ values**, regardless of the $x$, i.e., models that fail in capturing the $x$-$y$ dependency
+  - as extreme case, the dummy classifier completely disregards the $x$
+
+--
+
+As an alternative name for **overfitting**, we say that a learning technique exhibits .key[high variance]:
+- because, if we repeat the learning with **different datasets coming from the same real system**, they give **different models**; this is bad, because they should be the same, since they model the same system
+
+---
+
+## Spotting underfitting/overfitting
+
+In principle:
+1. observe the model
+2. observe the system
+3. compare their complexity:
+  - if the model is **too simple** with respect to the system, that's **underfitting**
+  - if the model is **too complex** with respect to the system, that's **oveerfitting**
+
+--
+
+In practice, this is *often* (i.e., almost always) **unfeasible**:
+- you don't know the system complexity
+- you cannot observe the system internals (or the system itself)
+- sometimes, you cannot observe the model internals
+
+---
+
+## Spotting underfitting/overfitting with data
+
+.cols[
+.c50.compact[
+With **too low flexibility** (here with error):
+- the model cannot capture system characteristic that are also in the learning data
+  - $\\Rightarrow$ both errors are high
+- increasing the flexibility decreases both errors
+
+With **too large flexibility**:
+- the model captures also data artifacts (i.e., noise)
+  - $\\Rightarrow$ **learning error is low** because noise is modeled and used to assess the model itself
+  - $\\Rightarrow$ **test error is large** because the model describes characteristic that are not proper of the real system and hence not visible in data different from the learning data
+- increasing the flexibility decreases the lerning error and increases the test error
+
+Here, overfitting *starts* with flexibility $\\ge 0.62$
+]
+.c50[
+.w75p.center[![Leaning and test error vs. flexibility](images/train-test-error.png)]
+<!--
+x=seq(0,1,by=0.01)
+as.data.frame(cbind(flexibility=x,learning=((x-1)*(x-1)+0.1)/3)) %>% mutate(test=learning+0.025+flexibility^2/5) %>% pivot_longer(!flexibility,values_to="error") %>% ggplot(aes(x=flexibility,y=error,color=name))+geom_line()
+-->
+.compact[
+Practical procedure:
+1. consider **several values of the flexibility** parameter
+2. for each model
+  1. learn a model
+  2. measure¹ its effectiveness² on the **learning** data
+  3. measure¹ its effectiveness² on the **test** data
+]
+]
+]
+
+.footnote[
+1. with 80/20 static split, CV, ...
+2. with error, accuracy, AUC, ...
+]
 
 <!--
-the tree is too large, i.e., too complex, with too related with the system, i.e., the attendant
 
-the size/complexity of the tree depends on the data and on n_min
-generalize saying that this applies to many learning techniques
-
-say: also on data -> with n_min you actually set a maximum complexity, not the actual, which depends on data. say hence it is an availability of complexity, that is also called flexibility, because the model, when fitting the data, may fit More
-
-say reasons for this specific case: the two points. mention possible causes. say that we wanted to measure the reasoning of the attendant, not the noise of these two cases. we fitted too much them. say overfitting
-
-mention the opposite: underfitting, with the example on the same data. say no flexibility. make connection with too simple modeled reasoning
-
-introduce and explain bias and variance
-
-method to spot it
 how to set the proper value of the flexibility parameter?
 
 auto-tuning

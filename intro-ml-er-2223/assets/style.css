@@ -20,6 +20,11 @@ h1, h2 {
   text-decoration-line: underline;
   text-decoration-color: #DC267F;
 }
+.remark-slide-content h2:first-of-type,
+.remark-slide-content h1:first-of-type,
+.remark-slide-content h3:first-of-type {
+  margin-top: 0;
+}
 code, .pseudo-code {
   border-radius: 0.5em;
 }

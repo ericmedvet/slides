@@ -13,6 +13,7 @@
 }
 .diagram rect,
 .diagram ellipse,
+.diagram circle,
 .diagram path {
   stroke-width: 2;
 }
