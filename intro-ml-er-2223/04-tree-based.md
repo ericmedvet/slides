@@ -1536,7 +1536,7 @@ otext(165,315,'●$\\\\smaller{1}$','col2')
 
 The tree was large because:
 - $n\\subtext{min}$ was $1$, i.e., $f'\\subtext{learn}$ had no bounds while learning the tree
-- **and**, the dataset made $f'\\subtext{learn}$ to exploit the low value of $n\\subtext{min}$
+- **and**, the dataset made $f'\\subtext{learn}$ exploit the low value of $n\\subtext{min}$
   - i.e., the dataset required a large tree to be modeled completely
 
 --
@@ -1587,10 +1587,10 @@ Why is our tree *too* complex?
 
 What are they?
 - maybe the attendant was distracted
-- maybe they were two Portoguese
+- maybe they were two "Portoghesi"
 - maybe they were the attendant's kids
   - i.e., the real system is stochastic and we observed a case were the least probable case happened
-- maybe the owner wrongly wrote down observation
+- maybe the owner wrongly wrote down two observations
 
 More in general: there's some **noise in the data**!
 ]
