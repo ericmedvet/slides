@@ -1780,6 +1780,7 @@ With **too large flexibility**:
 - increasing the flexibility decreases the lerning error and increases the test error
 
 Here, overfitting *starts* with flexibility $\\ge 0.62$
+- not a real parameter...
 ]
 .c50[
 .w75p.center[![Leaning and test error vs. flexibility](images/train-test-error.png)]
@@ -1802,6 +1803,254 @@ Practical procedure:
 1. with 80/20 static split, CV, ...
 2. with error, accuracy, AUC, ...
 ]
+
+---
+
+## How to choose the proper flexibility?
+
+More in general, **how to choose** a good value for one or more **parameters of the learning technique**?
+
+**Assumption**: "good" means "the one that corresponds to the greatest effectiveness".
+
+From another point of view, we have $k$ slightly different (i.e., they differ only in the value of the parameter) learning techniques and we have to choose one:
+- that is, we do a **comparison** among learning techniques
+
+--
+
+In practice:
+- choose the $k$ candidate **parameter values** (e.g., $n\\subtext{min}=1,2,3,\\dots,10$)
+- choose a suitable **effectiveness index** (e.g., AUC, accuracy, ...)
+- choose a suitable **learning/test division** method (e.g., 10-fold CV)
+- for each of the $k$ values, **measure** the index, **take** the one corresponding to the **best** value
+
+--
+
+This procedure applies to parameters in general, not just to those affecting flexibility;
+- and possibly to indexes related to efficiency, rather than just effectiveness
+
+---
+
+## Hyperparameter tuning
+
+.cols[
+.c60[
+Given a learning technique with $h$ parameters $p\_1,\\dots,p\_h$, each $p\_j$ defined in its domain $P\_j$, .key[hyperparameter tuning] is the task of finding the tuple $p^\\star\_1,\\dots,p^\\star\_h$ that corresponds to the **best effectiveness** of the learning technique.
+]
+.c40[
+.diagram.center[
+link([0,75,150,75],'a')
+rect(150,50,100,50)
+link([250,75,350,75],'a')
+otext(200,75,"$f'\\\\subtext{learn}$")
+otext(75,60,'$\\\\seq{(x^{(i)},y^{(i)})}{i}$')
+otext(300,60,'$m$')
+link([200,20,200,50],'a')
+otext(200,5,'$p\\_1,\\\\dots,p\\_h$')
+]
+]
+]
+
+--
+
+$p\_1,\\dots,p\_h$ are called **hyperparameters**, rather than just parameter, because in some communities and for some learning technique, the model is defined by one or more **parameters** (often numerical);
+- does not fit well the case of trees
+
+It's called **tuning** because we slightly change the hyperparameter values until we are happy with the results.
+
+--
+
+Hyperparameter tuning it's a form of **optimization**, since we are searching the space $P\_1 \\times \\dots \\times P\_h$ for the tuple giving the best, i.e., $\\approx$ optimal, effectiveness:
+- since it automatizes part of the design of a ML system, hyperparameter tuning may be considered a simple form of AutoML
+
+---
+
+## Grid search
+
+A simple form of hyperparameter tuning:
+1. for each $j$-th parameter, choose a *small* set of $P'\_j \\subseteq P\_j$ values
+2. choose a suitable **effectiveness index**
+3. choose a suitable **learning/test division** method
+4. consider all the tuples resulting from the cartesian product $P'\_1 \\times \\dots \\times P'\_h$ (i.e., the **grid**)
+5. take the best hyperparameters $p^\\star\_1,\\dots,p^\\star\_h$ such that: $$(p^\\star\_1,\\dots,p^\\star\_h)=\\argmax\_{(p\_1,\\dots,p\_h) \\in P'\_1 \\times \\dots \\times P'\_h} \\htmlClass{col1}{f\\subtext{learn-effect}}(\\htmlClass{col2}{f'\\subtext{learn}(\\cdot,p\_1,\\dots,p\_h),f'\\subtext{predict}},D)$$
+
+Remarks:
+- .col1[$f\\subtext{learn-effect}$] is the chosen .col1[assessment method] measuring the chosen (step 3) effectiveness index with the chosen (step 4) learning/test division: it takes a learning technique **and a dataset** $D$
+  - .col2[$f'\\subtext{learn}(\\cdot,p^\\star\_1,\\dots,p^\\star\_h),f'\\subtext{predict}$] is the learning technique; $f'\\subtext{learn}(\\htmlClass{col3}{\\cdot},\\htmlClass{col4}{p\_1,\\dots,p\_h})$ is the learning function with fixed hyperparameters .col4[$p\_1,\\dots,p\_h$] and variable .col3[dataset $\\cdot$]
+- to be feasible, $P'\_1 \\times \\dots \\times P'\_h$ must be **small**!
+
+---
+
+## Grid search with the trees
+
+Consider the $f'\\subtext{learn}$ for trees and these two hyperparameters:
+- $n\\subtext{min} = p\_1 \\in \\mathbb{N} = P\_1$
+- $p\\subtext{impurity} = p\_2 \\in \\{\\text{error}, \\text{Gini}, \\text{cross-entropy}\\}$
+
+Let's do hyperparameter tuning with grid search (assuming $|D|=n=1000$):
+
+--
+
+.cols[
+.c50.compact[
+1. $P'\_1=\\{1,2,5,10,25\\}$¹ and $P'\_2=P\_2$
+2. AUC (with midpoints)
+3. 10-fold CV
+4. grid size of $5 \\times 3 = 15$
+5. ...
+]
+.c50.compact[
+1. for each $j$-th parameter, choose a *small* set of $P'\_j \\subseteq P\_j$ values
+2. choose a suitable effectiveness index
+3. choose a suitable learning/test division method
+4. consider all the tuples resulting from the cartesian product $P'\_1 \\times \\dots \\times P'\_h$ (i.e., the **grid**)
+5. take the best hyperparameters $p^\\star\_1,\\dots,p^\\star\_h$
+]
+]
+
+How many times is $f'\\subtext{learn}$ invoked?
+
+How many times is $f''\\subtext{predict}$ invoked?
+
+
+.footnote[
+1. must be chosen considering the size $n$ of the dataset
+]
+
+---
+
+## Hyperparameter-free learning
+
+Can't we just **always do grid search** for doing hyperparameter tuning?
+
+**Pros**:
+- no need to manually choose the values of the parameters
+- hopefully chosen parameters are better than "default" values (if any) $\\rightarrow$ **better effectiveness**
+
+**Cons**:
+- computationally expensive ($\\propto$ grid size) $\\rightarrow$ **worse efficiency**
+- depends on a dataset, must be checked for **generalization** ability
+- suitable "ranges" of values for each hyperparameter have still to be set manually
+  - but default ranges are often ok
+
+--
+
+If you do it, you can **transform any learning tech. w/ params in a learning tech. w/o params**:
+
+.cols[
+.c30[
+.diagram.center[
+link([0,75,150,75],'a')
+rect(150,50,100,50)
+link([250,75,350,75],'a')
+otext(200,75,"$f'\\\\subtext{learn}$")
+otext(75,55,'$\\\\seq{(x^{(i)},y^{(i)})}{i}$')
+otext(300,60,'$m$')
+link([200,20,200,50],'a')
+otext(200,5,'$p\\_1,\\\\dots,p\\_h$')
+]
+]
+.c70[
+.diagram.center[
+link([0,75,150,75],'a')
+otext(75,55,'$\\\\seq{(x^{(i)},y^{(i)})}{i}$')
+rect(150,0,375,150)
+link([170,50,230,50,230,60,250,60],'a')
+otext(200,30,"$\\\\seq{P'\\_j}{j}$")
+link([150,75,250,75],'a')
+link([170,125,230,125,230,90,250,90],'a')
+otext(200,105,"$f'\\\\subtext{learn}$")
+rect(250,50,100,50)
+otext(300,75,"grid search",'small')
+link([350,75,440,75,440,90],'a')
+otext(395,55,"$\\\\seq{p^\\\\star\\_j}{j}$")
+rect(400,90,80,50)
+otext(440,115,"$f'\\\\subtext{learn}$")
+link([160,75,160,140,370,140,370,115,400,115],'a')
+link([480,115,500,115,500,75,575,75],'a')
+otext(550,60,'$m$')
+]
+]
+]
+
+---
+
+## Hyperparameter-free learning
+
+.diagram.center[
+link([0,75,150,75],'a')
+otext(75,55,'$\\\\seq{(x^{(i)},y^{(i)})}{i}$')
+rect(150,0,375,150)
+link([170,50,230,50,230,60,250,60],'a')
+otext(200,30,"$\\\\seq{P'\\_j}{j}$")
+link([150,75,250,75],'a')
+link([170,125,230,125,230,90,250,90],'a')
+otext(200,105,"$f'\\\\subtext{learn}$")
+rect(250,50,100,50)
+otext(300,75,"grid search",'small')
+link([350,75,440,75,440,90],'a')
+otext(395,55,"$\\\\seq{p^\\\\star\\_j}{j}$")
+rect(400,90,80,50)
+otext(440,115,"$f'\\\\subtext{learn}$")
+link([160,75,160,140,370,140,370,115,400,115],'a')
+link([480,115,500,115,500,75,575,75],'a')
+otext(550,60,'$m$')
+]
+
+.cols[
+.c50[
+.pseudo-code.compact[
+function $\\text{learn-free}(D)$ {  
+.i[]$f'\\subtext{learn}, f'\\subtext{predict} \\gets \\dots$  
+.i[].col1[$P'\\_1,\\dots,P'\\_h \\gets \\dots$]  
+.i[].col3[$f\\subtext{learn-effect} \\gets \\dots$]  
+.i[]$p^\\star\_1,\\dots,p^\\star\_h \\gets \\varnothing$  
+.i[]$v\_{\\text{max},\\text{effect}} \\gets -\\infty$  
+.i[].col2[foreach $p\\_1,\\dots,p\\_h \\in P'\\_1,\\dots,P'\\_h$ {]  
+.i[].i[].col2[$v\\subtext{effect} \\gets f\\subtext{learn-effect}(f'\\subtext{learn}(\\cdot,p\\_1,\\dots,p\\_h),f'\\subtext{predict},D)$]  
+.i[].i[].col2[if $v\\subtext{effect} \\ge v\\_{\\text{max},\\text{effect}}$ then {]  
+.i[].i[].i[].col2[$v\\_{\\text{max},\\text{effect}} \\gets v\\subtext{effect}$]  
+.i[].i[].i[].col2[$p^\\star\\_1,\\dots,p^\\star\\_h \\gets p\\_1,\\dots,p\\_h$]  
+.i[].i[].col2[}]  
+.i[].col2[}]  
+.i[]return $f'\\subtext{learn}(D,p^\\star\_1,\\dots,p^\\star\_h)$  
+}
+]
+]
+.c50[
+.compact[
+1. .col1[for each $j$-th parameter, choose a *small* set of $P'\_j \\subseteq P\_j$ values]
+2. .col3[choose a suitable effectiveness index]
+3. .col3[choose a suitable learning/test division method]
+4. .col2[consider all the tuples resulting from the cartesian product $P'\_1 \\times \\dots \\times P'\_h$]
+5. .col2[take the best hyperparameters $p^\\star\_1,\\dots,p^\\star\_h$]
+  - i.e., $\\argmax$
+5. learn a model with on full dataset and the best found parameters
+]
+]
+]
+
+---
+
+## Hyperparameter-free tree learning excercise
+
+Consider the $f'\\subtext{learn}$ for trees and these two hyperparameters:
+- $n\\subtext{min} = p\_1 \\in \\mathbb{N} = P\_1$
+- $p\\subtext{impurity} = p\_2 \\in \\{\\text{error}, \\text{Gini}, \\text{cross-entropy}\\}$
+
+Consider the improved, hyperparameter-free version of $f'\\subtext{learn}$ called $f'\\subtext{learn-free}$:
+- with accuracy and 10-fold CV
+- with $|P'\_1|=10$ and $|P'\_2|=P\_2$
+
+Suppose you want to compare it against the plain version (with hyperparameter):
+- with AUC (midpoints) and 10-fold CV
+- using a dataset $|D|=n=1000$.
+
+**Questions**:
+- what phases of the ML design process are we doing?
+- how many times is $f'\\subtext{learn-free}$ invoked?
+- how many times is $f'\\subtext{learn}$ invoked?
+- how many times is $f''\\subtext{predict}$ invoked?
+- how many times is $f'\\subtext{predict}$ invoked?
 
 <!--
 
