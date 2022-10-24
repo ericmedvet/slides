@@ -858,7 +858,7 @@ What's the accuracy of this $t$ on the learning set?
 
 .pseudo-code.compact[
 function $\\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$ {  
-.i[]$(j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} \\left(\\htmlClass{col1}{\\text{error}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j \\le \\tau}})+\\htmlClass{col1}{\\text{error}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j > \\tau}})\\right)$  
+.i[]$(j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} \\left(\\htmlClass{col1}{\\text{error}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j \\le \\tau})}+\\htmlClass{col1}{\\text{error}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j > \\tau})}\\right)$  
 .i[]return $(j^\\star, \\tau^\\star)$  
 }
 ]
@@ -896,7 +896,7 @@ otext(275,10,'$e \\\\in \\\\mathbb{R}^+$')
 
 .pseudo-code.compact[
 function $\\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, \\htmlClass{col1}{f\\subtext{impurity}})$ {  
-.i[]$(j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} \\left(\\htmlClass{col1}{f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j \\le \\tau}})+\\htmlClass{col1}{f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j > \\tau}})\\right)$  
+.i[]$(j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} \\left(\\htmlClass{col1}{f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j \\le \\tau})}+\\htmlClass{col1}{f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j > \\tau})}\\right)$  
 .i[]return $(j^\\star, \\tau^\\star)$  
 }
 ]
@@ -1020,7 +1020,7 @@ Set of trees $T\_{\\htmlClass{col1}{(\\{1,\\dots,p\\}\\times\\mathbb{R})} \\cup 
 function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {  
 .i[]if $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ then {  
 .i[].i[].col1[$p \\gets y \\mapsto \\freq{y, \\seq{y^{(i)}}{i}}$]  
-.i[].i[].col1[return $p$]  
+.i[].i[].col1[return $\\text{node-from}(p,\\varnothing,\\varnothing)$]  
 .i[]} else {  
 .i[].i[]$(j, \\tau) \\gets \\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$  
 .i[].i[]$t \\gets \\text{node-from}($  
@@ -1036,7 +1036,7 @@ function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {
 .c50[
 - $y \\mapsto \\freq{y, \\seq{y^{(i)}}{i}}$ is a way to specify the concrete function that, given a $y \\in Y$ returns its frequency $\\freq{y, \\seq{y^{(i)}}{i}} \\in [0,1]$
 - "$p \\gets \\dots$" means "the variable¹ $p$ takes the value $\\dots$" or "the variable $p$ becomes $\\dots$"
-- hence, .col1[$p \\gets y \\mapsto \\freq{y, \\seq{y^{(i)}}{i}}$] means ".col1[$p$ becomes the function that maps each $y$ its frequency $\\freq{y, \\seq{y^{(i)}}{i}}$ in  $\\seq{y^{(i)}}{i}$]"
+- hence, .col1[$p \\gets y \\mapsto \\freq{y, \\seq{y^{(i)}}{i}}$] means ".col1[$p$ becomes the function that maps each $y$ to its frequency $\\freq{y, \\seq{y^{(i)}}{i}}$ in  $\\seq{y^{(i)}}{i}$]"
 
 .note[
 1. here, in as a computer programming term
@@ -1055,10 +1055,10 @@ with $\\seq{y^{(i)}}{i}$ being .col1[●].col3[●].col1[●].col1[●].col2[●
 returns $\\treel{\\htmlClass{col1}{●}}$
 ]
 .c50[
-**Before** (with probability):
+**After** (with probability):
 .pseudo-code.compact[
 $p \\gets y \\mapsto \\freq{y, \\seq{y^{(i)}}{i}}$  
-return $p$
+return $\\text{node-from}(p,\\varnothing,\\varnothing)$
 ]
 with $\\seq{y^{(i)}}{i}$ being .col1[●].col3[●].col1[●].col1[●].col2[●]  
 returns $\\treel{(\\htmlClass{col1}{● \\smaller{\\frac{3}{5}}}, \\htmlClass{col2}{● \\smaller{\\frac{1}{5}}}, \\htmlClass{col3}{● \\smaller{\\frac{1}{5}}})}$
@@ -1361,7 +1361,7 @@ Assume:
 function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {  
 .i[]if $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ then {  
 .i[].i[].col1[$p \\gets y \\mapsto \\freq{y, \\seq{y^{(i)}}{i}}$]  
-.i[].i[].col1[return $p$]  
+.i[].i[].col1[return $\\text{node-from}(p,\\varnothing,\\varnothing)$]  
 .i[]} else {  
 .i[].i[]$(j, \\tau) \\gets \\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$  
 .i[].i[]$t \\gets \\text{node-from}($  
@@ -1618,7 +1618,7 @@ link([325,20,325,50],'a')
 otext(325,5,'noise')
 ]
 
-In practice, we *often* don't have a noise-free dataset $\\seq{(x^{i},y^{(i)})}{i}$, but have instead a dataset $\\seq{(x^{i},y'^{(i)})}{i}$ with some noise, i.e., **we have the $y'$ instead of the $y$**:
+In practice, we *often* don't have a noise-free dataset $\\seq{(x^{(i)},y^{(i)})}{i}$, but have instead a dataset $\\seq{(x^{(i)},y'^{(i)})}{i}$ with some noise, i.e., **we have the $y'$ instead of the $y$**:
 - errors in data collection
 - $s$ being stochastic and having produced unlikely behaviors
 
@@ -1628,7 +1628,7 @@ However, our goal is to **model $s$, not $s+ $ noise**!
 
 ## Overfitting
 
-When we have a **noisy dataset** (potentially *always*) **and we allow for large complexity**, by setting a flexibility parameter to a **high flexibility**, the learning technique fits the noisy data $\\seq{(x^{i},y'^{(i)})}{i}$ instead of fitting the real system $s$, that is, .key[overfitting] occurs.
+When we have a **noisy dataset** (potentially *always*) **and we allow for large complexity**, by setting a flexibility parameter to a **high flexibility**, the learning technique **fits the noisy data** $\\seq{(x^{(i)},y'^{(i)})}{i}$ **instead of fitting the real system** $s$, that is, .key[overfitting] occurs.
 
 --
 
@@ -1649,7 +1649,7 @@ When we have a **noisy dataset** (potentially *always*) **and we allow for large
 
 ## Underfitting
 
-When instead we do not allow for enough complexity to model a complex real system, by setting a flexibility parameter to **low flexibility**, the learning technique learns **does not fits neither the data, nor the system**, that is, .key[underfitting] occurs.
+When instead we do not allow for enough complexity to model a complex real system, by setting a flexibility parameter to **low flexibility**, the learning technique learns **does not fit neither the data, nor the system**, that is, .key[underfitting] occurs.
 
 --
 
@@ -1658,7 +1658,7 @@ When instead we do not allow for enough complexity to model a complex real syste
 .w100p.center[![T-rex in a cardboard box](images/t-rex-in-cardboard-box.png)]
 ]
 .c60.vcentered[
-**Underfits** = "doesn't fit enough", hence **proper characteristic** of the object being wrapped are **not captured**
+**Underfits** = "doesn't fit enough", hence **proper characteristics** of the object being wrapped are **not captured**
 - the model: the cardboard box
 - the real system: the T-rex
 - the uncaptured characteristics: everything of the T-rex...
@@ -1695,7 +1695,7 @@ Extreme values:
 function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {  
 .i[]if .col1[$\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$] then {  
 .i[].i[]$p \\gets y \\mapsto \\freq{y, \\seq{y^{(i)}}{i}}$  
-.i[].i[]return $p$  
+.i[].i[]return $\\text{node-from}(p,\\varnothing,\\varnothing)$  
 .i[]} else {  
 .i[].i[]...  
 .i[]}  
