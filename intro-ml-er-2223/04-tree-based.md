@@ -478,8 +478,8 @@ function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$ {
 .i[].i[].col2[$(j, \\tau) \\gets \\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$]  
 .i[].i[]$t \\gets \\text{node-from}($  
 .i[].i[].i[]$(j,\\tau),$  
-.i[].i[].i[]$\\htmlClass{col3}{\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x\_j \\le \\tau})},$ .comment[//recursion]  
-.i[].i[].i[]$\\htmlClass{col3}{\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x\_j > \\tau})}$ .comment[//recursion]  
+.i[].i[].i[]$\\htmlClass{col3}{\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau})},$ .comment[//recursion]  
+.i[].i[].i[]$\\htmlClass{col3}{\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau})}$ .comment[//recursion]  
 .i[].i[])  
 .i[].i[]return $t$  
 .i[]}  
@@ -501,7 +501,7 @@ otext(350,10,'$t$')
 3. .col3[repeat step 1 once for each on the two resulting regions]
 
 .note[
-$\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x\_j \\le \\tau}$ is the sub-multiset of $\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}$ composed of pairs for which $x\_j \\le \\tau$
+$\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau}$ is the sub-multiset of $\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}$ composed of pairs for which $x\_j \\le \\tau$
 ]
 ]
 ]
@@ -526,7 +526,7 @@ This $f'\\subtext{learn}$ is called .key[recursive binary splitting]:
 **In detail** (and formally):
 .pseudo-code.compact[
 function $\\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$ {  
-.i[]$(j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} \\left(\\text{error}(\\htmlClass{col1}{\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j \\le \\tau}})+\\text{error}(\\htmlClass{col1}{\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j > \\tau}})\\right)$  
+.i[]$(j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} \\left(\\text{error}(\\htmlClass{col1}{\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau}})+\\text{error}(\\htmlClass{col1}{\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau}})\\right)$  
 .i[]return $(j^\\star, \\tau^\\star)$  
 }
 ]
@@ -565,14 +565,18 @@ This approach is **greedy**, since it tries to obtain the maximum result (findin
 **In detail** (and formally):
 .pseudo-code.compact[
 function $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ {  
-.i[]if .col1[$\\text{error}(\\seq{y^{(i)}}{i})=0$] then {  
+.i[]if .col2[$n \\le n\\subtext{min}$] then { .comment[//$n=|\\seq{y^{(i)}}{i}|$]  
 .i[].i[] return $\\text{true}$;  
 .i[]}  
-.i[]if .col2[$n \\le n\\subtext{min}$] then { .comment[//$n=|\\seq{y^{(i)}}{i}|$]  
+.i[]if .col1[$\\text{error}(\\seq{y^{(i)}}{i})=0$] then {  
 .i[].i[] return $\\text{true}$;  
 .i[]}  
 .i[]return $\\text{false}$  
 }
+]
+
+.note[
+Checking the first condition is, in general, cheaper than checking the second condition.
 ]
 ]
 .c50[
@@ -838,8 +842,8 @@ function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {
 .i[].i[]$(j, \\tau) \\gets \\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$  
 .i[].i[]$t \\gets \\text{node-from}($  
 .i[].i[].i[]$(j,\\tau),$  
-.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x\_j \\le \\tau}, n\\subtext{min}),$  
-.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x\_j > \\tau}, n\\subtext{min})$  
+.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau}, n\\subtext{min}),$  
+.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau}, n\\subtext{min})$  
 .i[].i[])  
 .i[].i[]return $t$  
 .i[]}  
@@ -858,7 +862,7 @@ What's the accuracy of this $t$ on the learning set?
 
 .pseudo-code.compact[
 function $\\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$ {  
-.i[]$(j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} \\left(\\htmlClass{col1}{\\text{error}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j \\le \\tau})}+\\htmlClass{col1}{\\text{error}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j > \\tau})}\\right)$  
+.i[]$(j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} \\left(\\htmlClass{col1}{\\text{error}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau})}+\\htmlClass{col1}{\\text{error}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau})}\\right)$  
 .i[]return $(j^\\star, \\tau^\\star)$  
 }
 ]
@@ -896,7 +900,7 @@ otext(275,10,'$e \\\\in \\\\mathbb{R}^+$')
 
 .pseudo-code.compact[
 function $\\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, \\htmlClass{col1}{f\\subtext{impurity}})$ {  
-.i[]$(j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} \\left(\\htmlClass{col1}{f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j \\le \\tau})}+\\htmlClass{col1}{f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j > \\tau})}\\right)$  
+.i[]$(j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} \\left(\\htmlClass{col1}{f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau})}+\\htmlClass{col1}{f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau})}\\right)$  
 .i[]return $(j^\\star, \\tau^\\star)$  
 }
 ]
@@ -932,14 +936,14 @@ Gini and cross-entropy are **smoother** than the error.
 .cols[
 .c50[
 *Original* version: (**data size**)
-- no errors or
-- too few examples
+- too few examples or
+- no errors
 
-.center[.col1[$\\text{error}(\\seq{y^{(i)}}{i})=0$] or .col1[$n \\le n\\subtext{min}$]]
+.center[.col1[$n \\le n\\subtext{min}$] or .col1[$\\text{error}(\\seq{y^{(i)}}{i})=0$]]
 
 Alternative 1 (**tree depth**):
-- no errors or
-- node depth deeper than $\\tau_m$
+- node depth deeper than $\\tau_m$ or
+- no errors
 
 .note[requires propagating recursively the depth of the node being currently built]
 
@@ -950,10 +954,10 @@ Alternative 1 (**node impurity**):
 .c50[
 .pseudo-code.compact[
 function $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ {  
-.i[]if .col1[$\\text{error}(\\seq{y^{(i)}}{i})=0$] then {  
+.i[]if .col1[$n \\le n\\subtext{min}$] then {  
 .i[].i[] return $\\text{true}$;  
 .i[]}  
-.i[]if .col1[$n \\le n\\subtext{min}$] then { .comment[//$n=|\\seq{y^{(i)}}{i}|$]  
+.i[]if .col1[$\\text{error}(\\seq{y^{(i)}}{i})=0$] then {  
 .i[].i[] return $\\text{true}$;  
 .i[]}  
 .i[]return $\\text{false}$  
@@ -1025,8 +1029,8 @@ function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {
 .i[].i[]$(j, \\tau) \\gets \\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$  
 .i[].i[]$t \\gets \\text{node-from}($  
 .i[].i[].i[]$(j,\\tau),$  
-.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x\_j \\le \\tau}, n\\subtext{min}),$  
-.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x\_j > \\tau}, n\\subtext{min})$  
+.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau}, n\\subtext{min}),$  
+.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau}, n\\subtext{min})$  
 .i[].i[])  
 .i[].i[]return $t$  
 .i[]}  
@@ -1366,8 +1370,8 @@ function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {
 .i[].i[]$(j, \\tau) \\gets \\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$  
 .i[].i[]$t \\gets \\text{node-from}($  
 .i[].i[].i[]$(j,\\tau),$  
-.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x\_j \\le \\tau}, n\\subtext{min}),$  
-.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x\_j > \\tau}, n\\subtext{min})$  
+.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau}, n\\subtext{min}),$  
+.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau}, n\\subtext{min})$  
 .i[].i[])  
 .i[].i[]return $t$  
 .i[]}  
@@ -1706,10 +1710,10 @@ function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {
 
 .pseudo-code.compact[
 function $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ {  
-.i[]...  
 .i[]if .col1[$n \\le n\\subtext{min}$] then {  
 .i[].i[] return $\\text{true}$;  
 .i[]}  
+.i[]...  
 .i[]return $\\text{false}$  
 }
 ]
@@ -2056,7 +2060,7 @@ Suppose you want to compare it against the plain version (with hyperparameter):
 
 class: middle, center
 
-### Categorical independent variable and regression
+### Categorical independent variables and regression
 
 ---
 
@@ -2086,9 +2090,9 @@ Can we remove these constraints?
 .c50[
 **With numerical variables** ($x\_j \\in \\mathbb{R}$):
 
-With $\\text{find-best-branch()}$, we find a variable $x\_j$ and a **threshold value** $\\tau$ that well separates the data, i.e., we split the data in:
-- observations such that $x\_j \\le \\tau$
-- observations such that $x\_j > \\tau$
+With $\\text{find-best-branch()}$, we find (the index $j$ of) a variable $x\_j$ and a .col1[**threshold value** $\\tau$] that well separates the data, i.e., we split the data in:
+- observations such that .col1[$x\_j \\le \\tau$]
+- observations such that .col1[$x\_j > \\tau$]
 
 No other cases exist: it's a binary split.
 
@@ -2115,9 +2119,9 @@ link([160,110,180,130])
 .c50[
 **With categorical variables** ($x\_j \\in X\_j$):
 
-With $\\text{find-best-branch()}$, we find a variable $x\_j$ and a **set of values** $X'\_j \\subset X\_j$ that well separates the data, i.e., we split the data in:
-- observations such that $x\_j \\in X'\_j$
-- observations such that $x\_j \\not\\in X'\_j$
+With $\\text{find-best-branch()}$, we find (the index $j$ of) a variable $x\_j$ and a .col1[**set of values** $X'\_j \\subset X\_j$] that well separates the data, i.e., we split the data in:
+- observations such that .col1[$x\_j \\in X'\_j$]
+- observations such that .col1[$x\_j \\not\\in X'\_j$]
 
 No other cases exist: it's a binary split.
 
@@ -2148,16 +2152,16 @@ link([160,110,180,130])
 ## Efficiency with categorical variables
 
 For a given **numerical variable** $x\_j \\in \\mathbb{R}$, we choose $\\tau^\\star$ such that:
-$$\\tau^\\star = \\argmin\_{\\tau \\in \\mathbb{R}} \\left(f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j \\le \\tau})+f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j > \\tau})\\right)$$
-In practice, we search the set of midpoints rather than the entire $\\mathbb{R}$: there are $n-1$ midpoints in a dataset with $n$ elements.
+$$\\tau^\\star = \\argmin\_{\\htmlClass{col1}{\\tau \\in \\mathbb{R}}} \\left(f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau})+f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau})\\right)$$
+In practice, we .col1[search the set of midpoints] rather than the entire $\\mathbb{R}$: there are $n-1$ midpoints in a dataset with $n$ elements.
 
 .note[
 Even better, we can consider only the midpoints between consecutive values $x\_j^{(i\_1)},x\_j^{(i\_2)}$ for which the labels are different, i.e., $y\_j^{(i\_1)} \\ne y\_j^{(i\_2)}$
 ]
 
 For a given **categorical variable** $x\_j \\in X\_j$, we choose $X^\\star\_j \\subset X\_j$ such that:
-$$X^\\star\_j = \\argmin\_{X'\_j \\in \\mathcal{P}(X\_j)} \\left(f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j \\in X'\_j})+f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j \\not\\in X'\_j})\\right)$$
-We search the set $\\mathcal{P}(X\_j)$ of subsets (i.e., the powerset) of $X\_j$, which has $2^{|X\_j|}$ values.
+$$X^\\star\_j = \\argmin\_{\\htmlClass{col1}{X'\_j \\in \\mathcal{P}(X\_j)}} \\left(f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\in X'\_j})+f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\not\\in X'\_j})\\right)$$
+We .col1[search the set $\\mathcal{P}(X\_j)$] of subsets (i.e., the powerset) of $X\_j$, which has $2^{|X\_j|}$ values.
 
 ---
 
@@ -2179,21 +2183,168 @@ So the model is a $t \\in$:
 
 ---
 
-## Regression tree
+## Regression trees
 
-Recursive binary splitting may be used for regression: the learned trees are called .key[regression trees]:
+Recursive binary splitting may be used for regression: the learned trees are called .key[regression trees].
 
 **Required changes**:
 - in $f'\\subtext{learn}$, when $\\text{should-stop}()$ is met, "most frequent class label" does not make sense anymore
+  - because we have numbers, not classes
 - in $\\text{find-best-branch}()$, minimizing the $\\text{error}()$ does not make sense anymore (same for $\\text{gini}()$ and $\\text{cross-entropy}()$)
+  - because these indexes are for categorical values, not numbers
 - in $\\text{should-stop}()$, checking if $\\text{error}()=0$ does not make sense anymore
+  - because (classification) error is for categorical values, not numbers
 
 ---
 
-<!--
-variant with categorical x
-variant with regression
+## Terminal node labels
 
+In $f'\\subtext{learn}$, when $\\text{should-stop}()$ is met, "most frequent class label" does not make sense anymore.
+
+**Solution**: use the mean $\\overline{y}$.
+
+.cols[
+.c50[
+**Classification**
+
+The terminal node label is the **most frequent class**:
+.col1[$$y^\\star=\\argmax\_{y \\in Y} \\freq{y,\\seq{y^{(i)}}{i}}$$]
+
+If you have to choose just one $y$, $y^\\star$ is the one that minimizes the **classification error**.
+
+]
+.c50[
+**Regression**
+
+The terminal node label is the **mean $y$ value**:
+.col1[$$y^\\star=\\frac{1}{n} \\sum\_i y^{(i)}=\\overline{y}$$]
+
+If you have to choose just one $y$, $y^\\star$ is the one that minimizes the **MSE**.
+]
+]
+
+--
+
+Indeed a *dummy regressor* predicting always the mean value $\\overline{y}$ should be considered a baseline for regression, like the dummy classifier is a baseline for classification:
+- if you want to do a prediction without using the $x$, then $\\overline{y}$ is the best you can do (on the learning dataset)
+
+---
+
+## Finding the best branch
+
+In $\\text{find-best-branch}()$, minimizing the $\\text{error}()$ does not make sense anymore (same for $\\text{gini}()$ and $\\text{cross-entropy}()$).
+
+**Solution**: use the **residual sum of squares (RSS)**.
+
+.cols[
+.c50[
+**Classification**
+
+The branch is chosen for which **the sum of the impurity** on the two sides is the lowest:
+$$\\htmlClass{col1}{\\begin{align\*}
+  (j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} ( &\\text{error}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau})+\\\\
+  & \\text{error}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau}))\\end{align\*}}$$
+.note[similarly, for categorical variables]
+
+]
+.c50[
+**Regression**
+
+The branch is chosen for which **the sum of the RSS** on the two sides is the lowest:
+$$\\htmlClass{col1}{\\begin{align\*}
+  (j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} ( &\\text{RSS}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau})+\\\\
+  & \\text{RSS}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau}))\\end{align\*}}$$
+where:
+$$\\text{RSS}(\\seq{y^{(i)}}{i}) = \\sum\_i \\left(y^{(i)}-\\overline{y}\\right)^2$$
+
+.note[similarly, for categorical variables; $\\text{RSS}(\\cdot) = n \\text{MSE}(\\cdot)$]
+]
+]
+
+---
+
+## Stopping criterion
+
+In $\\text{should-stop}()$, checking if $\\text{error}()=0$ does not make sense anymore.
+
+**Solution**: just use RSS.
+
+.cols[
+.c50[
+**Classification**
+
+Stop if $n\\le n\\subtext{min}$ or $\\text{error}()=0$.
+
+.pseudo-code.compact[
+function $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ {  
+.i[]if $n \\le n\\subtext{min}$ then {  
+.i[].i[] return $\\text{true}$;  
+.i[]}  
+.i[]if .col1[$\\text{error}(\\seq{y^{(i)}}{i})=0$] then {  
+.i[].i[] return $\\text{true}$;  
+.i[]}  
+.i[]return $\\text{false}$  
+}
+]
+
+]
+.c50[
+**Regression**
+
+Stop if $n\\le n\\subtext{min}$ or $\\text{RSS}()=0$.
+
+.pseudo-code.compact[
+function $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ {  
+.i[]if $n \\le n\\subtext{min}$ then {  
+.i[].i[] return $\\text{true}$;  
+.i[]}  
+.i[]if .col1[$\\text{RSS}(\\seq{y^{(i)}}{i})=0$] then {  
+.i[].i[] return $\\text{true}$;  
+.i[]}  
+.i[]return $\\text{false}$  
+}
+]
+
+In practice, the condition $\\text{RSS}()=0$ holds much more unfrequently than the condition $\\text{error}()=0$.
+]
+]
+
+---
+
+## Visualizing the model
+
+With few variables, $p\\le 2$ for classification, $p=1$ for regression, the model can be visualized.
+
+.cols[
+.c50[
+**Classification**
+
+.w75p.center[![Classifier on carousel](images/carousel-if-2.png)]
+
+The colored regions are **the model**.
+The border(s) between regions with different colors (i.e., different decisions) is the  .key[decision boundary].
+]
+.c50[
+**Regression**
+
+.w75p.center[![Regressor example](images/regression-tree-data-example.png)]
+
+<!--
+x=seq(0,5,0.1)
+x=x+rnorm(length(x))*0.1
+d=as.data.frame(rbind(cbind(x=x,y=sin(x)+rnorm(length(x))*0.2,name="data"),cbind(x=c(-1,0.5,3,6),y=c(0.1,0.75,-0.4,-0.4),name="model")))
+d$x=as.numeric(d$x);d$y=as.numeric(d$y);d$name=factor(d$name)
+d %>% pivot_wider(values_from="y") %>% ggplot(aes(x,y=data,color="data"))+geom_point()+geom_step(aes(x,y=model,color="model"))+scale_color_manual(values=c("#648FFF", "#DC267F", "#FE6100", "#785EF0", "#FFB000"))+ylab("y")+coord_cartesian(xlim=c(-0.5,5))
+-->
+
+The line is **the model**.
+
+**Question**: can you draw the tree for this model?
+]
+]
+
+
+<!--
 overfitting with tree regression
 
 limitation of straight lines, accuracy, oblique trees
