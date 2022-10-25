@@ -446,7 +446,7 @@ function $\\text{predict}(\\vect{x}, t)$ {
 
 ## Towards tree learning
 
-We have our $f'\\subtext{predict}: \\mathbb{R}^p \\times T\_{p,Y} \\to Y$; for having a learning technique we miss only the learning function, i.e., $f'\\subtext{learn}: \\mathcal{P}^*(\\mathbb{R}^p, Y) \\to T\_{p,Y}$:
+We have our $f'\\subtext{predict}: \\mathbb{R}^p \\times T\_{p,Y} \\to Y$; for having a learning technique we miss only the learning function, i.e., $f'\\subtext{learn}: \\mathcal{P}^*(\\mathbb{R}^p \\times Y) \\to T\_{p,Y}$:
 .diagram.center[
 link([0,25,150,25],'a')
 rect(150,0,150,50)
@@ -976,7 +976,7 @@ Impact of the parameter:
 .cols[
 .c40[
 Learning technique with probability:
-- $f'\\subtext{learn}: \\mathcal{P}^*(X,Y) \\to M$
+- $f'\\subtext{learn}: \\mathcal{P}^*(X \\times Y) \\to M$
 - $f''\\subtext{predict}: X \\times M \\to P\_Y$
 ]
 .c60[
@@ -999,7 +999,7 @@ otext(512.5,35,'$y$')
 ]
 
 For tree learning:
-- $f'\\subtext{learn}: \\htmlClass{col1}{\\mathcal{P}^*(X\_1 \\times \\dots \\times X\_p,Y)} \\to \\htmlClass{col2}{T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}}$
+- $f'\\subtext{learn}: \\htmlClass{col1}{\\mathcal{P}^*(X\_1 \\times \\dots \\times X\_p \\times Y)} \\to \\htmlClass{col2}{T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}}$
   - given a .col1[multivariate dataset], returns a .col2[tree] in $T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}$
 - $f''\\subtext{predict}: \\htmlClass{col1}{X\_1 \\times \\dots \\times X\_p} \\times \\htmlClass{col2}{T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}} \\to \\htmlClass{col3}{P\_Y}$
   - given a .col1[multivariate observation] and a .col2[tree], returns a .col3[discrete probability distribution] $p \\in P\_Y$
@@ -1753,7 +1753,7 @@ In principle:
 2. observe the system
 3. compare their complexity:
   - if the model is **too simple** with respect to the system, that's **underfitting**
-  - if the model is **too complex** with respect to the system, that's **oveerfitting**
+  - if the model is **too complex** with respect to the system, that's **overfitting**
 
 --
 
@@ -1791,7 +1791,7 @@ as.data.frame(cbind(flexibility=x,learning=((x-1)*(x-1)+0.1)/3)) %>% mutate(test
 .compact[
 Practical procedure:
 1. consider **several values of the flexibility** parameter
-2. for each model
+2. for each value of the flexibility parameter
   1. learn a model
   2. measure¹ its effectiveness² on the **learning** data
   3. measure¹ its effectiveness² on the **test** data
@@ -1874,7 +1874,7 @@ A simple form of hyperparameter tuning:
 5. take the best hyperparameters $p^\\star\_1,\\dots,p^\\star\_h$ such that: $$(p^\\star\_1,\\dots,p^\\star\_h)=\\argmax\_{(p\_1,\\dots,p\_h) \\in P'\_1 \\times \\dots \\times P'\_h} \\htmlClass{col1}{f\\subtext{learn-effect}}(\\htmlClass{col2}{f'\\subtext{learn}(\\cdot,p\_1,\\dots,p\_h),f'\\subtext{predict}},D)$$
 
 Remarks:
-- .col1[$f\\subtext{learn-effect}$] is the chosen .col1[assessment method] measuring the chosen (step 3) effectiveness index with the chosen (step 4) learning/test division: it takes a learning technique **and a dataset** $D$
+- .col1[$f\\subtext{learn-effect}$] is the chosen .col1[assessment method] measuring the chosen (step 2) effectiveness index with the chosen (step 3) learning/test division: it takes a learning technique **and a dataset** $D$
   - .col2[$f'\\subtext{learn}(\\cdot,p^\\star\_1,\\dots,p^\\star\_h),f'\\subtext{predict}$] is the learning technique; $f'\\subtext{learn}(\\htmlClass{col3}{\\cdot},\\htmlClass{col4}{p\_1,\\dots,p\_h})$ is the learning function with fixed hyperparameters .col4[$p\_1,\\dots,p\_h$] and variable .col3[dataset $\\cdot$]
 - to be feasible, $P'\_1 \\times \\dots \\times P'\_h$ must be **small**!
 
@@ -2005,7 +2005,7 @@ function $\\text{learn-free}(D)$ {
 .i[].col3[$f\\subtext{learn-effect} \\gets \\dots$]  
 .i[]$p^\\star\_1,\\dots,p^\\star\_h \\gets \\varnothing$  
 .i[]$v\_{\\text{max},\\text{effect}} \\gets -\\infty$  
-.i[].col2[foreach $p\\_1,\\dots,p\\_h \\in P'\\_1,\\dots,P'\\_h$ {]  
+.i[].col2[foreach $p\\_1,\\dots,p\\_h \\in P'\\_1\\times \\dots\\times P'\\_h$ {]  
 .i[].i[].col2[$v\\subtext{effect} \\gets f\\subtext{learn-effect}(f'\\subtext{learn}(\\cdot,p\\_1,\\dots,p\\_h),f'\\subtext{predict},D)$]  
 .i[].i[].col2[if $v\\subtext{effect} \\ge v\\_{\\text{max},\\text{effect}}$ then {]  
 .i[].i[].i[].col2[$v\\_{\\text{max},\\text{effect}} \\gets v\\subtext{effect}$]  
@@ -2052,13 +2052,145 @@ Suppose you want to compare it against the plain version (with hyperparameter):
 - how many times is $f''\\subtext{predict}$ invoked?
 - how many times is $f'\\subtext{predict}$ invoked?
 
+---
+
+class: middle, center
+
+### Categorical independent variable and regression
+
+---
+
+## Applicability of $f'\\subtext{learn}$
+
+Up to now, the $f'\\subtext{learn}$ for trees (i.e., recursive binary splitting) was defined¹ as:
+$$f'\\subtext{learn}: \\mathcal{P}^*(X\_1 \\times \\dots \\times X\_p \\times Y) \\to T\_{(\\{1,\\dots,p\\}\\times \\mathbb{R}) \\cup Y}$$
+with:
+- each $X\_j \\subseteq \\mathbb{R}$, i.e., with **each .col1[independent] variable being .col1[numerical]**
+- $Y$ finite and without orderign, i.e., with the **dependent .col2[variable] being .col2[categorical]**
+
+These **constraints** were needed because:
+- the branch nodes contain conditions in the form .col1[$x\_j \\le \\tau$], hence an order relation has to be defined in $X\_j$; $\\mathbb{R}$ meets this requirement
+- the leaf nodes contain a .col2[class label $y$]
+
+Can we remove these constraints?
+
+.footnote[
+1. here we have the version without probability; with the one with, the codomain of $f'\\subtext{learn}$ is $T\_{(\\{1,\\dots,p\\}\\times \\mathbb{R}) \\cup P\_Y}$
+]
+
+---
+
+## Trees on categorical independent variables
+
+.cols[
+.c50[
+**With numerical variables** ($x\_j \\in \\mathbb{R}$):
+
+With $\\text{find-best-branch()}$, we find a variable $x\_j$ and a **threshold value** $\\tau$ that well separates the data, i.e., we split the data in:
+- observations such that $x\_j \\le \\tau$
+- observations such that $x\_j > \\tau$
+
+No other cases exist: it's a binary split.
+
+**Example**
+
+$x\\subtext{age} \\in [0,120]$
+
+.diagram.center.tree[
+rect(0,0,160,30)
+otext(80,15,'$x\\\\subtext{age}$ vs. $10$', 'small')
+link([80,30,15,80])
+otext(15,60,'$\\\\le$','small')
+rect(0,80,30,30)
+otext(15,95,'●','col1')
+link([80,30,160,80])
+otext(160,60,'$>$','small')
+rect(80,80,160,30)
+otext(160,95,'$x\\_{\\\\dots}$ vs. $\\\\dots$', 'small')
+link([160,110,140,130])
+link([160,110,180,130])
+]
+
+]
+.c50[
+**With categorical variables** ($x\_j \\in X\_j$):
+
+With $\\text{find-best-branch()}$, we find a variable $x\_j$ and a **set of values** $X'\_j \\subset X\_j$ that well separates the data, i.e., we split the data in:
+- observations such that $x\_j \\in X'\_j$
+- observations such that $x\_j \\not\\in X'\_j$
+
+No other cases exist: it's a binary split.
+
+**Example**
+
+$x\\subtext{city} \\in \\{\\text{Ts},\\text{Ud},\\text{Ve},\\text{Pn},\\text{Go}\\}$
+
+.diagram.center.tree[
+rect(0,0,160,30)
+otext(80,15,'$x\\\\subtext{city}$ vs. $\\\\{\\\\text{Ts},\\\\text{Ve}\\\\}$', 'small')
+link([80,30,15,80])
+otext(15,60,'$\\\\in$','small')
+rect(0,80,30,30)
+otext(15,95,'●','col1')
+link([80,30,160,80])
+otext(160,60,'$\\\\not\\\\in$','small')
+rect(80,80,160,30)
+otext(160,95,'$x\\_{\\\\dots}$ vs. $\\\\dots$', 'small')
+link([160,110,140,130])
+link([160,110,180,130])
+]
+
+]
+]
+
+---
+
+## Efficiency with categorical variables
+
+For a given **numerical variable** $x\_j \\in \\mathbb{R}$, we choose $\\tau^\\star$ such that:
+$$\\tau^\\star = \\argmin\_{\\tau \\in \\mathbb{R}} \\left(f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j \\le \\tau})+f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j > \\tau})\\right)$$
+In practice, we search the set of midpoints rather than the entire $\\mathbb{R}$: there are $n-1$ midpoints in a dataset with $n$ elements.
+
+.note[
+Even better, we can consider only the midpoints between consecutive values $x\_j^{(i\_1)},x\_j^{(i\_2)}$ for which the labels are different, i.e., $y\_j^{(i\_1)} \\ne y\_j^{(i\_2)}$
+]
+
+For a given **categorical variable** $x\_j \\in X\_j$, we choose $X^\\star\_j \\subset X\_j$ such that:
+$$X^\\star\_j = \\argmin\_{X'\_j \\in \\mathcal{P}(X\_j)} \\left(f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j \\in X'\_j})+f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x\_j \\not\\in X'\_j})\\right)$$
+We search the set $\\mathcal{P}(X\_j)$ of subsets (i.e., the powerset) of $X\_j$, which has $2^{|X\_j|}$ values.
+
+---
+
+## Trees with both kinds of variables
+
+Assume a problem with $X = \\htmlClass{col1}{X\_1 \\times \\dots \\times X\_{p\\subtext{num}}} \\times \\htmlClass{col2}{X\_{p\\subtext{num}+1} \\times \\dots \\times X\_{p\\subtext{num}+p\\subtext{cat}}}$, i.e.:
+- $p\\subtext{num}$ .col1[numerical variables]
+- $p\\subtext{cat}$ .col2[categorical variables]
+
+The labels of the tree nodes can be:
+- class labels $y \\in \\htmlClass{col3}{Y}$ or discrete probability distribution $p \\in \\htmlClass{col3}{P\_y}$ (terminal nodes)
+- branch conditions .col1[$\\{1,\\dots,p\\subtext{num}\\} \\times \\mathbb{R}$] for numerical variables (non-terminal nodes)
+- branch conditions .col2[$\\bigcup_{j=p\\subtext{num}+1}^{j=p\\subtext{num}+p\\subtext{cat}} \\{j\\} \\times \\mathcal{P}(X\_j)$] for categorical variables (non-terminal nodes)
+  - i.e., each variable with its corresponding powerset of possible values
+
+So the model is a $t \\in$:
+- $T\_{\\htmlClass{col1}{\\{1,\\dots,p\\subtext{num}\\} \\times \\mathbb{R}} \\; \\cup \\; \\htmlClass{col2}{\\bigcup_{j=p\\subtext{num}+1}^{j=p\\subtext{num}+p\\subtext{cat}} \\{j\\} \\times \\mathcal{P}(X\_j)} \\; \\cup \\; \\htmlClass{col3}{Y}}$, without probability
+- or $T\_{\\htmlClass{col1}{\\{1,\\dots,p\\subtext{num}\\} \\times \\mathbb{R}} \\; \\cup \\; \\htmlClass{col2}{\\bigcup_{j=p\\subtext{num}+1}^{j=p\\subtext{num}+p\\subtext{cat}} \\{j\\} \\times \\mathcal{P}(X\_j)} \\; \\cup \\; \\htmlClass{col3}{P\_Y}}$, with probability
+
+---
+
+## Regression tree
+
+Recursive binary splitting may be used for regression: the learned trees are called .key[regression trees]:
+
+**Required changes**:
+- in $f'\\subtext{learn}$, when $\\text{should-stop}()$ is met, "most frequent class label" does not make sense anymore
+- in $\\text{find-best-branch}()$, minimizing the $\\text{error}()$ does not make sense anymore (same for $\\text{gini}()$ and $\\text{cross-entropy}()$)
+- in $\\text{should-stop}()$, checking if $\\text{error}()=0$ does not make sense anymore
+
+---
+
 <!--
-
-how to set the proper value of the flexibility parameter?
-
-auto-tuning
-assessment of auto-tuning (nested cv)
-
 variant with categorical x
 variant with regression
 
