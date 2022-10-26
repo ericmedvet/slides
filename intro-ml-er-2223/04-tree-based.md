@@ -2343,6 +2343,22 @@ The line is **the model**.
 ]
 ]
 
+---
+
+## Overfitting with regression trees
+
+.cols[
+.c70[
+.w100p.center[![Example of regression trees with different complexities](images/tree-regression-overfitting.png)]
+]
+.c30[
+**Questions**
+- what's the problem size ($n$ and $p$)?
+- what's the model complexity?
+- how is the real system made?
+]
+]
+
 
 <!--
 overfitting with tree regression
