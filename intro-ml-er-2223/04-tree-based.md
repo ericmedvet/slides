@@ -2359,6 +2359,60 @@ The line is **the model**.
 ]
 ]
 
+---
+
+class: middle, center
+
+### Tree learning: brief recap
+
+---
+
+## Summary
+
+**Applicability** 👍👍
+- 👍 $Y$: both **regression and classification** (binary and multiclass)
+- 👍 $X$: multivariate $X$ with both **numerical and categorical** variables
+- 👍 models give probability¹
+- 👎 learning technique has one single parameter
+
+**Efficiency** 👍
+- 👍 in practice, pretty **fast** both in learning and prediction phase
+
+**Explainability/interpretability** 👍👍👍
+- 👍 the models can be *easily*² **visualized** (**global** explainability)
+- 👍 the decisions can be analyzed (**local** explainability)
+- 👍 the learning technique is itself comprehensible
+  - you should be able to implement by yourself
+
+.footnote[
+1. for classification; if $n\\subtext{min}=1$, it's *always* $100\%$
+2. if they are small enough...
+]
+
+--
+
+**So, why are we not using trees for/in every ML system?**
+
+---
+
+## Decision tree effectiveness
+
+.cols[
+.c60[
+.w100p.center[![Example of regression trees with different complexities](images/tree-vs-linear.png)]
+]
+.c40[
+The effectiveness depends on the problem and may be limited by the fact that branch nodes consider **one variable at once**.
+
+The decision boundary of the model is hence constrained to be locally parallel to one of the axes:
+- may be a limitation or not, depending on the problem
+
+.note[
+There exists **oblique decision trees**, which should overcome this limitation.
+]
+]
+]
+
 
 <!--
 overfitting with tree regression
