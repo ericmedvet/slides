@@ -852,9 +852,7 @@ function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {
 ]
 ]
 
-.note[
-What's the accuracy of this $t$ on the learning set?
-]
+.question[Question]: what's the accuracy of this $t$ on the learning set?
 
 ---
 
@@ -1458,7 +1456,7 @@ rect(145,300,30,30)
 otext(160,315,'●$\\\\smaller{1}$','col2')
 ]
 
-**Is this tree ok for you?**
+.question[Question]: **is this tree ok for you?**
 
 .note[hint: recall the *other* way of assessing a model, w/o the behavior]
 ]
@@ -1911,9 +1909,9 @@ Let's do hyperparameter tuning with grid search (assuming $|D|=n=1000$):
 ]
 ]
 
-How many times is $f'\\subtext{learn}$ invoked?
-
-How many times is $f''\\subtext{predict}$ invoked?
+.question[Questions]
+- how many times is $f'\\subtext{learn}$ invoked?
+- how many times is $f''\\subtext{predict}$ invoked?
 
 
 .footnote[
@@ -2043,13 +2041,13 @@ Consider the $f'\\subtext{learn}$ for trees and these two hyperparameters:
 
 Consider the improved, hyperparameter-free version of $f'\\subtext{learn}$ called $f'\\subtext{learn-free}$:
 - with accuracy and 10-fold CV
-- with $|P'\_1|=10$ and $|P'\_2|=P\_2$
+- with $|P'\_1|=10$ and $|P'\_2|=|P\_2|=3$
 
 Suppose you want to compare it against the plain version (with hyperparameter):
 - with AUC (midpoints) and 10-fold CV
 - using a dataset $|D|=n=1000$.
 
-**Questions**:
+.question[Questions]
 - what phases of the ML design process are we doing?
 - how many times is $f'\\subtext{learn-free}$ invoked?
 - how many times is $f'\\subtext{learn}$ invoked?
@@ -2070,7 +2068,7 @@ Up to now, the $f'\\subtext{learn}$ for trees (i.e., recursive binary splitting)
 $$f'\\subtext{learn}: \\mathcal{P}^*(X\_1 \\times \\dots \\times X\_p \\times Y) \\to T\_{(\\{1,\\dots,p\\}\\times \\mathbb{R}) \\cup Y}$$
 with:
 - each $X\_j \\subseteq \\mathbb{R}$, i.e., with **each .col1[independent] variable being .col1[numerical]**
-- $Y$ finite and without orderign, i.e., with the **dependent .col2[variable] being .col2[categorical]**
+- $Y$ finite and without ordering, i.e., with the **.col2[dependent] variable being .col2[categorical]**
 
 These **constraints** were needed because:
 - the branch nodes contain conditions in the form .col1[$x\_j \\le \\tau$], hence an order relation has to be defined in $X\_j$; $\\mathbb{R}$ meets this requirement
@@ -2173,8 +2171,8 @@ Assume a problem with $X = \\htmlClass{col1}{X\_1 \\times \\dots \\times X\_{p\\
 
 The labels of the tree nodes can be:
 - class labels $y \\in \\htmlClass{col3}{Y}$ or discrete probability distribution $p \\in \\htmlClass{col3}{P\_y}$ (terminal nodes)
-- branch conditions .col1[$\\{1,\\dots,p\\subtext{num}\\} \\times \\mathbb{R}$] for numerical variables (non-terminal nodes)
-- branch conditions .col2[$\\bigcup_{j=p\\subtext{num}+1}^{j=p\\subtext{num}+p\\subtext{cat}} \\{j\\} \\times \\mathcal{P}(X\_j)$] for categorical variables (non-terminal nodes)
+- branch conditions $\\htmlClass{col1}{\\{1,\\dots,p\\subtext{num}\\} \\times \\mathbb{R}}$ for numerical variables (non-terminal nodes)
+- branch conditions $\\htmlClass{col2}{\\bigcup_{j=p\\subtext{num}+1}^{j=p\\subtext{num}+p\\subtext{cat}} \\{j\\} \\times \\mathcal{P}(X\_j)}$ for categorical variables (non-terminal nodes)
   - i.e., each variable with its corresponding powerset of possible values
 
 So the model is a $t \\in$:
@@ -2339,7 +2337,7 @@ d %>% pivot_wider(values_from="y") %>% ggplot(aes(x,y=data,color="data"))+geom_p
 
 The line is **the model**.
 
-**Question**: can you draw the tree for this model?
+.question[Question]: can you draw the tree for this model?
 ]
 ]
 
@@ -2352,7 +2350,7 @@ The line is **the model**.
 .w100p.center[![Example of regression trees with different complexities](images/tree-regression-overfitting.png)]
 ]
 .c30[
-**Questions**
+.question[Questions]
 - what's the problem size ($n$ and $p$)?
 - what's the model complexity?
 - how is the real system made?
@@ -2406,19 +2404,12 @@ The effectiveness depends on the problem and may be limited by the fact that bra
 
 The decision boundary of the model is hence constrained to be locally parallel to one of the axes:
 - may be a limitation or not, depending on the problem
+- makes $\\text{find-best-branch()}$ computationally feasible
+  - because the search space is small
+  - because computing the error of the dummy classifier is fast (**greedy**)
 
 .note[
 There exists **oblique decision trees**, which should overcome this limitation.
 ]
 ]
 ]
-
-
-<!--
-overfitting with tree regression
-
-limitation of straight lines, accuracy, oblique trees
-
-summary
-
--->

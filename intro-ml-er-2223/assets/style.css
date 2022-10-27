@@ -243,6 +243,12 @@ span.note::after {
   background-color: #DC267F33;
   text-decoration-color: #DC267F;
 }
+.question {
+  font-weight: bold;
+  text-decoration-line: underline;
+  background-color: #648FFF33;
+  text-decoration-color: #648FFF;
+}
 .center{
   text-align: center;
 }
