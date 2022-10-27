@@ -344,3 +344,7 @@ span.note::after {
 .sem :last-child {
   margin-right: 0.25em;
 }
+.labo {
+  background-color: #648FFF66;
+  background-color: #FFB00066;
+}

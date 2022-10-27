@@ -2371,7 +2371,7 @@ class: middle, center
 - 👍 $Y$: both **regression and classification** (binary and multiclass)
 - 👍 $X$: multivariate $X$ with both **numerical and categorical** variables
 - 👍 models give probability¹
-- 👎 learning technique has one single parameter
+- 🫳³ learning technique has one single parameter
 
 **Efficiency** 👍
 - 👍 in practice, pretty **fast** both in learning and prediction phase
@@ -2385,6 +2385,7 @@ class: middle, center
 .footnote[
 1. for classification; if $n\\subtext{min}=1$, it's *always* $100\%$
 2. if they are small enough...
+3. 1 is better than $>1$, but worse than parameter-free, so 🫳
 ]
 
 --
@@ -2413,3 +2414,437 @@ There exists **oblique decision trees**, which should overcome this limitation.
 ]
 ]
 ]
+
+---
+
+class: middle, center
+
+## Towards the firts lab
+
+### Software for ML
+
+---
+
+## Implementing ML systems
+
+.cols[
+.c50[
+1. Decide: should I use ML?
+2. Decide: supervised vs. unsupervised
+3. Define the problem (problem statement):
+  - define $X$ and $Y$
+  - define a way for assessing solutions
+      - before designing!
+      - applicable to any compatible ML solution
+4. Design the ML system
+  - chooses a learning technique
+  - chooses/design pre- and post-processing steps
+5. .col1[Implement the ML system]
+  - .col1[learning/prediction phases]
+  - .col1[obtain the data]
+6. .col1[Assess the ML system]
+]
+.c50[
+Actual execution of:
+- pre-processing
+- learning
+- prediction
+- assessment
+
+is not made *by hand*, but by a **computer** that executes some software.
+]
+]
+
+---
+
+## Software for ML
+
+.cols[
+.c50[
+Nowadays, there are many options.
+
+A few:
+- **libraries** for general purpose languages:
+  - Java: e.g., [SMILE](https://haifengl.github.io/)
+  - Python: e.g., [scikit-learn](https://scikit-learn.org/stable/)
+  - ...
+- specialized software **environments**:
+  - [Octave](https://en.wikipedia.org/wiki/GNU_Octave)
+  - [R](https:
+//en.wikipedia.org/wiki/R_%28programming_language%29)
+- a software written from scratch
+
+And [many others](https://en.wikipedia.org/wiki/Category:Data_mining_and_machine_learning_software).
+]
+.c50[
+**How to choose a ML software?**
+
+Possible criteria:
+- platform constraints
+- degree of data pre/post-processing
+- production/prototype
+- documentation availability
+- community size
+- your previous familiarity/knowledge/skills
+]
+]
+
+---
+
+## Interface
+
+In general, the ML software provides an interface that models the key concepts of **learning** ($f'\\subtext{learn}$) and **prediction** ($f'\\subtext{predict}$) phases and the one of the **model**.
+
+Example (**Java+SMILE**):
+```java
+DataFrame dataFrame = ...
+RandomForest classifier = RandomForest.fit(Formula.lhs("label"), labels);
+Tuple observation = ...;
+int predictedLabel = classifier.predict(observation);
+```
+
+Example (**R**):
+```r
+d = ...
+classifier = randomForest(label~., d)
+newD = ...
+newLabels = predict(classifier, newD)
+```
+
+---
+
+class: middle, center
+
+### A (very) brief Introduction to R
+
+---
+
+## What is R?
+
+.cols[
+.c50[
+**R** is:
+- a programming language
+- a software environments with a text-based interactive UI (a *console*)
+
+[RStudio](https://www.rstudio.com/) is:
+- an IDE¹ built around R
+- also for doing **notebooks**, like in Python
+
+.note[
+1. integrated development environment
+]
+]
+.c50[
+Some R resources:
+- language documentation
+  - "[manual](https://cran.r-project.org/doc/manuals/r-release/R-lang.html)"
+- packages documentation
+  - for all: Comprehensive R Archive Network (CRAN)
+      - e.g., package manual for [RandomForest](https://cran.r-project.org/web/packages/randomForest/index.html)
+  - for "biggest" packages: their own site
+      - [Tidyverse](https://www.tidyverse.org/)
+- help from online communities
+  - [CrossValidated](http://stats.stackexchange.com/) (where `r` is the most popular tag)
+  - [StackOverflow](http://stackoverflow.com/)
+]
+]
+
+---
+
+## RStudio appearance
+
+.w75p.center[![RStudio appearance](images/rstudio.png)]
+
+---
+
+## RStudio appearance with a notebook
+
+.w75p.center[![RStudio appearance with a notebook](images/rstudio-notebook.png)]
+
+---
+
+## Data types
+
+There are some built-in data types.
+
+.cols[
+.c50[
+Basic:
+- numeric
+- character (i.e., strings)
+- logical (i.e., Booleans)
+- factor (i.e., categorical)
+- function
+- formula
+]
+.c50[
+Composed:
+- vector
+- matrix
+- data frame
+- list
+]
+]
+
+R is **not strongly typed**: there are (some) implicit conversions.
+
+--
+
+A peculiar data type is **formula**:
+- it describes a dependency
+- literals specify dependent and independent variables, e.g.:
+  - `decision~age+height`
+  - `Species~.` .note[`.` means "every other variable"]
+
+---
+
+## Assigning values
+
+.cols[
+.c60[
+```r
+> a=3
+> a
+[1] 3
+> v=c(1,2,3)
+> v
+[1] 1 2 3
+> d=as.data.frame(cbind(age=c(20,21,21))))
+> d$gender=factor(c("m","m","f"))
+> d
+  age gender
+1  20      2
+2  21      2
+3  21      1
+> levels(d$gender)
+[1] "f" "m"
+> dep=salary~degree.level+age
+> dep
+salary ~ degree.level + age
+> f = function(x) {x+3}
+> f(2)
+[1] 5
+```
+]
+.c40[
+- `a` is a numeric
+- `v` is a vector of numeric
+- `d` is a data frame
+- `dep` is a formula
+- `f` is a function
+- `cbind()` stays for column bind (there's an `rbind()` too)
+- `factor()` makes a vector of character a vector of factors
+- `levels()` gives the possible values of a factor, i.e.:
+  - `d$gender` is $\\seq{x\_2^{(i)}}{i}$
+  - `levels(d$gender)` is $X\_2$
+]
+]
+
+---
+
+## Reading/writing data
+
+There are many packages for reading weird file types.
+
+Some built-in functions for reading/writing CSV files (and variants):
+- `read.csv()`, `read.csv2()`, `read.table()`
+- `write.csv()`, `write.csv2()`, `write.table()`
+
+Some built-in functions for reading/writing data in a R-native format:
+- `save()`
+- `load()`
+
+---
+
+## Basic exploration of data
+
+.cols[
+.c50[
+With `summary()` (built-in)
+```r
+> d=iris
+> summary(d)
+  Sepal.Length    Sepal.Width     Petal.Length  
+ Min.   :4.300   Min.   :2.000   Min.   :1.000  
+ 1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600  
+ Median :5.800   Median :3.000   Median :4.350  
+ Mean   :5.843   Mean   :3.057   Mean   :3.758  
+ 3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100  
+ Max.   :7.900   Max.   :4.400   Max.   :6.900  
+  Petal.Width          Species  
+ Min.   :0.100   setosa    :50  
+ 1st Qu.:0.300   versicolor:50  
+ Median :1.300   virginica :50  
+ Mean   :1.199                  
+ 3rd Qu.:1.800                  
+ Max.   :2.500      
+```
+]
+.c50[
+With `skim()` from `skimr` package
+.compact[
+```r
+> skim(d)
+── Data Summary ────────────────────────
+                           Values
+Name                       d     
+Number of rows             150   
+Number of columns          5     
+_______________________          
+Column type frequency:           
+  factor                   1     
+  numeric                  4     
+________________________         
+Group variables            None  
+
+── Variable type: factor ────────────────────────────
+  skim_variable n_missing complete_rate ordered
+1 Species               0             1 FALSE  
+  n_unique top_counts               
+1        3 set: 50, ver: 50, vir: 50
+
+── Variable type: numeric ───────────────────────────
+  skim_variable n_missing complete_rate mean    sd
+1 Sepal.Length          0             1 5.84 0.828
+2 Sepal.Width           0             1 3.06 0.436
+3 Petal.Length          0             1 3.76 1.77
+4 Petal.Width           0             1 1.20 0.762
+   p0 p25  p50 p75 p100 hist
+1 4.3 5.1 5.8  6.4  7.9 ▆▇▇▅▂
+2 2   2.8 3    3.3  4.4 ▁▆▇▂▁
+3 1   1.6 4.35 5.1  6.9 ▇▁▆▇▂
+4 0.1 0.3 1.3  1.8  2.5 ▇▁▇▅▃
+```
+]
+]
+]
+
+Sizes with `length()`, `dim()`, `nrow()`, `ncol()`; names with `names()` (same of `colnames()`), `rownames()`
+- names change with `names(d)[2:3] =  c("cows", "dogs")`
+
+.note[
+Here `d` is a multivariate dataset, but which variable is $y$ is not specified.
+]
+
+---
+
+## Selecting portions of data
+
+.cols[
+.c50[
+On vectors:
+```r
+> v=seq(1,2,by=0.25)
+> v
+[1] 1.00 1.25 1.50 1.75 2.00
+> v[2]
+[1] 1.25
+> v[2:3]
+[1] 1.25 1.50
+> v[-2]
+[1] 1.00 1.50 1.75 2.00
+> v[c(1,2,4)]
+[1] 1.00 1.25 1.75
+> v[c(T,F,F,T)]
+[1] 1.00 1.75 2.00
+> v[v<1.6]
+[1] 1.00 1.25 1.50
+> v[which(v<1.6)]
+[1] 1.00 1.25 1.50
+```
+]
+.c50[
+On data frames:
+```r
+> d
+  age gender
+1  20      m
+2  21      m
+3  21      f
+> d[1,2]
+[1] m
+Levels: f m
+> d[,2]
+[1] m m f
+Levels: f m
+> d[1,]
+  age gender
+1  20      m
+> d$age
+[1] 20 21 21
+```
+
+.question[Question]: what *is* `d[,c("age","age")]`?
+]
+]
+
+---
+
+## Like a pro with `tidyverse`
+
+.cols[
+.c60[
+```r
+> iris %>% group_by(Species) %>%
+  summarize_at(vars(Sepal.Length,Sepal.Width),
+  list(mean=mean,sd=sd))
+  %>% pivot_longer(-Species)
+# A tibble: 12 × 3
+   Species    name              value
+   <fct>      <chr>             <dbl>
+ 1 setosa     Sepal.Length_mean 5.01
+ 2 setosa     Sepal.Width_mean  3.43
+ 3 setosa     Sepal.Length_sd   0.352
+ 4 setosa     Sepal.Width_sd    0.379
+ 5 versicolor Sepal.Length_mean 5.94
+ 6 versicolor Sepal.Width_mean  2.77
+ 7 versicolor Sepal.Length_sd   0.516
+ 8 versicolor Sepal.Width_sd    0.314
+ 9 virginica  Sepal.Length_mean 6.59
+10 virginica  Sepal.Width_mean  2.97
+11 virginica  Sepal.Length_sd   0.636
+12 virginica  Sepal.Width_sd    0.322
+```
+]
+.c40[
+Useful for:
+- transforming data with `dplyr` ([cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf))
+- plotting¹ with `ggplot2` ([cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/data-visualization-2.1.pdf))
+- reshaping with `tidyr` ([cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/tidyr.pdf))
+- reading data with `readr` ([cheatsheet](https://readr.tidyverse.org/#cheatsheet))
+
+**Very useful**, indeed!
+
+.note[
+1. The built-in function for plotting is `plot()`; since it is overloaded for many custom data types, you can always try feeding `plot()` with something and see what happens...
+]
+
+]
+]
+
+---
+
+class: middle, center
+
+### (Ready for the) first lab!
+
+---
+
+class: labo
+
+## Lab 1: hardest var in Iris
+
+1. consider the Iris dataset
+2. design and implement a ML-based procedure for answering this question:
+
+.center[**what's the hardest variable to be predicted in the dataset?**]
+
+Hints:
+- the Iris dataset is built-in in R: `iris`
+- there are (at least) two packages for tree learning with R
+  - `tree`
+  - `rpart` .note[this might be a bit better]
+- most packages for doing supervised learning has two functions for learning and prediction:
+  - packageName`()` for learning (e.g., `tree` or `rpart`)
+  - `predict()` for prediction
