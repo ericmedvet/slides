@@ -2419,7 +2419,7 @@ There exists **oblique decision trees**, which should overcome this limitation.
 
 class: middle, center
 
-## Towards the firts lab
+## Towards the first lab
 
 ### Software for ML
 
@@ -2498,7 +2498,7 @@ In general, the ML software provides an interface that models the key concepts o
 Example (**Java+SMILE**):
 ```java
 DataFrame dataFrame = ...
-RandomForest classifier = RandomForest.fit(Formula.lhs("label"), labels);
+RandomForest classifier = RandomForest.fit(Formula.lhs("label"), dataFrame);
 Tuple observation = ...;
 int predictedLabel = classifier.predict(observation);
 ```
