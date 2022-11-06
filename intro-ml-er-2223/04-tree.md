@@ -1,4 +1,4 @@
-impurityclass: middle, center
+class: middle, center
 
 # Tree-based learning techniques
 
