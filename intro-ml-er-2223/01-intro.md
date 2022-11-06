@@ -77,7 +77,7 @@ Labs:
 
 1st part (6 CFUs, 48 hours): .note[for all: [IN20](https://corsi.units.it/IN20/descrizione-corso), [IN19](https://corsi.units.it/IN20/descrizione-corso), [SM35](https://dssc.units.it/), [SM34](https://corsi.units.it/SM34/descrizione-corso), and [SM64](https://corsi.units.it/SM64/descrizione-corso)]
 - what is machine learning?
-- evaluating a ML system
+- evaluating an ML system
 - supervised learning techniques
 - clustering
 - application to text
@@ -87,7 +87,7 @@ Labs:
 - significant applications in robotics
 
 Focus on **methodology**:
-- how to **design**, build, and **evaluate** a ML (or EC) system?
+- how to **design**, build, and **evaluate** an ML (or EC) system?
 
 ---
 
@@ -163,7 +163,7 @@ public static String sayHello(String name) {
 ## Lab activities and how to attend
 
 Focus on **methodology**:
-- how to **design**, build, and **evaluate** a ML (or EC) system?
+- how to **design**, build, and **evaluate** an ML (or EC) system?
 
 Practice (in designing, building, evaluating) **is fundamental!**
 
@@ -199,7 +199,7 @@ When:
 ## Tutor
 
 Federico Pigozzi
-- 2nd year PhD student enroled in the Industrial and information engineering PhD program at the [Departmenet of Engineering and Architecture](https://dia.units.it/), [University of Trieste](https://www.units.it/)
+- 2nd year PhD student enrolled in the Industrial and information engineering PhD program at the [Departmenet of Engineering and Architecture](https://dia.units.it/), [University of Trieste](https://www.units.it/)
 - former student of this course
 - online at: [pigozzif.github.io](https://pigozzif.github.io/)
 
@@ -218,7 +218,7 @@ The exam consists of two parts:
 
 The written test consists of few ($\\approx$ 6) questions, some with medium-length answer, some with short answer, to be done in 1h.
 
-The project consists in the design, development, and assessment of a ML system dealing with one "problem" chosen among a few options ([examples](https://medvet.inginf.units.it/teaching/2223-intro-ml-er/project/)).
+The project consists in the design, development, and assessment of an ML system dealing with one "problem" chosen among a few options ([examples](https://medvet.inginf.units.it/teaching/2223-intro-ml-er/project/)).
 - **the student delivers a description, not the software**
 - the description is evaluated for **clarity**, technical soundness, (amount of) results
 - may be done in group

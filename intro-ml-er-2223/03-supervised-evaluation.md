@@ -7,9 +7,9 @@ class: middle, center
 ## What to assess?
 
 **Subject** of the assessment:
-- a ML system (all components)
+- an ML system (all components)
 - a supervised learning technique ($f\\subtext{learn}$ and $f\\subtext{predict}$)
-- a model ($m$ used in a $f'\\subtext{predict}$)
+- a model ($m$ used in an $f'\\subtext{predict}$)
 
 ---
 
@@ -34,7 +34,7 @@ Given an axis $a$ of assessment:
 - absolute assessment: does something meet the expectation in terms of $a$?
   - is a model effective *enough*?
   - is a learning technique explainable *enough*?
-  - is a ML system efficient *enough*?
+  - is an ML system efficient *enough*?
 - **comparison**: is one thing better than one other thing in terms of $a$?
   - is model $m_1$ more effective than model $m_2$? .note[maybe obtained with same technique and different parameters]
   - is this learning technique more efficient than that learning technique?
@@ -71,7 +71,7 @@ A **model** has one goal:
 
 --
 
-Eventually, **effectiveness is about making good decision**!
+Eventually, **effectiveness is about making good decisions**!
 - Ideally, we want to **measure** effectiveness with numbers.
 
 ---
@@ -84,11 +84,11 @@ Recall: $f\\subtext{predict}$, possibly through $f'\\subtext{predict}$ and a mod
 
 **Key underlying assumption**: $y$ depends on $x$.
 That is, there **exists** some **real system** $s: X \\to Y$ that, given an $x$ produces a $y$ based on $x$, that is, $s \\in \\mathcal{F}\_{X \\to Y}$:
-- given some a flat $x$, an **economical system** determines the price $y$ of $x$ on the real estate market
+- given a flat $x$, an **economical system** determines the price $y$ of $x$ on the real estate market
 - given two basketball teams about to play a match $x$, a **sport event** determines the outcome $y$ of $x$
 
-Or, there exists in reality some system $s^{-1}: Y \\to X$ that, given an $y$ produces a $x$ based on $y$:
-- given a seed of an Iris flower of a given species $y$, the **Nature** eventually develops $y$ in an Iris flower $x$
+Or, there exists in reality some system $s^{-1}: Y \\to X$ that, given an $y$ produces an $x$ based on $y$:
+- given a seed of an Iris flower of a given species $y$, the **nature** eventually develops $y$ in an Iris flower $x$
 
 .cols[
 .c50.center[
@@ -116,7 +116,7 @@ otext(262.5,10,'$y$')
 ]
 
 .note[
-A templated $f'\\subtext{predict}: X \\times M \\to Y$ with a fixed model $m$ is a $f\\subtext{predict}: X \\to Y$.
+A templated $f'\\subtext{predict}: X \\times M \\to Y$ with a fixed model $m$ is an $f\\subtext{predict}: X \\to Y$.
 ]
 
 ---
@@ -411,7 +411,7 @@ However, in practice $Y$ is a finite set without ordering.
 
 In principle, accuracy is in $[0,1]$.
 
-Recall that in the $f\\subtext{acc}$ is part of a $f\\subtext{comp-behavior}$ that should measure how well a model $m$ models a real system $s$.  
+Recall that in the $f\\subtext{acc}$ is part of an $f\\subtext{comp-behavior}$ that should measure how well a model $m$ models a real system $s$.  
 What are the **ideal extreme cases** in practice:
 - $m$ is $s$, so it **perfectly models** $s$
 - $m$ is **random**, does not model any dependency of $y$ on $x$
@@ -424,7 +424,7 @@ From another point of view, what would be the accuracy of a:
 
 ## The random classifier (lower bound)
 
-The .key[random classifier]¹ is a $X \\to Y$ doing:
+The .key[random classifier]¹ is an $X \\to Y$ doing:
 
 $$f\\subtext{rnd}(x) = y_i \\text{ with } i \\sim U(\\{1,\\dots,|Y|\\})$$
 
@@ -526,7 +526,7 @@ If $s$ is **deterministic**, the accuracy of $f\\subtext{perfect}(x)$ is 100% on
 
 Are real systems deterministic in practice?
 - system that makes a mail spam or not-spam
-- Iris species (where Nature is a $s^{-1}$...)
+- Iris species (where nature is an $s^{-1}$...)
 - a bank employee who decides whether or not to grant a loan
 - the real estate market forming the price of a flat ($Y=\\mathbb{R}^+$)
 
@@ -656,7 +656,7 @@ Consider the random classifier as a supervised learning technique:
 
 Hence, formally:
 - a .col2[model $m \\in M$ is]:
-  - the frequencies classes $\\htmlClass{col2}{\\vect{f} = (f\_1,\\dots,f\_{|Y|})}$, with $M=F\_Y=\\{\\vect{f} \\in [0,1]^{|Y|}: \\lVert \\vect{f} \\rVert\_1=1\\}$ .note[
+  - the class **frequencies** $\\htmlClass{col2}{\\vect{f} = (f\_1,\\dots,f\_{|Y|})}$, with $M=F\_Y=\\{\\vect{f} \\in [0,1]^{|Y|}: \\lVert \\vect{f} \\rVert\_1=1\\}$ .note[
   $\\lVert \\vect{x} \\rVert\_1$ is the **1-norm** of a vector $\\vect{x}=(x\_1,\\dots,x\_p)$ with $\\lVert \\vect{x} \\rVert\_1$ $=\\sum\_i x\_i$
   ]
   - a **discrete probability distribution** .col2[$p$] over $Y$, with $M=P\_Y=\\{p: Y \\to [0,1] \\text{ s.t. } 1=\\sum\_{y' \\in Y} p(y')=\\prob{y'=y}\\}$ .note[$\\text{s.t.}$ stays for "such that"]
@@ -791,7 +791,7 @@ You are being said the accuracy of the test is $99.8\%$.
 
 In "formal" terms, the test is an $f\\subtext{predict}: X \\to Y$ with:
 - $X=\\{$🧑‍🦰$,$👱‍$,$🙍$,$‍👱$,$🙎‍$,\\dots\\}$ the set of persons¹
-- $Y=\\{\\text{has the disesea } d, \\text{does not have the disease } d\\}$
+- $Y=\\{\\text{has the disease } d, \\text{does not have the disease } d\\}$
 
 Since $|Y|=2$ this is a binary classification problem.
 
@@ -873,7 +873,7 @@ $$f\\subtext{FNR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_i)=\\frac{\\sum\_i\\mathbf{1}(
 For both:
 - the codomain is $[0,1]$
 - **the lower, the better** (like the error)
-- each one is formally a $f\\subtext{comp-resps}$ considering just a part  $\\seq{(y^{(i)},\\hat{y}^{(i)})}{i}$
+- each one is formally an $f\\subtext{comp-resps}$ considering just a part  $\\seq{(y^{(i)},\\hat{y}^{(i)})}{i}$
 
 .note[
 1. wrongly $\\rightarrow$ *falsely* $\\rightarrow$ false
@@ -1098,7 +1098,7 @@ with $c\\subtext{FP}$ and $c\\subtext{FN}$ the cost of FPs and FNs.
 
 If you know $c\\subtext{FP}$, $c\\subtext{FN}$, $\\text{N}$, and $\\text{P}$: (the costs $c\\subtext{FP}$, $c\\subtext{FN}$ should come **from domain knowledge**)
 - you can **compute** $c$ (and **compare** the cost for two models)
-- find a good the trade-off for $\\text{FPR}$ and $\\text{FNR}$ .note[more later]
+- find a good trade-off for $\\text{FPR}$ and $\\text{FNR}$ .note[more later]
 
 ---
 
@@ -1126,7 +1126,7 @@ $$f'\\subtext{predict}(x, m)= \\argmax\\sub{y \\in Y} (f''\\subtext{predict}(x, 
 ]
 where $P\_Y$ is the set of discrete probability distributions over $Y$.
 
-**Example**: for spam detection, given a $m$ and an email $x$, $f'\\subtext{predict}(x, m)$ might return:
+**Example**: for spam detection, given an $m$ and an email $x$, $f'\\subtext{predict}(x, m)$ might return:
 $$p(y)=
 \\begin{cases}
 80\% &\\text{if } y=\\text{spam} \\\\
@@ -1139,8 +1139,8 @@ For another email, it might return a 30%/70%, instead of an 80%/20%.
 ## Learning technique with probability
 
 A .key[supervised learning technique with probability] (for classification) is defined by:
-- a $f'\\subtext{learn}: \\mathcal{P}^*(X \\times Y) \\to M$, for learning a model from a dataset
-- a $f''\\subtext{predict}: X \\times M \\to P\_{Y}$, for giving a probability distribution from an observation and a model
+- an $f'\\subtext{learn}: \\mathcal{P}^*(X \\times Y) \\to M$, for learning a model from a dataset
+- an $f''\\subtext{predict}: X \\times M \\to P\_{Y}$, for giving a probability distribution from an observation and a model
 
 For all the techniques of this kind, $f'\\subtext{predict}: X \\times M \\to Y$ and $f\\subtext{predict}$ are always **the same**: .note[concrete]
 - $f'\\subtext{predict}(x, m)= \\argmax\\sub{y \\in Y} (f''\\subtext{predict}(x, m))(y)$
@@ -1295,7 +1295,7 @@ d %>% pivot_longer(c(FPR,FNR)) %>% ggplot(aes(x=tau,y=value,color=name)) + geom_
 .c50[
 - for the default threshold $\\tau=0.5$, $\\text{FPR}\\approx 20\%$, $\\text{FNR}\\approx 15\%$
 - if you want to be more sensitive to positives, set, e.g., $\\tau=0.25$, so there will be a lower $\\text{FNR} \\approx 13\\%$
-- if you know the cost of a FN is $\\approx$ double the cost of a FP **and** the data is balanced, then you should set $\\tau\\approx 0.12$
+- if you know the cost of an FN is $\\approx$ double the cost of an FP **and** the data is balanced, then you should set $\\tau\\approx 0.12$
 ]
 ]
 .note[why $\\text{FNR}=0\%$ for $\\tau=0$ but $\\text{FPR}>0\%$ for $\\tau=1$?]
@@ -1895,7 +1895,7 @@ Goal:
 - we want a measure (a number!) the effectiveness of $f'\\subtext{learn},f'\\subtext{predict}$
 
 Sketch of solution:
-1. **learn** a $m$ with $f'\\subtext{learn}$
+1. **learn** an $m$ with $f'\\subtext{learn}$
 2. **measure the effectiveness** $\\text{Eff}$ of $m$ with $f\\subtext{comp-behavior}$ (and one or more suitable $f\\subtext{comp-resps}$)
 3. say that the effectiveness of the learning technique is  $\\text{Eff}$
 
@@ -1906,7 +1906,7 @@ Sketch of solution:
 ## What data?
 
 Sketch of solution:
-1. **learn** a $m$ with $f'\\subtext{learn}$
+1. **learn** an $m$ with $f'\\subtext{learn}$
 2. **measure the effectiveness** $\\text{Eff}$ of $m$ with $f\\subtext{comp-behavior}$ (and one or more suitable $f\\subtext{comp-resps}$)
 3. say that the effectiveness of the learning technique is  $\\text{Eff}$
 
@@ -2103,7 +2103,7 @@ In practice $D\\subtext{test}$ and $D\\subtext{learn}$ are obtained from a $D$ t
 
 ## Assessment vs. reality
 
-What if the model/ML system does not work well on **actual unseen/new/future** data? I.e., what if the **prediction are wrong** in practice?
+What if the model/ML system does not work well on **actual unseen/new/future** data? That is, what if the **prediction are wrong** in practice?
 
 .cols[
 .c50[
@@ -2757,7 +2757,7 @@ otext(262.5,10,'$y$')
 
 **Effectiveness of the single technique**
 
-**Sketch**: learn a model on $D\\subtext{learn}$, assess the model on $D\\subtext{test}$; which **leargning/test division**?
+**Sketch**: learn a model on $D\\subtext{learn}$, assess the model on $D\\subtext{test}$; which **learning/test division**?
 
 .cols[
 .c20[

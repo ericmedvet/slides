@@ -9,7 +9,7 @@ impurityclass: middle, center
 Once upon a time¹... there is an amusement park with a carousel and an **attendant** deciding who can ride and who cannot ride.
 The park owner wants to replace the attendant with a **robotic gate**.
 
-The owner call us as machine learning experts.
+The owner calls us as machine learning experts.
 
 .w50p.center[![A carousel](images/carousel.jpg)]
 
@@ -25,7 +25,7 @@ The owner call us as machine learning experts.
 .c50[
 1. Should we use ML? $\\rightarrow$ **yes**
 2. Supervised vs. unsupervised $\\rightarrow$ **supervised**
-3. Define the problem problem statement:
+3. Define the problem statement:
   - define $X$ and $Y$
   - feature engineering
   - define a way for assessing solutions
@@ -225,7 +225,7 @@ function $\\text{predict}(\\vect{x})$ {
 ]
 ]
 .c50[
-**Goal**: a $f'\\subtext{predict}$ working on any tree
+**Goal**: an $f'\\subtext{predict}$ working on any tree
 .diagram.center[
 link([0,25,75,25],'a')
 rect(75,0,150,50)
@@ -509,7 +509,7 @@ $\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau}$ is th
 This $f'\\subtext{learn}$ is called .key[recursive binary splitting]:
 - it's **recursive**
 - when recurses, **splits** the data in two parts (**binary**)
-  - it's a top-down approach: starts from the big problem and makes it smaller (**dividi-et-impera**)
+  - it's a top-down approach: starts from the big problem and makes it smaller (**divide-et-impera**)
 - when stopping recursion, put a node with the **most frequent class**
 
 ---
@@ -1466,7 +1466,7 @@ otext(160,315,'●$\\\\smaller{1}$','col2')
 
 ## Tree size
 
-If we compare the tree (i.e., the **model**) against the attendand reasoning (i.e., the **real system**), **this tree appears too large**!
+If we compare the tree (i.e., the **model**) against the attendant's reasoning (i.e., the **real system**), **this tree appears too large**!
 
 We can do this, because:
 - trees are inherently **inspectionable**
@@ -1591,7 +1591,7 @@ What are they?
 - maybe the attendant was distracted
 - maybe they were two "Portoghesi"
 - maybe they were the attendant's kids
-  - i.e., the real system is stochastic and we observed a case were the least probable case happened
+  - i.e., the real system is stochastic and we observed a case where the least probable case happened
 - maybe the owner wrongly wrote down two observations
 
 More in general: there's some **noise in the data**!
@@ -1643,7 +1643,7 @@ When we have a **noisy dataset** (potentially *always*) **and we allow for large
 **Overfits** = "fits too much", hence making apparent also those **artifacts** that are **not part** of the object being wrapped
 - the model: the snake skin
 - the real system: the snake body
-- the (exhaggerated) artifact: the elephant...
+- the (exaggerated) artifact: the elephant...
 ]
 ]
 
@@ -1651,7 +1651,7 @@ When we have a **noisy dataset** (potentially *always*) **and we allow for large
 
 ## Underfitting
 
-When instead we do not allow for enough complexity to model a complex real system, by setting a flexibility parameter to **low flexibility**, the learning technique learns **does not fit neither the data, nor the system**, that is, .key[underfitting] occurs.
+When instead we do not allow for enough complexity to model a complex real system, by setting a flexibility parameter to **low flexibility**, the learning technique **does not fit neither the data, nor the system**, that is, .key[underfitting] occurs.
 
 --
 
@@ -1731,7 +1731,7 @@ $t=\\treel{\\htmlClass{col1}{\\text{●}\\smaller{\\frac{59}{103}}}, \\htmlClass
 
 ]
 ]
-.compact[$t$ does not attempt to model the dependency between $x$ and $y$, because it's complexity budget is completely exhausted by the single leaf node]
+.compact[$t$ does not attempt to model the dependency between $x$ and $y$, because its complexity budget is completely exhausted by the single leaf node]
 
 ---
 
@@ -1862,7 +1862,7 @@ It's called **tuning** because we slightly change the hyperparameter values unti
 --
 
 Hyperparameter tuning it's a form of **optimization**, since we are searching the space $P\_1 \\times \\dots \\times P\_h$ for the tuple giving the best, i.e., $\\approx$ optimal, effectiveness:
-- since it automatizes part of the design of a ML system, hyperparameter tuning may be considered a simple form of AutoML
+- since it automatizes part of the design of an ML system, hyperparameter tuning may be considered a simple form of AutoML
 
 ---
 
@@ -2410,7 +2410,7 @@ The decision boundary of the model is hence constrained to be locally parallel t
   - because computing the error of the dummy classifier is fast (**greedy**)
 
 .note[
-There exists **oblique decision trees**, which should overcome this limitation.
+There exist **oblique decision trees**, which should overcome this limitation.
 ]
 ]
 ]
@@ -2437,8 +2437,8 @@ class: middle, center
       - before designing!
       - applicable to any compatible ML solution
 4. Design the ML system
-  - chooses a learning technique
-  - chooses/design pre- and post-processing steps
+  - choose a learning technique
+  - choose/design pre- and post-processing steps
 5. .col1[Implement the ML system]
   - .col1[learning/prediction phases]
   - .col1[obtain the data]
@@ -2477,7 +2477,7 @@ A few:
 And [many others](https://en.wikipedia.org/wiki/Category:Data_mining_and_machine_learning_software).
 ]
 .c50[
-**How to choose a ML software?**
+**How to choose an ML software?**
 
 Possible criteria:
 - platform constraints
@@ -2529,7 +2529,7 @@ class: middle, center
 
 [RStudio](https://www.rstudio.com/) is:
 - an IDE¹ built around R
-- also for doing **notebooks**, like in Python
+- also for making **notebooks**, like in Python
 
 .note[
 1. integrated development environment
@@ -2651,7 +2651,7 @@ Some built-in functions for reading/writing CSV files (and variants):
 - `read.csv()`, `read.csv2()`, `read.table()`
 - `write.csv()`, `write.csv2()`, `write.table()`
 
-Some built-in functions for reading/writing data in a R-native format:
+Some built-in functions for reading/writing data in an R-native format:
 - `save()`
 - `load()`
 
@@ -2836,7 +2836,7 @@ class: labo
 ## Lab 1: hardest var in Iris
 
 1. consider the Iris dataset
-2. design and implement a ML-based procedure for answering this question:
+2. design and implement an ML-based procedure for answering this question:
 
 .center[**what's the hardest variable to be predicted in the dataset?**]
 
@@ -2845,6 +2845,6 @@ Hints:
 - there are (at least) two packages for tree learning with R
   - `tree`
   - `rpart` .note[this might be a bit better]
-- most packages for doing supervised learning has two functions for learning and prediction:
+- most packages for doing supervised learning have two functions for learning and prediction:
   - packageName`()` for learning (e.g., `tree` or `rpart`)
   - `predict()` for prediction

@@ -14,7 +14,7 @@ class: middle, center
 
 A few considerations:
 - defining a **field of science** is hard: science evolves, its boundaries change
-- ML "comes" from **many communities**' (statistics, computer science, ...) effort: this (the use of *computers*) is just one point of view
+- ML "comes" from **many communities**' (statistics, computer science, ...) efforts: this (the use of *computers*) is just one point of view
 - it captures just some "parts" of ML: we'll see
 
 --
@@ -87,7 +87,7 @@ None of the two notations says **how** $f$ works internally.
 - $x$ is an .key[observation]
   - something that can be **observed**, right because a decision has to be made about it
 - $y$ is the .key[response] (for a given $x$)
-  - if you feed the decision system with an $x$, the system **responds** with an $y$
+  - if you feed the decision system with an $x$, the system **responds** with a $y$
 
 --
 
@@ -306,7 +306,7 @@ A **bag** ($D$ should be called *databag*...):
 - can have duplicates (bag $\\ne$ set)
 - it does not imply any order among its elements (bag $\\ne$ sequence)
 
-.note[In most algorithms, and their program counterparts, dataset are actually processed sequentially, though]
+.note[In most algorithms, and in their program counterparts, dataset are actually processed sequentially, though]
 
 ---
 
@@ -327,11 +327,11 @@ The learning set has to be **consistent** with the domain and codomain of the fu
 
 > .key[Supervised (Machine) Learning] is the science of getting computers to learn $f\\subtext{predict}: X \\to Y$ **from examples** autonomously.
 
-In brief: given a $D\\subtext{learn} \\in \\mathcal{P}^\*(X \\times Y)$, learn a $f\\subtext{predict} \\in \\mathcal{F}\_{X \\to Y}$.
+In brief: given a $D\\subtext{learn} \\in \\mathcal{P}^\*(X \\times Y)$, learn an $f\\subtext{predict} \\in \\mathcal{F}\_{X \\to Y}$.
 
 --
 
-A .key[supervised learning technique] is a way for learning a $f\\subtext{predict} \\in \\mathcal{F}\_{X \\to Y}$ given a $D\\subtext{learn} \\in \\mathcal{P}^\*(X \\times Y)$.
+A .key[supervised learning technique] is a way for learning an $f\\subtext{predict} \\in \\mathcal{F}\_{X \\to Y}$ given a $D\\subtext{learn} \\in \\mathcal{P}^\*(X \\times Y)$.
 
 .cols[
 .c50[
@@ -353,13 +353,13 @@ otext(250,10,'$f\\\\subtext{predict}$')
 --
 
 - .key[learning phase]: when $f\\subtext{learn}$ is applied to obtain $f\\subtext{predict}$ from $D$  
-- .key[prediction phase]: when $f\\subtext{predict}$ is applied to obtain a $y$ from a $x$
+- .key[prediction phase]: when $f\\subtext{predict}$ is applied to obtain a $y$ from an $x$
 
 ---
 
 ## Lerning techniques
 
-> A .key[supervised learning technique] is a way for learn a $f\\subtext{predict} \\in \\mathcal{F}\_{X \\to Y}$ given a $D\\subtext{learn} \\in \\mathcal{P}^\*(X \\times Y)$.
+> A .key[supervised learning technique] is a way for learn an $f\\subtext{predict} \\in \\mathcal{F}\_{X \\to Y}$ given a $D\\subtext{learn} \\in \\mathcal{P}^\*(X \\times Y)$.
 
 Why don't we suffice a single learning technique?
 Why are there many of them?
@@ -439,14 +439,14 @@ Note that $f'\\subtext{predict}$ is fixed for a given learning technique and def
 
 --
 
-Given a template $f'\\subtext{predict}$, $m$ defines a $f\\subtext{predict}$ that can be used to predict a $y$ from a $x$.  
+Given a template $f'\\subtext{predict}$, $m$ defines an $f\\subtext{predict}$ that can be used to predict a $y$ from an $x$.  
 That is, $m$ is a .key[model] of how $y$ depends on $x$.
 
 ---
 
 ## Learning a model
 
-For techniques based on a template, $f\\subtext{learn}$ actually looks just $\\mathcal{F}'\_{X \\to Y}$, hence in $M$, for finding a $f\\subtext{predict}$.
+For techniques based on a template, $f\\subtext{learn}$ actually looks just $\\mathcal{F}'\_{X \\to Y}$, hence in $M$, for finding an $f\\subtext{predict}$.
 
 .cols[
 .c50[
@@ -634,7 +634,7 @@ A learning technique (**kNN**) for:
 - any $X$ with a similarity metric (including $X = \\mathbb{R}^p$)
 - classification (binary or multiclass) and regression
 
-A learning techniques (**naive Bayes**) for:
+A learning technique (**naive Bayes**) for:
 - multivariate $X = X\_1 \\times \\dots \\times X\_p$, each $x$ being categorical .note[with mention to the hybrid case]
 - classification (binary or multiclass)
 
@@ -642,14 +642,14 @@ A learning techniques (**naive Bayes**) for:
 
 ## ... and...
 
-What if the none of the above learning techniques fits the problem ($X,Y$) at hand?
+What if none of the above learning techniques fits the problem ($X,Y$) at hand?
 
 We'll see:
 - a method for applying techniques suitable for $X=\\mathbb{R}^p$ to problems where a multivariate $X$ includes categorical variables
 - a few methods for applying techniques suitable for $X=\\mathbb{R}^p$ to problems where $X=$ strings
 - two methods for applying techniques suitable for binary classification ($|Y|=2$) to multiclass classification problems ($|Y|\\ge 2$)
 
-What for the other kinds of problems?
+What about the other kinds of problems?
 
 ---
 
@@ -671,7 +671,7 @@ Goal: given a **tweet**, determine **age range** and **gender** of the author
 
 One possible ML system for this problem:  
 - $f\\subtext{text-to-num}: A^{280} \\to [0,1]^\{50\}$ (chosen among a few options, maybe adjusted)
-- $f\\subtext{foreach}: X^\* \\times \\mathcal{F}\_{X \\to Y} \\to Y^\*$ (given a $f: X \\to Y$ and a sequence $\\{x\_i\\}\_i$, apply $f$ to each $x\_i$)
+- $f\\subtext{foreach}: X^\* \\times \\mathcal{F}\_{X \\to Y} \\to Y^\*$ (given an $f: X \\to Y$ and a sequence $\\{x\_i\\}\_i$, apply $f$ to each $x\_i$)
 - $f'\_{\\text{learn},1},f'\_{\\text{predict},1}$ and $f'\_{\\text{learn},2},f'\_{\\text{predict},2}$ (two learning techniques suitable for classification)
 
 .cols[
@@ -693,11 +693,11 @@ $y\\subtext{gender} = f'\_{\\text{predict},2}(x', m\\subtext{gender})$
 
 ---
 
-## Designing a ML system
+## Designing an ML system
 
 - Who chooses the learning technique(s)?
   - And its **parameter** values?
-- Who chooses/design the pre- and post-processing components?
+- Who chooses/designs the pre- and post-processing components?
   - And their **parameter** values?
 
 --
@@ -712,7 +712,7 @@ The **designer** of the ML system, that is, you¹!
 
 ---
 
-## Phases of design of a ML design
+## Phases of design of an ML design
 
 .cols[
 .c50[
@@ -724,8 +724,8 @@ The **designer** of the ML system, that is, you¹!
       - before designing!
       - applicable to any compatible ML solution
 4. **Design** the ML system
-  - chooses a learning technique
-  - chooses/design pre- and post-processing steps
+  - choose a learning technique
+  - choose/design pre- and post-processing steps
 5. **Implement** the ML system
   - learning/prediction phases
   - **obtain the data**
@@ -878,7 +878,7 @@ Some information about the context up to here (.col1[Alice's thoughts] 💭):
 - **cost** of the solution: Bob is basically trying to replace a free service with another free service...
 - expected **quality** of the solution: how picky will be Bob?
 
-No car accidents to be avoid (**timing**), no billions of emails to be analyzed (**scale**), no big business process invoved (**cost**), no loan decision to be made (**quality**).
+No car accidents to be avoided (**timing**), no billions of emails to be analyzed (**scale**), no big business process invoved (**cost**), no loan decision to be made (**quality**).
 
 ---
 
@@ -952,7 +952,7 @@ $X=\\{x: x \\text{ is an Iris flower}\\}$
 $Y=\\{\\text{setosa}, \\text{versicolor}, \\text{virginica}\\}$
 
 **Issues** with this $X$: 🤔
-- is that an useful definition? that is: can it be used for judging the membership of an object to $X$? $\\text{🌸} \\overset{?}{\\in} X$
+- is that a useful definition? that is: can it be used for judging the membership of an object to $X$? $\\text{🌸} \\overset{?}{\\in} X$
 - is an $x \\in X$ processable by a machine? recall that in later phases:
   - we want to take an $f\\subtext{learn}$ that is able to learn an $f\\subtext{predict}: X \\to Y$ and use $f\\subtext{learn}$ on a machine
   - we want to use the learned $f\\subtext{predict}$ on a machine
@@ -976,7 +976,7 @@ $Y=\\{\\text{setosa}, \\text{versicolor}, \\text{virginica}\\}$
 We cannot just take *another* X, because the problem is "given an Iris flower, assign a species".
 But we can introduce some **pre-processing**¹ steps that transform an $x \\in X$ in an $x' \\in X'$, with $X'$ being better, more suitable, for later steps.
 
-That is, we can design a $f\\subtext{pre-proc}: X \\to X'$ and an $X'$!
+That is, we can design an $f\\subtext{pre-proc}: X \\to X'$ and an $X'$!
 
 Requirements:
 - (designing and) applying of $f\\subtext{pre-proc}$ should have an acceptable **cost**
@@ -1003,10 +1003,10 @@ Requirements:
 
 .cols[
 .c60[
-Since most learning techniques are designed to work on a mutlivariate $X$, we are going to design a $f\\subtext{pre-proc}: X \\to X' = X'\_1 \\times \\dots \\times X'\_p$.
+Since most learning techniques are designed to work on a mutlivariate $X$, we are going to design an $f\\subtext{pre-proc}: X \\to X' = X'\_1 \\times \\dots \\times X'\_p$.
 That is, we are going to **define the features** and the way to **compute them** out of an $x$.
 
-This step is called .key[feature engineering] and is in practice a key step in the design of a ML system, often more important than the choice of the learning technique:
+This step is called .key[feature engineering] and is in practice a key step in the design of an ML system, often more important than the choice of the learning technique:
 - for the key requirement concerning the **information retaining** contained in $x$
 - because it is often done before **collecting the dataset**, which may be a costly, hardly repeatable operation
 ]
@@ -1043,7 +1043,7 @@ Some options:
 3. Not if Alice just attends this course...
 ]
 
-The actual decision should be taken by Alice and Bob together, based on **domain knowledge** of the latter and ML knowledge of the former .
+The actual decision should be taken by Alice and Bob together, based on **domain knowledge** of the latter and ML knowledge of the former.
 ]
 .c40[
 1. Decide: should I use ML?
@@ -1216,7 +1216,7 @@ Findings: **overlap**!
 6. Assess the ML system
 
 Questions:
-- cannot design a $f\\subtext{predict}$?
+- cannot design an $f\\subtext{predict}$?
 - retaining information?
 
 Outcome:  
@@ -1274,7 +1274,7 @@ class: middle, center
 .center[$\\downarrow$]
 .important[
 .key[Supervised (Machine) Learning] is about designing and applying supervised learning techniques.
-A .key[supervised learning technique] is a way for learning a $f\\subtext{predict} \\in \\mathcal{F}\_{X \\to Y}$ given a $D\\subtext{learn} \\in \\mathcal{P}^\*(X \\times Y)$.
+A .key[supervised learning technique] is a way for learning an $f\\subtext{predict} \\in \\mathcal{F}\_{X \\to Y}$ given a $D\\subtext{learn} \\in \\mathcal{P}^\*(X \\times Y)$.
 ]
 
 ---
@@ -1339,7 +1339,7 @@ A .key[supervised learning technique] is defined by:
 
 ---
 
-## Phases of design of a ML system
+## Phases of design of an ML system
 
 .cols[
 .c50[
@@ -1363,7 +1363,7 @@ A .key[supervised learning technique] is defined by:
 .col1[Arguments for $f\\subtext{learn}$ on machine:]
 - cannot build $f\\subtext{predict}$ manually
 - cost building $f\\subtext{predict}$ manually
-- quality of manually built $f\\subtext{predict}$
+- quality of a manually built $f\\subtext{predict}$
 
 .col2[Requirements for $f\\subtext{pre-proc}: X \\to X'$:]
 - proper cost
