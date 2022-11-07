@@ -2833,7 +2833,7 @@ class: middle, center
 
 class: labo
 
-## Lab 1: hardest var in Iris
+## Lab 1: hardest variable in Iris
 
 1. consider the Iris dataset
 2. design and implement an ML-based procedure for answering this question:
