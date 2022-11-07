@@ -1457,7 +1457,7 @@ link([-10,10,420,10],'colinv')
 .c20.center[$\\text{FNR}$]
 ]
 
-.vspace1[]
+.vsep[]
 
 .cols[
 .c50[
@@ -1505,7 +1505,7 @@ otext(376,-10,'⬤','col1 smaller')
 .c20.center.compact[$\\frac{1}{6}\\approx 17\\%$]
 ]
 
-.vspace1[]
+.vsep[]
 
 .cols[
 .c50[
@@ -1553,7 +1553,7 @@ otext(376,-10,'⬤','col1 smaller')
 .c20.center.compact[$\\frac{0}{6}=0\\%$]
 ]
 
-.vspace1[]
+.vsep[]
 
 .cols[
 .c50[
@@ -1601,8 +1601,8 @@ otext(376,-10,'⬤','col1 smaller')
 .c20.center.compact[$\\frac{3}{6}=50\\%$]
 ]
 
-.vspace1[]
-.vspace1[]
+.vsep[]
+.vsep[]
 
 $(\\tau\_i)\_i$ evenly spaced in $[0,1]$ .note[9+2 values] $\\rightarrow$ **raw** .note[7 on 11 different values]
 .diagram.neutral.center[
@@ -1642,7 +1642,7 @@ link([320,0,320,20],'col3')
 link([360,0,360,20],'col3')
 ]
 
-.vspace1[]
+.vsep[]
 
 $(\\tau\_i)\_i$ evenly spaced in $[0.29,0.84]$ .note[9+2 values] $\\rightarrow$ **better** .note[but still 7 on 11 different values]
 .diagram.neutral.center[
@@ -1682,7 +1682,7 @@ link([116+(376-116)/10\*8,0,116+(376-116)/10\*8,20],'col3')
 link([116+(376-116)/10\*9,0,116+(376-116)/10\*9,20],'col3')
 ]
 
-.vspace1[]
+.vsep[]
 
 $(\\tau\_i)\_i$ at midpoints .note[9+2 values] $\\rightarrow$ **optimal** .note[11 on 11 different values]
 .diagram.neutral.center[

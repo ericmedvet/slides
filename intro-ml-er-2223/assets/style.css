@@ -51,7 +51,7 @@ pre {
 p, ul, ol {
   margin: 0.5em 0;
 }
-ul ul, ol ul, ul ol {
+ul ul, ol ul, ul ol, ol ol {
   margin: 0;
 }
 .remark-code, .remark-inline-code {
@@ -229,7 +229,14 @@ span.note::after {
   display: inline-block;
 }
 .vspace1 {
-  height: : 1em;
+  height: 1em;
+  display: inline-block;
+}
+.vspace025 {
+  height: 0.25em;
+  display: inline-block;
+}
+.vsep{
   display: block;
 }
 .ttt {
