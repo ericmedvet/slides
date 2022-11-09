@@ -762,7 +762,7 @@ class: middle, center
 
 ## Assessing models
 
-### Binary lassification
+### Binary classification
 
 ---
 
@@ -2583,7 +2583,7 @@ class: middle, center
 .h40ex.center[![Results presentation for Android malware detection](images/assessment-example1-android.png)]
 ]
 .c60[
-- binary lassification
+- binary classification
 - a few learning techniques
 - 10-CV
 - just **effectiveness**
@@ -2610,7 +2610,7 @@ Similar:
 
 .cols[
 .c40[
-- binary lassification
+- binary classification
 - a few learning techniques
 - a baseline
 - just **effectiveness**
