@@ -539,8 +539,8 @@ function $\\text{learn}(\\seq{(x^{(i)},y^{(i)})}{i},n\\subtext{tree}, \\htmlClas
 .i[]$T' \\gets \\emptyset$  
 .i[]while $|T'| \\le n\\subtext{tree}$ {  
 .i[].i[]$\\seq{(x^{(j\_i)},y^{(j\_i)})}{j\_i} \\gets \\text{sample-rep}(\\seq{(x^{(i)},y^{(i)})}{i})$  
-.i[].i[]$\\seq{(x^{\\prime(j\_i)},y^{(j\_i)})}{j\_i} \\gets \\htmlClass{col3}{\\text{retain-vars}}(\\seq{(x^{(i)},y^{(i)})}{i}, \\htmlClass{col1}{n\\subtext{vars}})$  
-.i[].i[]$t \\gets \\htmlClass{col2}{\\text{learn}\\subtext{single}}(\\seq{(x^{\\prime(j\_i)},y^{(j\_i)})}{j\_i}, 1)$  
+.i[].i[]$\\seq{(\\htmlClass{col4}{x^{\\prime(j\_i)}},y^{(j\_i)})}{j\_i} \\gets \\htmlClass{col3}{\\text{retain-vars}}(\\seq{(x^{(i)},y^{(i)})}{i}, \\htmlClass{col1}{n\\subtext{vars}})$  
+.i[].i[]$t \\gets \\htmlClass{col2}{\\text{learn}\\subtext{single}}(\\seq{(\\htmlClass{col4}{x^{\\prime(j\_i)}},y^{(j\_i)})}{j\_i}, 1)$  
 .i[].i[]$T' \\gets T' \\cup \\{t\\}$  
 .i[]}  
 .i[]return $T'$  
@@ -553,10 +553,10 @@ function $\\text{learn}(\\seq{(x^{(i)},y^{(i)})}{i},n\\subtext{tree}, \\htmlClas
 - the model is a **bag of $n\\subtext{vars}$ trees**, as in bagging
 - $\\htmlClass{col1}{n\\subtext{vars}} \\le p$ is the number of variables to be retained
   - a parameter of the learning technique
-- .col2[$\\text{learn}\\subtext{single}()$] gets, at each iteration, a dataset $D \\in \\mathcal{P}^*(X' \\times Y)$
+- .col2[$\\text{learn}\\subtext{single}()$] gets, at each iteration, a dataset $D' \\in \\mathcal{P}^*(\\htmlClass{col4}{X'} \\times Y)$
   - $X=X\_1 \\times \\dots \\times X\_p$ has all the $p$ vars
-  - $X'=X\_{j\_1} \\times \\dots \\times X\_{j\_{n\\subtext{vars}}}$ has only $n\\subtext{vars}$ variables, with each $j\_k \\in \\{1, \\dots, p\\}$ and $j\_{k'} \\ne j\_{k''}, \\forall k',k''$
-  - .col3[$\\text{retain-vars}()$] builds $X'$ from $X$
+  - $\\htmlClass{col4}{X'}=X\_{j\_1} \\times \\dots \\times X\_{j\_{n\\subtext{vars}}}$ has only $n\\subtext{vars}$ variables, with each $j\_k \\in \\{1, \\dots, p\\}$ and $j\_{k'} \\ne j\_{k''}, \\forall k',k''$
+  - .col3[$\\text{retain-vars}()$] builds .col4[$X'$] from $X$
 ]
 ]
 
