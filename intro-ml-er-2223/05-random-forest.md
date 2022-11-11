@@ -134,7 +134,7 @@ Yes, but only if:
 
 --
 
-Can we realize a **wisdom of the tree**? (where opinion $\\leftrightarrow$ tree)
+Can we realize a **wisdom of the trees**? (where (opinion, person) $\\leftrightarrow$ (prediction,tree))
 
 - we have many opinions
   - **ok, just learn many trees**
@@ -282,7 +282,7 @@ Given an input with $n$ elements .note[and assuming uniqueness] an element has:
 
 ## Towards wisdom of the trees
 
-Can we realize a **wisdom of the tree**? (where opinion $\\leftrightarrow$ tree)
+Can we realize a **wisdom of the trees**? (where (opinion, person) $\\leftrightarrow$ (prediction,tree))
 
 - we have many opinions
   - 👍 **ok, just learn many trees**
@@ -415,6 +415,9 @@ function $\\text{predict}(x, \\seq{t\_j}{j})$ {
 
 .compact[
 - simply returns the **mean** of the predictions of the tree in the bag
+- bonus: instead of getting just the mean, by getting also the standard deviation $\\sigma$ of the tree predictions we can have a measure of **uncertainty** of the tree: the larger $\\sigma$, the more uncertain the prediction, the lower the confidence
+  - uncertainty/confidence is a basic form of local explainability
+  - uncertainty/confidence can be exploited in the active learning framework
 ]
 ]
 ]
@@ -443,7 +446,7 @@ So what? 🤔
 
 "Experimentally", it turns out that:
 - with a reasonably large $n\\subtext{tree}$, **bagging is better than single tree learning**
-  - "reasoanly large" = tens or few hundreds
+  - "reasonably large" = tens or few hundreds
   - "better" = produces more effective models
 - if you further increase $n\\subtext{tree}$, there's **no overfitting**
 
@@ -495,7 +498,7 @@ class: middle, center
 
 ## Increasing independency
 
-**Wisdom of the tree**:
+**Wisdom of the trees**:
 
 - many trees
 - .col1[trees are independent]
