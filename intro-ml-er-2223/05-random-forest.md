@@ -445,7 +445,7 @@ So what? 🤔
 - with a reasonably large $n\\subtext{tree}$, **bagging is better than single tree learning**
   - "reasoanly large" = tens or few hundreds
   - "better" = produces more effective models
-- if you further increase $n\\subtext{tree}$, there's no overfitting
+- if you further increase $n\\subtext{tree}$, there's **no overfitting**
 
 Note that bagging with $n\\subtext{tree}=1$ is¹ single tree learning.
 
@@ -494,3 +494,83 @@ class: middle, center
 ---
 
 ## Increasing independency
+
+**Wisdom of the tree**:
+
+- many trees
+- .col1[trees are independent]
+- tree predictions are aggregated
+
+Trees .col1[independency] is obtained by learning them on (slightly) .col1[different datasets].
+
+If there are variables (.key[strong predictors]) which are very useful for separating the observations, still all trees may share a very similar structure, due to the way they are built.
+
+**Can we further increase trees independency?**
+
+--
+
+Yes!
+
+**Idea!**: when learning each tree, **remove some randomly chosen independent variables** from the observations
+
+Tree bagging improved with variables removal is a **learning technique** called .key[Random Forest]:
+- **random** because there are two sources of randomness, hence of .col1[independency]
+- **forest** because it gives a bag of trees
+
+---
+
+## Random Forest: learning
+
+.cols[
+.c50[
+.diagram.center[
+link([0,75,150,75],'a')
+rect(150,50,150,50)
+link([300,75,400,75],'a')
+link([225,0,225,50],'a')
+otext(225,75,"$f'\\\\subtext{learn}$")
+otext(75,60,'$\\\\seq{(x^{(i)},y^{(i)})}{i}$')
+otext(350,60,'$\\\\seq{t\\_j}{j}$')
+otext(290,25,'$n\\\\subtext{tree},n\\\\subtext{vars}$')
+]
+
+.pseudo-code.compact[
+function $\\text{learn}(\\seq{(x^{(i)},y^{(i)})}{i},n\\subtext{tree}, \\htmlClass{col1}{n\\subtext{vars}})$ {  
+.i[]$T' \\gets \\emptyset$  
+.i[]while $|T'| \\le n\\subtext{tree}$ {  
+.i[].i[]$\\seq{(x^{(j\_i)},y^{(j\_i)})}{j\_i} \\gets \\text{sample-rep}(\\seq{(x^{(i)},y^{(i)})}{i})$  
+.i[].i[]$\\seq{(x^{\\prime(j\_i)},y^{(j\_i)})}{j\_i} \\gets \\htmlClass{col3}{\\text{retain-vars}}(\\seq{(x^{(i)},y^{(i)})}{i}, \\htmlClass{col1}{n\\subtext{vars}})$  
+.i[].i[]$t \\gets \\htmlClass{col2}{\\text{learn}\\subtext{single}}(\\seq{(x^{\\prime(j\_i)},y^{(j\_i)})}{j\_i}, 1)$  
+.i[].i[]$T' \\gets T' \\cup \\{t\\}$  
+.i[]}  
+.i[]return $T'$  
+}
+]
+
+
+]
+.c50[
+- the model is a **bag of $n\\subtext{vars}$ trees**, as in bagging
+- $\\htmlClass{col1}{n\\subtext{vars}} \\le p$ is the number of variables to be retained
+  - a parameter of the learning technique
+- .col2[$\\text{learn}\\subtext{single}()$] gets, at each iteration, a dataset $D \\in \\mathcal{P}^*(X' \\times Y)$
+  - $X=X\_1 \\times \\dots \\times X\_p$ has all the $p$ vars
+  - $X'=X\_{j\_1} \\times \\dots \\times X\_{j\_{n\\subtext{vars}}}$ has only $n\\subtext{vars}$ variables, with each $j\_k \\in \\{1, \\dots, p\\}$ and $j\_{k'} \\ne j\_{k''}, \\forall k',k''$
+  - .col3[$\\text{retain-vars}()$] builds $X'$ from $X$
+]
+]
+
+Two parts of this $f'\\subtext{learn}$ are **not deterministic** (namely, $\\text{sample-rep}()$ and $\\text{retain-vars}()$), hence the entire $f'\\subtext{learn}$ is not deterministic!
+
+<!--
+predict(), no impact of missing variables
+impact of n_vars
+
+consequences of bagging
+1. oob; plot about oob
+2. no interpretability, but importance of variables; visualization of forest on Regression
+
+paper with rf being the best
+no free lunch theorem
+
+-->
