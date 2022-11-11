@@ -389,7 +389,7 @@ $$\\mathbf{1}(b) =
 ## Classification accuracy
 
 .key[Classification accuracy]:
-$$f\\subtext{acc}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=\\frac{1}{n}\\sum\_{i=1}^{i=n}\\mathbf{1}(y^{(i)} \\htmlClass{col3}{=} \\hat{y}^{(i)})$$
+$$f\\subtext{acc}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=\\frac{1}{n}\\sum\_{i=1}^{i=n}\\mathbf{1}(y^{(i)} \\c{3}{=} \\hat{y}^{(i)})$$
 
 Clearly, $f\\subtext{acc}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})=1-f\\subtext{err}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_{i=1}^{i=n})$.
 
@@ -471,7 +471,7 @@ Looks like a human, but does nothing!
 
 .cols[
 .c50[
-Case: **coin tossing**, $Y=\\{\\htmlClass{col1}{\\text{heads}},\\htmlClass{col2}{\\text{tails}}\\}$
+Case: **coin tossing**, $Y=\\{\\c{1}{\\text{heads}},\\c{2}{\\text{tails}}\\}$
 
 **Random** on average (with $f\\subtext{rnd}$):
 .nicetable[
@@ -492,7 +492,7 @@ Average accuracy = $50\%$
 $$f\\subtext{acc}(\\htmlClass{col2 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}},\\htmlClass{col2 st}{\\text{⬤⬤⬤⬤}}) = 75\%$$
 ]
 .c50[
-Case: **Iris**, $Y=\\{\\htmlClass{col1}{\\text{setosa}},\\htmlClass{col2}{\\text{versicolor}},\\htmlClass{col3}{\\text{virginica}}\\}$
+Case: **Iris**, $Y=\\{\\c{1}{\\text{setosa}},\\c{2}{\\text{versicolor}},\\c{3}{\\text{virginica}}\\}$
 
 **Random** on average (with $f\\subtext{rnd}$):
 .nicetable[
@@ -656,7 +656,7 @@ Consider the random classifier as a supervised learning technique:
 
 Hence, formally:
 - a .col2[model $m \\in M$ is]:
-  - the class **frequencies** $\\htmlClass{col2}{\\vect{f} = (f\_1,\\dots,f\_{|Y|})}$, with $M=F\_Y=\\{\\vect{f} \\in [0,1]^{|Y|}: \\lVert \\vect{f} \\rVert\_1=1\\}$ .note[
+  - the class **frequencies** $\\c{2}{\\vect{f} = (f\_1,\\dots,f\_{|Y|})}$, with $M=F\_Y=\\{\\vect{f} \\in [0,1]^{|Y|}: \\lVert \\vect{f} \\rVert\_1=1\\}$ .note[
   $\\lVert \\vect{x} \\rVert\_1$ is the **1-norm** of a vector $\\vect{x}=(x\_1,\\dots,x\_p)$ with $\\lVert \\vect{x} \\rVert\_1$ $=\\sum\_i x\_i$
   ]
   - a **discrete probability distribution** .col2[$p$] over $Y$, with $M=P\_Y=\\{p: Y \\to [0,1] \\text{ s.t. } 1=\\sum\_{y' \\in Y} p(y')=\\prob{y'=y}\\}$ .note[$\\text{s.t.}$ stays for "such that"]
@@ -677,7 +677,7 @@ rect(150,0,100,50)
 link([250,25,350,25],'a')
 otext(200,25,"$f'\\\\subtext{learn}$")
 otext(75,10,'$\\\\seq{(x^{(i)},y^{(i)})}{i}$')
-otext(300,10,'$\\\\htmlClass{col2}{m}$')
+otext(300,10,'$\\\\c{2}{m}$')
 ]
 ]
 .c40[
@@ -686,7 +686,7 @@ link([0,25,100,25],'a')
 rect(100,0,100,50)
 link([200,25,310,25],'a')
 otext(150,25,"$f'\\\\subtext{predict}$")
-otext(50,10,'$x, \\\\htmlClass{col2}{m}$')
+otext(50,10,'$x, \\\\c{2}{m}$')
 otext(250,10,'$y$')
 ]
 ]
@@ -695,10 +695,10 @@ otext(250,10,'$y$')
 Option 1: the model .col2[$m$] is a **discrete probability distribution**: .note[here $f'\\subtext{learn}$ a function that returns a function]
 .cols[
 .c50.center.compact[
-$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\htmlClass{col2}{p}: p(y)= \\freq{y, \\seq{y^{(i)})}{i}}$
+$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\c{2}{p}: p(y)= \\freq{y, \\seq{y^{(i)})}{i}}$
 ]
 .c50.center.compact[
-$f'\\subtext{predict}(x,\\htmlClass{col2}{p})=\\argmax\_{y \\in Y} \\htmlClass{col2}{p}(y)$
+$f'\\subtext{predict}(x,\\c{2}{p})=\\argmax\_{y \\in Y} \\c{2}{p}(y)$
 ]
 ]
 
@@ -708,10 +708,10 @@ Option 2: the model .col2[$m$] is a **vector of frequencies**:
 .note[assume $Y=\\\\{y\_1, y\_2, \\dots\\\\}$]
 .cols[
 .c50.center.compact[
-$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\htmlClass{col2}{\\vect{f}} = \\left(\\freq{y\_j, \\seq{y^{(i)})}{i}}\\right)\_j$
+$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\c{2}{\\vect{f}} = \\left(\\freq{y\_j, \\seq{y^{(i)})}{i}}\\right)\_j$
 ]
 .c50.center.compact[
-$f'\\subtext{predict}(x,\\htmlClass{col2}{\\vect{f}})=y\_i$ with $i = \\argmax\_i f\_i$]
+$f'\\subtext{predict}(x,\\c{2}{\\vect{f}})=y\_i$ with $i = \\argmax\_i f\_i$]
 ]
 
 ---
@@ -721,10 +721,10 @@ $f'\\subtext{predict}(x,\\htmlClass{col2}{\\vect{f}})=y\_i$ with $i = \\argmax\_
 Option 3: the model .col2[$m$] is simply the learning **dataset**: .note[just the $y$ part of it]
 .cols[
 .c50.center.compact[
-$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\htmlClass{col2}{\\seq{y^{(i)}}{i}}$
+$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\c{2}{\\seq{y^{(i)}}{i}}$
 ]
 .c50.center.compact[
-$f'\\subtext{predict}(x,\\seq{y^{(i)}}{i})=\\argmax\_{y \\in Y} \\freq{y,\\htmlClass{col2}{\\seq{y^{(i)}}{i}}}$
+$f'\\subtext{predict}(x,\\seq{y^{(i)}}{i})=\\argmax\_{y \\in Y} \\freq{y,\\c{2}{\\seq{y^{(i)}}{i}}}$
 ]
 ]
 
@@ -733,10 +733,10 @@ $f'\\subtext{predict}(x,\\seq{y^{(i)}}{i})=\\argmax\_{y \\in Y} \\freq{y,\\htmlC
 Option 4: the model .col2[$m$] is the most frquent **class** $y^\\star$:
 .cols[
 .c70.center.compact[
-$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\htmlClass{col2}{y^\\star}=\\argmax\_{y \\in Y} \\freq{y,\\seq{y^{(i)}}{i}}$
+$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\c{2}{y^\\star}=\\argmax\_{y \\in Y} \\freq{y,\\seq{y^{(i)}}{i}}$
 ]
 .c30.center.compact[
-$f'\\subtext{predict}(x,y^\\star)=\\htmlClass{col2}{y^\\star}$
+$f'\\subtext{predict}(x,y^\\star)=\\c{2}{y^\\star}$
 ]
 ]
 
@@ -865,10 +865,10 @@ Common practice:
 **Goal**: measuring the error on each of the two classes in binary classification.
 
 The .key[False Positive Rate (FPR)] is the rate of **.col1[negatives]** that are **.col2[wrongly]¹ classified as positives**:
-$$f\\subtext{FPR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_i)=\\frac{\\sum\_i\\mathbf{1}(\\htmlClass{col1}{y^{(i)}=\\text{neg}} \\land \\htmlClass{col2}{y^{(i)} \\ne \\hat{y}^{(i)}})}{\\sum\_i\\mathbf{1}(\\htmlClass{col1}{y^{(i)}=\\text{neg}})}$$
+$$f\\subtext{FPR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_i)=\\frac{\\sum\_i\\mathbf{1}(\\c{1}{y^{(i)}=\\text{neg}} \\land \\c{2}{y^{(i)} \\ne \\hat{y}^{(i)}})}{\\sum\_i\\mathbf{1}(\\c{1}{y^{(i)}=\\text{neg}})}$$
 
 The .key[False Negative Rate (FNR)] is the rate of **.col3[positives]** that are **.col2[wrongly] classified as negatives**:
-$$f\\subtext{FNR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_i)=\\frac{\\sum\_i\\mathbf{1}(\\htmlClass{col3}{y^{(i)}=\\text{pos}} \\land \\htmlClass{col2}{y^{(i)} \\ne \\hat{y}^{(i)}})}{\\sum\_i\\mathbf{1}(\\htmlClass{col3}{y^{(i)}=\\text{pos}})}$$
+$$f\\subtext{FNR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_i)=\\frac{\\sum\_i\\mathbf{1}(\\c{3}{y^{(i)}=\\text{pos}} \\land \\c{2}{y^{(i)} \\ne \\hat{y}^{(i)}})}{\\sum\_i\\mathbf{1}(\\c{3}{y^{(i)}=\\text{pos}})}$$
 
 For both:
 - the codomain is $[0,1]$
@@ -1016,11 +1016,11 @@ They come from the **information retrieval** scenario:
 .cols[
 .c60[
 **Precision**: how many retrieved documents are actually relevant?
-.center[$\\text{Prec}=\\frac{|D' \\cap D^\\star|}{|D'|}=\\frac{\\htmlClass{col1}{|D' \\cap D^\\star|}}{\\htmlClass{col1}{|D' \\cap D^\\star|}+\\htmlClass{col2}{|D' \\setminus D^\\star|}}=\\frac{\\htmlClass{col1}{\\text{TP}}}{\\htmlClass{col1}{\\text{TP}}+\\htmlClass{col2}{\\text{FP}}}$]
+.center[$\\text{Prec}=\\frac{|D' \\cap D^\\star|}{|D'|}=\\frac{\\c{1}{|D' \\cap D^\\star|}}{\\c{1}{|D' \\cap D^\\star|}+\\c{2}{|D' \\setminus D^\\star|}}=\\frac{\\c{1}{\\text{TP}}}{\\c{1}{\\text{TP}}+\\c{2}{\\text{FP}}}$]
 ]
 .c40[
 **Recall**: how many of the relevant documents are actually retrieved?
-.center[$\\text{Rec}=\\frac{\\htmlClass{col1}{|D' \\cap D^\\star|}}{\\htmlClass{col3}{|D^\\star|}}=\\frac{\\htmlClass{col1}{\\text{TP}}}{\\htmlClass{col3}{\\text{P}}}$]
+.center[$\\text{Rec}=\\frac{\\c{1}{|D' \\cap D^\\star|}}{\\c{3}{|D^\\star|}}=\\frac{\\c{1}{\\text{TP}}}{\\c{3}{\\text{P}}}$]
 ]
 ]
 
@@ -1425,7 +1425,7 @@ How to choose $(\\tau\_i)\_i$? .note[recall: $\\tau \\in [0,1]$; by convention, 
 
 .cols[
 .c20[
-$$Y=\\{\\htmlClass{col1}{\\text{pos}},\\htmlClass{col2}{\\text{neg}}\\}$$
+$$Y=\\{\\c{1}{\\text{pos}},\\c{2}{\\text{neg}}\\}$$
 .compact.nicetable[
 | $y^{(i)}$ | $p\\subtext{pos}^{(i)}$ | $\\hat{y}^{(i)}$ | out¹ |
 | --- | --- | --- | --- |
@@ -1756,7 +1756,7 @@ Given a multiset $\\seq{(y^{(i)},\\hat{y}^{(i)})}{i}$ of pairs, the .key[confusi
 
 .cols[
 .c20[
-$$Y=\\{\\htmlClass{col1}{\\text{pos}},\\htmlClass{col2}{\\text{neg}}\\}$$
+$$Y=\\{\\c{1}{\\text{pos}},\\c{2}{\\text{neg}}\\}$$
 .compact.nicetable[
 | $y^{(i)}$ | $p\\subtext{pos}^{(i)}$ | $\\hat{y}^{(i)}$ | out |
 | --- | --- | --- | --- |
@@ -1826,10 +1826,10 @@ i.e., the (unweighted) average of the accuracy **for each class**.
 .c70[
 $\\text{Acc} = \\frac{15+10+28+9}{20+16+38+10} = \\frac{62}{84} = 73.8\%$
 
-$\\text{Acc}\\subtext{\\htmlClass{col1}{⬤}} = \\frac{15}{20} = 75\%$  
-$\\text{Acc}\\subtext{\\htmlClass{col2}{⬤}} = \\frac{10}{16} = 62.5\%$  
-$\\text{Acc}\\subtext{\\htmlClass{col3}{⬤}} = \\frac{28}{37} = 75.7\%$  
-$\\text{Acc}\\subtext{\\htmlClass{col4}{⬤}} = \\frac{9}{10} = 90\%$
+$\\text{Acc}\\subtext{\\c{1}{⬤}} = \\frac{15}{20} = 75\%$  
+$\\text{Acc}\\subtext{\\c{2}{⬤}} = \\frac{10}{16} = 62.5\%$  
+$\\text{Acc}\\subtext{\\c{3}{⬤}} = \\frac{28}{37} = 75.7\%$  
+$\\text{Acc}\\subtext{\\c{4}{⬤}} = \\frac{9}{10} = 90\%$
 
 $\\text{wAcc} = \\frac{1}{4} \\left( \\frac{15}{20}+\\frac{10}{16}+\\frac{28}{37}+\\frac{9}{10} \\right) = 75.8\%$
 ]
@@ -2363,7 +2363,7 @@ $\\rightarrow \\text{Eff}$
 .c50[
 Repeated random, CV, and LOOCV internally compute the model effectiveness for **several models** learned on (slightly) **different datasets**:
 
-$$\\text{Eff}\_1, \\text{Eff}\_2, \\dots, \\text{Eff}\_k \\rightarrow \\text{Eff}=\\htmlClass{col2}{\\frac{1}{k} \\sum\_j \\text{Eff}\_j}$$
+$$\\text{Eff}\_1, \\text{Eff}\_2, \\dots, \\text{Eff}\_k \\rightarrow \\text{Eff}=\\c{2}{\\frac{1}{k} \\sum\_j \\text{Eff}\_j}$$
 ]
 .c50[
 .compact.pseudo-code[

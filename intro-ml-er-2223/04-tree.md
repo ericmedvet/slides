@@ -295,7 +295,7 @@ otext(370,180,'●','col2')
 .cols[
 .c50[
 We represent a tree $t \\in T\_L$ as:
-.center[$t = \\tree{\\htmlClass{col3}{l}}{\\htmlClass{col4}{t'}}{\\htmlClass{col4}{t''}}$]
+.center[$t = \\tree{\\c{3}{l}}{\\c{4}{t'}}{\\c{4}{t''}}$]
 where $t', t'' \\in T\_L \\cup \\{\\varnothing\\}$ are the left and right .col4[**children**] trees and $l \\in L$ is the .col3[**label**].
 
 If the tree is a **terminal node**¹, it has no children (i.e., $t'=t''=\\varnothing$) and we write:
@@ -332,10 +332,10 @@ otext(370,180,'●','col2')
 
 With:
 - $X=X\\subtext{age} \\times X\\subtext{height} = X\_1 \\times X\_2$
-- $Y=\\set{\\htmlClass{col1}{●},\\htmlClass{col2}{●}}$
+- $Y=\\set{\\c{1}{●},\\c{2}{●}}$
 
 This tree is:
-.center[$t = \\tree{(1,10)}{\\treel{\\htmlClass{col1}{●}}}{\\tree{(2,120)}{\\treel{\\htmlClass{col1}{●}}}{\\treel{\\htmlClass{col2}{●}}}}$]
+.center[$t = \\tree{(1,10)}{\\treel{\\c{1}{●}}}{\\tree{(2,120)}{\\treel{\\c{1}{●}}}{\\treel{\\c{2}{●}}}}$]
 
 .note[Would you be able to write a parser for this?]
 ]
@@ -402,26 +402,26 @@ otext(262.5,10,'$y$')
 
 .cols[
 .c60[
-**1st call**: .compact[$\\vect{x}=(14,155), t = \\tree{(1,10)}{\\treel{\\htmlClass{col1}{●}}}{\\tree{(2,120)}{\\treel{\\htmlClass{col1}{●}}}{\\treel{\\htmlClass{col2}{●}}}}$]
+**1st call**: .compact[$\\vect{x}=(14,155), t = \\tree{(1,10)}{\\treel{\\c{1}{●}}}{\\tree{(2,120)}{\\treel{\\c{1}{●}}}{\\treel{\\c{2}{●}}}}$]
 
 .compact[
 $\\neg\\text{has-children}(t)=\\text{false}$  
 $(j,\\tau)=(1,10)$  
 $x\_1 \\le 10 = \\text{false}$  
-$\\text{right-child-of}(r)= \\tree{(2,120)}{\\treel{\\htmlClass{col1}{●}}}{\\treel{\\htmlClass{col2}{●}}}$
+$\\text{right-child-of}(r)= \\tree{(2,120)}{\\treel{\\c{1}{●}}}{\\treel{\\c{2}{●}}}$
 ]
 
-.i[]**2nd call**: .compact[$\\vect{x}=(14,155), t = \\tree{(2,120)}{\\treel{\\htmlClass{col1}{●}}}{\\treel{\\htmlClass{col2}{●}}}$]
+.i[]**2nd call**: .compact[$\\vect{x}=(14,155), t = \\tree{(2,120)}{\\treel{\\c{1}{●}}}{\\treel{\\c{2}{●}}}$]
 
 .i[]$\\neg\\text{has-children}(t)=\\text{false}$  
 .i[]$(j,\\tau)=(2,120)$  
 .i[]$x\_2 \\le 120 = \\text{false}$  
-.i[]$\\text{right-child-of}(r)= [\\htmlClass{col2}{●}]$
+.i[]$\\text{right-child-of}(r)= [\\c{2}{●}]$
 
-.i[].i[]**3rd call**: .compact[$\\vect{x}=(14,155), t = \\treel{\\htmlClass{col2}{●}}$]
+.i[].i[]**3rd call**: .compact[$\\vect{x}=(14,155), t = \\treel{\\c{2}{●}}$]
 
 .i[].i[]$\\neg\\text{has-children}(t)=\\text{true}$  
-.i[].i[]$y=\\htmlClass{col2}{●}$ .note[return return return]
+.i[].i[]$y=\\c{2}{●}$ .note[return return return]
 ]
 .c40[
 .pseudo-code.compact[
@@ -478,8 +478,8 @@ function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$ {
 .i[].i[].col2[$(j, \\tau) \\gets \\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$]  
 .i[].i[]$t \\gets \\text{node-from}($  
 .i[].i[].i[]$(j,\\tau),$  
-.i[].i[].i[]$\\htmlClass{col3}{\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau})},$ .comment[//recursion]  
-.i[].i[].i[]$\\htmlClass{col3}{\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau})}$ .comment[//recursion]  
+.i[].i[].i[]$\\c{3}{\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau})},$ .comment[//recursion]  
+.i[].i[].i[]$\\c{3}{\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau})}$ .comment[//recursion]  
 .i[].i[])  
 .i[].i[]return $t$  
 .i[]}  
@@ -526,7 +526,7 @@ This $f'\\subtext{learn}$ is called .key[recursive binary splitting]:
 **In detail** (and formally):
 .pseudo-code.compact[
 function $\\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$ {  
-.i[]$(j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} \\left(\\text{error}(\\htmlClass{col1}{\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau}})+\\text{error}(\\htmlClass{col1}{\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau}})\\right)$  
+.i[]$(j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} \\left(\\text{error}(\\c{1}{\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau}})+\\text{error}(\\c{1}{\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau}})\\right)$  
 .i[]return $(j^\\star, \\tau^\\star)$  
 }
 ]
@@ -627,15 +627,15 @@ otext(195,-5,'●','col2')
 otext(225,-5,'●','col3')
 otext(255,-5,'●','col3')
 otext(285,-5,'●','col3')
-otext(30,20,'$\\\\htmlClass{col1}{\\\\frac{0}{1}} \\\\htmlClass{col1}{\\\\frac{6}{9}}$','smaller')
-otext(60,20,'$\\\\htmlClass{col1}{\\\\frac{0}{2}} \\\\htmlClass{col2}{\\\\frac{5}{8}}$','smaller')
-otext(90,20,'$\\\\htmlClass{col1}{\\\\frac{1}{3}} \\\\htmlClass{col3}{\\\\frac{4}{7}}$','smaller')
-otext(120,20,'$\\\\htmlClass{col1}{\\\\frac{2}{4}} \\\\htmlClass{col3}{\\\\frac{3}{6}}$','smaller')
-otext(150,20,'$\\\\htmlClass{col1}{\\\\frac{2}{5}} \\\\htmlClass{col3}{\\\\frac{2}{5}}$','smaller')
-otext(180,20,'$\\\\htmlClass{col1}{\\\\frac{2}{6}} \\\\htmlClass{col3}{\\\\frac{1}{4}}$','smaller')
-otext(210,20,'$\\\\htmlClass{col1}{\\\\frac{3}{7}} \\\\htmlClass{col3}{\\\\frac{0}{3}}$','smaller')
-otext(240,20,'$\\\\htmlClass{col1}{\\\\frac{4}{8}} \\\\htmlClass{col3}{\\\\frac{0}{2}}$','smaller')
-otext(270,20,'$\\\\htmlClass{col1}{\\\\frac{5}{9}} \\\\htmlClass{col3}{\\\\frac{0}{1}}$','smaller')
+otext(30,20,'$\\\\c{1}{\\\\frac{0}{1}} \\\\c{1}{\\\\frac{6}{9}}$','smaller')
+otext(60,20,'$\\\\c{1}{\\\\frac{0}{2}} \\\\c{2}{\\\\frac{5}{8}}$','smaller')
+otext(90,20,'$\\\\c{1}{\\\\frac{1}{3}} \\\\c{3}{\\\\frac{4}{7}}$','smaller')
+otext(120,20,'$\\\\c{1}{\\\\frac{2}{4}} \\\\c{3}{\\\\frac{3}{6}}$','smaller')
+otext(150,20,'$\\\\c{1}{\\\\frac{2}{5}} \\\\c{3}{\\\\frac{2}{5}}$','smaller')
+otext(180,20,'$\\\\c{1}{\\\\frac{2}{6}} \\\\c{3}{\\\\frac{1}{4}}$','smaller')
+otext(210,20,'$\\\\c{1}{\\\\frac{3}{7}} \\\\c{3}{\\\\frac{0}{3}}$','smaller')
+otext(240,20,'$\\\\c{1}{\\\\frac{4}{8}} \\\\c{3}{\\\\frac{0}{2}}$','smaller')
+otext(270,20,'$\\\\c{1}{\\\\frac{5}{9}} \\\\c{3}{\\\\frac{0}{1}}$','smaller')
 ]
 ]
 ]
@@ -668,12 +668,12 @@ otext(105,-5,'●','col2')
 otext(135,-5,'●','col1')
 otext(165,-5,'●','col1')
 otext(195,-5,'●','col2')
-otext(30,20,'$\\\\htmlClass{col1}{\\\\frac{0}{1}} \\\\htmlClass{col1}{\\\\frac{3}{6}}$','smaller')
-otext(60,20,'$\\\\htmlClass{col1}{\\\\frac{0}{2}} \\\\htmlClass{col2}{\\\\frac{2}{5}}$','smaller')
-otext(90,20,'$\\\\htmlClass{col1}{\\\\frac{1}{3}} \\\\htmlClass{col1}{\\\\frac{2}{4}}$','smaller')
-otext(120,20,'$\\\\htmlClass{col1}{\\\\frac{2}{4}} \\\\htmlClass{col1}{\\\\frac{1}{3}}$','smaller')
-otext(150,20,'$\\\\htmlClass{col1}{\\\\frac{2}{5}} \\\\htmlClass{col1}{\\\\frac{1}{2}}$','smaller')
-otext(180,20,'$\\\\htmlClass{col1}{\\\\frac{2}{6}} \\\\htmlClass{col1}{\\\\frac{0}{1}}$','smaller')
+otext(30,20,'$\\\\c{1}{\\\\frac{0}{1}} \\\\c{1}{\\\\frac{3}{6}}$','smaller')
+otext(60,20,'$\\\\c{1}{\\\\frac{0}{2}} \\\\c{2}{\\\\frac{2}{5}}$','smaller')
+otext(90,20,'$\\\\c{1}{\\\\frac{1}{3}} \\\\c{1}{\\\\frac{2}{4}}$','smaller')
+otext(120,20,'$\\\\c{1}{\\\\frac{2}{4}} \\\\c{1}{\\\\frac{1}{3}}$','smaller')
+otext(150,20,'$\\\\c{1}{\\\\frac{2}{5}} \\\\c{1}{\\\\frac{1}{2}}$','smaller')
+otext(180,20,'$\\\\c{1}{\\\\frac{2}{6}} \\\\c{1}{\\\\frac{0}{1}}$','smaller')
 ]
 ]
 ]
@@ -681,7 +681,7 @@ otext(180,20,'$\\\\htmlClass{col1}{\\\\frac{2}{6}} \\\\htmlClass{col1}{\\\\frac{
 .cols.pcompact[
 .c40[
 .i[].i[]**1st-l-l call:**  
-.i[].i[]return $\\treel{\\htmlClass{col1}{●}}$
+.i[].i[]return $\\treel{\\c{1}{●}}$
 ]
 .c60[
 .diagram.neutral.center[
@@ -731,10 +731,10 @@ otext(105,-5,'●','col2')
 otext(135,-5,'●','col1')
 otext(165,-5,'●','col1')
 otext(195,-5,'●','col2')
-otext(90,20,'$\\\\htmlClass{col2}{\\\\frac{0}{1}} \\\\htmlClass{col2}{\\\\frac{2}{4}}$','smaller')
-otext(120,20,'$\\\\htmlClass{col2}{\\\\frac{0}{2}} \\\\htmlClass{col1}{\\\\frac{1}{3}}$','smaller')
-otext(150,20,'$\\\\htmlClass{col2}{\\\\frac{1}{3}} \\\\htmlClass{col1}{\\\\frac{1}{2}}$','smaller')
-otext(180,20,'$\\\\htmlClass{col2}{\\\\frac{2}{4}} \\\\htmlClass{col2}{\\\\frac{0}{1}}$','smaller')
+otext(90,20,'$\\\\c{2}{\\\\frac{0}{1}} \\\\c{2}{\\\\frac{2}{4}}$','smaller')
+otext(120,20,'$\\\\c{2}{\\\\frac{0}{2}} \\\\c{1}{\\\\frac{1}{3}}$','smaller')
+otext(150,20,'$\\\\c{2}{\\\\frac{1}{3}} \\\\c{1}{\\\\frac{1}{2}}$','smaller')
+otext(180,20,'$\\\\c{2}{\\\\frac{2}{4}} \\\\c{2}{\\\\frac{0}{1}}$','smaller')
 ]
 ]
 ]
@@ -742,7 +742,7 @@ otext(180,20,'$\\\\htmlClass{col2}{\\\\frac{2}{4}} \\\\htmlClass{col2}{\\\\frac{
 .cols.pcompact[
 .c40[
 .i[].i[].i[]**1st-l-r-l call:**  
-.i[].i[].i[]return $\\treel{\\htmlClass{col2}{●}}$
+.i[].i[].i[]return $\\treel{\\c{2}{●}}$
 ]
 .c60[
 .diagram.neutral.center[
@@ -769,7 +769,7 @@ otext(105,-5,'●','col2')
 .cols.pcompact[
 .c40[
 .i[].i[].i[]**1st-l-r-r call:**  
-.i[].i[].i[]return $\\treel{\\htmlClass{col1}{●}}$
+.i[].i[].i[]return $\\treel{\\c{1}{●}}$
 ]
 .c60[
 .diagram.neutral.center[
@@ -794,13 +794,13 @@ otext(195,-5,'●','col2')
 ]
 ]
 
-.i[].i[]return $\\tree{(1,4)}{\\treel{\\htmlClass{col2}{●}}}{\\treel{\\htmlClass{col1}{●}}}$  
-.i[]return $\\tree{(1,2)}{\\treel{\\htmlClass{col1}{●}}}{\\tree{(1,4)}{\\treel{\\htmlClass{col2}{●}}}{\\treel{\\htmlClass{col1}{●}}}}$
+.i[].i[]return $\\tree{(1,4)}{\\treel{\\c{2}{●}}}{\\treel{\\c{1}{●}}}$  
+.i[]return $\\tree{(1,2)}{\\treel{\\c{1}{●}}}{\\tree{(1,4)}{\\treel{\\c{2}{●}}}{\\treel{\\c{1}{●}}}}$
 
 .cols.pcompact[
 .c40[
 .i[]**1st-r call:**  
-.i[]return $\\treel{\\htmlClass{col3}{●}}$
+.i[]return $\\treel{\\c{3}{●}}$
 ]
 .c60[
 .diagram.neutral.center[
@@ -825,12 +825,12 @@ otext(285,-5,'●','col3')
 ]
 ]
 
-return $\\tree{(1,7)}{\\tree{(1,2)}{\\treel{\\htmlClass{col1}{●}}}{\\tree{(1,4)}{\\treel{\\htmlClass{col2}{●}}}{\\treel{\\htmlClass{col1}{●}}}}}{\\treel{\\htmlClass{col3}{●}}}$
+return $\\tree{(1,7)}{\\tree{(1,2)}{\\treel{\\c{1}{●}}}{\\tree{(1,4)}{\\treel{\\c{2}{●}}}{\\treel{\\c{1}{●}}}}}{\\treel{\\c{3}{●}}}$
 
 ]
 .c40.compact[
 Assume:
-- $X=\\mathbb{R}^1=\\mathbb{R}$, $Y=\\{\\htmlClass{col1}{●},\\htmlClass{col2}{●},\\htmlClass{col3}{●}\\}$
+- $X=\\mathbb{R}^1=\\mathbb{R}$, $Y=\\{\\c{1}{●},\\c{2}{●},\\c{3}{●}\\}$
 - $n\\subtext{min}=3$
 
 .pseudo-code.compact[
@@ -860,17 +860,17 @@ function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {
 
 .pseudo-code.compact[
 function $\\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$ {  
-.i[]$(j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} \\left(\\htmlClass{col1}{\\text{error}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau})}+\\htmlClass{col1}{\\text{error}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau})}\\right)$  
+.i[]$(j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} \\left(\\c{1}{\\text{error}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau})}+\\c{1}{\\text{error}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau})}\\right)$  
 .i[]return $(j^\\star, \\tau^\\star)$  
 }
 ]
 
 $\\text{error}(\\seq{y^{(i)}}{i})$ is the error the dummy classifier would do on $\\seq{y^{(i)}}{i}$:
-.center[$\\htmlClass{col1}{\\text{error}(\\seq{y^{(i)}}{i})}=1 - \\max\_y \\freq{y, \\seq{y^{(i)}}{i}}$]
+.center[$\\c{1}{\\text{error}(\\seq{y^{(i)}}{i})}=1 - \\max\_y \\freq{y, \\seq{y^{(i)}}{i}}$]
 
 Instead of $\\text{error}()$, two other variants can be used:
-- **Gini index**: $\\htmlClass{col1}{\\text{gini}(\\seq{y^{(i)}}{i})}=\\sum\_y \\freq{y, \\seq{y^{(i)}}{i}} \\left(1-\\freq{y, \\seq{y^{(i)}}{i}}\\right)$
-- **Cross entropy**: $\\htmlClass{col1}{\\text{cross-entropy}(\\seq{y^{(i)}}{i})}=-\\sum\_y \\freq{y, \\seq{y^{(i)}}{i}} \\log \\freq{y, \\seq{y^{(i)}}{i}}$
+- **Gini index**: $\\c{1}{\\text{gini}(\\seq{y^{(i)}}{i})}=\\sum\_y \\freq{y, \\seq{y^{(i)}}{i}} \\left(1-\\freq{y, \\seq{y^{(i)}}{i}}\\right)$
+- **Cross entropy**: $\\c{1}{\\text{cross-entropy}(\\seq{y^{(i)}}{i})}=-\\sum\_y \\freq{y, \\seq{y^{(i)}}{i}} \\log \\freq{y, \\seq{y^{(i)}}{i}}$
 
 --
 
@@ -897,8 +897,8 @@ otext(275,10,'$e \\\\in \\\\mathbb{R}^+$')
 ## Node impurity
 
 .pseudo-code.compact[
-function $\\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, \\htmlClass{col1}{f\\subtext{impurity}})$ {  
-.i[]$(j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} \\left(\\htmlClass{col1}{f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau})}+\\htmlClass{col1}{f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau})}\\right)$  
+function $\\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, \\c{1}{f\\subtext{impurity}})$ {  
+.i[]$(j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} \\left(\\c{1}{f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau})}+\\c{1}{f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau})}\\right)$  
 .i[]return $(j^\\star, \\tau^\\star)$  
 }
 ]
@@ -1001,15 +1001,15 @@ otext(512.5,35,'$y$')
 ]
 
 For tree learning:
-- $f'\\subtext{learn}: \\htmlClass{col1}{\\mathcal{P}^*(X\_1 \\times \\dots \\times X\_p \\times Y)} \\to \\htmlClass{col2}{T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}}$
+- $f'\\subtext{learn}: \\c{1}{\\mathcal{P}^*(X\_1 \\times \\dots \\times X\_p \\times Y)} \\to \\c{2}{T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}}$
   - given a .col1[multivariate dataset], returns a .col2[tree] in $T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}$
-- $f''\\subtext{predict}: \\htmlClass{col1}{X\_1 \\times \\dots \\times X\_p} \\times \\htmlClass{col2}{T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}} \\to \\htmlClass{col3}{P\_Y}$
+- $f''\\subtext{predict}: \\c{1}{X\_1 \\times \\dots \\times X\_p} \\times \\c{2}{T\_{(\\{1,\\dots,p\\}\\times\\mathbb{R}) \\cup P\_Y}} \\to \\c{3}{P\_Y}$
   - given a .col1[multivariate observation] and a .col2[tree], returns a .col3[discrete probability distribution] $p \\in P\_Y$
 
-Set of trees $T\_{\\htmlClass{col1}{(\\{1,\\dots,p\\}\\times\\mathbb{R})} \\cup \\htmlClass{col2}{P\_Y}}$:
-- $L=\\htmlClass{col1}{(\\{1,\\dots,p\\}\\times\\mathbb{R})} \\cup \\htmlClass{col2}{P\_Y}$ is the set of node labels
-- $\\htmlClass{col1}{(\\{1,\\dots,p\\}\\times\\mathbb{R})}$ are branch node labels
-- $\\htmlClass{col2}{P\_Y}$ are terminal node labels
+Set of trees $T\_{\\c{1}{(\\{1,\\dots,p\\}\\times\\mathbb{R})} \\cup \\c{2}{P\_Y}}$:
+- $L=\\c{1}{(\\{1,\\dots,p\\}\\times\\mathbb{R})} \\cup \\c{2}{P\_Y}$ is the set of node labels
+- $\\c{1}{(\\{1,\\dots,p\\}\\times\\mathbb{R})}$ are branch node labels
+- $\\c{2}{P\_Y}$ are terminal node labels
   - i.e., terminal nodes **return discrete probabiliy distributions**
 
 ---
@@ -1054,7 +1054,7 @@ $y^\\star \\gets \\argmax\_{y \\in Y} \\sum\_i \\mathbf{1}(y^{(i)}=y)$
 return $\\text{node-from}(y^\\star,\\varnothing,\\varnothing)$
 ]
 with $\\seq{y^{(i)}}{i}$ being .col1[●].col3[●].col1[●].col1[●].col2[●]  
-returns $\\treel{\\htmlClass{col1}{●}}$
+returns $\\treel{\\c{1}{●}}$
 ]
 .c50[
 **After** (with probability):
@@ -1063,7 +1063,7 @@ $p \\gets y \\mapsto \\freq{y, \\seq{y^{(i)}}{i}}$
 return $\\text{node-from}(p,\\varnothing,\\varnothing)$
 ]
 with $\\seq{y^{(i)}}{i}$ being .col1[●].col3[●].col1[●].col1[●].col2[●]  
-returns $\\treel{(\\htmlClass{col1}{● \\smaller{\\frac{3}{5}}}, \\htmlClass{col2}{● \\smaller{\\frac{1}{5}}}, \\htmlClass{col3}{● \\smaller{\\frac{1}{5}}})}$
+returns $\\treel{(\\c{1}{● \\smaller{\\frac{3}{5}}}, \\c{2}{● \\smaller{\\frac{1}{5}}}, \\c{3}{● \\smaller{\\frac{1}{5}}})}$
 ]
 ]
 
@@ -1153,15 +1153,15 @@ otext(195,-5,'●','col2')
 otext(225,-5,'●','col3')
 otext(255,-5,'●','col3')
 otext(285,-5,'●','col3')
-otext(30,20,'$\\\\htmlClass{col1}{\\\\frac{0}{1}} \\\\htmlClass{col1}{\\\\frac{6}{9}}$','smaller')
-otext(60,20,'$\\\\htmlClass{col1}{\\\\frac{0}{2}} \\\\htmlClass{col2}{\\\\frac{5}{8}}$','smaller')
-otext(90,20,'$\\\\htmlClass{col1}{\\\\frac{1}{3}} \\\\htmlClass{col3}{\\\\frac{4}{7}}$','smaller')
-otext(120,20,'$\\\\htmlClass{col1}{\\\\frac{2}{4}} \\\\htmlClass{col3}{\\\\frac{3}{6}}$','smaller')
-otext(150,20,'$\\\\htmlClass{col1}{\\\\frac{2}{5}} \\\\htmlClass{col3}{\\\\frac{2}{5}}$','smaller')
-otext(180,20,'$\\\\htmlClass{col1}{\\\\frac{2}{6}} \\\\htmlClass{col3}{\\\\frac{1}{4}}$','smaller')
-otext(210,20,'$\\\\htmlClass{col1}{\\\\frac{3}{7}} \\\\htmlClass{col3}{\\\\frac{0}{3}}$','smaller')
-otext(240,20,'$\\\\htmlClass{col1}{\\\\frac{4}{8}} \\\\htmlClass{col3}{\\\\frac{0}{2}}$','smaller')
-otext(270,20,'$\\\\htmlClass{col1}{\\\\frac{5}{9}} \\\\htmlClass{col3}{\\\\frac{0}{1}}$','smaller')
+otext(30,20,'$\\\\c{1}{\\\\frac{0}{1}} \\\\c{1}{\\\\frac{6}{9}}$','smaller')
+otext(60,20,'$\\\\c{1}{\\\\frac{0}{2}} \\\\c{2}{\\\\frac{5}{8}}$','smaller')
+otext(90,20,'$\\\\c{1}{\\\\frac{1}{3}} \\\\c{3}{\\\\frac{4}{7}}$','smaller')
+otext(120,20,'$\\\\c{1}{\\\\frac{2}{4}} \\\\c{3}{\\\\frac{3}{6}}$','smaller')
+otext(150,20,'$\\\\c{1}{\\\\frac{2}{5}} \\\\c{3}{\\\\frac{2}{5}}$','smaller')
+otext(180,20,'$\\\\c{1}{\\\\frac{2}{6}} \\\\c{3}{\\\\frac{1}{4}}$','smaller')
+otext(210,20,'$\\\\c{1}{\\\\frac{3}{7}} \\\\c{3}{\\\\frac{0}{3}}$','smaller')
+otext(240,20,'$\\\\c{1}{\\\\frac{4}{8}} \\\\c{3}{\\\\frac{0}{2}}$','smaller')
+otext(270,20,'$\\\\c{1}{\\\\frac{5}{9}} \\\\c{3}{\\\\frac{0}{1}}$','smaller')
 ]
 ]
 ]
@@ -1194,12 +1194,12 @@ otext(105,-5,'●','col2')
 otext(135,-5,'●','col1')
 otext(165,-5,'●','col1')
 otext(195,-5,'●','col2')
-otext(30,20,'$\\\\htmlClass{col1}{\\\\frac{0}{1}} \\\\htmlClass{col1}{\\\\frac{3}{6}}$','smaller')
-otext(60,20,'$\\\\htmlClass{col1}{\\\\frac{0}{2}} \\\\htmlClass{col2}{\\\\frac{2}{5}}$','smaller')
-otext(90,20,'$\\\\htmlClass{col1}{\\\\frac{1}{3}} \\\\htmlClass{col1}{\\\\frac{2}{4}}$','smaller')
-otext(120,20,'$\\\\htmlClass{col1}{\\\\frac{2}{4}} \\\\htmlClass{col1}{\\\\frac{1}{3}}$','smaller')
-otext(150,20,'$\\\\htmlClass{col1}{\\\\frac{2}{5}} \\\\htmlClass{col1}{\\\\frac{1}{2}}$','smaller')
-otext(180,20,'$\\\\htmlClass{col1}{\\\\frac{2}{6}} \\\\htmlClass{col1}{\\\\frac{0}{1}}$','smaller')
+otext(30,20,'$\\\\c{1}{\\\\frac{0}{1}} \\\\c{1}{\\\\frac{3}{6}}$','smaller')
+otext(60,20,'$\\\\c{1}{\\\\frac{0}{2}} \\\\c{2}{\\\\frac{2}{5}}$','smaller')
+otext(90,20,'$\\\\c{1}{\\\\frac{1}{3}} \\\\c{1}{\\\\frac{2}{4}}$','smaller')
+otext(120,20,'$\\\\c{1}{\\\\frac{2}{4}} \\\\c{1}{\\\\frac{1}{3}}$','smaller')
+otext(150,20,'$\\\\c{1}{\\\\frac{2}{5}} \\\\c{1}{\\\\frac{1}{2}}$','smaller')
+otext(180,20,'$\\\\c{1}{\\\\frac{2}{6}} \\\\c{1}{\\\\frac{0}{1}}$','smaller')
 ]
 ]
 ]
@@ -1207,7 +1207,7 @@ otext(180,20,'$\\\\htmlClass{col1}{\\\\frac{2}{6}} \\\\htmlClass{col1}{\\\\frac{
 .cols.pcompact[
 .c40[
 .i[].i[]**1st-l-l call:**  
-.i[].i[]return $\\treel{(\\htmlClass{col1}{● \\smaller{1}})}$
+.i[].i[]return $\\treel{(\\c{1}{● \\smaller{1}})}$
 ]
 .c60[
 .diagram.neutral.center[
@@ -1257,10 +1257,10 @@ otext(105,-5,'●','col2')
 otext(135,-5,'●','col1')
 otext(165,-5,'●','col1')
 otext(195,-5,'●','col2')
-otext(90,20,'$\\\\htmlClass{col2}{\\\\frac{0}{1}} \\\\htmlClass{col2}{\\\\frac{2}{4}}$','smaller')
-otext(120,20,'$\\\\htmlClass{col2}{\\\\frac{0}{2}} \\\\htmlClass{col1}{\\\\frac{1}{3}}$','smaller')
-otext(150,20,'$\\\\htmlClass{col2}{\\\\frac{1}{3}} \\\\htmlClass{col1}{\\\\frac{1}{2}}$','smaller')
-otext(180,20,'$\\\\htmlClass{col2}{\\\\frac{2}{4}} \\\\htmlClass{col2}{\\\\frac{0}{1}}$','smaller')
+otext(90,20,'$\\\\c{2}{\\\\frac{0}{1}} \\\\c{2}{\\\\frac{2}{4}}$','smaller')
+otext(120,20,'$\\\\c{2}{\\\\frac{0}{2}} \\\\c{1}{\\\\frac{1}{3}}$','smaller')
+otext(150,20,'$\\\\c{2}{\\\\frac{1}{3}} \\\\c{1}{\\\\frac{1}{2}}$','smaller')
+otext(180,20,'$\\\\c{2}{\\\\frac{2}{4}} \\\\c{2}{\\\\frac{0}{1}}$','smaller')
 ]
 ]
 ]
@@ -1268,7 +1268,7 @@ otext(180,20,'$\\\\htmlClass{col2}{\\\\frac{2}{4}} \\\\htmlClass{col2}{\\\\frac{
 .cols.pcompact[
 .c40[
 .i[].i[].i[]**1st-l-r-l call:**  
-.i[].i[].i[]return $\\treel{(\\htmlClass{col2}{● \\smaller{1}})}$
+.i[].i[].i[]return $\\treel{(\\c{2}{● \\smaller{1}})}$
 ]
 .c60[
 .diagram.neutral.center[
@@ -1295,7 +1295,7 @@ otext(105,-5,'●','col2')
 .cols.pcompact[
 .c40[
 .i[].i[].i[]**1st-l-r-r call:**  
-.i[].i[].i[]ret. $\\treel{(\\htmlClass{col1}{● \\smaller{\\frac{2}{3}}}, \\htmlClass{col2}{● \\smaller{\\frac{1}{3}}})}$
+.i[].i[].i[]ret. $\\treel{(\\c{1}{● \\smaller{\\frac{2}{3}}}, \\c{2}{● \\smaller{\\frac{1}{3}}})}$
 ]
 .c60[
 .diagram.neutral.center[
@@ -1320,13 +1320,13 @@ otext(195,-5,'●','col2')
 ]
 ]
 
-.i[].i[]return $\\tree{(1,4)}{\\treel{\\htmlClass{col2}{●  \\smaller{1}}}}{\\treel{(\\htmlClass{col1}{● \\smaller{\\frac{2}{3}}}, \\htmlClass{col2}{● \\smaller{\\frac{1}{3}}})}}$  
-.i[]return $\\tree{(1,2)}{\\treel{\\htmlClass{col1}{● \\smaller{1}}}}{\\tree{(1,4)}{\\treel{\\htmlClass{col2}{●  \\smaller{1}}}}{\\treel{(\\htmlClass{col1}{● \\smaller{\\frac{2}{3}}}, \\htmlClass{col2}{● \\smaller{\\frac{1}{3}}})}}}$
+.i[].i[]return $\\tree{(1,4)}{\\treel{\\c{2}{●  \\smaller{1}}}}{\\treel{(\\c{1}{● \\smaller{\\frac{2}{3}}}, \\c{2}{● \\smaller{\\frac{1}{3}}})}}$  
+.i[]return $\\tree{(1,2)}{\\treel{\\c{1}{● \\smaller{1}}}}{\\tree{(1,4)}{\\treel{\\c{2}{●  \\smaller{1}}}}{\\treel{(\\c{1}{● \\smaller{\\frac{2}{3}}}, \\c{2}{● \\smaller{\\frac{1}{3}}})}}}$
 
 .cols.pcompact[
 .c40[
 .i[]**1st-r call:**  
-.i[]return $\\treel{\\htmlClass{col3}{● \\smaller{1}}}$
+.i[]return $\\treel{\\c{3}{● \\smaller{1}}}$
 ]
 .c60[
 .diagram.neutral.center[
@@ -1351,12 +1351,12 @@ otext(285,-5,'●','col3')
 ]
 ]
 
-return $\\tree{(1,7)}{\\tree{(1,2)}{\\treel{\\htmlClass{col1}{● \\smaller{1}}}}{\\tree{(1,4)}{\\treel{\\htmlClass{col2}{●  \\smaller{1}}}}{\\treel{(\\htmlClass{col1}{● \\smaller{\\frac{2}{3}}}, \\htmlClass{col2}{● \\smaller{\\frac{1}{3}}})}}}}{\\treel{\\htmlClass{col3}{● \\smaller{1}}}}$
+return $\\tree{(1,7)}{\\tree{(1,2)}{\\treel{\\c{1}{● \\smaller{1}}}}{\\tree{(1,4)}{\\treel{\\c{2}{●  \\smaller{1}}}}{\\treel{(\\c{1}{● \\smaller{\\frac{2}{3}}}, \\c{2}{● \\smaller{\\frac{1}{3}}})}}}}{\\treel{\\c{3}{● \\smaller{1}}}}$
 
 ]
 .c40.compact[
 Assume:
-- $X=\\mathbb{R}^1=\\mathbb{R}$, $Y=\\{\\htmlClass{col1}{●},\\htmlClass{col2}{●},\\htmlClass{col3}{●}\\}$
+- $X=\\mathbb{R}^1=\\mathbb{R}$, $Y=\\{\\c{1}{●},\\c{2}{●},\\c{3}{●}\\}$
 - $n\\subtext{min}=3$
 
 .pseudo-code.compact[
@@ -1721,11 +1721,11 @@ The learned tree is a **dummy classifier** (with probability):
 .c50[
 .diagram.center.tree[
 rect(0,0,100,40)
-otext(50,20,'$\\\\htmlClass{col1}{\\\\text{●}\\\\smaller{\\\\frac{59}{103}}}, \\\\htmlClass{col2}{\\\\text{●}\\\\smaller{\\\\frac{44}{103}}}$')
+otext(50,20,'$\\\\c{1}{\\\\text{●}\\\\smaller{\\\\frac{59}{103}}}, \\\\c{2}{\\\\text{●}\\\\smaller{\\\\frac{44}{103}}}$')
 ]
 ]
 .c50.center[
-$t=\\treel{\\htmlClass{col1}{\\text{●}\\smaller{\\frac{59}{103}}}, \\htmlClass{col2}{\\text{●}\\smaller{\\frac{44}{103}}}}$
+$t=\\treel{\\c{1}{\\text{●}\\smaller{\\frac{59}{103}}}, \\c{2}{\\text{●}\\smaller{\\frac{44}{103}}}}$
 ]
 ]
 
@@ -1873,11 +1873,11 @@ A simple form of hyperparameter tuning:
 2. choose a suitable **effectiveness index**
 3. choose a suitable **learning/test division** method
 4. consider all the tuples resulting from the cartesian product $P'\_1 \\times \\dots \\times P'\_h$ (i.e., the **grid**)
-5. take the best hyperparameters $p^\\star\_1,\\dots,p^\\star\_h$ such that: $$(p^\\star\_1,\\dots,p^\\star\_h)=\\argmax\_{(p\_1,\\dots,p\_h) \\in P'\_1 \\times \\dots \\times P'\_h} \\htmlClass{col1}{f\\subtext{learn-effect}}(\\htmlClass{col2}{f'\\subtext{learn}(\\cdot,p\_1,\\dots,p\_h),f'\\subtext{predict}},D)$$
+5. take the best hyperparameters $p^\\star\_1,\\dots,p^\\star\_h$ such that: $$(p^\\star\_1,\\dots,p^\\star\_h)=\\argmax\_{(p\_1,\\dots,p\_h) \\in P'\_1 \\times \\dots \\times P'\_h} \\c{1}{f\\subtext{learn-effect}}(\\c{2}{f'\\subtext{learn}(\\cdot,p\_1,\\dots,p\_h),f'\\subtext{predict}},D)$$
 
 Remarks:
 - .col1[$f\\subtext{learn-effect}$] is the chosen .col1[assessment method] measuring the chosen (step 2) effectiveness index with the chosen (step 3) learning/test division: it takes a learning technique **and a dataset** $D$
-  - .col2[$f'\\subtext{learn}(\\cdot,p^\\star\_1,\\dots,p^\\star\_h),f'\\subtext{predict}$] is the learning technique; $f'\\subtext{learn}(\\htmlClass{col3}{\\cdot},\\htmlClass{col4}{p\_1,\\dots,p\_h})$ is the learning function with fixed hyperparameters .col4[$p\_1,\\dots,p\_h$] and variable .col3[dataset $\\cdot$]
+  - .col2[$f'\\subtext{learn}(\\cdot,p^\\star\_1,\\dots,p^\\star\_h),f'\\subtext{predict}$] is the learning technique; $f'\\subtext{learn}(\\c{3}{\\cdot},\\c{4}{p\_1,\\dots,p\_h})$ is the learning function with fixed hyperparameters .col4[$p\_1,\\dots,p\_h$] and variable .col3[dataset $\\cdot$]
 - to be feasible, $P'\_1 \\times \\dots \\times P'\_h$ must be **small**!
 
 ---
@@ -2150,7 +2150,7 @@ link([160,110,180,130])
 ## Efficiency with categorical variables
 
 For a given **numerical variable** $x\_j \\in \\mathbb{R}$, we choose $\\tau^\\star$ such that:
-$$\\tau^\\star = \\argmin\_{\\htmlClass{col1}{\\tau \\in \\mathbb{R}}} \\left(f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau})+f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau})\\right)$$
+$$\\tau^\\star = \\argmin\_{\\c{1}{\\tau \\in \\mathbb{R}}} \\left(f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau})+f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau})\\right)$$
 In practice, we .col1[search the set of midpoints] rather than the entire $\\mathbb{R}$: there are $n-1$ midpoints in a dataset with $n$ elements.
 
 .note[
@@ -2158,26 +2158,26 @@ Even better, we can consider only the midpoints between consecutive values $x\_j
 ]
 
 For a given **categorical variable** $x\_j \\in X\_j$, we choose $X^\\star\_j \\subset X\_j$ such that:
-$$X^\\star\_j = \\argmin\_{\\htmlClass{col1}{X'\_j \\in \\mathcal{P}(X\_j)}} \\left(f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\in X'\_j})+f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\not\\in X'\_j})\\right)$$
+$$X^\\star\_j = \\argmin\_{\\c{1}{X'\_j \\in \\mathcal{P}(X\_j)}} \\left(f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\in X'\_j})+f\\subtext{impurity}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\not\\in X'\_j})\\right)$$
 We .col1[search the set $\\mathcal{P}(X\_j)$] of subsets (i.e., the powerset) of $X\_j$, which has $2^{|X\_j|}$ values.
 
 ---
 
 ## Trees with both kinds of variables
 
-Assume a problem with $X = \\htmlClass{col1}{X\_1 \\times \\dots \\times X\_{p\\subtext{num}}} \\times \\htmlClass{col2}{X\_{p\\subtext{num}+1} \\times \\dots \\times X\_{p\\subtext{num}+p\\subtext{cat}}}$, i.e.:
+Assume a problem with $X = \\c{1}{X\_1 \\times \\dots \\times X\_{p\\subtext{num}}} \\times \\c{2}{X\_{p\\subtext{num}+1} \\times \\dots \\times X\_{p\\subtext{num}+p\\subtext{cat}}}$, i.e.:
 - $p\\subtext{num}$ .col1[numerical variables]
 - $p\\subtext{cat}$ .col2[categorical variables]
 
 The labels of the tree nodes can be:
-- class labels $y \\in \\htmlClass{col3}{Y}$ or discrete probability distribution $p \\in \\htmlClass{col3}{P\_y}$ (terminal nodes)
-- branch conditions $\\htmlClass{col1}{\\{1,\\dots,p\\subtext{num}\\} \\times \\mathbb{R}}$ for numerical variables (non-terminal nodes)
-- branch conditions $\\htmlClass{col2}{\\bigcup_{j=p\\subtext{num}+1}^{j=p\\subtext{num}+p\\subtext{cat}} \\{j\\} \\times \\mathcal{P}(X\_j)}$ for categorical variables (non-terminal nodes)
+- class labels $y \\in \\c{3}{Y}$ or discrete probability distribution $p \\in \\c{3}{P\_y}$ (terminal nodes)
+- branch conditions $\\c{1}{\\{1,\\dots,p\\subtext{num}\\} \\times \\mathbb{R}}$ for numerical variables (non-terminal nodes)
+- branch conditions $\\c{2}{\\bigcup_{j=p\\subtext{num}+1}^{j=p\\subtext{num}+p\\subtext{cat}} \\{j\\} \\times \\mathcal{P}(X\_j)}$ for categorical variables (non-terminal nodes)
   - i.e., each variable with its corresponding powerset of possible values
 
 So the model is a $t \\in$:
-- $T\_{\\htmlClass{col1}{\\{1,\\dots,p\\subtext{num}\\} \\times \\mathbb{R}} \\; \\cup \\; \\htmlClass{col2}{\\bigcup_{j=p\\subtext{num}+1}^{j=p\\subtext{num}+p\\subtext{cat}} \\{j\\} \\times \\mathcal{P}(X\_j)} \\; \\cup \\; \\htmlClass{col3}{Y}}$, without probability
-- or $T\_{\\htmlClass{col1}{\\{1,\\dots,p\\subtext{num}\\} \\times \\mathbb{R}} \\; \\cup \\; \\htmlClass{col2}{\\bigcup_{j=p\\subtext{num}+1}^{j=p\\subtext{num}+p\\subtext{cat}} \\{j\\} \\times \\mathcal{P}(X\_j)} \\; \\cup \\; \\htmlClass{col3}{P\_Y}}$, with probability
+- $T\_{\\c{1}{\\{1,\\dots,p\\subtext{num}\\} \\times \\mathbb{R}} \\; \\cup \\; \\c{2}{\\bigcup_{j=p\\subtext{num}+1}^{j=p\\subtext{num}+p\\subtext{cat}} \\{j\\} \\times \\mathcal{P}(X\_j)} \\; \\cup \\; \\c{3}{Y}}$, without probability
+- or $T\_{\\c{1}{\\{1,\\dots,p\\subtext{num}\\} \\times \\mathbb{R}} \\; \\cup \\; \\c{2}{\\bigcup_{j=p\\subtext{num}+1}^{j=p\\subtext{num}+p\\subtext{cat}} \\{j\\} \\times \\mathcal{P}(X\_j)} \\; \\cup \\; \\c{3}{P\_Y}}$, with probability
 
 ---
 
@@ -2239,7 +2239,7 @@ In $\\text{find-best-branch}()$, minimizing the $\\text{error}()$ does not make 
 **Classification**
 
 The branch is chosen for which **the sum of the impurity** on the two sides is the lowest:
-$$\\htmlClass{col1}{\\begin{align\*}
+$$\\c{1}{\\begin{align\*}
   (j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} ( &\\text{error}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau})+\\\\
   & \\text{error}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau}))\\end{align\*}}$$
 .note[similarly, for categorical variables]
@@ -2249,7 +2249,7 @@ $$\\htmlClass{col1}{\\begin{align\*}
 **Regression**
 
 The branch is chosen for which **the sum of the RSS** on the two sides is the lowest:
-$$\\htmlClass{col1}{\\begin{align\*}
+$$\\c{1}{\\begin{align\*}
   (j^\\star, \\tau^\\star) \\gets \\argmin\_{j,\\tau} ( &\\text{RSS}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau})+\\\\
   & \\text{RSS}(\\seq{y^{(i)}}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau}))\\end{align\*}}$$
 where:
@@ -2348,12 +2348,15 @@ The line is **the model**.
 .cols[
 .c70[
 .w100p.center[![Example of regression trees with different complexities](images/tree-regression-overfitting.png)]
+
+.note[image from Fabio Daolio]
 ]
 .c30[
 .question[Questions]
 - what's the problem size ($n$ and $p$)?
 - what's the model complexity?
 - how is the real system made?
+
 ]
 ]
 
@@ -2397,10 +2400,11 @@ class: middle, center
 ## Decision tree effectiveness
 
 .cols[
-.c60[
+.c50[
 .w100p.center[![Example of regression trees with different complexities](images/tree-vs-linear.png)]
+.note[image from .ref[James, Gareth, et al.; An introduction to statistical learning. Vol. 112. New York: springer, 2013]]
 ]
-.c40[
+.c50[
 The effectiveness depends on the problem and may be limited by the fact that branch nodes consider **one variable at once**.
 
 The decision boundary of the model is hence constrained to be locally parallel to one of the axes:

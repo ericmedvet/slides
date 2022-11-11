@@ -263,9 +263,9 @@ otext(375,10,'$\\\\{x\\\\sub{j\\\\sub{1}},\\\\dots,x\\\\sub{j\\\\sub{n}}\\\\}$')
 ## Examples and probability
 
 **Not deterministic**, thus:
-- one invocation: $f\\subtext{sample-rep}(\\{\\htmlClass{col1}{●},\\htmlClass{col2}{●},\\htmlClass{col3}{●},\\htmlClass{col4}{●},\\htmlClass{col5}{●}\\}) \\rightarrow \\{\\htmlClass{col2}{●},\\htmlClass{col4}{●},\\htmlClass{col3}{●},\\htmlClass{col1}{●},\\htmlClass{col1}{●}\\}$
-- one invocation: $f\\subtext{sample-rep}(\\{\\htmlClass{col1}{●},\\htmlClass{col2}{●},\\htmlClass{col3}{●},\\htmlClass{col4}{●},\\htmlClass{col5}{●}\\}) \\rightarrow \\{\\htmlClass{col3}{●},\\htmlClass{col4}{●},\\htmlClass{col3}{●},\\htmlClass{col5}{●},\\htmlClass{col5}{●}\\}$
-- one invocation: $f\\subtext{sample-rep}(\\{\\htmlClass{col1}{●},\\htmlClass{col2}{●},\\htmlClass{col3}{●},\\htmlClass{col4}{●},\\htmlClass{col5}{●}\\}) \\rightarrow \\{\\htmlClass{col2}{●},\\htmlClass{col4}{●},\\htmlClass{col3}{●},\\htmlClass{col4}{●},\\htmlClass{col1}{●}\\}$
+- one invocation: $f\\subtext{sample-rep}(\\{\\c{1}{●},\\c{2}{●},\\c{3}{●},\\c{4}{●},\\c{5}{●}\\}) \\rightarrow \\{\\c{2}{●},\\c{4}{●},\\c{3}{●},\\c{1}{●},\\c{1}{●}\\}$
+- one invocation: $f\\subtext{sample-rep}(\\{\\c{1}{●},\\c{2}{●},\\c{3}{●},\\c{4}{●},\\c{5}{●}\\}) \\rightarrow \\{\\c{3}{●},\\c{4}{●},\\c{3}{●},\\c{5}{●},\\c{5}{●}\\}$
+- one invocation: $f\\subtext{sample-rep}(\\{\\c{1}{●},\\c{2}{●},\\c{3}{●},\\c{4}{●},\\c{5}{●}\\}) \\rightarrow \\{\\c{2}{●},\\c{4}{●},\\c{3}{●},\\c{4}{●},\\c{1}{●}\\}$
 - ...
 
 .note[recall: input and output are multisets]
@@ -342,11 +342,11 @@ otext(260,25,'$n\\\\subtext{tree}$')
 ]
 
 .pseudo-code.compact[
-function $\\text{learn}(\\seq{(x^{(i)},y^{(i)})}{i}, \\htmlClass{col1}{n\\subtext{tree}})$ {  
+function $\\text{learn}(\\seq{(x^{(i)},y^{(i)})}{i}, \\c{1}{n\\subtext{tree}})$ {  
 .i[]$T' \\gets \\emptyset$  
-.i[]while $|T'| \\le \\htmlClass{col1}{n\\subtext{tree}}$ {  
+.i[]while $|T'| \\le \\c{1}{n\\subtext{tree}}$ {  
 .i[].i[]$\\seq{(x^{(j\_i)},y^{(j\_i)})}{j\_i} \\gets \\text{sample-rep}(\\seq{(x^{(i)},y^{(i)})}{i})$  
-.i[].i[]$t \\gets \\htmlClass{col2}{\\text{learn}\\subtext{single}}(\\seq{(x^{(j\_i)},y^{(j\_i)})}{j\_i}, \\htmlClass{col3}{1})$  
+.i[].i[]$t \\gets \\c{2}{\\text{learn}\\subtext{single}}(\\seq{(x^{(j\_i)},y^{(j\_i)})}{j\_i}, \\c{3}{1})$  
 .i[].i[]$T' \\gets T' \\cup \\{t\\}$  
 .i[]}  
 .i[]return $T'$  
@@ -392,7 +392,7 @@ otext(350,10,'$y$')
 **Classification** (decision trees)
 .pseudo-code.compact[
 function $\\text{predict}(x, \\seq{t\_j}{j})$ {  
-.i[]return $\\argmax\_{y \\in Y} \\sum\_j \\mathbf{1}(y=\\htmlClass{col1}{\\text{predict}\\subtext{single}}(x,t\_j))$  
+.i[]return $\\argmax\_{y \\in Y} \\sum\_j \\mathbf{1}(y=\\c{1}{\\text{predict}\\subtext{single}}(x,t\_j))$  
 }
 ]
 
@@ -409,13 +409,13 @@ function $\\text{predict}(x, \\seq{t\_j}{j})$ {
 **Regression** (regression trees)
 .pseudo-code.compact[
 function $\\text{predict}(x, \\seq{t\_j}{j})$ {  
-.i[]return $\\frac{1}{|\\seq{t\_j}{j}|} \\sum\_j \\htmlClass{col1}{\\text{predict}\\subtext{single}}(x,t\_j)$  
+.i[]return $\\frac{1}{|\\seq{t\_j}{j}|} \\sum\_j \\c{1}{\\text{predict}\\subtext{single}}(x,t\_j)$  
 }
 ]
 
 .compact[
 - simply returns the **mean** of the predictions of the tree in the bag
-- bonus: instead of getting just the mean, by getting also the standard deviation $\\sigma$ of the tree predictions we can have a measure of **uncertainty** of the tree: the larger $\\sigma$, the more uncertain the prediction, the lower the confidence
+- **bonus**: instead of getting just the mean, by getting also the standard deviation $\\sigma$ of the tree predictions we can have a measure of **uncertainty** of the tree: the larger $\\sigma$, the more uncertain the prediction, the lower the confidence
   - uncertainty/confidence is a basic form of local explainability
   - uncertainty/confidence can be exploited in the active learning framework
 ]
@@ -442,7 +442,7 @@ So what? 🤔
 
 ---
 
-## Bagging vs. single tree learning
+## $n\\subtext{tree}$: bagging vs. single tree learning
 
 "Experimentally", it turns out that:
 - with a reasonably large $n\\subtext{tree}$, **bagging is better than single tree learning**
@@ -538,12 +538,12 @@ otext(290,25,'$n\\\\subtext{tree},n\\\\subtext{vars}$')
 ]
 
 .pseudo-code.compact[
-function $\\text{learn}(\\seq{(x^{(i)},y^{(i)})}{i},n\\subtext{tree}, \\htmlClass{col1}{n\\subtext{vars}})$ {  
+function $\\text{learn}(\\seq{(x^{(i)},y^{(i)})}{i},n\\subtext{tree}, \\c{1}{n\\subtext{vars}})$ {  
 .i[]$T' \\gets \\emptyset$  
 .i[]while $|T'| \\le n\\subtext{tree}$ {  
 .i[].i[]$\\seq{(x^{(j\_i)},y^{(j\_i)})}{j\_i} \\gets \\text{sample-rep}(\\seq{(x^{(i)},y^{(i)})}{i})$  
-.i[].i[]$\\seq{(\\htmlClass{col4}{x^{\\prime(j\_i)}},y^{(j\_i)})}{j\_i} \\gets \\htmlClass{col3}{\\text{retain-vars}}(\\seq{(x^{(i)},y^{(i)})}{i}, \\htmlClass{col1}{n\\subtext{vars}})$  
-.i[].i[]$t \\gets \\htmlClass{col2}{\\text{learn}\\subtext{single}}(\\seq{(\\htmlClass{col4}{x^{\\prime(j\_i)}},y^{(j\_i)})}{j\_i}, 1)$  
+.i[].i[]$\\seq{(\\c{4}{x^{\\prime(j\_i)}},y^{(j\_i)})}{j\_i} \\gets \\c{3}{\\text{retain-vars}}(\\seq{(x^{(i)},y^{(i)})}{i}, \\c{1}{n\\subtext{vars}})$  
+.i[].i[]$t \\gets \\c{2}{\\text{learn}\\subtext{single}}(\\seq{(\\c{4}{x^{\\prime(j\_i)}},y^{(j\_i)})}{j\_i}, 1)$  
 .i[].i[]$T' \\gets T' \\cup \\{t\\}$  
 .i[]}  
 .i[]return $T'$  
@@ -554,24 +554,175 @@ function $\\text{learn}(\\seq{(x^{(i)},y^{(i)})}{i},n\\subtext{tree}, \\htmlClas
 ]
 .c50[
 - the model is a **bag of $n\\subtext{vars}$ trees**, as in bagging
-- $\\htmlClass{col1}{n\\subtext{vars}} \\le p$ is the number of variables to be retained
+- $\\c{1}{n\\subtext{vars}} \\le p$ is the number of variables to be retained
   - a parameter of the learning technique
-- .col2[$\\text{learn}\\subtext{single}()$] gets, at each iteration, a dataset $D' \\in \\mathcal{P}^*(\\htmlClass{col4}{X'} \\times Y)$
+- .col2[$\\text{learn}\\subtext{single}()$] gets, at each iteration, a dataset $D' \\in \\mathcal{P}^*(\\c{4}{X'} \\times Y)$
   - $X=X\_1 \\times \\dots \\times X\_p$ has all the $p$ vars
-  - $\\htmlClass{col4}{X'}=X\_{j\_1} \\times \\dots \\times X\_{j\_{n\\subtext{vars}}}$ has only $n\\subtext{vars}$ variables, with each $j\_k \\in \\{1, \\dots, p\\}$ and $j\_{k'} \\ne j\_{k''}, \\forall k',k''$
+  - $\\c{4}{X'}=X\_{j\_1} \\times \\dots \\times X\_{j\_{n\\subtext{vars}}}$ has only $n\\subtext{vars}$ variables, with each $j\_k \\in \\{1, \\dots, p\\}$ and $j\_{k'} \\ne j\_{k''}, \\forall k',k''$
   - .col3[$\\text{retain-vars}()$] builds .col4[$X'$] from $X$
 ]
 ]
 
 Two parts of this $f'\\subtext{learn}$ are **not deterministic** (namely, $\\text{sample-rep}()$ and $\\text{retain-vars}()$), hence the entire $f'\\subtext{learn}$ is not deterministic!
 
-<!--
-predict(), no impact of missing variables
-impact of n_vars
+---
 
+## Random Forest: prediction
+
+.diagram.center[
+link([0,25,150,25],'a')
+rect(150,0,150,50)
+link([300,25,400,25],'a')
+otext(225,25,"$f'\\\\subtext{predict}$")
+otext(75,10,'$x,\\\\seq{t\\_j}{j}$')
+otext(350,10,'$y$')
+]
+
+.cols[
+.c50[
+**Classification** (decision trees)
+.pseudo-code.compact[
+function $\\text{predict}(x, \\seq{t\_j}{j})$ {  
+.i[]return $\\argmax\_{y \\in Y} \\sum\_j \\mathbf{1}(y=\\text{predict}\\subtext{single}(x,t\_j))$  
+}
+]
+
+]
+.c50[
+**Regression** (regression trees)
+.pseudo-code.compact[
+function $\\text{predict}(x, \\seq{t\_j}{j})$ {  
+.i[]return $\\frac{1}{|\\seq{t\_j}{j}|} \\sum\_j \\text{predict}\\subtext{single}(x,t\_j)$  
+}
+]
+
+]
+]
+
+Exactly the same as for tree bagging
+
+.vspace1[]
+
+.question[Question]: some of the trees in the bag do not have all variables of $x$: is this a problem?
+
+--
+
+No, the tree is still able to process an $x$, but will not consider (i.e., use in branch nodes) some of its variable values;
+- the opposite (variable in the tree, but valued not in $x$) would be a problem
+
+---
+
+## Impact of the parameter $n\\subtext{vars}$
+
+- Is $n\\subtext{vars}$ a **flexibility parameter**?
+- Does $n\\subtext{vars}$ hence impact on learned model complexity, i.e., on tendency to overfitting?
+
+No, "experimentally", it turns out that:
+- $n\\subtext{vars}$ does **not impact on tendency to overfitting**
+- reasonably **good default values** exist:
+  - $n\\subtext{vars} = \\sqrt{p}$ for classification
+  - $n\\subtext{vars} = \\frac{1}{3} p$ for regression
+
+---
+
+## Random Forest parameters
+
+Both $n\\subtext{tree}$ and $n\\subtext{vars}$ do not impact on tendency to overfitting.
+
+In practice, **we can use the default values** for both:
+- $n\\subtext{tree} = 500$
+- $n\\subtext{vars} = \\sqrt{p}$ or $n\\subtext{vars} = \\frac{1}{3} p$
+
+$\\Rightarrow$ Random Forest is (almost) a (hyper)**parameter-free** learning technique!
+
+.vspace1[]
+
+--
+
+However, "we can use the default values"
+- does not mean that default values are the best parameter values for any possibly dataset/system .note[more on this later]
+- it means we'd better spend our efforts on designing other components of the ML system:
+  - engineering better features
+  - getting better data
+  - building a better UI
+  - ...
+
+---
+
+## Out-of-bag trees
+
+.cols[
+.c50[
+.pseudo-code.compact[
+function $\\text{learn}(\\seq{(x^{(i)},y^{(i)})}{i},n\\subtext{tree}, n\\subtext{vars})$ {  
+.i[]$T' \\gets \\emptyset$  
+.i[]while $|T'| \\le n\\subtext{tree}$ {  
+.i[].i[]$\\seq{(x^{(j\_i)},y^{(j\_i)})}{j\_i} \\gets \\text{sample-rep}(\\seq{(x^{(i)},y^{(i)})}{i})$  
+.i[].i[]$\\seq{(x^{\\prime(j\_i)},y^{(j\_i)})}{j\_i} \\gets \\text{retain-vars}(\\seq{(x^{(i)},y^{(i)})}{i}, n\\subtext{vars})$  
+.i[].i[]$t \\gets \\c{2}{\\text{learn}\\subtext{single}(\\seq{(x^{\\prime(j\_i)},y^{(j\_i)})}{j\_i}, 1)}$  
+.i[].i[]$T' \\gets T' \\cup \\{t\\}$  
+.i[]}  
+.i[]return $T'$  
+}
+]
+]
+.c50.compact[
+Toy example with $D=\\{\\c{1}{●},\\c{2}{●},\\c{3}{●},\\c{4}{●},\\c{5}{●}\\}$
+
+- $t\_1 = \\text{learn}\\subtext{single}(\\{\\c{2}{●},\\c{4}{●},\\c{3}{●},\\c{1}{●},\\c{1}{●}\\}, 1)$, .col5[●] not used
+- $t\_2 = \\text{learn}\\subtext{single}(\\{\\c{4}{●},\\c{4}{●},\\c{1}{●},\\c{2}{●},\\c{5}{●}\\}, 1)$, .col3[●] not used
+- $t\_3 = \\text{learn}\\subtext{single}(\\{\\c{5}{●},\\c{3}{●},\\c{1}{●},\\c{3}{●},\\c{4}{●}\\}, 1)$, all used
+- ...
+- $t\_j = \\text{learn}\\subtext{single}(\\{\\c{3}{●},\\c{1}{●},\\c{5}{●},\\c{4}{●},\\c{5}{●}\\}, 1)$, .col2[●] not used
+- ...
+
+]
+]
+
+For every tree, there are zero or more observations that have **not been used for learning** it.
+
+From another point of view, for every $i$-th observation $(x^{(i)},y^{(i)})$, there are some trees which have been learned without that observation:
+- with $n\\subtext{tree}$ trees in the bag, on average, $\\frac{1}{3} n\\subtext{tree}$ trees have been learned **without the observation** .note[it can be computed *playing a bit* with prbability]; they are called **out-of-bag** trees
+- each observation is an **unseen** observation for its out-of-bag trees
+
+$\\Rightarrow$ use unseen observations for measuring and **estimate** of the error (or accuracy, or another index) on the testing set (the .key[OOB error])
+
+---
+
+## OOB error
+
+.cols[
+.c50[
+Computing the **OOB error** during the learning:
+1. for each observation $(x^{(i)},y^{(i)})$
+  1. find the out-of-bag trees
+  2. obtain their prediction $\\hat{y}^{(i)}$ on the observation
+2. compute the error on the predictions (with an $f\\subtext{comp-resps}$)
+
+**Remarks**:
+- it is an **estimate** of the test error, but does not need a test dataset
+  - still an estimate, not the *real* test error
+- it is¹ computed at learning time
+]
+.c50[
+.w100p.center[![Classification error vs. bag size](images/oob-errors.png)]
+.note[image from .ref[James, Gareth, et al.; An introduction to statistical learning. Vol. 112. New York: springer, 2013]]
+]
+]
+]
+
+.footnote[
+1. Many libraries compute it only upon user's request.
+]
+
+---
+
+<!--
 consequences of bagging
 1. oob; plot about oob
 2. no interpretability, but importance of variables; visualization of forest on Regression
+
+summary of tree family
 
 paper with rf being the best
 no free lunch theorem

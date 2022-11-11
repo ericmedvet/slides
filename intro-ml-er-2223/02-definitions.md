@@ -591,11 +591,11 @@ Given a dataset $D$ with $|D|=n$ examples defined over $X,Y$:
 .c50[
 $$D=
 \\begin{pmatrix}
-x\_1^{(1)} & \\dots & \\htmlClass{col3}{x\_j^{(1)}} & \\dots  & x\_p^{(1)} & y^{(1)} \\newline
-\\dots & \\dots & \\htmlClass{col3}{\\dots} & \\dots & \\dots & \\dots \\newline
-\\htmlClass{col1}{x\_1^{(i)}} & \\htmlClass{col1}{\\dots} & \\htmlClass{col2}{x\_j^{(i)}} & \\htmlClass{col1}{\\dots}  & \\htmlClass{col1}{x\_p^{(i)}} & \\htmlClass{col4}{y^{(i)}} \\newline
-\\dots & \\dots & \\htmlClass{col3}{\\dots} & \\dots & \\dots & \\dots \\newline
-x\_1^{(n)} & \\dots & \\htmlClass{col3}{x\_j^{(n)}} & \\dots  & x\_p^{(n)} & y^{(n)} \\newline
+x\_1^{(1)} & \\dots & \\c{3}{x\_j^{(1)}} & \\dots  & x\_p^{(1)} & y^{(1)} \\newline
+\\dots & \\dots & \\c{3}{\\dots} & \\dots & \\dots & \\dots \\newline
+\\c{1}{x\_1^{(i)}} & \\c{1}{\\dots} & \\c{2}{x\_j^{(i)}} & \\c{1}{\\dots}  & \\c{1}{x\_p^{(i)}} & \\c{4}{y^{(i)}} \\newline
+\\dots & \\dots & \\c{3}{\\dots} & \\dots & \\dots & \\dots \\newline
+x\_1^{(n)} & \\dots & \\c{3}{x\_j^{(n)}} & \\dots  & x\_p^{(n)} & y^{(n)} \\newline
 \\end{pmatrix}
 $$
 ]
