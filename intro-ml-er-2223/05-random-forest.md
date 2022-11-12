@@ -818,7 +818,7 @@ By looking at this tree, we can understand:
 
 In principle, this can be done also for a bag of trees, but it would not scale well... .note[in human terms]
 
-Can we have a much **coarser view on variables role** that scale well to large $n\\subtext{tree}$?
+Can we have a much **coarser view on variables role** that scales well to large $n\\subtext{tree}$?
 
 --
 
@@ -833,21 +833,36 @@ Yes!
 
 ---
 
-## Variable importance by RSS/GINI decrease
+## Variable importance by RSS/Gini decrease
 
 .cols[
-.c50[
+.c50.compact[
 .pseudo-code.compact[
-function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {  
-.i[]if $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ then {  
-.i[].i[]$y^\\star \\gets \\argmax\_{y \\in Y} \\sum\_i \\mathbf{1}(y^{(i)}=y)$  
-.i[].i[]return $\\text{node-from}(y^\\star,\\varnothing,\\varnothing)$  
-.i[]} else {  
+function $\\text{learn}(\\seq{(x^{(i)},y^{(i)})}{i},n\\subtext{tree}, n\\subtext{vars})$ {  
+.i[].col1[$\\vect{v} \\gets \\vect{0}$]  
+.i[]$T' \\gets \\emptyset$  
+.i[]while $|T'| \\le n\\subtext{tree}$ {  
+.i[].i[]$\\seq{(x^{(j\_i)},y^{(j\_i)})}{j\_i} \\gets \\text{sample-rep}(\\seq{(x^{(i)},y^{(i)})}{i})$  
+.i[].i[]$\\seq{(x^{\\prime(j\_i)},y^{(j\_i)})}{j\_i} \\gets \\text{retain-vars}(\\seq{(x^{(i)},y^{(i)})}{i}, n\\subtext{vars})$  
+.i[].i[]$t \\gets \\c{2}{\\text{learn}\\subtext{single}}(\\seq{(x^{\\prime(j\_i)},y^{(j\_i)})}{j\_i}, 1, \\c{1}{\\vect{v}})$  
+.i[].i[]$T' \\gets T' \\cup \\{t\\}$  
+.i[]}  
+.i[]return $(T', \\c{1}{\\vect{v}})$  
+}
+]
+
+.vspace025[]
+
+.pseudo-code.compact[
+function $\\c{2}{\\text{learn}\\subtext{single}}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min},\\c{1}{\\vect{v}})$ {  
+.i[]if $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ then { ... } else {  
+.i[].i[].col3[$e\\subtext{before} \\gets \\text{gini}(\\seq{y^{(i)}}{i})$]  
 .i[].i[]$(j, \\tau) \\gets \\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$  
-.i[].i[]$t \\gets \\text{node-from}($  
-.i[].i[].i[]$(j,\\tau),$  
-.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau}, n\\subtext{min}),$  
-.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau}, n\\subtext{min})$  
+.i[].i[].col3[$e\\subtext{after} \\gets \\text{gini}(\\seq{y^{(i)}}{i}\\big\\rvert\\sub{x^{(i)}\\sub{j} \\le \\tau})+\\text{gini}(\\seq{y^{(i)}}{i}\\big\\rvert\\sub{x^{(i)}\\sub{j} > \\tau})$]  
+.i[].i[].col1[$v\\sub{j} \\gets v\\sub{j} + e\\subtext{before}-e\\subtext{after}$]  
+.i[].i[]$t \\gets \\text{node-from}((j,\\tau),$  
+.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau}, n\\subtext{min}, \\c{1}{\\vect{v}}),$  
+.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau}, n\\subtext{min}, \\c{1}{\\vect{v}})$  
 .i[].i[])  
 .i[].i[]return $t$  
 .i[]}  
@@ -855,11 +870,59 @@ function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {
 ]
 
 ]
-.c50[
+.c50.compact[
+1. for each tree, for each branch-node
+  1. .col3[measure the RSS/Gini before the branch-node]
+  2. .col3[measure the RSS/Gini after the branch-node]
+  3. .col1[assign (by increment) the decrease to the branch-node variable]
+2. build a ranking of variable based on the sum of decreases
+
+- .col1[$\\vect{v}$] stores the Gini decrease for each variable
+  - initially set to $\\vect{0} \\in \\mathbb{R}^p$
+  - propagated to each call to .col2[$\\text{learn}\\subtext{single}()$]
+- the .col3[**error before**] is Gini computed on the local dataset (the one at the node) before dividing the data
+- the .col3[**error after**] is Gini computed on the local dataset (the one at the node) after dividing the data
+
+**Example**: .note[$\\text{gini}(\\seq{y^{(i)}}{i})=\\sum\_y \\freq{y, \\seq{y^{(i)}}{i}} \\left(1-\\freq{y, \\seq{y^{(i)}}{i}}\\right)$]
+.nicetable[
+|$\\seq{y^{(i)}}{i}$|Gini|Gini$\\rvert\_{ \\le \\tau}$|Gini$\\rvert\_{ > \\tau}$|Decrease|
+|---|---|---|---|---|
+|.col1[●].col1[●].col1[●].col1[●]/.col2[●].col2[●].col2[●].col2[●]|0.5|0|0|0.5|
+|.col1[●].col1[●].col1[●].col1[●].col1[●].col1[●]/.col2[●].col2[●]|0.375|0|0|0.375|
+|.col1[●].col1[●].col1[●].col1[●].col1[●]/.col2[●].col1[●].col2[●]|0.375|0|0.333|0.042|
+|.col1[●].col2[●].col1[●].col1[●]/.col2[●].col2[●].col1[●].col2[●]|0.5|0.25|0.25|0|
+]
 
 ]
 ]
 
+---
+
+## OOB-shuffling importance
+
+It has been showed experimentally that RSS/Gini decrease are not effective:
+.cols[
+.c60[
+- if there are categorical variables with many values
+- tend to give more importance to numerical variables
+- in general, because they work on learning data
+]
+.c40[
+<span style="font-size: 200%; line-height: 60px; vertical-align: top;">}</span>
+<span style="line-height: 60px; vertical-align: top;">$\\rightarrow$ both *cause* many branches</span>
+]
+]
+
+--
+
+**Idea (second option)**: just after learning
+1. for each $j$-th variable and each tree $t$ in the bag
+  1. take the observations $D\_t$ not used for $t$
+  2. measure the accuracy of $t$ on $D\_t$
+  3. shuffle the $j$-th variable in the observations, obtaining $D'\_t$
+  4. measure the accuracy of $t$ on $D'\_t$
+  5. assign (by increment) the decrease in accuracy to the $j$-th variable
+2. build a ranking of variable based on the sum of decreases
 
 <!--
 consequences of bagging
