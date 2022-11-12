@@ -416,7 +416,7 @@ function $\\text{predict}(x, \\seq{t\_j}{j})$ {
 .compact[
 - simply returns the **mean** of the predictions of the tree in the bag
 - **bonus**: instead of getting just the mean, by getting also the standard deviation $\\sigma$ of the tree predictions we can have a measure of **uncertainty** of the tree: the larger $\\sigma$, the more uncertain the prediction, the lower the confidence
-  - uncertainty/confidence is a basic form of local explainability
+  - uncertainty/confidence is a basic form of **local explainability**, i.e., understanding the decisions of the model
   - uncertainty/confidence can be exploited in the active learning framework
 ]
 ]
@@ -514,7 +514,7 @@ If there are variables (.key[strong predictors]) which are very useful for separ
 
 Yes!
 
-**Idea!**: when learning each tree, **remove some randomly chosen independent variables** from the observations
+**Idea**: when learning each tree, **remove some randomly chosen independent variables** from the observations
 
 Tree bagging improved with variables removal is a **learning technique** called .key[Random Forest]:
 - **random** because there are two sources of randomness, hence of .col1[independency]
@@ -620,8 +620,12 @@ No, the tree is still able to process an $x$, but will not consider (i.e., use i
 No, "experimentally", it turns out that:
 - $n\\subtext{vars}$ does **not impact on tendency to overfitting**
 - reasonably **good default values** exist:
-  - $n\\subtext{vars} = \\sqrt{p}$ for classification
-  - $n\\subtext{vars} = \\frac{1}{3} p$ for regression
+  - $n\\subtext{vars} = \\left\\lceil\\sqrt{p}\\right\\rceil$ for classification
+  - $n\\subtext{vars} = \\left\\lceil\\frac{1}{3} p\\right\\rceil$ for regression
+
+.note[
+$\\left\\lceil x\\right\\rceil$ is $\\text{ceil}(x)$, i.e., rounding to closest larger integer; $\\left\\lfloor x\\right\\rfloor$ is $\\text{floor}(x)$, i.e., rounding to closest smaller integer
+]
 
 ---
 
@@ -631,7 +635,7 @@ Both $n\\subtext{tree}$ and $n\\subtext{vars}$ do not impact on tendency to over
 
 In practice, **we can use the default values** for both:
 - $n\\subtext{tree} = 500$
-- $n\\subtext{vars} = \\sqrt{p}$ or $n\\subtext{vars} = \\frac{1}{3} p$
+- $n\\subtext{vars} = \\left\\lceil\\sqrt{p}\\right\\rceil$ or $n\\subtext{vars} = \\left\\lceil\\frac{1}{3} p\\right\\rceil$
 
 $\\Rightarrow$ Random Forest is (almost) a (hyper)**parameter-free** learning technique!
 
@@ -647,6 +651,41 @@ However, "we can use the default values"
   - building a better UI
   - ...
 
+---
+
+## Visualizing Random Forest for regression
+
+.cols[
+.c40[
+.w100p.center[![Example of bagging on regression](images/forest-regression.png)]
+
+.note[image from Fabio Daolio]
+]
+.c60.compact[
+**How is this image built?**
+1. set the real system as a $f: x \\to y$
+  - plot <span style="color: blue">**—**</span> $f(x)$ for $x \\in [x\\subtext{min},x\\subtext{max}]$
+2. take a random set of points $\\seq{x^{(i)}}{i}$ in $[x\\subtext{min},x\\subtext{max}]$
+3. compute the corresponding $y$ and perturb them with a noise: $y^{(i)}=f(x^{(i)})+\\epsilon$ with $\\epsilon \\sim N(0,1)$
+4. set the dataset as $D=\\seq{(x^{(i)},y^{(i)})}{i}$
+  - plot <span style="color: blue">●</span> each $(x^{(i),y^{(i)}})$ in $D$
+5. learn one single tree $t$ on $D$
+  - plot <span style="color: gray">**—**</span> $f'\\subtext{predict}(x,t)$ for $x \\in [x\\subtext{min},x\\subtext{max}]$
+6. learn¹ a bag $\\seq{t\_j}{j}$ on $D$
+  - plot <span style="color: red">**—**</span> $f'\\subtext{predict}(x,\\seq{t\_j}{j})$ for $x \\in [x\\subtext{min},x\\subtext{max}]$
+  - $\\forall t\_j \\in \\seq{t\_j}{j}$, plot <span style="color: #ff000044">**—**</span> $f'\\subtext{predict}(x,t\_j)$ for $x \\in [x\\subtext{min},x\\subtext{max}]$
+
+.vspace1[]
+
+**Finding**: the bag <span style="color: red">**—**</span> nicely models the real system <span style="color: blue">**—**</span>
+- .question[question]: why does not at the extreme of the $x$ domain?
+- .question[question]: can you reproduce this for classification and $p=2$?
+]
+]
+
+.footnote[
+1. .question[Question]: bagging or Random Forest?
+]
 ---
 
 ## Out-of-bag trees
@@ -709,7 +748,6 @@ Computing the **OOB error** during the learning:
 .note[image from .ref[James, Gareth, et al.; An introduction to statistical learning. Vol. 112. New York: springer, 2013]]
 ]
 ]
-]
 
 .footnote[
 1. Many libraries compute it only upon user's request.
@@ -717,10 +755,115 @@ Computing the **OOB error** during the learning:
 
 ---
 
+## Interpretability of the trees
+
+.cols[
+.c50[
+Is this model interpretable ($n\\subtext{tree}=1$)?
+
+.h25ex.center[![Single tree](images/tree-photo.jpg)]
+]
+.c50[
+Is this model interpretable ($n\\subtext{tree}=100$)?
+
+.h25ex.center[![Forest](images/forest-photo.jpg)]
+]
+]
+
+Interpreting of the model (i.e., **global explainability**) is feasible **if the model can be visualized**:
+- a single tree can be visualized (if it's small); $100$ trees can not!
+
+.footnote[
+There exist other flavors of interpretable:
+- simulatability: the degree to which the working of the model can be reproduced by a human
+- composatability: the degree to which the human can split the model in components and interpret them and their role
+]
+
+---
+
+## The role of the variables
+
+.cols[
+.c40[
+.diagram.center.tree[
+rect(100,0,140,40)
+otext(170,20,'$x\\\\subtext{age}$ vs. $10$', 'small')
+link([170,40,70,80])
+otext(70,60,'$\\\\le$','small')
+rect(45,80,50,40)
+otext(70,100,'●','col1')
+rect(200,80,140,40)
+otext(270,60,'$>$','small')
+link([170,40,270,80])
+otext(270,100,'$x\\\\subtext{height}$ vs. $120$', 'small')
+link([270,120,170,160])
+otext(170,140,'$\\\\le$','small')
+rect(145,160,50,40)
+otext(170,180,'●','col1')
+link([270,120,370,160])
+otext(370,140,'$>$','small')
+rect(345,160,50,40)
+otext(370,180,'●','col2')
+]
+
+]
+.c60[
+By looking at this tree, we can understand:
+- exactly **what** variables are used
+- exactly **when** they are used in the decision process
+  - here, $x\\subtext{age}$ is used before $x\\subtext{height}$  
+- exactly **how**, i.e., what they are compared against
+]
+]
+
+In principle, this can be done also for a bag of trees, but it would not scale well... .note[in human terms]
+
+Can we have a much **coarser view on variables role** that scale well to large $n\\subtext{tree}$?
+
+--
+
+Yes!
+
+**Idea (first option)**: when learning
+1. for each tree, for each branch-node
+  1. measure the RSS/Gini *before* the branch-node
+  2. measure the RSS/Gini *after* the branch-node
+  3. assign (by increment) the **decrease** to the branch-node variable
+2. build a ranking of variable based on the sum of decreases
+
+---
+
+## Variable importance by RSS/GINI decrease
+
+.cols[
+.c50[
+.pseudo-code.compact[
+function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}, n\\subtext{min})$ {  
+.i[]if $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ then {  
+.i[].i[]$y^\\star \\gets \\argmax\_{y \\in Y} \\sum\_i \\mathbf{1}(y^{(i)}=y)$  
+.i[].i[]return $\\text{node-from}(y^\\star,\\varnothing,\\varnothing)$  
+.i[]} else {  
+.i[].i[]$(j, \\tau) \\gets \\text{find-best-branch}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$  
+.i[].i[]$t \\gets \\text{node-from}($  
+.i[].i[].i[]$(j,\\tau),$  
+.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j \\le \\tau}, n\\subtext{min}),$  
+.i[].i[].i[]$\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}\\big\\rvert\_{x^{(i)}\_j > \\tau}, n\\subtext{min})$  
+.i[].i[])  
+.i[].i[]return $t$  
+.i[]}  
+}
+]
+
+]
+.c50[
+
+]
+]
+
+
 <!--
 consequences of bagging
-1. oob; plot about oob
-2. no interpretability, but importance of variables; visualization of forest on Regression
+2. no interpretability, but importance of variables
 
 summary of tree family
 
