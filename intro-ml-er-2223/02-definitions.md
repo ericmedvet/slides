@@ -97,7 +97,7 @@ Alternative names:
 - $x$ is a .key[data point]
   - assuming it carries some data about the underlying entity
 - $x$ is an .key[instance]
-  - .dict-def[/ˈɪnst(ə)ns/: an example or single occurrence of something]
+  - .dict-def[*instance \[ˈɪnst(ə)ns\]*: an example or single occurrence of something]
 
 Names are used interchangeably; some communities tend to prefer some names.
 

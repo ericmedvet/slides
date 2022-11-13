@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Livvic:400,400i,700,700i|Roboto+Mono:400,700,400i");
+@import url('https://fonts.googleapis.com/css2?family=Prata&family=Tinos:ital,wght@0,400;0,700;1,400&display=swap');
+
 body {
   font-family: "Livvic";
 }
@@ -271,7 +273,7 @@ span.note::after {
   text-align: right;
 }
 .dict-def {
-  font-family: "Roboto Mono";
+  font-family: "Prata";
   color: #648FFF;
   font-size: 85%;
 }
@@ -357,4 +359,24 @@ span.note::after {
 .labo {
   background-color: #648FFF66;
   background-color: #FFB00066;
+}
+blockquote {
+  font-family: 'Prata', serif;
+  margin: 0.25em 0;
+  padding: 0.15em 40px;
+  x-line-height: 1.45;
+  position: relative;
+  color: #383838;
+  background-color: #EEEEEE;
+  display: inline-block;
+}
+blockquote:before {
+  display: block;
+  padding-left: 10px;
+  content: "\201C";
+  font-size: 80px;
+  position: absolute;
+  left: -15px;
+  top: -10px;
+  color: #7a7a7a;
 }

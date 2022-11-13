@@ -824,7 +824,7 @@ Can we have a much **coarser view on variables role** that scales well to large 
 
 Yes!
 
-**Idea (first option)**: when learning
+**Idea** (first option: .key[mean RSS/Gini decrease]): when learning
 1. for each tree, for each branch-node
   1. measure the RSS/Gini *before* the branch-node
   2. measure the RSS/Gini *after* the branch-node
@@ -919,7 +919,7 @@ It has been showed experimentally that RSS/Gini decrease is **not effective as v
 
 --
 
-**Idea (second option)**: just after learning
+**Idea** (second option: aka .key[mean accuracy decrease]): just after learning
 1. for each $j$-th variable and each tree $t$ in the bag
   1. take the observations $D\_t$ not used for $t$
   2. measure the accuracy of $t$ on $D\_t$
@@ -936,15 +936,17 @@ It has been showed experimentally that RSS/Gini decrease is **not effective as v
 
 There is also a further, **more general** variant, that works for **any learning technique** $f'\\subtext{learn}, f'\\subtext{predict}$:
 
-**Idea (third option)**:
+**Idea** (third option: .key[feature ablation]):
 1. measure the effectiveness of $f'\\subtext{learn}, f'\\subtext{predict}$ on the dataset $D$
 2. for each $j$-th variable $x\_j$
   1. build a $D'$ by removing $x\_j$ from $x$
   2. measure the effectiveness of $f'\\subtext{learn}, f'\\subtext{predict}$ on the dataset $D'$
   3. compute the $j$-th variable importance as the decrease of effectiveness in $D'$ w.r.t. $D$
 
+.vspace1[]
+
 This method is (a form of) **feature ablation**, since you remove variables/features an see what happens:
-- .dict-def[/a-bley-shuhn/: gradually remove material from or erode (a surface or object) by melting, evaporation, frictional action, etc., or erode (material) in this way.]
+- .dict-def[*ablation \[a-bley-shuhn\]*: gradually remove material from or erode (a surface or object) by melting, evaporation, frictional action, etc., or erode (material) in this way.]
 
 ---
 
@@ -955,9 +957,9 @@ In summary, for variable instance, we have three options:
 .nicetable.center[
 | Option | Effectiveness | Efficiency | Applicability |
 | --- | --- | --- | --- |
-| RSS/Gini decrease | 🤏<sup>1</sup> | 👍<sup>2</sup> | only trees |
-| OOB-shuffling | 👍 | 👍<sup>3</sup> | bagging |
-| Feature ablation | 👍<sup>4</sup> | 🤏 | universal |
+| Mean RSS/Gini decrease | 🤏<sup>1</sup> | 👍<sup>2</sup> | 🤏 only trees |
+| Mean accuracy decrease | 👍 | 👍<sup>3</sup> | 🤏 bagging |
+| Feature ablation | 👍<sup>4</sup> | 🤏 | 👍 universal |
 ]
 
 .note[
@@ -1004,13 +1006,66 @@ Unless.col1[¹] you really need to look at the tree, Random Forest is always bet
 
 ## Random Forest effectiveness
 
-<!--
-consequences of bagging
-2. no interpretability, but importance of variables
+Some researchers did a large scale comparison of many supervised machine learning techniques:
+- .ref[Fernández-Delgado, Manuel, et al. "Do we need hundreds of classifiers to solve real world classification problems?." The journal of machine learning research 15.1 (2014): 3133-3181.]
 
-summary of tree family
+.cols[
+.c70[
+.w100p.center[![Effectiveness of some supervised learning techniques](images/delgado-friedman-plot.png)]
+]
+.c30[
+.w100p.center[![Delgado et al. abstract](images/delgado-abstract.png)]
+]
+]
 
-paper with rf being the best
-no free lunch theorem
+> We evaluate **179 classifiers** arising from **17 families** [...]  
+> We use **121 data set** [...]  
+> **The classifiers most likely to be the bests are the random forest** [...]
 
--->
+According to **practice**, we just need Random Forest.
+But...
+
+---
+
+## No free lunch theorem
+
+Earlier, some researchers formulated the .key[No Free Lunch theorem]¹:
+- .ref[Wolpert, David H. "The lack of a priori distinctions between learning algorithms." Neural computation 8.7 (1996): 1341-1390.]
+
+> Any two optimization algorithms¹ are equivalent when their
+performance is averaged across all possible problems²
+
+.note[
+1. the 1996 Wolpert's paper is about learning algorithms; a later paper by Wolpert's (1997) extends the theorem to optimization algorithms and gives the name to the theorem
+2. not an actual fragment of the paper, but a recap of the same authors in a later paper
+]
+
+According to **theory**, all learning techniques are the same.
+- if we considere **all** (theoretically all!) problems...
+- my advice: **start with Random Forest**, then see where to spend your time
+
+---
+
+## Why "No Free Lunch"?
+
+.cols[
+.c60[
+There are many **restaurants**, each with all **food items** on the list: food **price** is in general different among restaurants.
+
+Where should you go to eat?
+
+If you just want to eat **something**, there is no restaurants where **everything costs less**.
+
+]
+.c40[
+- 🤤 eater $\\leftrightarrow$ ML designer
+- 🏩 restaurant $\\leftrightarrow$ ML technique
+- 🥗 food $\\leftrightarrow$ ML problem
+- 💵 price $\\leftrightarrow$ effectiveness
+]
+]
+
+.vspace1[]
+
+But **if you know what you want to eat**, there's at least one restaurant where that thing has the lowest price.
+- .question[Question]: what does this mean in practice?

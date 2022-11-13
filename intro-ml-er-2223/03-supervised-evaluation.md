@@ -1063,7 +1063,7 @@ No good reasons .note[imho] for using Type I and Type II error:
 - is there a Type III? 🤔 (No!)
 
 .footnote[
-1. .dict-def[a method of judging a situation or condition that is not exact but is based on experience]
+1. .dict-def[*rule of the thumb \[ˌruːl əv ˈθʌm\]*: a broadly accurate guide or principle, based on practice rather than theory]
 ]
 
 ---
