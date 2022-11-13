@@ -607,8 +607,8 @@ Exactly the same as for tree bagging
 
 --
 
-No, the tree is still able to process an $x$, but will not consider (i.e., use in branch nodes) some of its variable values;
-- the opposite (variable in the tree, but valued not in $x$) would be a problem
+No, the tree is still able to process an $x$, but will not consider (i.e., **not use in branch nodes**) some of its variable values;
+- the opposite (variable in the tree, but valued not in $x$) would be a problem .note[we'll see]
 
 ---
 
@@ -678,7 +678,7 @@ However, "we can use the default values"
 .vspace1[]
 
 **Finding**: the bag <span style="color: red">**—**</span> nicely models the real system <span style="color: blue">**—**</span>
-- .question[question]: why does not at the extreme of the $x$ domain?
+- .question[question]: why not at the extremes of the $x$ domain?
 - .question[question]: can you reproduce this for classification and $p=2$?
 ]
 ]
@@ -724,7 +724,7 @@ From another point of view, for every $i$-th observation $(x^{(i)},y^{(i)})$, th
 - with $n\\subtext{tree}$ trees in the bag, on average, $\\frac{1}{3} n\\subtext{tree}$ trees have been learned **without the observation** .note[it can be computed *playing a bit* with prbability]; they are called **out-of-bag** trees
 - each observation is an **unseen** observation for its out-of-bag trees
 
-$\\Rightarrow$ use unseen observations for measuring and **estimate** of the error (or accuracy, or another index) on the testing set (the .key[OOB error])
+$\\Rightarrow$ use unseen observations for measuring an **estimate** of the error (or accuracy, or another index) on the testing set (the .key[OOB error])
 
 ---
 
@@ -774,7 +774,7 @@ Interpreting of the model (i.e., **global explainability**) is feasible **if the
 - a single tree can be visualized (if it's small); $100$ trees can not!
 
 .footnote[
-There exist other flavors of interpretable:
+There exist other flavors of interpretability:
 - simulatability: the degree to which the working of the model can be reproduced by a human
 - composatability: the degree to which the human can split the model in components and interpret them and their role
 ]
@@ -829,7 +829,7 @@ Yes!
   1. measure the RSS/Gini *before* the branch-node
   2. measure the RSS/Gini *after* the branch-node
   3. assign (by increment) the **decrease** to the branch-node variable
-2. build a ranking of variable based on the sum of decreases
+2. build a **ranking of variables** based on the sum of decreases
 
 ---
 
@@ -875,13 +875,13 @@ function $\\c{2}{\\text{learn}\\subtext{single}}(\\seq{(\\vect{x}^{(i)},y^{(i)})
   1. .col3[measure the RSS/Gini before the branch-node]
   2. .col3[measure the RSS/Gini after the branch-node]
   3. .col1[assign (by increment) the decrease to the branch-node variable]
-2. build a ranking of variable based on the sum of decreases
+2. build a ranking of variables based on the sum of decreases
 
 - .col1[$\\vect{v}$] stores the Gini decrease for each variable
   - initially set to $\\vect{0} \\in \\mathbb{R}^p$
   - propagated to each call to .col2[$\\text{learn}\\subtext{single}()$]
-- the .col3[**error before**] is Gini computed on the local dataset (the one at the node) before dividing the data
-- the .col3[**error after**] is Gini computed on the local dataset (the one at the node) after dividing the data
+- the .col3[**error before**] is Gini computed on the **local dataset** (the one at the node) before dividing the data
+- the .col3[**error after**] is Gini computed on the **local dataset** (the one at the node) after dividing the data
 
 **Example**: .note[$\\text{gini}(\\seq{y^{(i)}}{i})=\\sum\_y \\freq{y, \\seq{y^{(i)}}{i}} \\left(1-\\freq{y, \\seq{y^{(i)}}{i}}\\right)$]
 .nicetable[
@@ -893,6 +893,10 @@ function $\\c{2}{\\text{learn}\\subtext{single}}(\\seq{(\\vect{x}^{(i)},y^{(i)})
 |.col1[●].col2[●].col1[●].col1[●]/.col2[●].col2[●].col1[●].col2[●]|0.5|0.25|0.25|0|
 ]
 
+.note[
+.question[Question]: is this $x\_j$ categorical or numerical?
+]
+
 ]
 ]
 
@@ -900,16 +904,16 @@ function $\\c{2}{\\text{learn}\\subtext{single}}(\\seq{(\\vect{x}^{(i)},y^{(i)})
 
 ## OOB-shuffling importance
 
-It has been showed experimentally that RSS/Gini decrease are not effective:
+It has been showed experimentally that RSS/Gini decrease is **not effective as variable importance**:
 .cols[
-.c60[
+.c70[
 - if there are categorical variables with many values
-- tend to give more importance to numerical variables
-- in general, because they work on learning data
+- because if tends to give more importance to numerical variables
+- in general, because it works on learning data
 ]
-.c40[
+.c30[
 <span style="font-size: 200%; line-height: 60px; vertical-align: top;">}</span>
-<span style="line-height: 60px; vertical-align: top;">$\\rightarrow$ both *cause* many branches</span>
+<span style="line-height: 60px; vertical-align: top;">$\\rightarrow$ **many branches**</span>
 ]
 ]
 
@@ -923,6 +927,82 @@ It has been showed experimentally that RSS/Gini decrease are not effective:
   4. measure the accuracy of $t$ on $D'\_t$
   5. assign (by increment) the decrease in accuracy to the $j$-th variable
 2. build a ranking of variable based on the sum of decreases
+
+**Rationale**: if the decrease is low, it means that **shuffling the variable has no effect**, so the variable is not really important!
+
+---
+
+## Feature ablation for variable importance
+
+There is also a further, **more general** variant, that works for **any learning technique** $f'\\subtext{learn}, f'\\subtext{predict}$:
+
+**Idea (third option)**:
+1. measure the effectiveness of $f'\\subtext{learn}, f'\\subtext{predict}$ on the dataset $D$
+2. for each $j$-th variable $x\_j$
+  1. build a $D'$ by removing $x\_j$ from $x$
+  2. measure the effectiveness of $f'\\subtext{learn}, f'\\subtext{predict}$ on the dataset $D'$
+  3. compute the $j$-th variable importance as the decrease of effectiveness in $D'$ w.r.t. $D$
+
+This method is (a form of) **feature ablation**, since you remove variables/features an see what happens:
+- .dict-def[/a-bley-shuhn/: gradually remove material from or erode (a surface or object) by melting, evaporation, frictional action, etc., or erode (material) in this way.]
+
+---
+
+## Variable importance as basic interpretability
+
+In summary, for variable instance, we have three options:
+
+.nicetable.center[
+| Option | Effectiveness | Efficiency | Applicability |
+| --- | --- | --- | --- |
+| RSS/Gini decrease | 🤏<sup>1</sup> | 👍<sup>2</sup> | only trees |
+| OOB-shuffling | 👍 | 👍<sup>3</sup> | bagging |
+| Feature ablation | 👍<sup>4</sup> | 🤏 | universal |
+]
+
+.note[
+1. not robust to many branches; on learning data
+2. during learning, for free
+3. during learning, almost free
+4. still not perfect: what about **redundant variables**?
+]
+
+.vspace1[]
+
+Regardless of the method you use for computing the variable importance, a ranking of the variables according to their **importance for having a good model** is a basic form of interpretability, as it answers to the question:
+- what does the model consider as important for doing predictions?
+
+that should mean:
+- what parts of the system are important according to the model of the system? (**global explainability**)
+
+---
+
+## Random Forest: summary
+
+**Applicability**: same as trees 👍👍👍
+- 👍 $Y$: both **regression and classification** (binary and multiclass)
+- 👍 $X$: multivariate $X$ with both **numerical and categorical** variables
+- 👍 models give probability¹
+- 👍 **practically parameter-free**
+
+**Efficiency** 👍
+- 👍 in practice, pretty fast in learning and prediction phase ($n\\subtext{tree} \\times$ slower than tree)
+
+**Explainability/interpretability** 👍👍
+- 👍 the models give variable importance (basic **global explainability**)
+- 👍 the learning technique is itself comprehensible
+  - you should be able to implement by yourself
+
+.vspace1[]
+
+Unless.col1[¹] you really need to look at the tree, Random Forest is always better than the single tree:
+- much much better in effectiveness
+- not really worse in efficiency
+- worse in interpretability (but who cares? .col1[see 1])
+
+---
+
+## Random Forest effectiveness
 
 <!--
 consequences of bagging
