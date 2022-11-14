@@ -134,7 +134,7 @@ Yes, but only if:
 
 --
 
-Can we realize a **wisdom of the trees**? (where (opinion, person) $\\leftrightarrow$ (prediction,tree))
+Can we realize a **wisdom of the trees**? (where (opinion, person) $\\leftrightarrow$ (prediction, tree))
 
 - we have many opinions
   - **ok, just learn many trees**
@@ -282,7 +282,7 @@ Given an input with $n$ elements .note[and assuming uniqueness] an element has:
 
 ## Towards wisdom of the trees
 
-Can we realize a **wisdom of the trees**? (where (opinion, person) $\\leftrightarrow$ (prediction,tree))
+Can we realize a **wisdom of the trees**? (where (opinion, person) $\\leftrightarrow$ (prediction, tree))
 
 - we have many opinions
   - 👍 **ok, just learn many trees**
@@ -559,7 +559,7 @@ function $\\text{learn}(\\seq{(x^{(i)},y^{(i)})}{i},n\\subtext{tree}, \\c{1}{n\\
 - .col2[$\\text{learn}\\subtext{single}()$] gets, at each iteration, a dataset $D' \\in \\mathcal{P}^*(\\c{4}{X'} \\times Y)$
   - $X=X\_1 \\times \\dots \\times X\_p$ has all the $p$ vars
   - $\\c{4}{X'}=X\_{j\_1} \\times \\dots \\times X\_{j\_{n\\subtext{vars}}}$ has only $n\\subtext{vars}$ variables, with each $j\_k \\in \\{1, \\dots, p\\}$ and $j\_{k'} \\ne j\_{k''}, \\forall k',k''$
-  - .col3[$\\text{retain-vars}()$] builds .col4[$X'$] from $X$
+  - .col3[$\\text{retain-vars}()$] builds $D'$ (with .col4[$X'$] *inside*) from $D$ (with $X$ *inside*)
 ]
 ]
 
@@ -721,7 +721,7 @@ Toy example with $D=\\{\\c{1}{●},\\c{2}{●},\\c{3}{●},\\c{4}{●},\\c{5}{�
 For every tree, there are zero or more observations that have **not been used for learning** it.
 
 From another point of view, for every $i$-th observation $(x^{(i)},y^{(i)})$, there are some trees which have been learned without that observation:
-- with $n\\subtext{tree}$ trees in the bag, on average, $\\frac{1}{3} n\\subtext{tree}$ trees have been learned **without the observation** .note[it can be computed *playing a bit* with prbability]; they are called **out-of-bag** trees
+- with $n\\subtext{tree}$ trees in the bag, on average, $\\frac{1}{3} n\\subtext{tree}$ trees have been learned **without the observation** .note[it can be computed *playing a bit* with probability]; they are called **out-of-bag** trees
 - each observation is an **unseen** observation for its out-of-bag trees
 
 $\\Rightarrow$ use unseen observations for measuring an **estimate** of the error (or accuracy, or another index) on the testing set (the .key[OOB error])
@@ -829,7 +829,7 @@ Yes!
   1. measure the RSS/Gini *before* the branch-node
   2. measure the RSS/Gini *after* the branch-node
   3. assign (by increment) the **decrease** to the branch-node variable
-2. build a **ranking of variables** based on the sum of decreases
+2. build a **ranking of variables** based on the sum of decreases (**the larger, the more important**)
 
 ---
 
@@ -923,10 +923,10 @@ It has been showed experimentally that RSS/Gini decrease is **not effective as v
 1. for each $j$-th variable and each tree $t$ in the bag
   1. take the observations $D\_t$ not used for $t$
   2. measure the accuracy of $t$ on $D\_t$
-  3. shuffle the $j$-th variable in the observations, obtaining $D'\_t$
+  3. **shuffle** the $j$-th variable in the observations, obtaining $D'\_t$
   4. measure the accuracy of $t$ on $D'\_t$
-  5. assign (by increment) the decrease in accuracy to the $j$-th variable
-2. build a ranking of variable based on the sum of decreases
+  5. assign (by increment) the **decrease in accuracy** to the $j$-th variable
+2. build a **ranking of variables** based on the sum of decreases (**the larger, the more important**)
 
 **Rationale**: if the decrease is low, it means that **shuffling the variable has no effect**, so the variable is not really important!
 
@@ -939,9 +939,10 @@ There is also a further, **more general** variant, that works for **any learning
 **Idea** (third option: .key[feature ablation]):
 1. measure the effectiveness of $f'\\subtext{learn}, f'\\subtext{predict}$ on the dataset $D$
 2. for each $j$-th variable $x\_j$
-  1. build a $D'$ by removing $x\_j$ from $x$
+  1. build a $D'$ by removing $x\_j$ from $D$
   2. measure the effectiveness of $f'\\subtext{learn}, f'\\subtext{predict}$ on the dataset $D'$
   3. compute the $j$-th variable importance as the decrease of effectiveness in $D'$ w.r.t. $D$
+3. build a **ranking of variables** based on decreases of effectiveness (**the larger, the more important**)
 
 .vspace1[]
 
