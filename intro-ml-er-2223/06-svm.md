@@ -64,7 +64,7 @@ We followed the same approach for trees: now we are more experienced and we can 
 
 ## Line as a model
 
-Formally, a line-shaped decision boundary in $X=\\mathbb{R}^2$ can be defined as
+Formally, a **line**-shaped decision boundary in $X=\\mathbb{R}^2$ can be defined as
 $$x\_2=m x\_1 +q$$
 where $m$ is the slope and $q$ is the intercept.
 
@@ -348,6 +348,8 @@ Looks like an **optimization** problem:
 - "is the farthest" $\\rightarrow$ .col4[objective]
 ]
 ]
+
+--
 
 **Formally**:
 .cols[
