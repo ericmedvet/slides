@@ -233,6 +233,10 @@ span.note::after {
   width: 5em;
   display: inline-block;
 }
+.hspace2 {
+  width: 2em;
+  display: inline-block;
+}
 .vspace1 {
   height: 1em;
   display: inline-block;

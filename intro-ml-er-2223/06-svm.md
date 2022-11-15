@@ -515,7 +515,7 @@ $\\Rightarrow$ **Applicability**: 👎👎👎
 .c60.compact[
 $$
 \\begin{align\*}
-\\max\_{\\beta\_0, \\dots, \\beta\_p,\\c{1}{\\epsilon^{(i)},\\dots,\\epsilon^{(i)}}} & \\; m \\\\
+\\max\_{\\beta\_0, \\dots, \\beta\_p,\\c{1}{\\epsilon^{(1)},\\dots,\\epsilon^{(n)}}} & \\; m \\\\
 \\text{subject to} & \\; \\vect{\\beta}^\\intercal\\vect{\\beta}= 1 \\\\
 & \; y^{(i)}\\left(\\beta\_0+\\vect{\\beta}^\\intercal\\vect{x}^{(i)}\\right) \\ge m\\c{1}{(1-\\epsilon^{(i)})} & \\forall i \\in \\{1, \\dots, n\\} \\\\
 & \; \\c{1}{\\epsilon^{(i)}} \\ge 0 & \\forall i \\in \\{1, \\dots, n\\} \\\\
@@ -524,20 +524,20 @@ $$
 $$
 ]
 .c40.compact[
-- .col1[$\\epsilon^{(i)},\\dots,\\epsilon^{(i)}$] are positive **slack** variables:
+- .col1[$\\epsilon^{(1)},\\dots,\\epsilon^{(n)}$] are positive **slack** variables:
   - one for each observation
   - they act as tolerance w.r.t. the margin
       - $\\epsilon^{(i)}=0$ means $\\vect{x}^{(i)}$ has to be **out of the margin, on correct side**
       - $\\epsilon^{(i)} \\in [0,1]$ means $\\vect{x}^{(i)}$ can be **inside the margin, on correct side**
       - $\\epsilon^{(i)} > 1$ means $\\vect{x}^{(i)}$ can be on **wrong side**
-- .col2[$c \\in \\mathbb{R}^+$ (for **cost**)], is a budget of tolerance, which is a **parameter** of the learning technique
+- $\\c{2}{c} \\in \\mathbb{R}^+$ (for cost), is a budget of .col2[**tolerance**], which is a **parameter** of the learning technique
 ]
 ]
 
 This learning technique is called .key[soft margin classifier] (or support vector classifier), because, due to tolerance, the margin can be *pushed*.
 
 It has one parameter, $c$:
-- $c=0$ corresponds to maximal margin classifier
+- $c=0$ corresponds to maximal margin classifier (no tolerance)
 
 ---
 
@@ -546,7 +546,7 @@ It has one parameter, $c$:
 .compact[
 $$
 \\begin{align\*}
-\\max\_{\\beta\_0, \\dots, \\beta\_p,\\c{1}{\\epsilon^{(i)},\\dots,\\epsilon^{(i)}}} & \\; m \\\\
+\\max\_{\\beta\_0, \\dots, \\beta\_p,\\c{1}{\\epsilon^{(1)},\\dots,\\epsilon^{(n)}}} & \\; m \\\\
 \\text{subject to} & \\; \\vect{\\beta}^\\intercal\\vect{\\beta}= 1 \\\\
 & \; y^{(i)}\\left(\\beta\_0+\\vect{\\beta}^\\intercal\\vect{x}^{(i)}\\right) \\ge m\\c{1}{(1-\\epsilon^{(i)})} & \\forall i \\in \\{1, \\dots, n\\} \\\\
 & \; \\c{1}{\\epsilon^{(i)}} \\ge 0 & \\forall i \\in \\{1, \\dots, n\\} \\\\
@@ -555,14 +555,14 @@ $$
 $$
 ]
 
-$c=+\\infty$ $\\rightarrow$ infinite tolerance $\\rightarrow$ **you can put the line wherever you want**
+.col2[$c=+\\infty$] $\\rightarrow$ .col2[infinite tolerance] $\\rightarrow$ **you can put the line wherever you want**
 - from another point of view, you can move *a lot* the points and the line stay the same
 - hence the model is the same irrespective of learning data $\\Rightarrow$ **high bias**
 
-$c=0$ $\\rightarrow$ no tolerance $\\rightarrow$ **any noise will change the model**
+.col2[$c=0$] $\\rightarrow$ .col2[no tolerance] $\\rightarrow$ **any noise will change the model**
 - hence **high variance**
 - **even worse**: if $c$ is too small, this is an $\\approx$ MMC
-  - for a given dataset, there is a $c\\subtext{learnable}$ under which a model is not learnable 😱
+  - for a given dataset, there is a $c\\subtext{learnable}$ sucht that if $c<c\\subtext{learnable}$ no model is learnable 😱
 
 ---
 
@@ -586,7 +586,7 @@ Actually, the **margin** $m$ of the MMC itself depends on the scales of variable
 ]
 .cols[
 .c30[
-.w75p.center[![Trivial dataset before scaling](images/svm-scale-before.png)]
+.w85p.center[![Trivial dataset before scaling](images/svm-scale-before.png)]
 <!--
 d1 = as.data.frame(cbind(x1=c(1,3),x2=c(1,3)))
 d1$y = as.factor(c("Neg","Pos"))
@@ -595,13 +595,13 @@ d1 %>% ggplot(aes(x1,x2,color=y))+geom_point()+xlim(c(0,4))+ylim(c(0,4))+scale_c
 ]
 .c20.compact[
 $D = \\{$  
-.i[]$(1,1,\\c{1}{●})$  
+.i[]$(1,1,\\c{1}{●}),$  
 .i[]$(3,3,\\c{2}{●})$  
 $\\}$
 
 ]
 .c30[
-.w75p.center[![Trivial dataset after scaling](images/svm-scale-after.png)]
+.w85p.center[![Trivial dataset after scaling](images/svm-scale-after.png)]
 <!--
 d2 = d1; d2$x1 = d2$x1/2; d2$x2 = d2$x2/2
 d2 %>% ggplot(aes(x1,x2,color=y))+geom_point()+xlim(c(0,4))+ylim(c(0,4))+scale_color_manual(values=c("#648FFF", "#DC267F", "#FE6100", "#785EF0", "#FFB000")) + geom_abline(intercept=2, slope=-1)
@@ -609,7 +609,7 @@ d2 %>% ggplot(aes(x1,x2,color=y))+geom_point()+xlim(c(0,4))+ylim(c(0,4))+scale_c
 ]
 .c30.compact[
 $D = \\{$  
-.i[]$(0.5,0.5,\\c{1}{●})$  
+.i[]$(0.5,0.5,\\c{1}{●}),$  
 .i[]$(1.5,1.5,\\c{2}{●})$  
 $\\}$
 ]
@@ -652,13 +652,75 @@ Standardization is, in general, preferred as it is more robust to outliers.
 
 ---
 
+## Scaling as part of the model
+
+Since you have to do the scaling both **in learning and prediction**, the coefficients needed for scaling (i.e., $\\min, \\max$ or $\\mu, \\sigma$) do .col2[**belong to the model**]!
+
+.vspace1[]
+
+**Learning with scaling**: (here, standardization)
+
+.diagram.center[
+link([0,25,180,25],'a')
+otext(90,10,'$\\\\seq{(\\\\vect{x}^{(i)},y^{(i)})}{i}$')
+rect(180,0,120,50)
+otext(240,25,"scaling")
+link([300,25,480,25],'a')
+otext(390,10,'$\\\\seq{(\\\\vect{x}^{\\\\prime(i)},y^{(i)})}{i}$')
+rect(480,0,120,50)
+otext(540,25,"$f'\\\\subtext{learn}$")
+link([600,25,650,25],'a')
+otext(625,10,"$m$")
+circle(675,25,25)
+otext(675,25,"join")
+link([700,25,850,25],'a')
+otext(775,10,"$(m,\\\\vect{\\\\mu},\\\\vect{\\\\sigma})$", "col2")
+link([300,35,350,35,350,75,675,75,675,50],'a')
+otext(400,60,"$(\\\\vect{\\\\mu},\\\\vect{\\\\sigma})$")
+]
+
+$(m,\\vect{\\mu},\\vect{\\sigma})$ **is the model** with scaling, with $\\vect{\\mu},\\vect{\\sigma} \\in \\mathbb{R}^p$. .note[Here, *join* builds a tuple]
+
+.vspace1[]
+
+**Prediction with scaling**:
+
+.diagram.center[
+link([0,25,180,25],'a')
+otext(90,10,'$\\\\vect{x},\\\\c{2}{(m,\\\\vect{\\\\mu},\\\\vect{\\\\sigma})}$')
+circle(205,25,25)
+otext(205,25,"split")
+link([230,25,350,25],'a')
+otext(290,10,'$\\\\vect{x},\\\\vect{\\\\mu},\\\\vect{\\\\sigma}$')
+rect(350,0,120,50)
+otext(410,25,"scale")
+link([470,25,520,25],'a')
+otext(495,10,"$\\\\vect{x}'$")
+circle(545,25,25)
+otext(545,25,"join")
+link([570,25,670,25],'a')
+otext(620,10,"$\\\\vect{x}',m$")
+rect(670,0,120,50)
+otext(730,25,"$f'\\\\subtext{predict}$")
+link([790,25,840,25],'a')
+otext(815,10,"$y$")
+link([205,50,205,75,545,75,545,50],'a')
+otext(290,60,"$m$")
+]
+
+.note[
+If you use the entire dataset (e.g., in CV, or in train/test static division) for computing $\\vect{\\mu},\\vect{\\sigma}$, then **you are cheating**!  
+.question[Question]: can you write down the pseudocode of "scale"? And scaling? Are they the same?
+]
+---
+
 ## Introducing tolerance (2nd formulation)
 
 .cols[
 .c60.compact[
 $$
 \\begin{align\*}
-\\max\_{\\beta\_0, \\dots, \\beta\_p,\\c{1}{\\epsilon^{(i)},\\dots,\\epsilon^{(i)}}} & \\; m - \\c{2}{c} \\c{1}{\\sum\_{i=1}^{i=n} \\epsilon^{(i)}} \\\\
+\\max\_{\\beta\_0, \\dots, \\beta\_p,\\c{1}{\\epsilon^{(1)},\\dots,\\epsilon^{(n)}}} & \\; m - \\c{2}{c} \\c{1}{\\sum\_{i=1}^{i=n} \\epsilon^{(i)}} \\\\
 \\text{subject to} & \\; \\vect{\\beta}^\\intercal\\vect{\\beta}= 1 \\\\
 & \; y^{(i)}\\left(\\beta\_0+\\vect{\\beta}^\\intercal\\vect{x}^{(i)}\\right) \\ge m\\c{1}{(1-\\epsilon^{(i)})} & \\forall i \\in \\{1, \\dots, n\\} \\\\
 & \; \\c{1}{\\epsilon^{(i)}} \\ge 0 & \\forall i \\in \\{1, \\dots, n\\}
@@ -666,11 +728,11 @@ $$
 $$
 ]
 .c40.compact[
-- .col1[$\\epsilon^{(i)},\\dots,\\epsilon^{(i)}$] are again positive **slack** variables
+- .col1[$\\epsilon^{(1)},\\dots,\\epsilon^{(n)}$] are again positive **slack** variables
 - their sum is unbounded, but is negatively **accounted in the objective**: basically, this is a *sort-of* biobjective optimization:
   - maximize $m$
   - minimize $\\sum\_{i=1}^{i=n} \\epsilon^{(i)}$
-- .col2[$c \\in \\mathbb{R}^+$], is a **weighting** parameter saying what's the weight of the two objectives, which is a **parameter** of the learning technique
+- $\\c{2}{c} \\in \\mathbb{R}^+$, is a .col2[**weighting**] parameter saying what's the weight of the two objectives, which is a **parameter** of the learning technique
 ]
 ]
 
@@ -695,11 +757,11 @@ $$
 $$
 ]
 
-$c = 0$ $\\rightarrow$ no weight to $\\sum\_{i=1}^{i=n} \\epsilon^{(i)}$ $\\rightarrow$ **points that are inside the margin cost zero**
+.col2[$c = 0$] $\\rightarrow$ .col2[no weight] to $\\sum\_{i=1}^{i=n} \\epsilon^{(i)}$ $\\rightarrow$ **points that are inside the margin cost zero**
 - you can put the line wherever you want
 - hence, the model is the same irrespective of learning data $\\Rightarrow$ **high bias**
 
-$c = +\\infty$ $\\rightarrow$ infinite weight to $\\sum\_{i=1}^{i=n}$ $\\rightarrow$ **points that are inside the margin cost a lot**
+.col2[$c = +\\infty$] $\\rightarrow$ .col2[infinite weight] to $\\sum\_{i=1}^{i=n}$ $\\rightarrow$ **points that are inside the margin cost a lot**
 - max effort to put all points outside the margin
 - from another point of view, the margin is very sensitive to point positions $\\Rightarrow$ **high variance**
 - but still, with *huge cost*, a model can be learned!
@@ -741,6 +803,244 @@ d %>% ggplot(aes(x1,x4,color=y))+geom_point()+xlim(c(4,8))+ylim(c(0,3))+scale_co
 -->
 ]
 .c50[
+Yes, with the 2nd formulation, we can learn a SMC, but it will be a poor model:
+- simply, the decision boundary here is not a straight line
+- a line is **naturally unable to model the system**
+
+More in general, not every binary classification problem can be solved with an hyperplane.
+
+.vspace1[]
+
+**Can we learn non linear decision boundaries?**
 
 ]
 ]
+
+---
+
+## Beyond the hyperplane: disclaimer
+
+Yes, we can!
+
+.vspace1[]
+
+But...
+
+.center[❗ **Disclaimer** ❗]
+
+.vspace1[]
+
+There will be some *harder* mathematics.
+We are going to make it **simple**.
+
+For simplifying it, we'll risky walk on the edge of correcteness...
+
+---
+
+## An alternative formulation for $f'\\subtext{predict}$
+
+.cols[
+.c50.compact[
+First, let's give a name to the core computation of $f'\\subtext{predict}$:
+$$f(\\vect{x}) = \\beta\_0 + \\vect{\\beta}^\\intercal \\vect{x}=\\beta\_0 + \\sum\_{j=1}^{j=p} \\beta\_j x\_j$$
+with $f: \\mathbb{R}^p \\to \\mathbb{R}$.
+]
+.c50.compact[
+It turns out that this same $f$ can be written also as:
+$$f(\\vect{x})=\\beta\_0 + \\sum\_{i=1}^{i=n} \\alpha^{(i)} \\left\\langle \\vect{x}, \\vect{x}^{(i)} \\right\\rangle$$
+where $\\left\\langle \\vect{x}, \\vect{x}' \\right\\rangle = \\vect{x}^\\intercal \\vect{x}' = \\sum\_{j=1}^{j=p} x\_j x'\_j$ is the inner product.
+
+.note[$\\langle \\cdot,\\cdot \\rangle: \\mathbb{R}^p \\times \\mathbb{R}^p \\to \\mathbb{R}$ can also be defined on other sets than $\\mathbb{R}^p$, so it's not just $\\vect{x}^\\intercal \\vect{x}'$...]
+]
+]
+
+**Remarks**:
+- there are $p+1$ $\\beta$ coeffs and $n$ $\\alpha$ coeffs
+  - in general, they are different in value
+- for the left formulation, during optimization you give the $\\vect{x}^{(i)}$ to $\\text{solve}()$ and obtain the $\\beta$ coeffs
+  - once you fix $\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}$, you completely define $f(x)$
+- same for the right formulation
+  - once you fix $\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}$ and the $\\alpha$ coeffs, you completely define $f(x)$
+  - the $\\alpha$ coeffs are just needed to make the two functions the same
+
+---
+
+## The support vectors and the $\\alpha$ coeffs
+
+.cols[
+.c50[
+.w100p.center[![Binary classificatio problem for SVM: just data](images/svm-data-line-w-margin.png)]
+]
+.c50[
+Given that:
+.center[
+$\\beta\_0 + \\vect{\\beta}^\\intercal \\vect{x} = f(x) = \\beta\_0 + \\sum\_{i=1}^{i=n} \\alpha^{(i)} \\vect{x}^\\intercal \\vect{x}^{(i)}$
+]
+
+If you move¹ any point which **is not a support vector**, by definition $f(x)$ must stay the same:
+- so the $\\beta$ coeffs must stay the same
+- so the $\\alpha$ coeffs must stay the same
+
+Hence, it follows that $\\alpha^{(i)}=0$ for every support vector!
+
+More in general each $\\alpha^{(i)}$ says what's the **contribution** of the corresponding $\\vect{x}^{(i)}$ **when classifying** $\\vect{x}$: $0$ means no contribution.
+
+.note[
+From the point of view of the optimization, $\\text{solve}()$ for the second formulation gives $(\\beta\_0, \\vect{\\alpha})$, with $\\vect{\\alpha} \\in \\mathbb{R}^n$: this also says which are the support vectors.
+Similarly, the model is $(\\beta\_0, \\vect{\\alpha})$ instead of $(\\beta\_0, \\vect{\\beta})$.
+]
+]
+]
+
+.footnote[
+1. Without making it a support vector.
+]
+
+---
+
+## The kernel
+
+.note[
+Ok, but what about going beyond the hyperplane?
+We are almost there...
+]
+
+The second formulation may be generalized:
+$$f(x) = \\beta\_0 + \\sum\_{i=1}^{i=n} \\alpha^{(i)} k\\left(\\vect{x}, \\vect{x}^{(i)}\\right)$$
+where $k: \\mathbb{R}^p \\times \\mathbb{R}^p \\to \\mathbb{R}$ is a **kernel function**.
+
+The idea behind the kernel function is to:
+1. transform the original space $X=\\mathbb{R}^p$ in another space $X=\\mathbb{R}^q$, with possibly $q \\gg p$, with a $\\phi: X \\to X'$, and then
+2. to compute the inner product in the destination space, i.e., $k(\\vect{x}, \\vect{x}^{(i)})= \\phi(\\vect{x})^\\intercal \\phi(\\vect{x}^{(i)})$
+
+*hoping* that an **hyperplane can separate the points** in $X'$ better than in $X$.
+
+.note[
+This thing is called the **kernel trick**.
+Understanding the math behind it is beyond the scope of this course.
+Understanding the way the optimization works with a kernel is beyond the scope of this course.
+]
+
+When you use a kernel, this technique is called .key[Support Vector Machines] (SVM) learning.
+
+---
+
+## Common kernels
+
+.cols[
+.c50[
+**Linear kernel**:
+
+.hspace2[] $k(\\vect{x}, \\vect{x}') = \\vect{x}^\\intercal \\vect{x}'$
+- the most efficient (computationally cheapest)
+
+**Polynomial kernel**:
+
+.hspace2[] $k(\\vect{x}, \\vect{x}') = (1+\\vect{x}^\\intercal \\vect{x}')^d$
+- $d$, the degree of the kernel, is a parameter
+
+**Gaussian kernel**:
+
+.hspace2[] $k(\\vect{x}, \\vect{x}') = e^{-\\gamma \\lVert \\vect{x} - \\vect{x}' \\rVert^2}$
+- $\\lVert \\vect{x} - \\vect{x}' \\rVert^2$ is the squared Euclidean distance of $\\vect{x}$ to $\\vect{x}'$'
+- $\\gamma$ is a parameter
+- also called radial basis function (RBF), or just radial, kernel
+- the most widely used
+]
+.c50[
+$$f(x) = \\beta\_0 + \\sum\_{i=1}^{i=n} \\alpha^{(i)} k\\left(\\vect{x}, \\vect{x}^{(i)}\\right)$$
+
+Regardless of the kernel being used, each $\\alpha^{(i)}$ says what's the contribution of the corresponding $\\vect{x}^{(i)}$ when evaluating $f(\\vect{x})$ inside $f'\\subtext{predict}$.
+]
+]
+
+---
+
+## Inside the Gaussian kernel (humbly, toy)
+
+.cols[
+.c70.compact[
+$k(\\vect{x}, \\vect{x}') = e^{-\\gamma \\lVert \\vect{x} - \\vect{x}' \\rVert^2}$ and $f(x) = \\beta\_0 + \\sum\_{i=1}^{i=n} \\alpha^{(i)} k\\left(\\vect{x}, \\vect{x}^{(i)}\\right)$
+- $e^{-\\gamma \\lVert \\vect{x} - \\vect{x}' \\rVert^2} \\in [0,1]$
+- the larger $\\gamma$, the faster $e^{-\\gamma \\lVert \\vect{x} - \\vect{x}' \\rVert^2}$ goes to $0$ with distance
+
+Let's consider a point $\\vect{x}$ moving from $(0,3.5)$ to $(6,3.5)$:
+- think about its correct color, while moving
+- put it on the 3D plane, consider its 3 $\\alpha$, draw decision boundary
+]
+.c30[
+.w100p.center[![Gaussian kernel and gamma](images/gaussian-kernel-gamma.png)]
+<!--
+ggplot()+geom_function(fun=function(x){exp(-0.1*x)},color="#FE6100")+geom_function(fun=function(x){exp(-1*x)},color="#785EF0")+geom_function(fun=function(x){exp(-10*x)},color="#FFB000",show.legend=T)+xlim(c(0,6))+xlab("d")+ylab("exp(-gamma d)")
+-->
+]
+]
+
+.cols[
+.c50[
+.w75p.center[![Three support vectors in 2D](images/gaussian-3points.png)]
+<!--
+d1 = as.data.frame(cbind(x1=c(1,3,5),x2=c(3,3,3)))
+d1$y = as.factor(c("Neg","Pos","Neg"))
+d1 %>% ggplot(aes(x1,x2,color=y))+geom_point()+xlim(c(0,6))+ylim(c(0,6))+scale_color_manual(values=c("#648FFF", "#DC267F", "#FE6100", "#785EF0", "#FFB000"))
+-->
+]
+.c50[
+.h30ex.center[![3D canvas](images/gaussian-3d.png)]
+<!--
+scatter3D(c(1,0,0),c(0,1,0),c(0,0,1),bty="g",col=c("#00000000","#00000000","#00000000"),xlab="d(·,x¹)",ylab="d(·,x²)",zlab="d(·,x³)",colkey=F)
+-->
+]
+]
+
+---
+
+## Intuitive interpretation Gaussian kernel
+
+Intuitively, and very broadly speaking, the Gaussian kernel maps an $\\vect{x}$ to the space where coordinates are the distances to *relevant* observations of the learning data.
+
+In practice, the decision boundary can **smoothly follow** any path:
+- with some risk of overfitting
+
+.w75p.center[![Drawing of an SVM decision boundary](images/svm-wiki.svg)]
+.note[Image from [Wikipedia](https://en.wikipedia.org/wiki/Support_vector_machine)]
+---
+
+## SVM: summary
+
+**Efficiency** 👍👍👍
+- 👍 very fast
+
+**Explainability/interpretability** 🫳
+- 👎 few numbers, but hardly interpretable, **no global explainability**
+  - knowing which point are the support vectors is better than nothing...
+- 😶 the learning technique is pure optimization
+- 👍 confidence may be used as basic form of **local explainability**
+
+**Effectiveness** 👍👍
+- 👍 in general good with the Gaussian kernel
+  - but complex interactions between $c$ and $\\gamma$ require to choose parameter values carefully
+
+**Applicability** 🫳
+- 🫳 $Y$: **only binary classifications**
+- 🫳 $X$: **only numerical variables**
+- 👍 models give a confidence
+- 🫳 with two parameters ($c$ and $\\gamma$)
+
+
+<!--
+summary of svm:
+- effectiveness: two params, complex interaction, do param selection with CV
+  - decision boundary driven by close observations, can follow any shape
+- efficiency: fast
+- applicability: so and so
+-->
+
+---
+
+<!--
+copying with limitations
+- binary to multiclass
+- categorical to numerical variables
+- missing values
+-->
