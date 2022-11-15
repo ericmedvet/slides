@@ -183,18 +183,18 @@ function $\\text{predict}(\\vect{x}, (\\beta\_0, \\vect{\\beta}))$ {
 ]
 
 **Can we use this like a probability?** Can we have an $f''\\subtext{predict}$ for the hyperplane?
-- recall the single tree: $f''\\subtext{predict}(x,t)=\\treel{(\\c{1}{● \\smaller{\\frac{3}{5}}}, \\c{2}{● \\smaller{\\frac{2}{5}}})}$ .note[.question[question]: can we infer something about $n=|D\\subtext{learn}|$ form this?]
-- recall the bag (assume $n\\subtext{tree}=100$): $f''\\subtext{predict}(x,\\seq{t\_j}{j})=\\treel{(\\c{1}{● \\smaller{\\frac{38}{100}}}, \\c{2}{● \\smaller{\\frac{62}{100}}})}$
+- recall the single tree: $f''\\subtext{predict}(x,t)=(\\c{1}{● \\smaller{\\frac{3}{5}}}, \\c{2}{● \\smaller{\\frac{2}{5}}})$ .note[.question[question]: can we infer something about $n=|D\\subtext{learn}|$ form this?]
+- recall the bag (assume $n\\subtext{tree}=100$): $f''\\subtext{predict}(x,\\seq{t\_j}{j})=(\\c{1}{● \\smaller{\\frac{38}{100}}}, \\c{2}{● \\smaller{\\frac{62}{100}}})$
 
 --
 
 **No!**
-Because .col3[$\\beta\_0+\\vect{\\beta}^\\intercal\\vect{x}$] is not bound in $[0,1]$
+Because .col3[$\\beta\_0+\\vect{\\beta}^\\intercal\\vect{x}$] is not bounded in $[0,1]$
 - we can still use it as a measure of confidence: the smaller $|\\beta\_0+\\vect{\\beta}^\\intercal\\vect{x}|$, **the lower the confidence** in the decision; in the extreme case $|\\beta\_0+\\vect{\\beta}^\\intercal\\vect{x}|=0$ means **no confidence**, i.e., both $y=\\text{Pos}$ and $y=\\text{Neg}$ are ok
 
 .note[
 You may map the domain of $\\beta\_0+\\vect{\\beta}^\\intercal\\vect{x}$, i.e., $[-\\infty,+\\infty]$ to $[0,1]$ with, e.g., $\\tanh$: if $x \\in [-\\infty,+\\infty]$, then $\\frac{1}{2}+\\frac{1}{2}\\tanh(x) \\in [0,1]$.  
-But this is not a common practice, because it still would be a *real* probability.
+But this is not a common practice, because it still would not be a *real* probability.
 ]
 
 ---
@@ -406,7 +406,7 @@ function $\\text{learn}(\\seq{(\\vect{x}^{(i)},y^{(i)})}{i})$ {
 ]
 ]
 
-In practice, this is an *easy* optimization problem and solvin it is **fast**! .note[for a computer]
+In practice, this is an *easy* optimization problem and solving it is **fast**! .note[for a computer]
 
 ---
 
@@ -425,7 +425,7 @@ This learning technique is called .key[maximal margin classifier] learning.
 - 🫳 just numerical variables .note[more on this later]
 - 👍 parameter-free!
 
-**Efficiency**: 🤔
+**Effectiveness**: 🤔
 - overfitting? well, no flexibility, so... 🤔
   - what's complexity here? the *size* of the model is always $p+1$
 
@@ -465,7 +465,7 @@ function $\\text{predict}(\\vect{x}, (\\beta\_0, \\vect{\\beta}))$ {
 .w100p.center[![Binary classificatio problem for SVM: just data](images/svm-data-line-w-margin.png)]
 ]
 .c50[
-**support vectors**:
+**Support vectors**:
 - they support the band in its position, **like nails 📍 with a wooden ruler 📏**
 - here, two .col2[●].col2[●] and one .col1[●]
 
