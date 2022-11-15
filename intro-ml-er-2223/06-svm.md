@@ -530,20 +530,217 @@ $$
       - $\\epsilon^{(i)}=0$ means $\\vect{x}^{(i)}$ has to be **out of the margin, on correct side**
       - $\\epsilon^{(i)} \\in [0,1]$ means $\\vect{x}^{(i)}$ can be **inside the margin, on correct side**
       - $\\epsilon^{(i)} > 1$ means $\\vect{x}^{(i)}$ can be on **wrong side**
-- .col2[$c$ (for **cost**)], is a budget of tolerance, which is a **parameter** of the learning technique
+- .col2[$c \\in \\mathbb{R}^+$ (for **cost**)], is a budget of tolerance, which is a **parameter** of the learning technique
 ]
 ]
 
-This learning technique is called .key[soft margin classifier], because, due to tolerance, the margin can be *pushed*.
+This learning technique is called .key[soft margin classifier] (or support vector classifier), because, due to tolerance, the margin can be *pushed*.
+
 It has one parameter, $c$:
 - $c=0$ corresponds to maximal margin classifier
-- $c=+\\infty$ corresponds to infinite tolerance:
-  - you can put the line wherever you want, and that's ok
 
 ---
 
+## Role of the parameter $c$ (in 1st formulation)
+
+.compact[
+$$
+\\begin{align\*}
+\\max\_{\\beta\_0, \\dots, \\beta\_p,\\c{1}{\\epsilon^{(i)},\\dots,\\epsilon^{(i)}}} & \\; m \\\\
+\\text{subject to} & \\; \\vect{\\beta}^\\intercal\\vect{\\beta}= 1 \\\\
+& \; y^{(i)}\\left(\\beta\_0+\\vect{\\beta}^\\intercal\\vect{x}^{(i)}\\right) \\ge m\\c{1}{(1-\\epsilon^{(i)})} & \\forall i \\in \\{1, \\dots, n\\} \\\\
+& \; \\c{1}{\\epsilon^{(i)}} \\ge 0 & \\forall i \\in \\{1, \\dots, n\\} \\\\
+& \; \\sum\_{i=1}^{i=n} \\c{1}{\\epsilon^{(i)}} = \\c{2}{c}
+\\end{align\*}
+$$
+]
+
+$c=+\\infty$ $\\rightarrow$ infinite tolerance $\\rightarrow$ **you can put the line wherever you want**
+- from another point of view, you can move *a lot* the points and the line stay the same
+- hence the model is the same irrespective of learning data $\\Rightarrow$ **high bias**
+
+$c=0$ $\\rightarrow$ no tolerance $\\rightarrow$ **any noise will change the model**
+- hence **high variance**
+- **even worse**: if $c$ is too small, this is an $\\approx$ MMC
+  - for a given dataset, there is a $c\\subtext{learnable}$ under which a model is not learnable 😱
+
+---
+
+## Variable scale
+
+The threshold $c\\subtext{learnable}$ for **learnability** depends:
+- on $n$, for the summation $\\sum\_{i=1}^{i=n}$
+- on $p$, because of $\\beta\_0+\\vect{\\beta}^\\intercal\\vect{x}^{(i)}$ .note[the larger $p$, the *longer* the summation, as $\\vect{\\beta}^\\intercal\\vect{x}^{(i)}=\\sum\_{j=1}^{j=p} \\beta\_j x\_j$]
+- on the actual **scales of the variables**
+
+--
+
+Actually, the **margin** $m$ of the MMC itself depends on the scales of variables!
+.cols[
+.c50.center[
+**Original dataset**
+]
+.c50[
+**Scaled dataset**: each $x\_j$ is $\\times \\frac{1}{2}$
+]
+]
+.cols[
+.c30[
+.w75p.center[![Trivial dataset before scaling](images/svm-scale-before.png)]
 <!--
-role of the parameter c
-alternative formulation
-non separable points
+d1 = as.data.frame(cbind(x1=c(1,3),x2=c(1,3)))
+d1$y = as.factor(c("Neg","Pos"))
+d1 %>% ggplot(aes(x1,x2,color=y))+geom_point()+xlim(c(0,4))+ylim(c(0,4))+scale_color_manual(values=c("#648FFF", "#DC267F", "#FE6100", "#785EF0", "#FFB000")) + geom_abline(intercept=4, slope=-1)
 -->
+]
+.c20.compact[
+$D = \\{$  
+.i[]$(1,1,\\c{1}{●})$  
+.i[]$(3,3,\\c{2}{●})$  
+$\\}$
+
+]
+.c30[
+.w75p.center[![Trivial dataset after scaling](images/svm-scale-after.png)]
+<!--
+d2 = d1; d2$x1 = d2$x1/2; d2$x2 = d2$x2/2
+d2 %>% ggplot(aes(x1,x2,color=y))+geom_point()+xlim(c(0,4))+ylim(c(0,4))+scale_color_manual(values=c("#648FFF", "#DC267F", "#FE6100", "#785EF0", "#FFB000")) + geom_abline(intercept=2, slope=-1)
+-->
+]
+.c30.compact[
+$D = \\{$  
+.i[]$(0.5,0.5,\\c{1}{●})$  
+.i[]$(1.5,1.5,\\c{2}{●})$  
+$\\}$
+]
+]
+.cols[
+.c50.center[
+$m=\\sqrt{1^2+1^2}=\\sqrt{2}$
+]
+.c50.center[
+$m=\\sqrt{\\frac{1}{2^2}+\\frac{1}{2^2}}=\\frac{1}{\\sqrt{2}}$
+]
+]
+
+---
+
+## Variable scale and hyperplane
+
+Moreover, the **coefficients** $\\beta\_j$ depend on the scales of the variables too!
+
+Intuitively: if
+- $x\_j \\in [1.4, 2.1]$ (might be the height in meters)
+- and $x\_{j'} \\in [20000, 50000]$ (might be the annual income in €)
+
+then $\\beta\_j$ will be much different than $\\beta\_{j'}$, making the computation of $\\beta\_0+\\vect{\\beta}^\\intercal\\vect{x}^{(i)}$ (and hence the model) rather sensible to noise.
+
+--
+
+.vspace1[]
+
+Hence, when using MMC (or SMC, or SVM), **you¹ should rescale the variables**.
+Options:
+- **min-max** scaling: $x^{\\prime(i)}\_j = \\frac{x^{(i)}\_j - \\min\_{i'} x^{(i')}\_j}{\\max\_{i'} x^{(i')}\_j - \\min\_{i'} x^{(i')}\_j}$ .note[where $\\min\_{i'} x^{(i')}\_j$ is the min of $x\_j$ in $D$]
+- **standardization**: $x^{\\prime(i)}\_j = \\frac{1}{\\sigma\_j} \\left(x^{(i)}\_j - \\mu\_j\\right)$ .note[where $\\mu\_j$ and $\\sigma\_j$ are the mean and standard deviation of $x\_j$ in $D$]
+
+Standardization is, in general, preferred as it is more robust to outliers.
+
+.footnote[
+1. In practice, most of the ML sw/libraries do it internally.
+]
+
+---
+
+## Introducing tolerance (2nd formulation)
+
+.cols[
+.c60.compact[
+$$
+\\begin{align\*}
+\\max\_{\\beta\_0, \\dots, \\beta\_p,\\c{1}{\\epsilon^{(i)},\\dots,\\epsilon^{(i)}}} & \\; m - \\c{2}{c} \\c{1}{\\sum\_{i=1}^{i=n} \\epsilon^{(i)}} \\\\
+\\text{subject to} & \\; \\vect{\\beta}^\\intercal\\vect{\\beta}= 1 \\\\
+& \; y^{(i)}\\left(\\beta\_0+\\vect{\\beta}^\\intercal\\vect{x}^{(i)}\\right) \\ge m\\c{1}{(1-\\epsilon^{(i)})} & \\forall i \\in \\{1, \\dots, n\\} \\\\
+& \; \\c{1}{\\epsilon^{(i)}} \\ge 0 & \\forall i \\in \\{1, \\dots, n\\}
+\\end{align\*}
+$$
+]
+.c40.compact[
+- .col1[$\\epsilon^{(i)},\\dots,\\epsilon^{(i)}$] are again positive **slack** variables
+- their sum is unbounded, but is negatively **accounted in the objective**: basically, this is a *sort-of* biobjective optimization:
+  - maximize $m$
+  - minimize $\\sum\_{i=1}^{i=n} \\epsilon^{(i)}$
+- .col2[$c \\in \\mathbb{R}^+$], is a **weighting** parameter saying what's the weight of the two objectives, which is a **parameter** of the learning technique
+]
+]
+
+This is still the learning technique called soft margin classifiers.
+
+Most of the ML sw/libraries are based on this formulation.
+
+.note[The 1st one is often shown in books, e.g., in .ref[James, Gareth, et al.; An introduction to statistical learning. Vol. 112. New York: springer, 2013]]
+
+---
+
+## Role of the parameter $c$ (in 2nd formulation)
+
+.compact[
+$$
+\\begin{align\*}
+\\max\_{\\beta\_0, \\dots, \\beta\_p,\\c{1}{\\epsilon^{(i)},\\dots,\\epsilon^{(i)}}} & \\; m - \\c{2}{c} \\c{1}{\\sum\_{i=1}^{i=n} \\epsilon^{(i)}} \\\\
+\\text{subject to} & \\; \\vect{\\beta}^\\intercal\\vect{\\beta}= 1 \\\\
+& \; y^{(i)}\\left(\\beta\_0+\\vect{\\beta}^\\intercal\\vect{x}^{(i)}\\right) \\ge m\\c{1}{(1-\\epsilon^{(i)})} & \\forall i \\in \\{1, \\dots, n\\} \\\\
+& \; \\c{1}{\\epsilon^{(i)}} \\ge 0 & \\forall i \\in \\{1, \\dots, n\\}
+\\end{align\*}
+$$
+]
+
+$c = 0$ $\\rightarrow$ no weight to $\\sum\_{i=1}^{i=n} \\epsilon^{(i)}$ $\\rightarrow$ **points that are inside the margin cost zero**
+- you can put the line wherever you want
+- hence, the model is the same irrespective of learning data $\\Rightarrow$ **high bias**
+
+$c = +\\infty$ $\\rightarrow$ infinite weight to $\\sum\_{i=1}^{i=n}$ $\\rightarrow$ **points that are inside the margin cost a lot**
+- max effort to put all points outside the margin
+- from another point of view, the margin is very sensitive to point positions $\\Rightarrow$ **high variance**
+- but still, with *huge cost*, a model can be learned!
+
+---
+
+## SMC: sims and diffs of the two formulations
+
+**Similarities**:
+- there is one learning **parameter** (called $c$)
+- $c$ is a flexibility parameter
+
+**Differences**:
+- $c$ extreme values:
+  - $c=+\\infty$ (1st) and $c=0$ (2nd) for **high bias**
+  - $c=0$ (1st) and $c=+\\infty$ (2nd) for **high variance**
+- *learnability*:
+  - with the 2nd, you can **always learn a model** from of any dataset $D$
+  - with the 1st, given a $D$, there is a $c\\subtext{learnable} \\le 0$ such that if you set $c < c\\subtext{learnable}$ you cannot learn a model from $D$
+      - $c\\subtext{learnable}=0$ if the data is **linearly separable**
+
+**In practice**:
+- most of the ML sw/libraries are based on the 2nd formulation
+- you should find (e.g., with CV) a proper value for $c$
+
+---
+
+## Always learn...
+
+.cols[
+.c50[
+.w100p.center[![A not linearly separable binary classification dataset](images/svm-iris-nonlinear.png)]
+<!--
+d = read.table("binary-iris.txt", header = T)
+d$Species = as.factor(d$Species)
+levels(d$Species) = c("Pos","Neg")
+names(d)=c("i","x1","x2","x3","x4","y")
+d %>% ggplot(aes(x1,x4,color=y))+geom_point()+xlim(c(4,8))+ylim(c(0,3))+scale_color_manual(values=c("#648FFF", "#DC267F", "#FE6100", "#785EF0", "#FFB000"))
+-->
+]
+.c50[
+
+]
+]
