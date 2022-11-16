@@ -298,7 +298,7 @@ The hyperplane that
 - perfectly separates the $\\text{Pos}$ and $\\text{Neg}$ points **and**
 - is the farthest from the closest points
 
-is called the .key[maximal margin classifier].
+is called the .key[maximal margin classifier] (MMC).
 
 .vspace1[]
 
@@ -534,7 +534,7 @@ $$
 ]
 ]
 
-This learning technique is called .key[soft margin classifier] (or support vector classifier), because, due to tolerance, the margin can be *pushed*.
+This learning technique is called .key[soft margin classifier] (SMC, or support vector classifier), because, due to tolerance, the margin can be *pushed*.
 
 It has one parameter, $c$:
 - $c=0$ corresponds to maximal margin classifier (no tolerance)
@@ -906,8 +906,8 @@ We are almost there...
 ]
 
 The second formulation may be generalized:
-$$f(x) = \\beta\_0 + \\sum\_{i=1}^{i=n} \\alpha^{(i)} k\\left(\\vect{x}, \\vect{x}^{(i)}\\right)$$
-where $k: \\mathbb{R}^p \\times \\mathbb{R}^p \\to \\mathbb{R}$ is a **kernel function**.
+$$f(x) = \\beta\_0 + \\sum\_{i=1}^{i=n} \\alpha^{(i)} \\c{2}{k\\left(\\vect{x}, \\vect{x}^{(i)}\\right)}$$
+where .col2[$k: \\mathbb{R}^p \\times \\mathbb{R}^p \\to \\mathbb{R}$] is a **kernel function**.
 
 The idea behind the kernel function is to:
 1. transform the original space $X=\\mathbb{R}^p$ in another space $X=\\mathbb{R}^q$, with possibly $q \\gg p$, with a $\\phi: X \\to X'$, and then
@@ -961,15 +961,16 @@ Regardless of the kernel being used, each $\\alpha^{(i)}$ says what's the contri
 .cols[
 .c70.compact[
 $k(\\vect{x}, \\vect{x}') = e^{-\\gamma \\lVert \\vect{x} - \\vect{x}' \\rVert^2}$ and $f(x) = \\beta\_0 + \\sum\_{i=1}^{i=n} \\alpha^{(i)} k\\left(\\vect{x}, \\vect{x}^{(i)}\\right)$
-- $e^{-\\gamma \\lVert \\vect{x} - \\vect{x}' \\rVert^2} \\in [0,1]$
+- $e^{-\\gamma \\lVert \\vect{x} - \\vect{x}' \\rVert^2} \\in [0,1]$; $\\lVert \\vect{x} - \\vect{x}' \\rVert^2$ is the squared distance of $\\vect{x}$ to $\\vect{x}''$
 - the larger $\\gamma$, the faster $e^{-\\gamma \\lVert \\vect{x} - \\vect{x}' \\rVert^2}$ goes to $0$ with distance
 
 Let's consider a point $\\vect{x}$ moving from $(0,3.5)$ to $(6,3.5)$:
 - think about its correct color, while moving
 - put it on the 3D plane, consider its 3 $\\alpha$, draw decision boundary
 ]
-.c30[
-.w100p.center[![Gaussian kernel and gamma](images/gaussian-kernel-gamma.png)]
+.c30.compact[
+.w85p.center[![Gaussian kernel and gamma](images/gaussian-kernel-gamma.png)]
+.col3[**—**]$\\gamma=0.1$ .col4[**—**]$\\gamma=1$ .col5[**—**]$\\gamma=10$
 <!--
 ggplot()+geom_function(fun=function(x){exp(-0.1*x)},color="#FE6100")+geom_function(fun=function(x){exp(-1*x)},color="#785EF0")+geom_function(fun=function(x){exp(-10*x)},color="#FFB000",show.legend=T)+xlim(c(0,6))+xlab("d")+ylab("exp(-gamma d)")
 -->
