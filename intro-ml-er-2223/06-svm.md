@@ -736,7 +736,7 @@ $$
 ]
 ]
 
-This is still the learning technique called soft margin classifiers.
+This is also the learning technique called **soft margin classifier**.
 
 Most of the ML sw/libraries are based on this formulation.
 
@@ -858,9 +858,9 @@ where $\\left\\langle \\vect{x}, \\vect{x}' \\right\\rangle = \\vect{x}^\\interc
 - there are $p+1$ $\\beta$ coeffs and $n$ $\\alpha$ coeffs
   - in general, they are different in value
 - for the left formulation, during optimization you give the $\\vect{x}^{(i)}$ to $\\text{solve}()$ and obtain the $\\beta$ coeffs
-  - once you fix $\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}$, you completely define $f(x)$
+  - once you fix $\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}$, you completely define $f(\\vect{x})$
 - same for the right formulation
-  - once you fix $\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}$ and the $\\alpha$ coeffs, you completely define $f(x)$
+  - once you fix $\\seq{(\\vect{x}^{(i)},y^{(i)})}{i}$ and the $\\alpha$ coeffs, you completely define $f(\\vect{x})$
   - the $\\alpha$ coeffs are just needed to make the two functions the same
 
 ---
@@ -874,14 +874,14 @@ where $\\left\\langle \\vect{x}, \\vect{x}' \\right\\rangle = \\vect{x}^\\interc
 .c50[
 Given that:
 .center[
-$\\beta\_0 + \\vect{\\beta}^\\intercal \\vect{x} = f(x) = \\beta\_0 + \\sum\_{i=1}^{i=n} \\alpha^{(i)} \\vect{x}^\\intercal \\vect{x}^{(i)}$
+$\\beta\_0 + \\vect{\\beta}^\\intercal \\vect{x} = f(\\vect{x}) = \\beta\_0 + \\sum\_{i=1}^{i=n} \\alpha^{(i)} \\vect{x}^\\intercal \\vect{x}^{(i)}$
 ]
 
-If you move¹ any point which **is not a support vector**, by definition $f(x)$ must stay the same:
+If you move¹ any point which **is not a support vector**, by definition $f(\\vect{x})$ must stay the same:
 - so the $\\beta$ coeffs must stay the same
 - so the $\\alpha$ coeffs must stay the same
 
-Hence, it follows that $\\alpha^{(i)}=0$ for every support vector!
+Hence, it follows that $\\alpha^{(i)}=0$ for every $\\vect{x}^{(i)}$ which is **not a support vector**!
 
 More in general each $\\alpha^{(i)}$ says what's the **contribution** of the corresponding $\\vect{x}^{(i)}$ **when classifying** $\\vect{x}$: $0$ means no contribution.
 
@@ -906,7 +906,7 @@ We are almost there...
 ]
 
 The second formulation may be generalized:
-$$f(x) = \\beta\_0 + \\sum\_{i=1}^{i=n} \\alpha^{(i)} \\c{2}{k\\left(\\vect{x}, \\vect{x}^{(i)}\\right)}$$
+$$f(\\vect{x}) = \\beta\_0 + \\sum\_{i=1}^{i=n} \\alpha^{(i)} \\c{2}{k\\left(\\vect{x}, \\vect{x}^{(i)}\\right)}$$
 where .col2[$k: \\mathbb{R}^p \\times \\mathbb{R}^p \\to \\mathbb{R}$] is a **kernel function**.
 
 The idea behind the kernel function is to:
@@ -942,13 +942,13 @@ When you use a kernel, this technique is called .key[Support Vector Machines] (S
 **Gaussian kernel**:
 
 .hspace2[] $k(\\vect{x}, \\vect{x}') = e^{-\\gamma \\lVert \\vect{x} - \\vect{x}' \\rVert^2}$
-- $\\lVert \\vect{x} - \\vect{x}' \\rVert^2$ is the squared Euclidean distance of $\\vect{x}$ to $\\vect{x}'$'
+- $\\lVert \\vect{x} - \\vect{x}' \\rVert^2$ is the squared Euclidean distance of $\\vect{x}$ to $\\vect{x}'$
 - $\\gamma$ is a parameter
 - also called radial basis function (RBF), or just radial, kernel
 - the most widely used
 ]
 .c50[
-$$f(x) = \\beta\_0 + \\sum\_{i=1}^{i=n} \\alpha^{(i)} k\\left(\\vect{x}, \\vect{x}^{(i)}\\right)$$
+$$f(\\vect{x}) = \\beta\_0 + \\sum\_{i=1}^{i=n} \\alpha^{(i)} k\\left(\\vect{x}, \\vect{x}^{(i)}\\right)$$
 
 Regardless of the kernel being used, each $\\alpha^{(i)}$ says what's the contribution of the corresponding $\\vect{x}^{(i)}$ when evaluating $f(\\vect{x})$ inside $f'\\subtext{predict}$.
 ]
@@ -960,8 +960,8 @@ Regardless of the kernel being used, each $\\alpha^{(i)}$ says what's the contri
 
 .cols[
 .c70.compact[
-$k(\\vect{x}, \\vect{x}') = e^{-\\gamma \\lVert \\vect{x} - \\vect{x}' \\rVert^2}$ and $f(x) = \\beta\_0 + \\sum\_{i=1}^{i=n} \\alpha^{(i)} k\\left(\\vect{x}, \\vect{x}^{(i)}\\right)$
-- $e^{-\\gamma \\lVert \\vect{x} - \\vect{x}' \\rVert^2} \\in [0,1]$; $\\lVert \\vect{x} - \\vect{x}' \\rVert^2$ is the squared distance of $\\vect{x}$ to $\\vect{x}''$
+$k(\\vect{x}, \\vect{x}') = e^{-\\gamma \\lVert \\vect{x} - \\vect{x}' \\rVert^2}$ and $f(\\vect{x}) = \\beta\_0 + \\sum\_{i=1}^{i=n} \\alpha^{(i)} k\\left(\\vect{x}, \\vect{x}^{(i)}\\right)$
+- $e^{-\\gamma \\lVert \\vect{x} - \\vect{x}' \\rVert^2} \\in [0,1]$; $\\lVert \\vect{x} - \\vect{x}' \\rVert^2$ is the squared distance of $\\vect{x}$ to $\\vect{x}'$
 - the larger $\\gamma$, the faster $e^{-\\gamma \\lVert \\vect{x} - \\vect{x}' \\rVert^2}$ goes to $0$ with distance
 
 Let's consider a point $\\vect{x}$ moving from $(0,3.5)$ to $(6,3.5)$:
