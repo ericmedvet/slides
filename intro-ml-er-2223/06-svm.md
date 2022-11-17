@@ -1084,7 +1084,7 @@ A similar encoding can be applied when $X\_j=\\mathcal{P}(A)$.
 ]
 ]
 .c50.compact[
-**Example** (extended carousel)
+**Example**: (extended carousel)
 
 Original features: age, height, .col2[city] .note[$p=3$]
 
@@ -1181,6 +1181,54 @@ Given an $x \\in X$ and a model $\\vect{m} \\in M^{\\frac{k(k-1)}{2}}$:
 .note[$\\vect{v}$ holds the confidences for each class]
 ]
 ]
+
+---
+
+## $X$, $Y$ and applicability: $\\approx$ fixed!
+
+Let $X=X\_1 \\times \\dots \\times X\_p$:
+
+.nicetable[
+| $X\_j$ | $Y$ | RF | SVM | SVM+ |
+|---|---|---|---|
+|Numerical|Binary classification|✅|✅|✅|
+|Categorical|Binary classification|✅|❌|✅|
+|Numerical + Categorical|Binary classification|✅|❌|✅|
+|Numerical|Multiclass classification|✅|❌|✅|
+|Categorical|Multiclass classification|✅|❌|✅|
+|Numerical + Categorical|Multiclass classification|✅|❌|✅|
+|Numerical|Regression|✅|❌|❌|
+|Categorical|Regression|✅|❌|❌|
+|Numerical + Categorical|Regression|✅|❌|❌|
+]
+
+.vspace1[]
+
+**SVM+**¹²: SVM + one-vs-one/one-vs-all + dummy variables
+
+.footnote[
+1. Not a real name...
+2. In practice, most ML sw/libraries do everything transparently, and let you use SVM+ instead of SVM.
+]
+
+---
+
+## Missing values
+
+In many practical, business cases, some variables for some observation might miss a value.
+Formally, $x\_j \\in X\_j \\cup \\{\\c{1}{\\varnothing}\\}$. .note[$\\emptyset$ is the empty set]
+
+**Examples**: (extended carousel)
+
+Original features: age, height, city
+
+- $X = \\mathbb{R}^+ \\times \\mathbb{R}^+ \\times \\{\\text{Ts},\\text{Ud},\\text{Ve},\\text{Pn},\\text{Go}\\}$
+- $x=(15, \\c{1}{\\varnothing}, \\text{Ts})$  .note[$\\vect{x}^{\\prime(1)}=(15, \\c{1}{\\varnothing}, 1,0,0,0,0)$]
+- $x=(12, 155, \\c{1}{\\varnothing)}$
+
+**Trees and SVM cannot work!**
+- a tree cannot test $x\\subtext{height} \\le \\tau$
+- the SMC/SVM cannot compute $\\vect{x}^\\intercal\\vect{x}^{(i)}$
 
 <!--
 copying with limitations
