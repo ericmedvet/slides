@@ -105,7 +105,9 @@ Names are used interchangeably; some communities tend to prefer some names.
 
 ## *to learn* what?
 
-> .key[Machine Learning] is the science of getting computers **to learn** without being explicitly programmed.
+.important[
+.key[Machine Learning] is the science of getting computers **to learn** without being explicitly programmed.
+]
 
 - *is the science*: what's science?
 - *getting computer*: who is doing that?
@@ -116,7 +118,9 @@ Names are used interchangeably; some communities tend to prefer some names.
 --
 
 New version:  
-> .key[Machine Learning] is the science of getting computers **to learn $f: X \\to Y$** without being explicitly programmed.
+.important[
+.key[Machine Learning] is the science of getting computers **to learn $f: X \\to Y$** without being explicitly programmed.
+]
 
 .note[we want the computer to learn $f$ **and use it**, not just learn it]
 
@@ -228,7 +232,9 @@ otext(150,25,'$x_1+x_2$')
 ## Writing $f$
 
 Usually, computer programs are written by humans, but here:
-> .key[Machine Learning] is the science of getting computers to learn $f\\subtext{predict}: X \\to Y$ without being explicitly programmed.
+.important[
+.key[Machine Learning] is the science of getting computers to learn $f\\subtext{predict}: X \\to Y$ without being explicitly programmed.
+]
 
 *without being explicitly programmed* means that $f\\subtext{predict}$ is **not written by a human**!
 
@@ -237,7 +243,9 @@ It appears verbose, let's get rid of it.
 --
 
 New version:  
-> .key[Machine Learning] is the science of getting computers to learn $f\\subtext{predict}: X \\to Y$ **autonomously**.
+.important[
+.key[Machine Learning] is the science of getting computers to learn $f\\subtext{predict}: X \\to Y$ **autonomously**.
+]
 
 ---
 
@@ -281,7 +289,9 @@ When the supervision is in the form of some **examples** (observation $\\rightar
 - example: "if I give you this *observation* $x$, you should *predict* this *response* $y$"
 
 New version:  
-> .key[Supervised (Machine) Learning] is the science of getting computers to learn $f\\subtext{predict}: X \\to Y$ **from examples** autonomously.
+.important[
+.key[Supervised (Machine) Learning] is the science of getting computers to learn $f\\subtext{predict}: X \\to Y$ **from examples** autonomously.
+]
 
 --
 
@@ -325,7 +335,9 @@ The learning set has to be **consistent** with the domain and codomain of the fu
 
 ## Learning technique
 
-> .key[Supervised (Machine) Learning] is the science of getting computers to learn $f\\subtext{predict}: X \\to Y$ **from examples** autonomously.
+.important[
+.key[Supervised (Machine) Learning] is the science of getting computers to learn $f\\subtext{predict}: X \\to Y$ **from examples** autonomously.
+]
 
 In brief: given a $D\\subtext{learn} \\in \\mathcal{P}^\*(X \\times Y)$, learn an $f\\subtext{predict} \\in \\mathcal{F}\_{X \\to Y}$.
 
@@ -359,7 +371,9 @@ otext(250,10,'$f\\\\subtext{predict}$')
 
 ## Lerning techniques
 
-> A .key[supervised learning technique] is a way for learn an $f\\subtext{predict} \\in \\mathcal{F}\_{X \\to Y}$ given a $D\\subtext{learn} \\in \\mathcal{P}^\*(X \\times Y)$.
+.important[
+A .key[supervised learning technique] is a way for learn an $f\\subtext{predict} \\in \\mathcal{F}\_{X \\to Y}$ given a $D\\subtext{learn} \\in \\mathcal{P}^\*(X \\times Y)$.
+]
 
 Why don't we suffice a single learning technique?
 Why are there many of them?
@@ -378,7 +392,9 @@ They differ in:
 
 ## Who?
 
-> .key[Supervised (Machine) Learning] is the science of getting computers to learn $f\\subtext{predict}: X \\to Y$ **from examples** autonomously.
+.important[
+.key[Supervised (Machine) Learning] is the science of getting computers to learn $f\\subtext{predict}: X \\to Y$ **from examples** autonomously.
+]
 
 *getting computer*: **who is doing that?**
 - the **user** of a learning technique, who is likely the designer/developer of a **ML system**
@@ -389,7 +405,9 @@ They differ in:
 - there's not only the user: someone designs/develops learning techniques
 
 New version:
-> .key[Supervised (Machine) Learning] is about designing and applying supervised learning techniques.
+.important[
+.key[Supervised (Machine) Learning] is about designing and applying supervised learning techniques.
+]
 
 ---
 

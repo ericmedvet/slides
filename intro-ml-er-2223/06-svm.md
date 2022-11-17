@@ -1028,16 +1028,159 @@ In practice, the decision boundary can **smoothly follow** any path:
 - 👍 models give a confidence
 - 🫳 with two parameters ($c$ and $\\gamma$)
 
+---
 
-<!--
-summary of svm:
-- effectiveness: two params, complex interaction, do param selection with CV
-  - decision boundary driven by close observations, can follow any shape
-- efficiency: fast
-- applicability: so and so
--->
+class: middle, center
+
+## Improving applicability
 
 ---
+
+## $X$, $Y$ and applicability
+
+Let $X=X\_1 \\times \\dots \\times X\_p$:
+
+.nicetable[
+| $X\_j$ | $Y$ | RF | SVM |
+|---|---|---|---|
+|Numerical|Binary classification|✅|✅|
+|Categorical|Binary classification|✅|❌|
+|Numerical + Categorical|Binary classification|✅|❌|
+|Numerical|Multiclass classification|✅|❌|
+|Categorical|Multiclass classification|✅|❌|
+|Numerical + Categorical|Multiclass classification|✅|❌|
+|Numerical|Regression|✅|❌|
+|Categorical|Regression|✅|❌|
+|Numerical + Categorical|Regression|✅|❌|
+]
+
+.vspace1[]
+
+Let's start by fixing SVM!
+
+---
+
+## From categorical to numerical variables
+
+Let $x\_j$ be categorical:
+- $x\_j \\in X\\sub{j} = \\{x\\sub{j,\\c{1}{1}},\\dots,x\\sub{j,\\c{1}{k}}\\}$ (i.e., .col1[$k$] different values)
+
+.cols[
+.c50[
+Then, we can replace it with $k$ numerical variables:
+- $x\_{h\_1} \\in X\_{h\_1} = \\{0,1\\}$
+- ...
+- $x\_{h\_k} \\in X\_{h\_k} = \\{0,k\\}$
+
+such that:
+$\\forall i, k: x^{(i)}\_{h\_k}=\\mathbf{1}(x^{(i)}\_j=x\\sub{j,k})$
+
+This way of **encoding** a categorical variable with $k$ possible values to $k$ **binary numerical variables** is called .key[one-hot encoding].
+
+Each one of the resulting binary variables is a .key[dummy variable].
+
+.note[
+A similar encoding can be applied when $X\_j=\\mathcal{P}(A)$.
+]
+]
+.c50.compact[
+**Example** (extended carousel)
+
+Original features: age, height, .col2[city] .note[$p=3$]
+
+- $X = \\mathbb{R}^+ \\times \\mathbb{R}^+ \\times \\c{2}{\\{\\text{Ts},\\text{Ud},\\text{Ve},\\text{Pn},\\text{Go}\\}}$
+
+Transformed features: .note[$p=7$]
+- $X' = \\mathbb{R}^+ \\times \\mathbb{R}^+ \\times \\c{2}{\\{0,1\\}^5}$
+
+with:
+- $x^{(i)}\\subtext{Ts} = \\mathbf{1}(x^{(i)}\\subtext{city}=\\text{Ts})$
+- $x^{(i)}\\subtext{Ud} = \\mathbf{1}(x^{(i)}\\subtext{city}=\\text{Ud})$
+- ...
+
+hence, e.g.:
+- $(11,153,\\c{2}{\\text{Ts}}) \\mapsto (11,153,\\c{2}{1,0,0,0,0})$
+- $(79,151,\\c{2}{\\text{Ud}}) \\mapsto (79,151,\\c{2}{0,1,0,0,0})$
+
+]
+]
+
+---
+
+## From binary to multiclass: .key[one-vs-one]
+
+.compact[
+Let $\\c{1}{f'\\subtext{learn}},\\c{1}{f'\\subtext{predict}}$ be a learning technique applicable to $X,Y\\subtext{binary}$ where .col3[$Y\\subtext{binary}=\\{\\text{Pos},\\text{Neg}\\}$] that produces models in $M$, i.e., $\\c{1}{f'\\subtext{learn}}: \\mathcal{P}^*(X \\times \\c{3}{Y\\subtext{binary}}) \\to M$ and $\\c{1}{f'\\subtext{predict}}: X \\times M \\to \\c{3}{Y\\subtext{binary}}$.
+
+Let .col2[$Y=\\{y\_1,\\dots,y\_k\\}$] a finite set with $k>2$ values.
+
+Consider a new learning technique $f'\\subtext{learn,ovo},f'\\subtext{predict,ovo}$, based on $\\c{1}{f'\\subtext{learn}},\\c{1}{f'\\subtext{predict}}$, that:
+]
+
+.cols[
+.c50.compact[
+**In learning**: $f'\\subtext{learn,ovo}: \\mathcal{P}^*(X \\times \\c{2}{Y}) \\to M^{\\frac{k(k-1)}{2}}$
+
+Given a $D \\in \\mathcal{P}^*(X \\times \\c{2}{Y})$:
+1. set $\\vect{m}=\\emptyset$
+2. for each **pair of classes**, i.e., pair $h\_1,h\_2 \\in \\{1,\\dots,k\\}$ such that $h\\sub{1} &lt; h\\sub{2}$ .note[$\\frac{k(k-1)}{2}=\\binom{k}{2}$ times]
+  1. builds $D'$ by taking only the observations in which $\\c{2}{y^{(i)}}=y\_{h\_1}$ or $\\c{2}{y^{(i)}}=y\_{h\_2}$
+  2. set each $\\c{3}{y'^{(i)}}=\\text{Pos}$ if $\\c{2}{y^{(i)}}=y\_{h\_1}$, or $\\c{3}{y'^{(i)}}=\\text{Neg}$ otherwise
+  3. learns a model $m\_{h\_1,h\_2}$ with .col1[$f'\\subtext{learn}$], puts it in $\\vect{m}$
+3. returns $\\vect{m}$
+
+.note[each $m\_{h\_1,h\_2}$ is a binary classification model learned on $|D'| < |D|$ obs.]
+]
+.c50[
+**In prediction**: $f'\\subtext{predict,ovo}: X \\times M^{\\frac{k(k-1)}{2}} \\to \\c{2}{Y}$
+
+Given an $x \\in X$ and a model $\\vect{m} \\in M^{\\frac{k(k-1)}{2}}$:
+1. sets $\\vect{v}=\\vect{0} \\in \\mathbb{N}^k$
+2. for each $m\_{h\_1,h\_2} \\in \\vect{m}$ .note[$\\frac{k(k-1)}{2}=\\binom{k}{2}$ times]
+  1. applies .col1[$f'\\subtext{predict}$] on $x$ with $m\_{h\_1,h\_2}$ and increments $v\_{h\_1}$ if the outcome is $\\c{2}{y}=\\text{Pos}$, or $v\_{h\_2}$ otherwise
+3. returns .col2[$y\\sub{h^\\star}$] with $h^\\star=\\argmax\_{h} v\_h$
+
+.note[$\\vect{v}$ counts the times a class has been predicted]
+]
+]
+
+---
+
+## From binary to multiclass: .key[one-vs-all]
+
+.compact[
+Let $\\c{1}{f'\\subtext{learn}},\\c{1}{f'''\\subtext{predict}}$ be a learning technique **with confidence**/probability, i.e., $\\c{1}{f'\\subtext{learn}}: \\mathcal{P}^*(X \\times \\c{3}{Y\\subtext{binary}}) \\to M$ and $\\c{1}{f'''\\subtext{predict}}: X \\times M \\to \\mathbb{R}$, with $\\c{1}{f'''\\subtext{predict}}(x,m)$ being the confidence that $x$ is $\\text{Pos}$. .note[probability would be $\\to [0,1]$]
+
+Let .col2[$Y=\\{y\_1,\\dots,y\_k\\}$] a finite set with $k>2$ values.
+
+Consider a new learning technique $f'\\subtext{learn,ova},f'\\subtext{predict,ova}$, based on $\\c{1}{f'\\subtext{learn}},\\c{1}{f'''\\subtext{predict}}$, that:
+]
+
+.cols[
+.c50.compact[
+**In learning**: $f'\\subtext{learn,ova}: \\mathcal{P}^*(X \\times \\c{2}{Y}) \\to M^k$
+
+Given a $D \\in \\mathcal{P}^*(X \\times \\c{2}{Y})$:
+1. set $\\vect{m}=\\emptyset$
+2. for each **class**, i.e., $h \\in \\{1,\\dots,k\\}$ .note[$k$ times]
+  1. builds $D'$ by setting each $\\c{3}{y'^{(i)}}=\\text{Pos}$ if $\\c{2}{y^{(i)}}=y\_h$, or $\\c{3}{y'^{(i)}}=\\text{Neg}$ otherwise
+  3. learns a model $m\_h$ with .col1[$f'\\subtext{learn}$], puts it in $\\vect{m}$
+3. returns $\\vect{m}$
+
+.note[each $m\_h$ is a binary classification model learned on $|D'|=|D|$ obs.]
+]
+.c50[
+**In prediction**: $f'\\subtext{predict,ova}: X \\times M^k \\to \\c{2}{Y}$
+
+Given an $x \\in X$ and a model $\\vect{m} \\in M^{\\frac{k(k-1)}{2}}$:
+1. sets $\\vect{v}=\\vect{0} \\in \\mathbb{R}^k$
+2. for each $m\_h \\in \\vect{m}$ .note[$k$ times]
+  1. applies .col1[$f'''\\subtext{predict}$] on $x$ with $m\_h$ and sets $v\_{h\_1}$ to the outcome $\\c{1}{f'''\\subtext{predict}}(x,m\_h)$
+3. returns .col2[$y\\sub{h^\\star}$] with $h^\\star=\\argmax\_{h} v\_h$
+
+.note[$\\vect{v}$ holds the confidences for each class]
+]
+]
 
 <!--
 copying with limitations
