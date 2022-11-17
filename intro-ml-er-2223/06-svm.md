@@ -1122,21 +1122,21 @@ Consider a new learning technique $f'\\subtext{learn,ovo},f'\\subtext{predict,ov
 **In learning**: $f'\\subtext{learn,ovo}: \\mathcal{P}^*(X \\times \\c{2}{Y}) \\to M^{\\frac{k(k-1)}{2}}$
 
 Given a $D \\in \\mathcal{P}^*(X \\times \\c{2}{Y})$:
-1. set $\\vect{m}=\\emptyset$
+1. set $\\mathcal{M}=\\emptyset$
 2. for each **pair of classes**, i.e., pair $h\_1,h\_2 \\in \\{1,\\dots,k\\}$ such that $h\\sub{1} &lt; h\\sub{2}$ .note[$\\frac{k(k-1)}{2}=\\binom{k}{2}$ times]
   1. builds $D'$ by taking only the observations in which $\\c{2}{y^{(i)}}=y\_{h\_1}$ or $\\c{2}{y^{(i)}}=y\_{h\_2}$
   2. set each $\\c{3}{y'^{(i)}}=\\text{Pos}$ if $\\c{2}{y^{(i)}}=y\_{h\_1}$, or $\\c{3}{y'^{(i)}}=\\text{Neg}$ otherwise
-  3. learns a model $m\_{h\_1,h\_2}$ with .col1[$f'\\subtext{learn}$], puts it in $\\vect{m}$
-3. returns $\\vect{m}$
+  3. learns a model $m\_{h\_1,h\_2}$ with .col1[$f'\\subtext{learn}$], puts it in $\\mathcal{M}$
+3. returns $\\mathcal{M}$
 
 .note[each $m\_{h\_1,h\_2}$ is a binary classification model learned on $|D'| < |D|$ obs.]
 ]
 .c50[
 **In prediction**: $f'\\subtext{predict,ovo}: X \\times M^{\\frac{k(k-1)}{2}} \\to \\c{2}{Y}$
 
-Given an $x \\in X$ and a model $\\vect{m} \\in M^{\\frac{k(k-1)}{2}}$:
+Given an $x \\in X$ and a model $\\mathcal{M} \\in M^{\\frac{k(k-1)}{2}}$:
 1. sets $\\vect{v}=\\vect{0} \\in \\mathbb{N}^k$
-2. for each $m\_{h\_1,h\_2} \\in \\vect{m}$ .note[$\\frac{k(k-1)}{2}=\\binom{k}{2}$ times]
+2. for each $m\_{h\_1,h\_2} \\in \\mathcal{M}$ .note[$\\frac{k(k-1)}{2}=\\binom{k}{2}$ times]
   1. applies .col1[$f'\\subtext{predict}$] on $x$ with $m\_{h\_1,h\_2}$ and increments $v\_{h\_1}$ if the outcome is $\\c{2}{y}=\\text{Pos}$, or $v\_{h\_2}$ otherwise
 3. returns .col2[$y\\sub{h^\\star}$] with $h^\\star=\\argmax\_{h} v\_h$
 
@@ -1161,20 +1161,20 @@ Consider a new learning technique $f'\\subtext{learn,ova},f'\\subtext{predict,ov
 **In learning**: $f'\\subtext{learn,ova}: \\mathcal{P}^*(X \\times \\c{2}{Y}) \\to M^k$
 
 Given a $D \\in \\mathcal{P}^*(X \\times \\c{2}{Y})$:
-1. set $\\vect{m}=\\emptyset$
+1. set $\\mathcal{M}=\\emptyset$
 2. for each **class**, i.e., $h \\in \\{1,\\dots,k\\}$ .note[$k$ times]
   1. builds $D'$ by setting each $\\c{3}{y'^{(i)}}=\\text{Pos}$ if $\\c{2}{y^{(i)}}=y\_h$, or $\\c{3}{y'^{(i)}}=\\text{Neg}$ otherwise
-  3. learns a model $m\_h$ with .col1[$f'\\subtext{learn}$], puts it in $\\vect{m}$
-3. returns $\\vect{m}$
+  3. learns a model $m\_h$ with .col1[$f'\\subtext{learn}$], puts it in $\\mathcal{M}$
+3. returns $\\mathcal{M}$
 
 .note[each $m\_h$ is a binary classification model learned on $|D'|=|D|$ obs.]
 ]
 .c50[
 **In prediction**: $f'\\subtext{predict,ova}: X \\times M^k \\to \\c{2}{Y}$
 
-Given an $x \\in X$ and a model $\\vect{m} \\in M^{\\frac{k(k-1)}{2}}$:
+Given an $x \\in X$ and a model $\\mathcal{M} \\in M^{\\frac{k(k-1)}{2}}$:
 1. sets $\\vect{v}=\\vect{0} \\in \\mathbb{R}^k$
-2. for each $m\_h \\in \\vect{m}$ .note[$k$ times]
+2. for each $m\_h \\in \\mathcal{M}$ .note[$k$ times]
   1. applies .col1[$f'''\\subtext{predict}$] on $x$ with $m\_h$ and sets $v\_{h\_1}$ to the outcome $\\c{1}{f'''\\subtext{predict}}(x,m\_h)$
 3. returns .col2[$y\\sub{h^\\star}$] with $h^\\star=\\argmax\_{h} v\_h$
 
@@ -1197,9 +1197,9 @@ Let $X=X\_1 \\times \\dots \\times X\_p$:
 |Numerical|Multiclass classification|✅|❌|✅|
 |Categorical|Multiclass classification|✅|❌|✅|
 |Numerical + Categorical|Multiclass classification|✅|❌|✅|
-|Numerical|Regression|✅|❌|❌|
-|Categorical|Regression|✅|❌|❌|
-|Numerical + Categorical|Regression|✅|❌|❌|
+|Numerical|Regression|✅|❌|❌³|
+|Categorical|Regression|✅|❌|❌³|
+|Numerical + Categorical|Regression|✅|❌|❌³|
 ]
 
 .vspace1[]
@@ -1209,18 +1209,19 @@ Let $X=X\_1 \\times \\dots \\times X\_p$:
 .footnote[
 1. Not a real name...
 2. In practice, most ML sw/libraries do everything transparently, and let you use SVM+ instead of SVM.
+3. For regression, [SVR](https://en.wikipedia.org/wiki/Support_vector_machine#Regression) or other variants.
 ]
 
 ---
 
 ## Missing values
 
-In many practical, business cases, some variables for some observation might miss a value.
+
+In many practical, business cases, some variables for some observations might miss a value.
 Formally, $x\_j \\in X\_j \\cup \\{\\c{1}{\\varnothing}\\}$. .note[$\\emptyset$ is the empty set]
 
+.compact[
 **Examples**: (extended carousel)
-
-Original features: age, height, city
 
 - $X = \\mathbb{R}^+ \\times \\mathbb{R}^+ \\times \\{\\text{Ts},\\text{Ud},\\text{Ve},\\text{Pn},\\text{Go}\\}$
 - $x=(15, \\c{1}{\\varnothing}, \\text{Ts})$  .note[$\\vect{x}^{\\prime(1)}=(15, \\c{1}{\\varnothing}, 1,0,0,0,0)$]
@@ -1230,9 +1231,10 @@ Original features: age, height, city
 - a tree cannot test $x\\subtext{height} \\le \\tau$
 - the SMC/SVM cannot compute $\\vect{x}^\\intercal\\vect{x}^{(i)}$
 
-<!--
-copying with limitations
-- binary to multiclass
-- categorical to numerical variables
-- missing values
--->
+**Solutions**:
+- **drop** the variable(s) with missing values (ok if many missing values) .note[otherwise, not ok]
+- **fill** with most common value or mean value
+  - $\\varnothing \\gets \\argmax\_{x\_{j,k} \\in X\_j} \\sum\_i \\mathbf{1}(x^{(i)}\_j = x\_{j,k})$ for categorical variables
+  - $\\varnothing \\gets \\frac{1}{\\sum\_i \\mathbf{1}(x^{(i)}\_j \\ne \\varnothing)} \\sum\_{i: x^{(i)}\_j \\ne \\varnothing} x^{(i)}\_j$ for numerical variables
+- **replace** with a new class, only for categorical variable
+]

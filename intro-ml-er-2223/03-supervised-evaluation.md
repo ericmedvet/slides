@@ -2156,7 +2156,7 @@ Sooooo lucky! 🍀🍀🍀
 .c50[
 .compact.pseudo-code[
 function $\\text{learn-effect-repeated}(f'\\subtext{learn},f'\\subtext{predict}, D,r,k)$ {  
-.i[]for ($j \\in 1,\\dots,k$) {  
+.i[]for $j \\in 1,\\dots,k$ {  
 .i[].i[]$D\\subtext{learn} \\gets \\text{subbag}(D, r)$  
 .i[].i[]$D\\subtext{test} \\gets D \\setminus D\\subtext{learn}$  
 .i[].i[]$m \\gets f'\\subtext{learn}(D\\subtext{learn})$  
@@ -2210,7 +2210,7 @@ $D$ is split in $D\\subtext{learn}$ and $D\\subtext{test}$ for $k$ times and mea
 .c50[
 .compact.pseudo-code[
 function $\\text{learn-effect-cv}(f'\\subtext{learn},f'\\subtext{predict}, D, k)$ {  
-.i[]for ($j \\in 1,\\dots,k$) {  
+.i[]for $j \\in 1,\\dots,k$ {  
 .i[].i[]$D\\subtext{test} \\gets \\text{fold}(D, j)$  
 .i[].i[]$D\\subtext{learn} \\gets D \\setminus D\\subtext{test}$  
 .i[].i[]$m \\gets f'\\subtext{learn}(D\\subtext{learn})$  
