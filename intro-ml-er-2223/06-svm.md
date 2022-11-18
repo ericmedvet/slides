@@ -1067,15 +1067,15 @@ Let $x\_j$ be categorical:
 
 .cols[
 .c50[
-Then, we can replace it with $k$ numerical variables:
+Then, we can replace it with .col1[$k$] numerical variables:
 - $x\_{h\_1} \\in X\_{h\_1} = \\{0,1\\}$
 - ...
-- $x\_{h\_k} \\in X\_{h\_k} = \\{0,k\\}$
+- $x\_{h\_k} \\in X\_{h\_k} = \\{0,1\\}$
 
 such that:
 $\\forall i, k: x^{(i)}\_{h\_k}=\\mathbf{1}(x^{(i)}\_j=x\\sub{j,k})$
 
-This way of **encoding** a categorical variable with $k$ possible values to $k$ **binary numerical variables** is called .key[one-hot encoding].
+This way of **encoding** .col1[one categorical] variable with $k$ possible values to .col1[$k$ **binary numerical variables**] is called .key[one-hot encoding].
 
 Each one of the resulting binary variables is a .key[dummy variable].
 
@@ -1110,9 +1110,9 @@ hence, e.g.:
 ## From binary to multiclass: .key[one-vs-one]
 
 .compact[
-Let $\\c{1}{f'\\subtext{learn}},\\c{1}{f'\\subtext{predict}}$ be a learning technique applicable to $X,Y\\subtext{binary}$ where .col3[$Y\\subtext{binary}=\\{\\text{Pos},\\text{Neg}\\}$] that produces models in $M$, i.e., $\\c{1}{f'\\subtext{learn}}: \\mathcal{P}^*(X \\times \\c{3}{Y\\subtext{binary}}) \\to M$ and $\\c{1}{f'\\subtext{predict}}: X \\times M \\to \\c{3}{Y\\subtext{binary}}$.
+Let $\\c{1}{f'\\subtext{learn}},\\c{1}{f'\\subtext{predict}}$ be a learning technique applicable to $X,Y\\subtext{binary}$ where $\\c{3}{Y\\subtext{binary}=\\{\\text{Pos},\\text{Neg}\\}}$ that produces models in $M$, i.e., $\\c{1}{f'\\subtext{learn}}: \\mathcal{P}^*(X \\times \\c{3}{Y\\subtext{binary}}) \\to M$ and $\\c{1}{f'\\subtext{predict}}: X \\times M \\to \\c{3}{Y\\subtext{binary}}$.
 
-Let .col2[$Y=\\{y\_1,\\dots,y\_k\\}$] a finite set with $k>2$ values.
+Let $\\c{2}{Y=\\{y\_1,\\dots,y\_k\\}}$ a finite set with $k>2$ values.
 
 Consider a new learning technique $f'\\subtext{learn,ovo},f'\\subtext{predict,ovo}$, based on $\\c{1}{f'\\subtext{learn}},\\c{1}{f'\\subtext{predict}}$, that:
 ]
@@ -1123,7 +1123,7 @@ Consider a new learning technique $f'\\subtext{learn,ovo},f'\\subtext{predict,ov
 
 Given a $D \\in \\mathcal{P}^*(X \\times \\c{2}{Y})$:
 1. set $\\mathcal{M}=\\emptyset$
-2. for each **pair of classes**, i.e., pair $h\_1,h\_2 \\in \\{1,\\dots,k\\}$ such that $h\\sub{1} &lt; h\\sub{2}$ .note[$\\frac{k(k-1)}{2}=\\binom{k}{2}$ times]
+2. for each **pair of classes**, i.e., pair $(h\_1,h\_2) \\in \\{1,\\dots,k\\}$ such that $h\\sub{1} &lt; h\\sub{2}$ .note[$\\frac{k(k-1)}{2}=\\binom{k}{2}$ times]
   1. builds $D'$ by taking only the observations in which $\\c{2}{y^{(i)}}=y\_{h\_1}$ or $\\c{2}{y^{(i)}}=y\_{h\_2}$
   2. set each $\\c{3}{y'^{(i)}}=\\text{Pos}$ if $\\c{2}{y^{(i)}}=y\_{h\_1}$, or $\\c{3}{y'^{(i)}}=\\text{Neg}$ otherwise
   3. learns a model $m\_{h\_1,h\_2}$ with .col1[$f'\\subtext{learn}$], puts it in $\\mathcal{M}$
@@ -1141,6 +1141,8 @@ Given an $x \\in X$ and a model $\\mathcal{M} \\in M^{\\frac{k(k-1)}{2}}$:
 3. returns .col2[$y\\sub{h^\\star}$] with $h^\\star=\\argmax\_{h} v\_h$
 
 .note[$\\vect{v}$ counts the times a class has been predicted]
+
+.note[can be extended for giving a probability]
 ]
 ]
 
@@ -1151,7 +1153,7 @@ Given an $x \\in X$ and a model $\\mathcal{M} \\in M^{\\frac{k(k-1)}{2}}$:
 .compact[
 Let $\\c{1}{f'\\subtext{learn}},\\c{1}{f'''\\subtext{predict}}$ be a learning technique **with confidence**/probability, i.e., $\\c{1}{f'\\subtext{learn}}: \\mathcal{P}^*(X \\times \\c{3}{Y\\subtext{binary}}) \\to M$ and $\\c{1}{f'''\\subtext{predict}}: X \\times M \\to \\mathbb{R}$, with $\\c{1}{f'''\\subtext{predict}}(x,m)$ being the confidence that $x$ is $\\text{Pos}$. .note[probability would be $\\to [0,1]$]
 
-Let .col2[$Y=\\{y\_1,\\dots,y\_k\\}$] a finite set with $k>2$ values.
+Let $\\c{2}{Y=\\{y\_1,\\dots,y\_k\\}}$ a finite set with $k>2$ values.
 
 Consider a new learning technique $f'\\subtext{learn,ova},f'\\subtext{predict,ova}$, based on $\\c{1}{f'\\subtext{learn}},\\c{1}{f'''\\subtext{predict}}$, that:
 ]
@@ -1179,6 +1181,8 @@ Given an $x \\in X$ and a model $\\mathcal{M} \\in M^{\\frac{k(k-1)}{2}}$:
 3. returns .col2[$y\\sub{h^\\star}$] with $h^\\star=\\argmax\_{h} v\_h$
 
 .note[$\\vect{v}$ holds the confidences for each class]
+
+.note[can be extended for giving a probability]
 ]
 ]
 
@@ -1224,12 +1228,12 @@ Formally, $x\_j \\in X\_j \\cup \\{\\c{1}{\\varnothing}\\}$. .note[$\\emptyset$ 
 **Examples**: (extended carousel)
 
 - $X = \\mathbb{R}^+ \\times \\mathbb{R}^+ \\times \\{\\text{Ts},\\text{Ud},\\text{Ve},\\text{Pn},\\text{Go}\\}$
-- $x=(15, \\c{1}{\\varnothing}, \\text{Ts})$  .note[$\\vect{x}^{\\prime(1)}=(15, \\c{1}{\\varnothing}, 1,0,0,0,0)$]
-- $x=(12, 155, \\c{1}{\\varnothing)}$
+- $x=(15, \\c{1}{\\varnothing}, \\text{Ts})$ .note[$\\vect{x}'=(15, \\c{1}{\\varnothing}, 1,0,0,0,0)$]
+- $x=(12, 155, \\c{1}{\\varnothing)}$ .note[$\\vect{x}'=(15, \\varnothing, \\c{1}{0,0,0,0,0})$, actually not a problem!]
 
 **Trees and SVM cannot work!**
-- a tree cannot test $x\\subtext{height} \\le \\tau$
-- the SMC/SVM cannot compute $\\vect{x}^\\intercal\\vect{x}^{(i)}$
+- a tree **cannot** test $x\\subtext{height} \\le \\tau$
+- the SMC/SVM **cannot** compute $\\vect{x}^\\intercal\\vect{x}^{(i)}$
 
 **Solutions**:
 - **drop** the variable(s) with missing values (ok if many missing values) .note[otherwise, not ok]
@@ -1237,4 +1241,5 @@ Formally, $x\_j \\in X\_j \\cup \\{\\c{1}{\\varnothing}\\}$. .note[$\\emptyset$ 
   - $\\varnothing \\gets \\argmax\_{x\_{j,k} \\in X\_j} \\sum\_i \\mathbf{1}(x^{(i)}\_j = x\_{j,k})$ for categorical variables
   - $\\varnothing \\gets \\frac{1}{\\sum\_i \\mathbf{1}(x^{(i)}\_j \\ne \\varnothing)} \\sum\_{i: x^{(i)}\_j \\ne \\varnothing} x^{(i)}\_j$ for numerical variables
 - **replace** with a new class, only for categorical variable
+- ...
 ]

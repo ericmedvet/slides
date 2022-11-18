@@ -26,7 +26,7 @@ Do you say "excuse me, **sir**"	🧔‍♀️ or "excuse me, **madam**" 👩?
 .vspace1[]
 
 **More formally**:
-- $X=X\\subtext{hair}$
+- $X=X\\subtext{hair}$ .note[might be $X\\subtext{hair}=\\set{\\text{long},\\neg\\text{long}}$, or a bigger set; not relevant here]
 - $Y=\\{\\text{man},\\text{woman}\\}$
 - you are $f\\subtext{predict}$
 - your life is $f\\subtext{learn}$
@@ -188,8 +188,9 @@ $$\\c{2}{p\\left(y\_m \\mid x\_{1,l\_1},\\dots,x\_{p,l\_p}\\right)}=\\c{1}{p(y\_
 ## Independent independent¹ variables
 
 Let's do the **naive** hypothesis that the independent **variables are independent**¹ from each other:
-$$\\c{2}{p\\left(y\_m \\mid x\_{1,l\_1},\\dots,x\_{p,l\_p}\\right)}=\\c{1}{p(y\_m)}\\c{3}{\\frac{p\\left(x\_{1,l\_1},\\dots,x\_{p,l\_p} \\mid y\_m\\right)}{p\\left(x\_{1,l\_1},\\dots,x\_{p,l\_p}\\right)}}$$
-becomes:
+$$\\c{2}{p\\left(y\_m \\mid x\_{1,l\_1},\\dots,x\_{p,l\_p}\\right)}=\\c{1}{p(y\_m)}\\c{3}{\\frac{p\\left(x\_{1,l\_1},\\dots,x\_{p,l\_p} \\mid y\_m\\right)}{p\\left(x\_{1,l\_1},\\dots,x\_{p,l\_p}\\right)}}=\\c{1}{p(y\_m)}\\c{3}{\\frac{p\\left(x\_{1,l\_1} \\mid y\_m, \\dots, x\_{p,l\_p} \\mid y\_m\\right)}{p\\left(x\_{1,l\_1},\\dots,x\_{p,l\_p}\\right)}}$$
+becomes: .note[$p\\left(x\\sub{1,l\\sub{1}},\\dots,x\\sub{p,l\\sub{p}} \\mid y\\sub{m}\\right) = p\\left(x\\sub{1,l\\sub{1}} \\mid y\\sub{m}, \\dots, x\\sub{p,l\\sub{p}} \\mid y\\sub{m}\\right)$ is **always** true, also without independency]
+
 $$\\c{2}{p\\left(y\_m \\mid x\_{1,l\_1},\\dots,x\_{p,l\_p}\\right)}=\\frac{\\c{1}{p(y\_m)}}{\\c{3}{p\\left(x\_{1,l\_1},\\dots,x\_{p,l\_p}\\right)}} \\c{3}{p\\left(x\_{1,l\_1} \\mid y\_m\\right)} \\dots \\c{3}{p\\left(x\_{p,l\_p} \\mid y\_m\\right)}$$
 
 **Where to find them?**
@@ -361,23 +362,23 @@ link([250,75,450,75],'a')
 link([200,0,200,50],'a')
 otext(200,75,"$f'\\\\subtext{learn}$")
 otext(75,55,'$\\\\seq{(x^{(i)},y^{(i)})}{i}$')
-otext(350,55,'$(\\\\seq{(x^{(i)},y^{(i)})}{i},k,d)$')
-otext(230,25,"$k,d$")
+otext(350,55,'$(\\\\seq{(x^{(i)},y^{(i)})}{i},\\\\c{2}{k},\\\\c{3}{d})$')
+otext(230,25,"$\\\\c{2}{k},\\\\c{3}{d}$")
 ]
 
 .pseudo-code.compact[
-function $\\text{learn}(\\seq{(x^{(i)},y^{(i)})}{i}, k,d)$ {  
-.i[]return $(\\seq{(x^{(i)},y^{(i)})}{i},k,d)$  
+function $\\text{learn}(\\seq{(x^{(i)},y^{(i)})}{i}, \\c{2}{k},\\c{3}{d})$ {  
+.i[]return $(\\seq{(x^{(i)},y^{(i)})}{i},\\c{2}{k},\\c{3}{d})$  
 }
 ]
 
 $f'\\subtext{learn}$ **does nothing**!
 
 The model is the dataset $D$
-- and¹ the number of neighbors $k$
-- and¹ the distance² $d: X \\times X \\to \\mathbb{R}$
+- and¹ the .col2[number of neighbors $k$]
+- and¹ the .col3[distance]² $\\c{3}{d}: X \\times X \\to \\mathbb{R}$
 
-$k$ and $d$ are **parameters**!
+.col2[$k$] and .col3[$d$] are **parameters**!
 
 .footnote[
 1. They are used by $f'\\subtext{predict}$, not here, but we put them into the model just to not make the signature of $f'\\subtext{predict}$ dirty; ML sw/libraries do the same.
@@ -388,23 +389,23 @@ $k$ and $d$ are **parameters**!
 .c50[
 **Prediction**:
 .diagram.center[
-link([0,25,150,25],'a')
-rect(150,0,100,50)
-link([250,25,350,25],'a')
-otext(200,25,"$f'\\\\subtext{predict}$")
-otext(75,5,'$x,\\\\vect{p}$')
-otext(300,10,'$y$')
+link([0,25,250,25],'a')
+rect(250,0,100,50)
+link([350,25,400,25],'a')
+otext(300,25,"$f'\\\\subtext{predict}$")
+otext(125,5,'$x,(\\\\seq{(x^{(i)},y^{(i)})}{i},\\\\c{2}{k},\\\\c{3}{d})$')
+otext(375,10,'$y$')
 ]
 
 .pseudo-code.compact[
-function $\\text{predict}(x,(\\seq{(x^{(i)},y^{(i)})}{i},k,d))$ {  
+function $\\text{predict}(x,(\\seq{(x^{(i)},y^{(i)})}{i},\\c{2}{k},\\c{3}{d}))$ {  
 
 .i[]$\\vect{s} \\gets \\vect{0}$ .comment[//$\\vect{0} \\in \\mathbb{R}^n$]  
 .i[]for $i \\in \\{1,\\dots,n\\}$ {  
-.i[].i[]$s\_i \\gets d(x,x^{(i)})$  
+.i[].i[]$s\_i \\gets \\c{3}{d}(x,x^{(i)})$  
 .i[]}  
 .i[]$I \\gets \\emptyset$ .comment[//the neighborhood]  
-.i[]while $|I|\\le k$ {  
+.i[]while $|I|\\le \\c{2}{k}$ {  
 .i[].i[]$I \\gets I \\cup \\{\\argmin\_{i \\in \\{1,\\dots,n\\} \\setminus I} s\_i\\}$  
 .i[]}  
 .i[]return $\\argmax\_{y \\in Y} \\sum\_{i \\in I} \\mathbf{1}(y^{(i)}=y)$ .comment[//most frequent]  
@@ -412,8 +413,8 @@ function $\\text{predict}(x,(\\seq{(x^{(i)},y^{(i)})}{i},k,d))$ {
 ]
 
 Alternatives:
-- for regression, return $\\frac{1}{k}\\sum\_{i \\in I} y^{(i)}$
-- with probability, return $y \\mapsto \\frac{1}{k}\\sum\_{i \\in I} \\mathbf{1}(y^{(i)}=y)$
+- for regression, return $\\frac{1}{\\c{2}{k}}\\sum\_{i \\in I} y^{(i)}$
+- with probability, return $y \\mapsto \\frac{1}{\\c{2}{k}}\\sum\_{i \\in I} \\mathbf{1}(y^{(i)}=y)$
 ]
 ]
 
@@ -462,7 +463,7 @@ Choose one that helps to **capture the dependency** of $y$ on $x$!
 ]
 
 .compact[
-Yes, it is a **flexibility** parameter:
+Yes, it is a **flexibility** parameter: .note[link with the Bayes classifier!]
 - the **larger** the $k$ the more **global** the estimate of $p(y \\mid x)$; the **smaller**, the more **local**
 - if $k=n$ then $p(y \\mid x)$ **does not actually use** $x$, the neighborhood is the entire $D$ $\\rightarrow$ **high bias**
 - if $k=1$ then $p(y \\mid x)$ **depends on just one point**, little noise can change the output $\\rightarrow$ **high variance**
@@ -474,7 +475,7 @@ Yes, it is a **flexibility** parameter:
 
 **Efficiency** 🫳
 - 🫳 struggles with large $n$ **in prediction**
-- no actual learning phase
+- 👍 no actual learning phase
 
 **Explainability/interpretability** 👍
 - 👍 the neighborhood is itself a **local explanation** of the decision
