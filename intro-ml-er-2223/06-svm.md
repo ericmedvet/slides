@@ -1137,7 +1137,7 @@ Given a $D \\in \\mathcal{P}^*(X \\times \\c{2}{Y})$:
 Given an $x \\in X$ and a model $\\mathcal{M} \\in M^{\\frac{k(k-1)}{2}}$:
 1. sets $\\vect{v}=\\vect{0} \\in \\mathbb{N}^k$
 2. for each $m\_{h\_1,h\_2} \\in \\mathcal{M}$ .note[$\\frac{k(k-1)}{2}=\\binom{k}{2}$ times]
-  1. applies .col1[$f'\\subtext{predict}$] on $x$ with $m\_{h\_1,h\_2}$ and increments $v\_{h\_1}$ if the outcome is $\\c{2}{y}=\\text{Pos}$, or $v\_{h\_2}$ otherwise
+  1. applies .col1[$f'\\subtext{predict}$] on $x$ with $m\_{h\_1,h\_2}$ and increments $v\_{h\_1}$ if the outcome is $\\c{3}{y}=\\text{Pos}$, or $v\_{h\_2}$ otherwise
 3. returns .col2[$y\\sub{h^\\star}$] with $h^\\star=\\argmax\_{h} v\_h$
 
 .note[$\\vect{v}$ counts the times a class has been predicted]
@@ -1174,10 +1174,10 @@ Given a $D \\in \\mathcal{P}^*(X \\times \\c{2}{Y})$:
 .c50[
 **In prediction**: $f'\\subtext{predict,ova}: X \\times M^k \\to \\c{2}{Y}$
 
-Given an $x \\in X$ and a model $\\mathcal{M} \\in M^{\\frac{k(k-1)}{2}}$:
+Given an $x \\in X$ and a model $\\mathcal{M} \\in M^k$:
 1. sets $\\vect{v}=\\vect{0} \\in \\mathbb{R}^k$
 2. for each $m\_h \\in \\mathcal{M}$ .note[$k$ times]
-  1. applies .col1[$f'''\\subtext{predict}$] on $x$ with $m\_h$ and sets $v\_{h\_1}$ to the outcome $\\c{1}{f'''\\subtext{predict}}(x,m\_h)$
+  1. applies .col1[$f'''\\subtext{predict}$] on $x$ with $m\_h$ and sets $v\_h$ to the outcome $\\c{1}{f'''\\subtext{predict}}(x,m\_h)$
 3. returns .col2[$y\\sub{h^\\star}$] with $h^\\star=\\argmax\_{h} v\_h$
 
 .note[$\\vect{v}$ holds the confidences for each class]
@@ -1229,7 +1229,7 @@ Formally, $x\_j \\in X\_j \\cup \\{\\c{1}{\\varnothing}\\}$. .note[$\\emptyset$ 
 
 - $X = \\mathbb{R}^+ \\times \\mathbb{R}^+ \\times \\{\\text{Ts},\\text{Ud},\\text{Ve},\\text{Pn},\\text{Go}\\}$
 - $x=(15, \\c{1}{\\varnothing}, \\text{Ts})$ .note[$\\vect{x}'=(15, \\c{1}{\\varnothing}, 1,0,0,0,0)$]
-- $x=(12, 155, \\c{1}{\\varnothing)}$ .note[$\\vect{x}'=(15, \\varnothing, \\c{1}{0,0,0,0,0})$, actually not a problem!]
+- $x=(12, 155, \\c{1}{\\varnothing)}$ .note[$\\vect{x}'=(12, 155, \\c{1}{0,0,0,0,0})$, actually not a problem!]
 
 **Trees and SVM cannot work!**
 - a tree **cannot** test $x\\subtext{height} \\le \\tau$

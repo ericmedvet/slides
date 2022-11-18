@@ -1,6 +1,6 @@
 class: middle, center
 
-# Naive-Bayes
+# Naive Bayes
 
 ---
 
@@ -61,20 +61,20 @@ But we know $\\prob{h=\\text{long} \\mid p=\\text{man}}$, not $\\prob{h=\\text{m
 
 .vspace1[]
 
-In general, $\\prob{A \\mid B} \\ne \\prob{A \\mid B}$.
+In general, $\\prob{A \\mid B} \\ne \\prob{B \\mid A}$.
 - $\\prob{\\text{win lottery} \\mid \\text{play lottery}} \\ne \\prob{\\text{play lottery} \\mid \\text{win lottery}}$
 
 ---
 
 ## The Bayes rule
 
-$$\\prob{B} \\prob{B \\mid A}=\\prob{A, B} = \\prob{A} \\prob{A \\mid B}$$
+$$\\prob{A} \\prob{B \\mid A}=\\prob{A, B} = \\prob{B} \\prob{A \\mid B}$$
 
 where $\\prob{A,B}$ is the probability that both $A$ and $B$ occur.
 
 --
 
-$$\\prob{B \\mid A}=\\frac{\\prob{A} \\prob{A \\mid B}}{\\prob{B}}$$
+$$\\prob{B \\mid A}=\\frac{\\prob{B} \\prob{A \\mid B}}{\\prob{A}}$$
 
 --
 
@@ -375,7 +375,7 @@ function $\\text{learn}(\\seq{(x^{(i)},y^{(i)})}{i}, \\c{2}{k},\\c{3}{d})$ {
 $f'\\subtext{learn}$ **does nothing**!
 
 The model is the dataset $D$
-- and¹ the .col2[number of neighbors $k$]
+- and¹ the .col2[number of neighbors] $\\c{2}{k} \\in \\mathbb{N}$
 - and¹ the .col3[distance]² $\\c{3}{d}: X \\times X \\to \\mathbb{R}$
 
 .col2[$k$] and .col3[$d$] are **parameters**!
@@ -427,18 +427,18 @@ By using a **proper distance** $d: X \\times X \\to \\mathbb{R}$, kNN can be use
 .compact[
 **Common cases**: .note[there is a large literature on distances]
 
-- for vectorial spaces, i.e., $X=\\mathbb{R}$
+- for vectorial spaces, i.e., $X=\\mathbb{R}^p$
   - **$\\ell$-norms**: with $\\ell$ being a parameter, $d(\\vect{x},\\vect{x}')=\\lVert \\vect{x},\\vect{x}' \\rVert\_\\ell=\\sqrt[\\ell]{\\sum\_j |x\_j-x'\_j|^\\ell}$
       - **Euclidean** with $\\ell=2$
       - **Manhattan** with $\\ell=1$
   - **cosine distance**: $d(\\vect{x},\\vect{x}')=\\frac{\\vect{x}^\\intercal\\vect{x}'}{\\lVert \\vect{x} \\rVert\_1 \\lVert \\vect{x}' \\rVert\_1}$
-    - disregards the individual scales of the points
+      - disregards the individual scales of the points
   - many others
-- for variable-length sequences of symbols in an alphabet $A$, i.e., $X=A^l$
+- for fixed-length sequences of symbols in an alphabet $A$, i.e., $X=A^l$
   - **Hamming** distance: $d(x,x')=\\sum_{k=1}^{k=l} \\mathbf{1}(x\_k \\ne x'\_k)$
   - **edit** distance (many variants)
-- for fixed-length sequences of symbols in an alphabet $A$, i.e., $X=A^l$
-  - **Hamming** distance
+- for variable-length sequences of symbols in an alphabet $A$, i.e., $X=A^*$
+  - **edit** distance .note[or Hamming with some adjustments]
 - for sets, i.e., $X=\\mathcal{P}(A)$
   - **Jaccard** distance: $d(x,x')=1-\\frac{|x \\cap x'|}{|x \\cup x'|}$
 - and combinations of these ones!
