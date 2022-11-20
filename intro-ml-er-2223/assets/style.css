@@ -156,6 +156,9 @@ img {
 .w75p img {
   width: 75%;
 }
+.w80p img {
+  width: 80%;
+}
 .w85p img {
   width: 85%;
 }
@@ -185,6 +188,12 @@ img {
 }
 .h40ex img {
   height: 40ex;
+}
+.h45ex img {
+  height: 45ex;
+}
+.h50ex img {
+  height: 50ex;
 }
 .footnote {
   position: absolute;
