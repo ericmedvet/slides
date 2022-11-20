@@ -56,7 +56,8 @@ In practice:
 ]
 ]
 
-.vspace1
+.vspace1[]
+
 **Key differences**
 
 .cols[
