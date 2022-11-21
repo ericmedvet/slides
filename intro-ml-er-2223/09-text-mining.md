@@ -18,7 +18,7 @@ A single text $x^{(i)}$ is called .key[document].
 
 --
 
-.vspce1[]
+.vspace1[]
 
 However, what we usually mean with text is **natural language**, where the sequence of characters is a **noisy** container of an underlying information:
 - given a document $x$, the actual meaning of $x$ may depend on other documents
@@ -160,17 +160,17 @@ Instruction level and stemming:
 BOW tends to overweigh words which are very frequent, but not relevant (similarly to stop-words) and underweigh words that are relevant, but rare.
 
 Solution: use .key[tf-idf] instead of occurrencies or frequency.
-tf-idf is the ratio between the **term frequency** (i.e., the frequency of a word) in a document, and the **inverse document frequency**, i.e., *the frequency* in the corpus of documents containing that term.
+tf-idf is the ratio between the .col1[**term frequency**] (i.e., the frequency of a word) in a document, and the .col2[**inverse document frequency**], i.e., *the frequency* in the corpus of documents containing that term.
 
 .cols[
 .c60[
-Given the dictionary $W$, the corpus $X$, and given a document $x$:
+Given the dictionary $W$, the corpus $X$, and a document $x$:
 1. **tokenize** $x$ in a multiset $T$ of tokens (words)
-2. for each $t \\in T$, set $x'\_t=f\\subtext{tf}(t, x) f\\subtext{idf}(t, X)$
+2. for each $t \\in T$, set $x'\_t=\\c{1}{f\\subtext{tf}(t, x)} \\c{2}{f\\subtext{idf}(t, X)}$
 
 where:
-- $f\\subtext{tf}(t, x)=\\frac{m(t,T)}{|T|}$
-- $f\\subtext{idf}(t, X)=\\log \\frac{|X|}{\\sum\_{x \\in X} \\mathbf{1}(t \\in f\\subtext{tokenize}(x))}$
+- .col1[$f\\subtext{tf}(t, x)=\\frac{m(t,T)}{|T|}$]
+- .col2[$f\\subtext{idf}(t, X)=\\log \\frac{|X|}{\\sum\_{x \\in X} \\mathbf{1}(t \\in f\\subtext{tokenize}(x))}$]
 
 The more common a word, the greater tf, the (more) lower idf ($0$ if in every document).
 The more specific a word to a document, the larger tf, the larger idf.
@@ -284,41 +284,24 @@ Roles can then be used to augment the text-to-num transformation.
 
 .h20ex.center[![POS example](images/pos-tagging.png)]
 
+---
 
+class: labo
 
+## Lab 2: sport vs. politics
 
+Build a system that:
+1. everyday collects a large set of *random* tweets and groups them in tweets about **politics** and about **sport**
+2. for each of the two groups, shows the main topics of discussion
 
+The system uses a dashboard to show its findings.
+.note[you don't need to build the dashboard here, but imagining it and its usage can facilitate the design of the system]
 
+.vspace1[]
 
-
-<!--
-
-text as X
-
-examples:
-- sentiment on brands
-- topics in letters
-- importance of citations
-
-mention large language models
-
-say we'll cover the basics: using classic machine learning on text
-- both supervised and unsupervised
-
-key need: transforming text in multivariate dataset, possibly R^p
-
-bag of words:
-- stop words
-- stemming
-- lowercase, punctuation (with counter examples)
-- most k frequent
-
-tf-idf:
-- improvement wrt bag of words
-
-bag vs meaning
-- ngrams (ordering)
-- pos tagging (role of text)
-- word embedding (just say it exists)
-
--->
+**Hints**:
+- the hardest part is collecting the data for designing/building the system
+- interesting R packages
+  - `tm` for doing text mining (tokenization, punctuation, stop-words, stemming, ...)
+  - other supervised learning: `e1071`, `randomForest`
+  - clustering: `kmeans`, `hclust`

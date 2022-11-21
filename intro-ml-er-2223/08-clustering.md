@@ -109,7 +109,7 @@ This form of unsupervised learning is called .key[clustering]:
 ## Clustering, more formally
 
 Given a dataset $D \\in \\mathcal{P}^*(X)$, find a partitioning $\\{D\_1, \\dots, D\_k\\}$ of $D$ such that the elements in each $D\_i$ are "close together".
-- each $D\_1$ is a **cluster**
+- each $D\_i$ is a **cluster**
 
 --
 
@@ -224,10 +224,12 @@ If you also optimize $k$, then the optimal solution is the one with $k=1$...
 
 How do you evaluate a partitioning of $D$ **in practice**?
 - you **inspect it manually**
-- you insert the clustering inside the larger information procesing system it belongs to and measure some other index .note[e.g., how rich 💰💰💰 you become with this, rather than that, clustering technique?]
+- you insert the clustering inside the larger information processing system it belongs to and measure some other index .note[e.g., how rich 💰💰💰 you become with this, rather than that, clustering technique?]
   - a form of **extrinsic evaluation**: you look at the result in a larger context
 - you **measure** some **performance indexes** devised for clustering
   - a form of **intrinsic evaluation**: you look at the result alone
+
+.vspace1[]
 
 .question[Question]: is manual inspection intrinsic or exstrinsic?
 
@@ -240,14 +242,16 @@ There are **many** of them; most are based on the idea of measuring **separatene
 .vspace1[]
 
 .key[Silhouette index]: it considers, for each observation, the .col2[average distance to the observations in the same cluster] and the .col1[min distance to the observations in other clusters]:
-$$\\bar{s}(\\seq{D\_i}{i=1}^{i=k})=\\frac{1}{\\left|\\bigcup\_i D\_i\\right|}\\sum\_{x \\in \\bigcup\_i D\_i}=\\frac{\\c{1}{d\\subtext{out}(x,\\seq{D\_i}{i})}-\\c{2}{d\\subtext{in}(x,\\seq{D\_i}{i})}}{\\max\\left(\\c{1}{d\\subtext{out}(x,\\seq{D\_i}{i})},\\c{2}{d\\subtext{in}(x,\\seq{D\_i}{i})}\\right)}$$
+$$\\bar{s}(\\seq{D\_i}{i=1}^{i=k})=\\frac{1}{\\left|\\bigcup\_i D\_i\\right|}\\sum\_{x \\in \\bigcup\_i D\_i}\\frac{\\c{1}{d\\subtext{out}(x,\\seq{D\_i}{i})}-\\c{2}{d\\subtext{in}(x,\\seq{D\_i}{i})}}{\\max\\left(\\c{1}{d\\subtext{out}(x,\\seq{D\_i}{i})},\\c{2}{d\\subtext{in}(x,\\seq{D\_i}{i})}\\right)}$$
 where:
+
 .cols[
 .c50[
 $$\\c{1}{d\\subtext{out}(x,\\seq{D\_i}{i})}=\\min\_{D\_i \\not\\ni x} \\min\_{x' \\in D\_i} d(x, x')$$
 ]
 .c50[
-$$\\c{2}{d\\subtext{in}(x,\\seq{D\_i}{i})}=\\min\_{x' \\in D\_i \\ni x \\land x \\ne x'} d(x, x')$$
+$$\\c{2}{d\\subtext{in}(x,\\seq{D\_i}{i})}=\\frac{1}{|D\_i \\ni x|}\\sum\_{x' \\in D\_i \\ni x \\land x \\ne x'} d(x, x')$$
+]
 ]
 
 $\\bar{s}(\\cdot) \\in [-1,1]$: **the larger** (closer to $1$), **the better** (i.e., the more separated the clusters).
@@ -365,7 +369,7 @@ All are based on a (dis)similarity metric $d$ defined over observations, i.e., $
 .c50[$$d\\subtext{cluster}(D,D')= \\min\_{x \\in D, x' \\in D'} d(x,x')$$]
 ]
 .cols[
-.c50[- .key[Complete] (farthest):]
+.c50[- .key[Complete linkage] (farthest):]
 .c50[$$d\\subtext{cluster}(D,D')= \\max\_{x \\in D, x' \\in D'} d(x,x')$$]
 ]
 .cols[
@@ -525,7 +529,7 @@ function $\\text{cluster}(\\seq{\\vect{x}^{(i)}}{i=1}^{i=n}, k)$ {
 .i[].i[]$\\c{1}{\\vect{\\mu}\_h} \\gets \\vect{x}^{(\\sim U(\\{1,\\dots,n\\}))}$  
 .i[]}  
 .i[]$\\mathcal{D} \\gets \\c{2}{\\text{assign}}(\\seq{\\vect{x}^{(i)}}{i=1}^{i=n}, \\c{1}{\\seq{\\vect{\\mu}\_h}{h=1}^{h=k}})$  
-.i[]while $\\neg\\text{shoul-stop()}$ {  
+.i[]while $\\neg\\text{should-stop()}$ {  
 .i[].i[]for $h \\in \\{1,\\dots,k\\}$ { .comment[//recompute centroids]  
 .i[].i[].i[]$\\vect{\\mu}\_h \\gets \\frac{1}{|D\_h|} \\sum\_{\\vect{x} \\in D\_h} \\vect{x} $  
 .i[].i[]}  

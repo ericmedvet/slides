@@ -2847,7 +2847,9 @@ class: labo
 
 .center[**what's the hardest variable to be predicted in the dataset?**]
 
-Hints:
+.vspace1[]
+
+**Hints**:
 - the Iris dataset is built-in in R: `iris`
 - there are (at least) two packages for tree learning with R
   - `tree`
