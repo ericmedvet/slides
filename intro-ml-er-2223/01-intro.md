@@ -77,9 +77,13 @@ Labs:
 
 1st part (6 CFUs, 48 hours): .note[for all: [IN20](https://corsi.units.it/IN20/descrizione-corso), [IN19](https://corsi.units.it/IN20/descrizione-corso), [SM35](https://dssc.units.it/), [SM34](https://corsi.units.it/SM34/descrizione-corso), and [SM64](https://corsi.units.it/SM64/descrizione-corso)]
 - what is machine learning?
+  - [definitions](#ml-definitions), [recap](#ml-definitions-recap)
 - evaluating an ML system
+  - [supervised ML](#supervised-ml-assessment), [classification](#classification-assessment), [binary classification](#binary-classification-assessment), [multiclass and regression](#multiclass-regression-assessment), [learning technique](#learning-assessment), [examples](#assessment-examples), [recap](#supervised-ml-assessment-recap)
 - supervised learning techniques
+  - [tree-based](#tree-based), [bagging](#tree-bagging), [Random Forest](#random-forest), [SVM](#svm), [Naive Bayes](#naive-bayes), [kNN](#knn), [data pre- and post-processing](#improving-applicability), [intro to R](#brief-r-intro)
 - clustering
+  - [definition and assessment](#clustering-definition-assessment), [hierarchical](#hierarchical-clustering), [k-means](#k-means)
 - application to text
 
 2nd part (3 CFUs, 24 hours): .note[just for [IN20](https://corsi.units.it/IN20/descrizione-corso) and [IN19](https://corsi.units.it/IN20/descrizione-corso)]

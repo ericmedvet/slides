@@ -1,4 +1,5 @@
 class: middle, center
+name: tree-bagging
 
 # Tree bagging and Random Forest
 
@@ -491,6 +492,7 @@ Note that the idea behind tree bagging can be applied to any base learning techn
 ---
 
 class: middle, center
+name: random-forest
 
 ## Random Forest
 

@@ -1,4 +1,5 @@
 class: middle, center
+name: tree-based
 
 # Tree-based learning techniques
 
@@ -2422,6 +2423,7 @@ There exist **oblique decision trees**, which should overcome this limitation.
 ---
 
 class: middle, center
+name: towards-1st-lab
 
 ## Towards the first lab
 
@@ -2518,6 +2520,7 @@ newLabels = predict(classifier, newD)
 ---
 
 class: middle, center
+name: brief-r-intro
 
 ### A (very) brief Introduction to R
 

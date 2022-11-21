@@ -1,4 +1,5 @@
 class: middle, center
+name: naive-bayes
 
 # Naive Bayes
 
@@ -298,6 +299,7 @@ function $\\text{predict-with-prob}(x,\\vect{p})$ {
 ---
 
 class: middle, center
+name: knn
 
 # k-Nearest Neighbors (kNN)
 

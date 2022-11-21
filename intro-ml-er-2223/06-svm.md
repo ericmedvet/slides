@@ -1,4 +1,5 @@
 class: middle, center
+name: svm
 
 # Support Vector Machines
 
@@ -1031,6 +1032,7 @@ In practice, the decision boundary can **smoothly follow** any path:
 ---
 
 class: middle, center
+name: improving-applicability
 
 ## Improving applicability
 

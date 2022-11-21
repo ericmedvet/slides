@@ -1,4 +1,5 @@
 class: middle, center
+name: ml-definitions
 
 # Basic concepts
 
@@ -1273,6 +1274,7 @@ How?
 ---
 
 class: middle, center
+name: ml-definitions-recap
 
 # Basic concepts
 

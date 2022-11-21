@@ -1,4 +1,5 @@
 class: middle, center
+name: clustering-definition-assessment
 
 # Unsupervised learning
 
@@ -296,6 +297,7 @@ $\\bar{s}(\\seq{D\_i}{i})=0.74$
 ---
 
 class: middle, center
+name: hierarchical-clustering
 
 ## Hierarchical clustering
 
@@ -480,8 +482,11 @@ By looking at the dendrogram, one can choose an appropriate $k$, or simply look 
 ---
 
 class: middle, center
+name: k-means
 
 ## Partitional clustering
+
+### k-means
 
 ---
 

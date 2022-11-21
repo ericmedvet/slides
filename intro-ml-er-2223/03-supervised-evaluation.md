@@ -1,4 +1,5 @@
 class: middle, center
+name: supervised-ml-assessment
 
 # Assessing supervised ML
 
@@ -358,6 +359,7 @@ We'll see **a few options** for the main cases:
 ---
 
 class: middle, center
+name: classification-assessment
 
 ## Assessing models
 
@@ -759,6 +761,7 @@ They differ in efficiency, are equal in effectiveness:
 ---
 
 class: middle, center
+name: binary-classification-assessment
 
 ## Assessing models
 
@@ -1801,6 +1804,7 @@ In general it holds, being $\\vect{c}$ the confusion matrix:
 ---
 
 class: middle, center
+name: multiclass-regression-assessment
 
 ### Multiclass classification and regression
 
@@ -1878,6 +1882,7 @@ Remarks:
 ---
 
 class: middle, center
+name: learning-assessment
 
 ## Assessing learning techniques
 
@@ -2571,6 +2576,7 @@ More on statistical significance tests:
 ---
 
 class: middle, center
+name: assessment-examples
 
 ## Examples from research papers
 
@@ -2675,6 +2681,7 @@ Similar:
 ---
 
 class: middle, center
+name: supervised-ml-assessment-recap
 
 # Assessing supervised ML
 
