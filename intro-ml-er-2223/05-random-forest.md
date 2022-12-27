@@ -544,7 +544,7 @@ function $\\text{learn}(\\seq{(x^{(i)},y^{(i)})}{i},n\\subtext{tree}, \\c{1}{n\\
 .i[]$T' \\gets \\emptyset$  
 .i[]while $|T'| \\le n\\subtext{tree}$ {  
 .i[].i[]$\\seq{(x^{(j\_i)},y^{(j\_i)})}{j\_i} \\gets \\text{sample-rep}(\\seq{(x^{(i)},y^{(i)})}{i})$  
-.i[].i[]$\\seq{(\\c{4}{x^{\\prime(j\_i)}},y^{(j\_i)})}{j\_i} \\gets \\c{3}{\\text{retain-vars}}(\\seq{(x^{(i)},y^{(i)})}{i}, \\c{1}{n\\subtext{vars}})$  
+.i[].i[]$\\seq{(\\c{4}{x^{\\prime(j\_i)}},y^{(j\_i)})}{j\_i} \\gets \\c{3}{\\text{retain-vars}}(\\seq{(x^{(j\_i)},y^{(j\_i)})}{j\_i}, \\c{1}{n\\subtext{vars}})$  
 .i[].i[]$t \\gets \\c{2}{\\text{learn}\\subtext{single}}(\\seq{(\\c{4}{x^{\\prime(j\_i)}},y^{(j\_i)})}{j\_i}, 1)$  
 .i[].i[]$T' \\gets T' \\cup \\{t\\}$  
 .i[]}  
@@ -699,7 +699,7 @@ function $\\text{learn}(\\seq{(x^{(i)},y^{(i)})}{i},n\\subtext{tree}, n\\subtext
 .i[]$T' \\gets \\emptyset$  
 .i[]while $|T'| \\le n\\subtext{tree}$ {  
 .i[].i[]$\\seq{(x^{(j\_i)},y^{(j\_i)})}{j\_i} \\gets \\text{sample-rep}(\\seq{(x^{(i)},y^{(i)})}{i})$  
-.i[].i[]$\\seq{(x^{\\prime(j\_i)},y^{(j\_i)})}{j\_i} \\gets \\text{retain-vars}(\\seq{(x^{(i)},y^{(i)})}{i}, n\\subtext{vars})$  
+.i[].i[]$\\seq{(x^{\\prime(j\_i)},y^{(j\_i)})}{j\_i} \\gets \\text{retain-vars}(\\seq{(x^{(j\_i)},y^{(j\_i)})}{j\_i}, n\\subtext{vars})$  
 .i[].i[]$t \\gets \\c{2}{\\text{learn}\\subtext{single}(\\seq{(x^{\\prime(j\_i)},y^{(j\_i)})}{j\_i}, 1)}$  
 .i[].i[]$T' \\gets T' \\cup \\{t\\}$  
 .i[]}  
@@ -845,7 +845,7 @@ function $\\text{learn}(\\seq{(x^{(i)},y^{(i)})}{i},n\\subtext{tree}, n\\subtext
 .i[]$T' \\gets \\emptyset$  
 .i[]while $|T'| \\le n\\subtext{tree}$ {  
 .i[].i[]$\\seq{(x^{(j\_i)},y^{(j\_i)})}{j\_i} \\gets \\text{sample-rep}(\\seq{(x^{(i)},y^{(i)})}{i})$  
-.i[].i[]$\\seq{(x^{\\prime(j\_i)},y^{(j\_i)})}{j\_i} \\gets \\text{retain-vars}(\\seq{(x^{(i)},y^{(i)})}{i}, n\\subtext{vars})$  
+.i[].i[]$\\seq{(x^{\\prime(j\_i)},y^{(j\_i)})}{j\_i} \\gets \\text{retain-vars}(\\seq{(x^{(j\_i)},y^{(j\_i)})}{j\_i}, n\\subtext{vars})$  
 .i[].i[]$t \\gets \\c{2}{\\text{learn}\\subtext{single}}(\\seq{(x^{\\prime(j\_i)},y^{(j\_i)})}{j\_i}, 1, \\c{1}{\\vect{v}})$  
 .i[].i[]$T' \\gets T' \\cup \\{t\\}$  
 .i[]}  
