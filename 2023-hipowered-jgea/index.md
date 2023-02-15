@@ -2,7 +2,7 @@ class: middle, center
 
 # JGEA: a Modular Java Framework for Experimenting with Evolutionary Computation
 
-**Eric Medvet**<sup>1</sup>, Giorgia Nadizar<sup>2</sup>, Luca Manzoni<sup>2</sup>
+**Eric Medvet**<sup>1</sup>, **Giorgia Nadizar**<sup>2</sup>, Luca Manzoni<sup>2</sup>
 
 <font size="2"><sup>1</sup>Department of Engineering and Architecture, University of Trieste, Italy  <br/>
 <sup>2</sup>Department of Mathematics and Geosciences, University of Trieste, Italy  
@@ -387,7 +387,7 @@ public class MapElites<G,
 
 ---
 
-## Summing up... did I convince you?
+## Summing up... did we convince you?
 
 JGEA is
 - Solid <span>&#10004;</span>
