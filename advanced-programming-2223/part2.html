@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Advanced Programming</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="assets/style.css" />
+  </head>
+  <body>
+    <script src="assets/remark-latest.min.js"></script>
+    <script src="assets/katex.min.js"></script>
+    <script src="assets/auto-render.min.js"></script>
+    <script src="assets/diagram-transformer.js"></script>
+    <link rel="stylesheet" href="assets/katex.min.css" />
+    <script>
+      var sourceUrls = [
+        "04-inheritance.md",
+        "05-memory.md",
+        "06-io.md"
+      ];
+      var xmlhttp = new XMLHttpRequest();
+      var source = "";
+      for (var i = 0; i < sourceUrls.length; i++) {
+        xmlhttp.open("GET", sourceUrls[i], false);
+        xmlhttp.send();
+        source += xmlhttp.responseText;
+        if (i + 1 < sourceUrls.length) {
+          source += "\n---\n";
+        }
+      }
+      var renderMath = function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false }
+          ]
+        });
+        diagramTransformer.transformAll(document.body, "diagram");
+      };
+      var slideshow = remark.create(
+        {
+          source: source,
+          ratio: "4:3",
+          highlightStyle: "monokai",
+          highlightLines: true,
+          highlightSpans: true
+        },
+        renderMath
+      );
+    </script>
+  </body>
+</html>
