@@ -26,7 +26,7 @@ Labs:
 
 ---
 
-## Computer Engineering (ING-INF/05) group
+## Comp. Eng. (ING-INF/05) group
 
 .cols.compact[
 .c50[
@@ -76,7 +76,7 @@ Labs:
 ## Materials
 
 Teacher slides:
-- available [here](https://medvet.inginf.units.it/teaching/2021-advancedprogramming/)
+- available [here](https://medvet.inginf.units.it/teaching/2223-advancedprogramming/)
 - might be updated during the course
 
 Intended usage:
@@ -140,7 +140,7 @@ In brief:
 2. Tools and methods for programming
 3. Distributed programming
 
-.note[See the [syllabus](http://medvet.inginf.units.it/teaching/programmazione-avanzata-2021-2022)!]
+.note[See the [syllabus](https://medvet.inginf.units.it/teaching/2223-advancedprogramming/)!]
 
 ---
 
@@ -155,7 +155,7 @@ There we'll be several exercises:
 
 Practice is fundamental!
 
-**Extra excercises** with the teaching assistant, [Giorgia Nadizar](https://giorgia-nadizar.github.io/) 
+**Extra excercises** with the teaching assistant, [Giorgia Nadizar](https://giorgia-nadizar.github.io/)
 
 .note[**Computational thinking is an outcome of the coding practice**. See Nardelli, Enrico. "[Do we really need computational thinking?](https://cacm.acm.org/magazines/2019/2/234348-do-we-really-need-computational-thinking/abstract)." Communications of the ACM 62.2 (2019): 32-35.]
 
@@ -163,7 +163,7 @@ Practice is fundamental!
 
 ## Teaching assistant
 
-Giorgia Nadizar
+**Giorgia Nadizar**
 - 2nd year PhD student enrolled in the Applied Data Science and Artificial Intelligence PhD program at the [Departmenet of Mathematics and Geosciences](https://dmg.units.it/), [University of Trieste](https://www.units.it/)
 - former student of this course
 - online at: [giorgia-nadizar.github.io](https://giorgia-nadizar.github.io/)
@@ -253,10 +253,20 @@ A few options:
 ---
 
 ## JDK versions
-We are currently at version **17**.
-History from [Wikipedia](https://en.wikipedia.org/wiki/Java_version_history):
+.cols[
+.c40[
+We are currently at version **19**:
+- last LTS¹ is **17**
+- coming in days: **20**
 
+History from [Wikipedia](https://en.wikipedia.org/wiki/Java_version_history)
+
+.note[1: LTS: long-term support]
+]
+.c60[
 .center.h40ex[![Java Version history](images/jdk-version-history.png)]
+]
+]
 
 ---
 
@@ -267,11 +277,12 @@ Many excellent options.
 Classic, desktop-based:
 - [Jetbrains IntelliJ IDEA](https://www.jetbrains.com/idea/)
   - the one I know better
+- [Microsoft Visual Studio Code](https://code.visualstudio.com/)
 - [Apache NetBeans](https://netbeans.apache.org/)
 - [Eclipse IDE](https://www.eclipse.org/ide/)
 
 Cloud-based:
-- Full: [Codenvy](https://codenvy.com/), [Eclipse Che + OpenShift](https://che.openshift.io/)
+- Full: [GitHub Codespace](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/setting-up-your-java-project-for-codespaces), [Codenvy](https://codenvy.com/), [Eclipse Che + OpenShift](https://che.openshift.io/)
   - steeper learning curve
 - Light: [CompileJava.net](https://www.compilejava.net/), [repl.it](https://repl.it/)
 
@@ -279,12 +290,8 @@ Cloud-based:
 
 ## IDE: your best friend
 
-.center[
-.h10ex[![Apache NetBeans screenshot](images/ide-netbeans-screenshot.png)]
-.h10ex[![Jetbrains IntelliJ IDEA screenshot](images/ide-intellij-screenshot.png)]
-.h10ex[![Eclipse IDE screenshot](images/ide-eclipse-screenshot.jpg)]
-]
-
+.cols[
+.c60[
 Pros:
 - makes typing much faster
 - greatly helps following conventions
@@ -294,6 +301,18 @@ Pros:
 Cons:
 - steep learning curve
 - may hide some programming/development concepts
+
+**Pros >> Cons**
+]
+.c40[
+.center[
+.h10ex[![Apache NetBeans screenshot](images/ide-netbeans-screenshot.png)]
+.h10ex[![Microsoft Visual Studio Code](images/ide-visualstudiocode-screenshot.png)]
+.h10ex[![Jetbrains IntelliJ IDEA screenshot](images/ide-intellij-screenshot.png)]
+.h10ex[![Eclipse IDE screenshot](images/ide-eclipse-screenshot.jpg)]
+]
+]
+]
 
 ---
 
@@ -477,7 +496,7 @@ Do you need them?
 - source code: no, but it can be useful for understanding
 
 How to access the documentation?
-- online: [https://docs.oracle.com/en/java/javase/13/docs/api/index.html](https://docs.oracle.com/en/java/javase/13/docs/api/index.html)
+- online: [https://docs.oracle.com/en/java/javase/17/docs/api/index.html](https://docs.oracle.com/en/java/javase/17/docs/api/index.html)
 - through IDE, often deeply integrated with autocompletion and suggestions
 
 How to access the source code?
