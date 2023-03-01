@@ -164,7 +164,7 @@ Practice is fundamental!
 ## Teaching assistant
 
 **Giorgia Nadizar**
-- 2nd year PhD student enrolled in the Applied Data Science and Artificial Intelligence PhD program at the [Departmenet of Mathematics and Geosciences](https://dmg.units.it/), [University of Trieste](https://www.units.it/)
+- 2nd year PhD student enrolled in the Applied Data Science and Artificial Intelligence PhD program at the [Department of Mathematics and Geosciences](https://dmg.units.it/), [University of Trieste](https://www.units.it/)
 - former student of this course
 - online at: [giorgia-nadizar.github.io](https://giorgia-nadizar.github.io/)
 
