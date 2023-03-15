@@ -1,6 +1,6 @@
 class: middle, center
 
-## Inheritance and polymorhism
+## Inheritance and polymorphism
 
 ---
 
@@ -1628,7 +1628,7 @@ What if then the developers of `A` and `B` override `toString()`!
 class: lab
 name: exercise2
 
-## Equivalence .note[~2h, 2nd home assignement]
+## Equivalence .note[~2h]
 
 1. Design and implement a class that represents $X = \mathcal{M}(\mathbb{R})$
   - with a proper `equals()`

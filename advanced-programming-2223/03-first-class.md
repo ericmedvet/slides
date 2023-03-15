@@ -215,7 +215,7 @@ link([170,100,170,140,280,140,280,80,300,80])
 
 ### Conventions
 
-Name of arrays (i.e., identfiers of references to arrays):
+Name of arrays (i.e., identifiers of references to arrays):
 
 - plural form of the corresponding reference
   - `Person[] persons`, `Person[] employees`, ...
@@ -842,7 +842,7 @@ At least 4 sources of mess (increasingly harder to spot):
 class: lab
 name: exercise1
 
-## Anagrams .note[~2h, 1st home assignement]
+## Anagrams .note[~2h]
 
 Write an application that, given a word $w$ and a number $n$, gives $n$ anagrams of $w$.
 (Go to [detailed specifications](#exercise1-full-specs), also in next slide)
