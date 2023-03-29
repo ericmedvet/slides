@@ -120,7 +120,7 @@ public void uselesslyModify(int n) { // `B`
 ```
 
 ```java
-int age = 42;         // `A`
+int age = 44;         // `A`
 uselesslyModify(age); // `C`
 ```
 
@@ -129,7 +129,7 @@ uselesslyModify(age); // `C`
 At A:
 .diagram.or.center[
 ref(0,20,'age')
-obj(40,0,60,40,'int','42')
+obj(40,0,60,40,'int','44')
 link([10,20,40,20])
 ]
 ]
@@ -137,20 +137,20 @@ link([10,20,40,20])
 At B:
 .diagram.or.center[
 ref(0,20,'age','invisible')
-obj(40,0,60,40,'int','42')
+obj(40,0,60,40,'int','44')
 link([10,20,40,20],'invisible')
 ref(0,100,'n')
-obj(40,80,60,40,'int','42')
+obj(40,80,60,40,'int','44')
 link([10,100,40,100])
 ]
 By value:  
-`42` is a copy of `42`
+`44` is a copy of `44`
 ]
 .c40[
 At C:
 .diagram.or.center[
 ref(0,20,'age')
-obj(40,0,60,40,'int','42')
+obj(40,0,60,40,'int','44')
 link([10,20,40,20])
 ]
 Change is **not visible**!
