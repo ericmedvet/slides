@@ -493,7 +493,7 @@ In general:
 
 ---
 
-## Scope: reference
+## Scope: reference*
 
 Declared in method signature (aka argument variable):
 
@@ -503,6 +503,8 @@ Declared in method code (aka local variable):
 
 - visible from declaration to the end of **block**
   - a block is a sequence of statements enclosed by curly brackets `{` `}`
+  
+.note[*: identifier of]
 
 ---
 
@@ -537,7 +539,7 @@ public String capitalize(final String string) {
 
 ---
 
-## Scope: fields, class, method
+## Scope: fields*, class*, method*
 
 Determined by access modifier:
 
@@ -545,9 +547,13 @@ Determined by access modifier:
 
 `protected`:
 
-- visible only in a class extending (directly or indirectly) the class where `protected` is used
+- visible only in:
+    - *the* class, where `protected` is used
+    - in every class extending (directly or indirectly) *the* class
 
 .note[Fields are also known as instance variables]
+
+.note[*: identifier of]
 
 ---
 
@@ -796,7 +802,7 @@ public int doThings(String s) {
 }
 ```
 ```bash
-eric@cpu:~$ java Greeter
+eric@cpu:~$ java Main
 ```
 ]
 ]
