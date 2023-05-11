@@ -1291,8 +1291,8 @@ When exiting the `try` block, `r` is closed (if not null):
 ```java
 byte[] data = new byte[100];
 try (
-    FileInputStream fis = new FileInputStream(inputFile)`;`
-    FileOutputStream fos = new FileOutputStream(outputFile)
+    InputStream fis = new FileInputStream(inputFile)`;`
+    OutputStream fos = new FileOutputStream(outputFile)
 ) {
   while (true) {
     int nOfReadBytes = fis.read(data);

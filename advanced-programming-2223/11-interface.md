@@ -569,6 +569,10 @@ public interface Listener {
   - verbose: we'll see an alternative
 - `final`: effect is on called, not on caller
 
+.note[This may be done slightly better with a `default` method.]
+.question[How? What's the conceptual difference?]
+<!-- default method defines a capability of every Listener; static method defines a capability that can be applied on Listeners -->
+
 ---
 
 ### Usage
@@ -634,7 +638,7 @@ Naming convention:
 ```java
 public class Person {
   public String toString() {
-    String prefix;
+    String prefix = "";
     if (gender.equals(`Gender.FEMALE`)) {
       prefix = "Ms. ";
     } else if (gender.equals(`Gender.MALE`)) {
