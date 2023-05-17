@@ -693,13 +693,13 @@ public class Person {
       case `FEMALE`-> "Ms. ";
       case `MALE` -> "Mr. ";
       default -> "";
-    }
+    };
     return prefix + firstName
         + " " + lastName;
   }
 }
 ```
-.note[from JDK 13]
+.note[**switch expression**, from JDK 13]
 ]
 ]
 ]
