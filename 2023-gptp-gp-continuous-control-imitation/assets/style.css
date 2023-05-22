@@ -1,0 +1,180 @@
+@import url("https://fonts.googleapis.com/css?family=Livvic:400,400i,700,700i|Roboto+Mono:400,700,400i");
+body {
+  font-family: "Livvic";
+}
+.remark-slide-content {
+  font-size: 22px;
+}
+.col1 { color: #648FFF }
+.col2 { color: #785EF0 }
+.col3 { color: #DC267F }
+.col4 { color: #FE6100 }
+.col5 { color: #FFB000 }
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: bold;
+}
+h1 {
+  text-decoration-line: underline;
+  text-decoration-color: #DC267F;
+}
+code {
+  border-radius: 0.5em;
+}
+.compact code {
+  line-height: 70%;
+  font-size: 60%;
+}
+a {
+  color: #DC267F;
+  text-decoration-line: underline;
+  text-decoration-color: #648FFF;
+}
+pre {
+  margin: 0.1em 0;
+}
+.remark-code,
+.remark-inline-code {
+  font-family: "Roboto Mono";
+}
+.remark-inline-code {
+  color: #648FFF;
+  font-size: 85%;
+}
+.cols {
+  display: flex;
+}
+.c10 {
+  flex: 10%;
+}
+.c15 {
+  flex: 15%;
+}
+.c20 {
+  flex: 20%;
+}
+.c25 {
+  flex: 25%;
+}
+.c30 {
+  flex: 30%;
+}
+.c40 {
+  flex: 40%;
+}
+.c50 {
+  flex: 50%;
+}
+.c60 {
+  flex: 60%;
+}
+.c70 {
+  flex: 70%;
+}
+.c75 {
+  flex: 75%;
+}
+.c80 {
+  flex: 80%;
+}
+.c90 {
+  flex: 90%;
+}
+.cols > div:nth-child(1) {
+  x-padding-right: 0.5em;
+}
+.cols > div:nth-last-child(1) {
+  x-padding-left: 0.5em;
+}
+.cols .vcentered {
+  align-self: center;
+}
+img {
+  max-width: 100%;
+}
+.w50p img {
+  width: 50%;
+}
+.w75p img {
+  width: 75%;
+}
+.w100p img {
+  width: 100%;
+}
+.h10ex img {
+  height: 10ex;
+}
+.h15ex img {
+  height: 15ex;
+}
+.h25ex img {
+  height: 25ex;
+}
+.h30ex img {
+  height: 30ex;
+}
+.h40ex img {
+  height: 40ex;
+}
+.footnote {
+  position: absolute;
+  bottom: 2.5em;
+  font-size: 75%;
+}
+.refnote {
+  font-size: 65%;
+  color: gray;
+  display: block;
+}
+.vam {
+  vertical-align: middle;
+}
+.big-quote {
+  background-color: lightgray;
+  padding: 0.5em;
+  font-size: 80%;
+  border-radius: 0.5em;
+}
+.important {
+  background-color: #DC267F;
+  padding: 0.5em;
+  font-size: 150%;
+  border-radius: 0.5em;
+  color: white;
+}
+.note {
+  color: darkgray;
+  font-size: 75%;
+}
+.note::before {
+  content: "(";
+}
+.note::after {
+  content: ")";
+}
+
+}
+.large {
+  font-size: 150%;
+}
+.small {
+  font-size: 75%;
+}
+.cg {
+  color: green;
+}
+.cr {
+  color: red;
+}
+.hspace5 {
+  width: 5em;
+  display: inline-block;
+}
+.ttt {
+  font-family: "Roboto Mono";
+  color: #648FFF;
+  font-size: 85%;
+}
