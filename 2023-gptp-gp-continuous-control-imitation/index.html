@@ -28,13 +28,29 @@
         }
       }
       var renderMath = function() {
+        diagramTransformer.transformAll(document.body, "diagram");
         renderMathInElement(document.body, {
+          strict: "ignore",
+          trust: true,
+          macros: {
+            "\\vect": "\\boldsymbol",
+            "\\subtext": "\_\\text{#1}",
+            "\\seq": "\\{#1\\}\_{#2}",
+            "\\prob": "\\text{Pr}\\!\\left(#1\\right)",
+            "\\freq": "\\text{Fr}\\!\\left(#1\\right)",
+            "\\sub": "_{#1}",
+            "\\abs": "\\left\\lvert #1 \\right\\rvert",
+            "\\set": "\\{#1\\}",
+            "\\tree": "\\left[#1;#2;#3\\right]",
+            "\\treel": "\\left[#1\\right]",
+            "\\c": "\\htmlClass{col#1}{#2}",
+            "\\smaller": "\\htmlClass{smaller}{#1}"
+          },
           delimiters: [
             { left: "$$", right: "$$", display: true },
             { left: "$", right: "$", display: false }
           ]
         });
-        diagramTransformer.transformAll(document.body, "diagram");
       };
       var slideshow = remark.create(
         {

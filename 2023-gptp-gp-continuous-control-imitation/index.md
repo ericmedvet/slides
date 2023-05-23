@@ -1,6 +1,6 @@
 class: middle, center
 
-# GP for Continuous Control: Teacher or Learner?<br>The Case oif Simulated Modular Soft Robots
+# GP for Continuous Control: Teacher or Learner?<br>The Case of Simulated Modular Soft Robots
 
 ### _Eric Medvet_, Giorgia Nadizar
 
@@ -14,227 +14,299 @@ Evolutionary Robotics and Artificial Life Lab, University of Trieste, Italy
 
 ---
 
-# Autonomous robots
+# Regression vs. control
 
 .cols[
 .c50[
-Dangerous or inaccessible environments, where human operators cannot intervene
+**Regression**: given some data, **find** a function that fits the data.
 
-Robots should be:
-- autonomous
-- adaptable
-- capable of **auto-fabrication** and re-use
+.w75p.center[![Regression](images/regression.png)]
+
+When optimizing .col1[$f$]:
+- time does not matter
+- data .col2[$(\\vect{x}^{(i)},y^{(i)})_i$] is freezed
+
 ]
 .c50[
-.w100p.center[![The ARE project](images/are.png)]
+**Control**: given a dynamical system, **find** *a way* to make it steer towards a goal.
 
-.refnote[From Eiben, Agoston E., et al. "Towards autonomous robot evolution." Software Engineering for Robotics. Springer, Cham, 2021. 29-51.]
+.w75p.center[![Control](images/closed-loop-control.png)]
+
+When optimizing the .col1[controller]:
+- time matters
+- .col2[environment] is freezed, $(o^{(k)})_k$ may change 
 ]
 ]
 
 ---
 
-# Modular (soft) robots
+## Control and special cases
+
+In general, the .col1[controller] is $f\_C,g\_C$:
+.cols[
+.c50.center[
+$g\_C: S\_C \\times O \\to S\_C$  
+$f\_C: S\_C \\times O \\to A$
+]
+.c50.center[
+$s\_C^{(k)}=g\_C(s\_C^{(k-1)}, o^{(k)})$  
+$a^{(k)}=f\_C(s\_C^{(k)}, o^{(k)})$
+]
+]
+The .col2[environment] is a dynamical system $f\_E,g\_E$ too.
+
+Special case of practical relevance (**continuous control**): $O = \\mathbb{R}^n$, $A = \\mathbb{R}^m$.
+
+Further special case of practical relevance (**stateless controller**):
+.center[
+$S\_C = \\emptyset$  
+$f\_C: O \\to A$
+]
+- the controller is just a stateless $f_C$, but the overall system (controller + environment) is still dynamic!
+
+---
+
+## Control with an $f: \\mathbb{R}^n \\to \\mathbb{R}^m$
+
+When the controller is defined by "just" an $f: \\mathbb{R}^n \\to \\mathbb{R}^m$, **finding** a .col1[controller] is solving a search problem in the space of functions, $\\approx$ (multivariate) regression.
 
 .cols[
 .c50[
-
-**Ideal** for auto-fabrication:
-- all modules are virtually *identical*
-- easy re-use
-- compliance
-- *expressive* control
-
-.h15ex.center[![Swimming VSR](images/swimming-vsr.png)]
-.refnote[Corucci, Francesco, et al. "Evolving soft locomotion in aquatic and terrestrial environments: effects of material properties and environmental transitions." Soft robotics 5.4 (2018): 475-495.]
+**(Multivariate) regression**: given some data, **find** an .col1[$f: \\mathbb{R}^n \\to \\mathbb{R}^m$] that fits the data .col2[$(\\vect{x}^{(i)},y^{(i)})_i$].
 ]
 .c50[
-.h30ex.center[![VSR in tight spaces](images/tight-spaces.png)]
-.refnote[Cheney, Nick, Josh Bongard, and Hod Lipson. "Evolving soft robots in tight spaces." Proceedings of the 2015 annual conference on Genetic and Evolutionary Computation. 2015.]
+**Control**: given an environment, **find** an .col1[$f: \\mathbb{R}^n \\to \\mathbb{R}^m$] that makes the environment .col2[$f\_E,g\_E$] steer towards a goal.
 ]
 ]
-
----
-
-# Modular soft robots ecosystem
-
-A few tasks, with corresponding best suited few morphology+controller combinations
-
-Life cycle:
-1. modules are assembled to form a robot in given morphology (*auto-fabrication*)
-2. associated with a controller
-3. robot "lives" and does its stuff
-4. robot is disposed: modules become available again
-
----
-
-# Limits of auto-fabrication
-
-What if auto-fabrication sometimes does not work as expected?  
-What if the assmbled **morphology is (slightly) different** from the expected one?
 
 .center[
-.vam.h15ex[![VSR plan](images/robot-plan.png)] .large[→]
-.vam.h15ex[![VSR assembly phase](images/robot-assembling.png)] .large[→]
-.vam.h15ex[![VSR result](images/robot-result.png)]
+$\\downarrow$
+
+The same search methods might work for both cases. .note[maybe...]
 ]
 
-Will the **controller work well** with the slightly different morphology?
+---
+
+# Research questions
+
+1. Is **GP** good for **continuous control**? .note[**It is** for regression!] 
+  - Is it better than a common alternative (MLP+GA)?
+  - Are GP-generated controllers different than the baseline?
+  
+2. Is optimizing a controller different than fitting some data?
+  - Can controller optimization be cast as a form of regression?
+  
+Here: in the context of **simulated modular soft robots**
 
 ---
 
-# Research question
+# Simulated modular soft robots
 
-**RQ**: What is the **impact of small morphology variations** on the effectiveness of controllers **optimized through neuroevolution** for the task of **locomotion**?
+.cols[
+.c50.center[
+<video width="280" height="210" autoplay loop>
+    <source src="videos/ga-1-001.mp4" type="video/mp4"/>
+</video>
+]
+.c50.center[
+.w75p[![VSR mechanical model](images/mechanical-model.png)]
+]
+]
 
-Overview of the plan (**experimental** answer):
-1. consider a locomotion task and a few base morphologies
-2. evolve a controller for each morphology
-3. apply small variations to each morphology
-4. measure impact on controller
+**Voxel-based soft robots** (VSRs):
+- **simulated** in discrete time, in **2-D**
+- at each $k$, each square may expand or contract
+  - this is what the controller decides
+- softness simulated through spring-hamper systems (dynamical system!)
+  - actuation as instantaneous rest-length change
 
-**RQ-bis**: how to **re-align** a controller to the varied morphology?
+Most of the dynamics is in the mechanical part, rather than in the controller
+.note["embodied" intelligence, *morphological* computation, ...]
 
 ---
 
-# Background: VSR morphology
+## Practical relevance
+
+.cols[
+.c30[
+.w100p[![Real VSRs 1](images/hiller-lipson.png)]
+
+W/ foam cubes.
+
+.refnote[Hiller, Jonathan, and Hod Lipson. "Automatic design and manufacture of soft robots." IEEE Transactions on Robotics 28.2 (2011): 457-466.]
+]
+.c30[
+.w100p[![Real VSRs 2](images/kriegman-frog.png)]
+
+W/ living cells!
+
+.refnote[Kriegman, Sam, et al. "A scalable pipeline for designing reconfigurable organisms." Proceedings of the National Academy of Sciences 117.4 (2020): 1853-1859.]
+]
+.c30[
+.w100p[![Real VSRs 3](images/legrand.png)]
+
+W/ sylicon boxes.
+
+.refnote[Legrand, Julie, et al. "Reconfigurable, multi-material, voxel-based soft robots." IEEE Robotics and Automation Letters (2023).]
+]
+]
+
+Currently, reality is very far from simulation.
+But...
+
+---
+
+## The controller
+
+Here, a **distributed controller**:
+$$\\left[v\_{x,y}^{(k)} \\; \\vect{c}\_{x,y}^{(k)}\\right] = f\\left(\\left[\vect{r}\_{x,y}^{(k)} \\; \\vect{c}\_{x,y-1}^{(k-1)} \\; \\vect{c}\_{x,y+1}^{(k-1)} \\; \\vect{c}\_{x+1,y}^{(k-1)} \\; \\vect{c}\_{x+1,y}^{(k-1)}\\right] \\right)$$
+
+.cols[
+.c60.compact[
+- the **same .col1[$f$]** inside each voxel
+- observation $\\c{3}{o^{(k)}} \\in O = \\mathbb{R}^{4+4n\_c}$
+  - $4$ local sensor readings $\\vect{r}\_{x,y}^{(k)}$
+  - $4n\\sub{c}$ values from neighb. voxels $\\vect{r}\_{x',y'}^{(k)}$
+- action $\\c{4}{a^{(k)}} \\in A = \\mathbb{R}^{1+n\_c}$
+  - $1$ local comtract/expand value
+  - $n\_c$ values to neighb. voxels
+]
+.c40[
+.w75p.center[![Controller scheme](images/controller-scheme.png)]
+]
+]
+
+---
+
+## Why VSRs?
 
 .cols[
 .c60[
-- 2D:
-  - faster simulation
-  - discrete time
-- identical soft blocks (*voxels*):
-  - softness as spring-damper systems
-  - active:  
-    $a^\{(k)\}=-1$ → expand  
-    $a^\{(k)\}=+1$ → contract
-- sensors in each voxel:
-  - area ratio
-  - ground contact
-  - $x$- and $y$-velocity
-
+For each controller .col1[$f$], the environment is *everything else*:
+- local sensors (as input), local actuator (as output), local mechanical model
+- other voxels (controller + mechanical model)
+- actual environment (terrain)
 ]
 .c40[
-.center[
-.h15ex[![Horse](images/horse.png)]
+.w75p.center[![Controller scheme](images/closed-loop-control.png)]
+]
+]
 
-<video width="320" height="240" autoplay loop>
-    <source src="videos/hopping-vsr.mp4" type="video/mp4"/>
-</video>
+The **overall dynamics** comes more from the "body" than from the "brain".
+- likely this control task is very different from regression
+
+---
+
+# Finding the $f$
+
+Using evolutionary optimization:
+- **representation**: what's the search space $G$ and how an $g \\in G$ represents an $f: \\mathbb{R}^n \\to \\mathbb{R}^m$
+- evolutionary algorithm (**EA**): how to search over $G$
+
+While searchingm, each $f$ is evaluated **through simulation**.
+
+Three contenders:
+- MLP + GA
+- multi-tree GP
+- GraphEA
+
+---
+
+## MLP + GA
+
+.cols[
+.c60.compact[
+Representation:
+- an $f$ is an **MLP with a predefined topology**
+  - $n$ inputs, $m$ outputs .note[1 hidden layer w\ $0.65 n$ nodes]
+- $G = \\mathbb{R}^p$, with $p$ given by the topology
+
+EA:
+- pretty standard EA
+  - overlapping
+  - tournament selection for reproduction
+  - truncation selection for survival selection
+- genetic operators for $\\mathbb{R}^p$
+  - Gaussian mutation
+  - geometric crossover
+
+Widely used for control of robots and alike
+- "sota" with VSRs
+]
+.c40[
+.w75p.center[![MLP](images/mlp.png)]
 ]
 ]
+
+---
+
+## Multi-tree GP
+
+.cols[
+.c60.compact[
+Representation:
+- an $f$ is a **list of $m$** regression trees
+  - each using 0+ of $n$ input vars
+- $G = T^m\_{n,O,C}$
+  - $O = \\{+,-,\\times,\\div\\}$
+  - $C = \\{0,0.5,1,\\dots,5\\}$
+- $\\tanh$ on outputs to enforce $\\in [-1,1]$
+
+EA:
+- pretty standard EA (as above)
+- genetic operators for $T^m\_{n,O,C}$
+  - element-wise standard subtree mutation
+  - element-wise standard tree crossover
+  - uniform crossover
+- **diversity promotion scheme**
+
+Never used on VSRs.
 ]
+.c40[
+.w75p.center[![Multi-tree](images/multi-tree.png)]
+]
+]
+
+---
+
+## GraphEA
+
+.cols[
+.c60.compact[
+Representation:
+- an $f$ is a **graph**
+  - $n$ input nodes, $m$ output nodes
+  - $|C|$ nodes with constants
+  - inner nodes with operators $O$
+- $G = \\mathcal{G}\_{n,m,O,C}$
+  - $O = \\{+,-,\\times,\\div\\}$
+  - $C = \\{0,0.5,1,\\dots,5\\}$
+- $\\tanh$ on outputs to enforce $\\in [-1,1]$
+
+EA:
+- **speciation**
+- genetic operators for $\\mathcal{G}\_{n,m,O,C}$
+  - a few mutations
+
+Never used on VSRs.
+]
+.c40[
+.w75p.center[![oGraph](images/ograph.png)]
+]
+]
+
+
+---
+
+# Direct evolution
+
+---
+
+# Imitation learning
 
 ---
 
 # VSR distributed controller
-
-**Key requirement**: the controller has to be **agnostic wrt the morphology**
-
-.small.center[
-$\left[a\_{x,y}^{(k)} \; \boldsymbol{i}\_{x,y}^{\vartriangle(k)} \; \boldsymbol{i}\_{x,y}^{\triangledown(k)} \; \boldsymbol{i}\_{x,y}^{\triangleleft(k)} \; \boldsymbol{i}\_{x,y}^{\triangleright(k)}\right] = \text{NN}\_{\boldsymbol{\theta}}\left(\left[\boldsymbol{s}\_{x,y}^{(k)} \; \boldsymbol{i}\_{x,y-1}^{\vartriangle(k-1)} \; \boldsymbol{i}\_{x,y+1}^{\triangledown(k-1)} \; \boldsymbol{i}\_{x+1,y}^{\triangleleft(k-1)} \; \boldsymbol{i}\_{x+1,y}^{\triangleright(k-1)}\right] \right)$
-]
-
-.center[![Distributed controller](images/distributed.png)]
-
-**Same NN** on all the voxels!
-Just  one $\boldsymbol{\theta} \in \mathbb{R}^p$ to be optmized.
-
-Bonus: interconnections facilitate effective periodic behaviors  
-.note[$a\_{x,y}^{(k)}$ is applied at 5 Hz (instead of 60 Hz) for discouraging vibrational behaviors (*"reality" gap*)] 
-
----
-
-# Controller neuroevolution
-
-**Search space**: $\mathbb{R}^p$  
-**Fitness**: locomotion velocity $v_x$ of candidate controller $\boldsymbol{\theta}$ coupled with given morphology
-
-Simple $\mu + \lambda$ EA:
-1. randomly select crossover or mutation (80% vs. 20%)
-2. select 2 or 1 parents with tournament selection
-3. apply operator:
-    - crossover: geometric crossover + Gaussian mutation
-    - mutation: Gaussian mutation
-4. add offspring to parents
-5. retain only best individuals
-
----
-
-# Base/varied morphologies
-
-Evolution on **base morphologies**: biped, comb, worm $\times$ S, L
-
-Morphology **variation**: given base and target variation $\delta$, build 10 perturbate morpholodies
-
-.center.w100p[![Sample of modified morphologies](images/mod-morphs.png)]
-.note[Examples with $\theta=1$ for S, $\theta=2$ for L]
-
----
-
-# Results
-
-.center.w100p[![Velocity drop](images/plot-no-reopt.png)]
-
-- clear drop in $v_x$ also for small variations ($\delta=1$)
-    - **morphological computation** matters
-- small biped appears less robust to variations
-- large morphologies appear more robust
-
-.note[$1 \times 10$ measures for $\delta=0$, $10 \times 10$ measures for $\delta \ge 1$]
-
----
-
-# Re-optimization
-
-.center.w100p[![Velocity drop with re-optimization](images/plot-reopt.png)]
-
-- re-optimized controller achieve on-par performance with (most) varied morphologies
-- re-optimization is **costly**:
-  - .col1[**blue**]: just apply archived controller
-  - .col2[**purple**]: run entire EA on varied morphology
-
----
-
-# Re-optimization
-
-.center[
-<video width="700" height="500" autoplay loop>
-    <source src="videos/video-small.mp4" type="video/mp4"/>
-</video>
-]
-
----
-
-# Seeded re-optimization
-
-.center.w100p[![Velocity drop with re-optimization](images/plot-seeded-reopt.png)]
-
-- seeded re-optimization always convenient!
-
-.note[For $\delta=1$ and small morphologies]
-
----
-
-# Side finding
-
-.cols[
-.c50[
-Some varied morphologies are more effective than the base ones!
-
-$\Rightarrow$ **evolving** ecosystem:
-1. assemble robot to target morphology $m$
-2. associated with a controller **and briefly re-align it**, if $m' \ne m$ 
-3. robot "lives" and does its stuff
-4. robot is disposed: modules become available again
-5. if $m'$ is better than $m$, keep it!
-
-]
-.c50[
-.center.w100p[![Biped shape recap](images/plot-shapes.png)]
-]
-]
 
 ---
 
@@ -244,19 +316,21 @@ class: center
 
 .cols[
 .c50[
-.h40ex[![Paper mini img](images/paper.png)]
+.h40ex[![Paper mini img](images/gptp-paper.png)]
 
 ]
 .c50[
-.h20ex[![Horse](images/horse.png)]
 
-Authors/contacts:
+Authors:
 
 .h10ex[![Eric Medvet](images/author-medvet.jpg)]
-.h10ex[![Francesco Rusin](images/author-rusin.jpg)]
-
-<i class="fa fa-envelope" aria-hidden="true"></i> [emedvet@units.it](mailto:emedvet@units.it)  
+.h10ex[![Giorgia Nadizar](images/author-nadizar.jpg)]  
 <i class="fa fa-twitter" aria-hidden="true"></i> [@EricMedvetTs](https://twitter.com/EricMedvetTs)  
+<i class="fa fa-twitter" aria-hidden="true"></i> [@GNadizar](https://twitter.com/GNadizar)
+
+Contact:
+
+<i class="fa fa-envelope" aria-hidden="true"></i> [emedvet@units.it](mailto:emedvet@units.it)    
 <i class="fa fa-twitter" aria-hidden="true"></i> [@EralLabTs](https://twitter.com/EralLabTs)
 ]
 ]
