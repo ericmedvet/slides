@@ -302,7 +302,7 @@ In a `Set`:
 Set<Person> persons = /* ... */
 persons.add(new Person("Eric", "Medvet"));
 persons.add(new Person("Eric", "Medvet"));
-System.out.println(persons); // -> `2`
+System.out.println(persons.size()); // -> `2`
 ```
 
 When coding types that might be used inside a `Set` (or a `Map`), **always override `equals()`**!
@@ -377,7 +377,7 @@ Unlike sets, lists typically allow duplicate elements.
   - **duplicates**, "**ordering**"
       - quoted because it's unrelated to natural ordering, but determined by order of additions and removals
 
-Basically, can be used in place of an array `T[]` where the size might change at runtime.
+Basically, can be used in place of an array `E[]` where the size might change at runtime.
 
 .note[There is also a `java.awt.List` that often wins over this `java.util.List` while doing autocompletion...]
 
@@ -1325,8 +1325,170 @@ System.out.println(strings.stream()
 ```
 ]
 
-<!--
-- executors
-- streams
-- reflection
-- serialization -->
+---
+
+class:middle,center
+
+## Records
+
+---
+
+## Immutable data types
+
+.cols[
+.c60.compact[
+Very common case:
+
+```java
+public class Point {
+  private final int x;
+  private final int y;
+
+  public Point(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  public int x() {
+    return x;
+  }
+
+  public int y() {
+    return y;
+  }
+
+  public boolean equals(Object o) {
+    if (!(o instanceof Point other))
+      return false;
+    return other.x == x && other.y == y;
+  }
+
+  public int hashCode() {
+    return Objects.hash(x, y);
+  }
+
+  public String toString() {
+    return String.format("Point[x=%d, y=%d]", x, y);
+  }
+}
+```
+]
+.c40[
+`Point`:
+- immutable state (i.e., `private final` fields)
+- canonical constructor setting the state
+- canonical "getters"
+- canonical `equals()` and `hashCode()` using all the state
+- reasonable `toString()`
+
+
+Very verbose:
+- defining the state would be enough
+]
+]
+
+---
+
+## `record`
+
+```java
+public `record` Point(int x, int y) {}
+```
+
+The compiler, automatically, translates it to a class with:
+- immutable state (i.e., `private final` fields)
+- canonical constructor
+- canonical "getters" .note[without the `get` part, i.e., `x()`, not `getX()`]
+- canonical `equals()` and `hashCode()`
+- reasonable `toString()`
+
+Usage: just like a class!
+```java
+Point p = new Poing(44, 79);
+```
+
+---
+
+## Limitations and possibilities
+
+Cans:
+- a `record` can implement 1+ interfaces
+- a `record` can be declared inside a method
+  - (`class`, `interface`, `enum` too...)
+- a `record` can be a generic
+  - .note[e.g., `record Range<C extends Comparable>(C lower, C upper) {}`]
+
+Cannots:
+- a `record` cannot extend a class/record
+- a `record` cannot be extended
+  - it is translated to a `final class`
+- a `record` cannot be abstract
+- a `record` cannot have "other" fields (besides those in the signature)
+
+For everything else, a `record` is just like a `class`!
+
+---
+
+## Further methods/constructor
+
+Just a record:
+.compact[
+```java
+record Point(double x, double y) {
+```
+]
+
+With one more method:
+.compact[
+```java
+record Segment(Point p1, Point p2) {
+  public double length() {
+    return Math.sqrt(Math.pow(p1.x() - p2.x(), 2) + Math.pow(p1.x() - p2.x(), 2));
+  }
+}
+```
+]
+
+With a **compact constructor**:
+.compact[
+```java
+record Polygon(List<Point> vertexes) {
+  Polygon {
+    if (vertexes.size() < 3) {
+      throw new IllegalArgumentException("Too few vertexes: %d found, >=3 expected".formatted(
+          vertexes.size()
+      ));
+    }
+  }
+}
+```
+]
+- `Polygon { ... }` is translated to `Polygon(List<Point> vertexes) { ... }`
+
+---
+
+### Compact vs. canonical constructor
+
+.compact[
+```java
+public record Person(String firstName, String middleName, String lastName) {
+
+  Person {
+    if (firstName == null || middleName == null || lastName == null) {
+      throw new IllegalArgumentException("Names must be not null!");
+    }
+  }
+ 
+  public Person(String firstName, String lastName) {
+    this(firstName, "", lastName);
+  }
+  
+}
+```
+]
+
+---
+
+class:middle,center
+
+Thanks!
