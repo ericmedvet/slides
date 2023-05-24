@@ -42,18 +42,18 @@ When optimizing the .col1[controller]:
 
 ## Control and special cases
 
-In general, the .col1[controller] is $f\_C,g\_C$:
+In general, the .col1[controller] is $f\_C,h\_C$:
 .cols[
 .c50.center[
-$g\_C: S\_C \\times O \\to S\_C$  
+$h\_C: S\_C \\times O \\to S\_C$  
 $f\_C: S\_C \\times O \\to A$
 ]
 .c50.center[
-$s\_C^{(k)}=g\_C(s\_C^{(k-1)}, o^{(k)})$  
+$s\_C^{(k)}=h\_C(s\_C^{(k-1)}, o^{(k)})$  
 $a^{(k)}=f\_C(s\_C^{(k)}, o^{(k)})$
 ]
 ]
-The .col2[environment] is a dynamical system $f\_E,g\_E$ too.
+The .col2[environment] is a dynamical system $f\_E,h\_E$ too.
 
 Special case of practical relevance (**continuous control**): $O = \\mathbb{R}^n$, $A = \\mathbb{R}^m$.
 
@@ -75,7 +75,7 @@ When the controller is defined by "just" an $f: \\mathbb{R}^n \\to \\mathbb{R}^m
 **(Multivariate) regression**: given some data, **find** an .col1[$f: \\mathbb{R}^n \\to \\mathbb{R}^m$] that fits the data .col2[$(\\vect{x}^{(i)},y^{(i)})_i$].
 ]
 .c50[
-**Control**: given an environment, **find** an .col1[$f: \\mathbb{R}^n \\to \\mathbb{R}^m$] that makes the environment .col2[$f\_E,g\_E$] steer towards a goal.
+**Control**: given an environment, **find** an .col1[$f: \\mathbb{R}^n \\to \\mathbb{R}^m$] that makes the environment .col2[$f\_E,h\_E$] steer towards a goal.
 ]
 ]
 
@@ -109,13 +109,12 @@ Here: in the context of **simulated modular soft robots**
 </video>
 ]
 .c50.center[
-.w75p[![VSR mechanical model](images/mechanical-model.png)]
+.h15ex[![VSR mechanical model](images/mechanical-model.png)]
 ]
 ]
-
 **Voxel-based soft robots** (VSRs):
 - **simulated** in discrete time, in **2-D**
-- at each $k$, each square may expand or contract
+- at each $k$, each square may expand ($+1$) or contract ($-1$)
   - this is what the controller decides
 - softness simulated through spring-hamper systems (dynamical system!)
   - actuation as instantaneous rest-length change
@@ -159,22 +158,26 @@ But...
 ## The controller
 
 Here, a **distributed controller**:
-$$\\left[v\_{x,y}^{(k)} \\; \\vect{c}\_{x,y}^{(k)}\\right] = f\\left(\\left[\vect{r}\_{x,y}^{(k)} \\; \\vect{c}\_{x,y-1}^{(k-1)} \\; \\vect{c}\_{x,y+1}^{(k-1)} \\; \\vect{c}\_{x+1,y}^{(k-1)} \\; \\vect{c}\_{x+1,y}^{(k-1)}\\right] \\right)$$
+$$\\c{3}{\\left[v\_{x,y}^{(k)} \\; \\vect{c}\_{x,y}^{(k)}\\right]} = f\\left(\\c{4}{\\left[\vect{r}\_{x,y}^{(k)} \\; \\vect{c}\_{x,y-1}^{(k-1)} \\; \\vect{c}\_{x,y+1}^{(k-1)} \\; \\vect{c}\_{x+1,y}^{(k-1)} \\; \\vect{c}\_{x+1,y}^{(k-1)}\\right]} \\right)$$
 
 .cols[
 .c60.compact[
 - the **same .col1[$f$]** inside each voxel
-- observation $\\c{3}{o^{(k)}} \\in O = \\mathbb{R}^{4+4n\_c}$
-  - $4$ local sensor readings $\\vect{r}\_{x,y}^{(k)}$
-  - $4n\\sub{c}$ values from neighb. voxels $\\vect{r}\_{x',y'}^{(k)}$
-- action $\\c{4}{a^{(k)}} \\in A = \\mathbb{R}^{1+n\_c}$
-  - $1$ local comtract/expand value
-  - $n\_c$ values to neighb. voxels
+- observation $\\c{3}{o^{(k)}} \\in O = \\mathbb{R}^{4+4 n\\subtext{comm}}$
+  - $4$ local sensor readings .col3[$\\vect{r}\_{x,y}^{(k)}$]
+  - $4 n\\subtext{comm}$ values from neighb. voxels .col3[$\\vect{c}\_{x',y'}^{(k)}$]
+- action $\\c{4}{a^{(k)}} \\in A = \\mathbb{R}^{1+n\\subtext{comm}}$
+  - $1$ local contract/expand value .col4[$v\_{x,y}^{(k)}$]
+  - $n\\subtext{comm}$ values to neighb. voxels .col4[$\\vect{c}\_{x,y}^{(k)}$]
 ]
 .c40[
 .w75p.center[![Controller scheme](images/controller-scheme.png)]
 ]
 ]
+
+Practical relevance (potential): enables true modularity $\\rightarrow$ **collective intelligence**!
+- .refnote[Nadizar, Giorgia, et al. "A Fully-distributed Shape-aware Neural Controller for Modular Robots." Proceedings of the Genetic and Evolutionary Computation Conference. 2023.]
+- .refnote[Nadizar, Giorgia, et al. "Collective control of modular soft robots via embodied Spiking Neural Cellular Automata." arXiv preprint arXiv:2204.02099 (2022).]
 
 ---
 
@@ -182,7 +185,7 @@ $$\\left[v\_{x,y}^{(k)} \\; \\vect{c}\_{x,y}^{(k)}\\right] = f\\left(\\left[\vec
 
 .cols[
 .c60[
-For each controller .col1[$f$], the environment is *everything else*:
+For each controller .col1[$f$], **the environment is _everything else_**:
 - local sensors (as input), local actuator (as output), local mechanical model
 - other voxels (controller + mechanical model)
 - actual environment (terrain)
@@ -200,25 +203,26 @@ The **overall dynamics** comes more from the "body" than from the "brain".
 # Finding the $f$
 
 Using evolutionary optimization:
-- **representation**: what's the search space $G$ and how an $g \\in G$ represents an $f: \\mathbb{R}^n \\to \\mathbb{R}^m$
+- **representation**: what's the search space $G$ and how a $g \\in G$ represents an $f: \\mathbb{R}^n \\to \\mathbb{R}^m$
 - evolutionary algorithm (**EA**): how to search over $G$
 
-While searchingm, each $f$ is evaluated **through simulation**.
+While searching, each $f$ is evaluated **through simulation**.
 
 Three contenders:
-- MLP + GA
+- MLP+GA
 - multi-tree GP
 - GraphEA
 
 ---
 
-## MLP + GA
+## NE (i.e., MLP+GA)
 
 .cols[
 .c60.compact[
 Representation:
 - an $f$ is an **MLP with a predefined topology**
   - $n$ inputs, $m$ outputs .note[1 hidden layer w\ $0.65 n$ nodes]
+  - $\\tanh$ as activation function
 - $G = \\mathbb{R}^p$, with $p$ given by the topology
 
 EA:
@@ -232,22 +236,23 @@ EA:
 
 Widely used for control of robots and alike
 - "sota" with VSRs
+- a form of **neuroevolution** (NE)
 ]
 .c40[
-.w75p.center[![MLP](images/mlp.png)]
+.w100p.center[![MLP](images/mlp.png)]
 ]
 ]
 
 ---
 
-## Multi-tree GP
+## Multi-GP
 
 .cols[
 .c60.compact[
 Representation:
-- an $f$ is a **list of $m$** regression trees
+- an $f$ is a **list of $m$ regression trees**
   - each using 0+ of $n$ input vars
-- $G = T^m\_{n,O,C}$
+- $G = T^m\_{n,O,C} = T\_{n,O,C} \\times \\dots \\times T\_{n,O,C}$
   - $O = \\{+,-,\\times,\\div\\}$
   - $C = \\{0,0.5,1,\\dots,5\\}$
 - $\\tanh$ on outputs to enforce $\\in [-1,1]$
@@ -263,7 +268,7 @@ EA:
 Never used on VSRs.
 ]
 .c40[
-.w75p.center[![Multi-tree](images/multi-tree.png)]
+.w100p.center[![Multi-tree](images/multi-tree.png)]
 ]
 ]
 
@@ -291,22 +296,221 @@ EA:
 Never used on VSRs.
 ]
 .c40[
-.w75p.center[![oGraph](images/ograph.png)]
+.w100p.center[![oGraph](images/ograph.png)]
 ]
 ]
 
 
 ---
 
-# Direct evolution
+# Direct evolution (DE)
+
+Task: **locomotion**
+- fitness: average velocity in a simulation of 30 seconds
+- two cases: $n\\subtext{comm}=1$ and $n\\subtext{comm}=3$ ($\\approx$ search space size)
+- 10 runs
+
+Point of view:
+> **Control**: given a dynamical system, **find** *a way* to make it steer towards a goal.
+
+Dynamical system? Goal?
+- dynamical system: VSR + environment
+- state $s^{(k)}$ of the dynamical system:
+  - $s^{(k)}$ is the VSR $x$-position $\\Rightarrow$ goal is non-equilibrium ($\\lim_k s^{(k)} = +\\infty$)
+  - $s^{(k)}$ is the VSR $x$-velocity $\\Rightarrow$ goal is point equilibrium $v\_\\text{max}$
+  - $s^{(k)}$ is the VSR pose $\\Rightarrow$ goal is a cyclic equilibrium
 
 ---
 
-# Imitation learning
+## DE results: best fitness
+
+.w100p.center[![Direct evolution: best fitness during evolution](images/results-de-fitness.png)]
+
+Findings:
+- both NE and multi-GP converge; GraphEA does not
+- multi-GP $\simeq$ NE with $n\\subtext{comm}$, i.e., with larger search space .note[unexpected?]
 
 ---
 
-# VSR distributed controller
+## DE results: best size
+
+.w100p.center[![Direct evolution: best size during evolution](images/results-de-size.png)]
+
+Findings:
+- both NE and multi-GP converge; GraphEA does not
+- multi-GP solutions are not proportionally larger for $n\\subtext{comm}=3$
+  - single trees are smaller!
+
+---
+
+## DE results: behavior ($n\\subtext{comm}=1$)
+
+.cols.compact[
+.c30.center[
+NE, $n\\subtext{comm}=1$, seed 1
+
+<video width="280" height="210" autoplay loop>
+    <source src="videos/ga-1-001.mp4" type="video/mp4"/>
+</video>
+]
+.c30.center[
+Multi-GP, $n\\subtext{comm}=1$, seed 1
+
+<video width="280" height="210" autoplay loop>
+    <source src="videos/gp-1-001.mp4" type="video/mp4"/>
+</video>
+]
+.c30.center[
+GraphEA, $n\\subtext{comm}=1$, seed 1
+
+<video width="280" height="210" autoplay loop>
+    <source src="videos/graphea-1-001.mp4" type="video/mp4"/>
+</video> 
+]
+]
+
+Findings:
+- NE behavior is smoother
+- GP, GraphEA looks like bang-bang control
+
+---
+
+## DE results: behavior ($n\\subtext{comm}=3$)
+
+.cols.compact[
+.c30.center[
+NE, $n\\subtext{comm}=3$, seed 1
+
+<video width="280" height="210" autoplay loop>
+    <source src="videos/ga-3-001.mp4" type="video/mp4"/>
+</video> 
+]
+.c30.center[
+Multi-GP, $n\\subtext{comm}=3$, seed 1
+
+<video width="280" height="210" autoplay loop>
+    <source src="videos/gp-3-001.mp4" type="video/mp4"/>
+</video> 
+]
+.c30.center[
+GraphEA, $n\\subtext{comm}=3$, seed 1
+
+<video width="280" height="210" autoplay loop>
+    <source src="videos/graphea-3-001.mp4" type="video/mp4"/>
+</video>
+]
+]
+
+Findings:
+- NE behavior is "same of" $n\\subtext{comm}=1$
+- GP looks even more like bang-bang control
+  - "denser recurrency" makes the search easier for GP
+
+---
+
+## Research ~~questions~~ answers
+
+1. Is **GP** good for **continuous control**?  
+.col1[Yes] .note[no tuning of params, vanilla GP, no sofistication]
+  - Is it better than a common alternative (MLP+GA)?  
+  .col1[Not terribly worse]
+  - Are GP-generated controllers different than the baseline?  
+  .col1[Yes, less smooth, more like bang-bang]
+  
+---
+
+# Offline imitation learning (OIL)
+
+In direct evolution, the candidate $f$ may directly interact with the environment.
+
+What if we look for a $f$ that aims at reproducing the "behavior" of another $f'$?
+- $f$: the learner
+- $f'$: the teacher
+- "behavior": pairs $(o^{(k)},a^{(k)})\_k$ (i.e., $(\\vect{x}^{(k)},\\vect{y}^{(k)})\_k$ generated by $f'$
+- a form of **offline imitation learning**
+  - offline: $f$ cannot directly experience the environment
+  - imitation: $f \\leftarrow (\\vect{x}^{(k)},\\vect{y}^{(k)})\_k \\leftarrow f'$
+
+In principle, offline imitation learning is closer to multivariate regression than direct evolution. 
+
+---
+
+## Procedure
+
+For each $n\\subtext{comm}$:
+1. obtain the teachers' behaviors
+  - for each teacher $f'$ ($10 \\times 3$), get $(\\vect{x}^{(k)},\\vect{y}^{(k)})\_k$  
+  .note[one sample every 0.2s, subsampling $\\rightarrow$ 375 samples]
+2. do OIL, i.e., solve multivariate regression (**learning**)
+  - for each $(\\vect{x}^{(k)},\\vect{y}^{(k)})\_k$ ($10 \\times 3$), run 5 EA runs for NE, multi-GP, GraphEA  
+  .note[average MSE (across the $m$ vars) as fitness]
+3. for each evolved $f$ ($450$), put it inside a VSR and assess it ("**embodiment**")
+
+---
+
+## OIL: phase 2, learning
+
+.cols[
+.c70[
+.w100p.center[![Offline imitation learning, phase 2: best avg MSE during evolution](images/results-oil-fitness.png)]
+]
+.c30.compact[
+Findings:
+- NE, multi-GP converge
+- NE is the best learner; GraphEA the worst
+- Multi-GP (teacher) behavior with $n\\subtext{comm}=3$ is the hardest to learn
+  - the "most bang-bang"ish
+]
+]
+
+---
+
+## OIL: phase 3, "embodiment"
+
+.w100p.center[![Offline imitation learning, phase 3: embodiement](images/table-oil-embodiment.png)]
+
+.cols[
+.c70[
+Finding:
+- **offline imitation learning does not work**!
+  - at most $v\_x=0.12$ (NE from NE, $n\\subtext{comm}=1$) or $0.15$ (multi-GP from multi-GP, $n\\subtext{comm}=3$), was $\\approx 3$ with direct evolution
+]
+.c30[
+.w100p.center[![Direct evolution: best fitness during evolution, n_comm=1](images/results-de-fitness-1-small.png)]
+]
+]
+
+---
+
+## Research ~~questions~~ answers
+
+1. Is **GP** good for **continuous control**?  
+.col1[Yes] .note[no tuning of params, vanilla GP, no sofistication]
+  - Is it better than a common alternative (MLP+GA)?  
+  .col1[Not terribly worse]
+  - Are GP-generated controllers different than the baseline?  
+  .col1[Yes, less smooth, more like bang-bang]
+2. Is optimizing a controller different than fitting some data?  
+.col1[Yes! A lot!] .note[in this scenario (these VSRs, these sensors, ...), with this GP]
+  - Can controller optimization be cast as a form of regression?  
+  .col1[Yes, but it **does not work**!]
+
+---
+
+# Lesson learned, perspectives
+
+.note[in this scenario (these VSRs, these sensors, ...), with this GP]
+
+Controller evolution for VSRs likely has a very rugged fitness lanscape:
+- many "optima"
+- slighlty perturbing a good solution is disruptive
+  - .refnote[Medvet, Eric, and Francesco Rusin. "Impact of Morphology Variations on Evolved Neural Controllers for Modular Robots." Artificial Life and Evolutionary Computation: 16th Italian Workshop, WIVACE 2022, Gaeta, Italy, September 14–16, 2022, Revised Selected Papers. Cham: Springer Nature Switzerland, 2023.]
+- attempting to imitate a good solution does not give a good solution
+
+Practical quality of a controller is to "match" the body dynamics, rather than determine it!
+- direct evolution permits an explorative interaction with the dynamics, imitation learning does not
+  - sort-of Baldwin effect  
+  .refnote[Pigozzi, Federico, et al. "How the Morphology Encoding Influences the Learning Ability in Body-Brain Co-Optimization"; ACM Genetic and Evolutionary Computation Conference (GECCO); 2023]
 
 ---
 
@@ -330,7 +534,8 @@ Authors:
 
 Contact:
 
-<i class="fa fa-envelope" aria-hidden="true"></i> [emedvet@units.it](mailto:emedvet@units.it)    
+[medvet.inginf.units.it](https://medvet.inginf.units.it/)  
+<i class="fa fa-envelope" aria-hidden="true"></i> [emedvet@units.it](mailto:emedvet@units.it)  
 <i class="fa fa-twitter" aria-hidden="true"></i> [@EralLabTs](https://twitter.com/EralLabTs)
 ]
 ]

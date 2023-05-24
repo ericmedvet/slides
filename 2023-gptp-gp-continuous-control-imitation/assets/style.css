@@ -21,6 +21,7 @@ h4 {
 h1 {
   text-decoration-line: underline;
   text-decoration-color: #DC267F;
+  text-decoration-thickness: 2mm;
 }
 code {
   border-radius: 0.5em;
@@ -176,4 +177,32 @@ img {
   font-family: "Roboto Mono";
   color: #648FFF;
   font-size: 85%;
+}
+p + ul,
+div + ul {
+  margin-top: -0.75em;
+}
+blockquote {
+  font-family: 'Prata', serif;
+  margin: 0.25em 0;
+  padding: 0.15em 40px;
+  x-line-height: 1.45;
+  position: relative;
+  color: #383838;
+  background-color: #EEEEEE;
+  display: inline-block;
+}
+blockquote:before {
+  display: block;
+  padding-left: 10px;
+  content: "\201C";
+  font-size: 80px;
+  position: absolute;
+  left: -15px;
+  top: -10px;
+  color: #7a7a7a;
+}
+del {
+  text-decoration-thickness: 2mm;
+  text-decoration-color: #DC267F;
 }
