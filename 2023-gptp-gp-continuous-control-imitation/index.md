@@ -24,7 +24,7 @@ Evolutionary Robotics and Artificial Life Lab, University of Trieste, Italy
 
 When optimizing .col1[$f$]:
 - time does not matter
-- data .col2[$(\\vect{x}^{(i)},y^{(i)})_i$] is freezed
+- data .col2[$\\left(\\vect{x}^{(i)},y^{(i)}\\right)_i$] is fixed
 
 ]
 .c50[
@@ -34,7 +34,7 @@ When optimizing .col1[$f$]:
 
 When optimizing the .col1[controller]:
 - time matters
-- .col2[environment] is freezed, $(o^{(k)})_k$ may change 
+- .col2[environment] is fixed, $\\left(o^{(k)}\\right)_k$ may change 
 ]
 ]
 
@@ -42,18 +42,18 @@ When optimizing the .col1[controller]:
 
 ## Control and special cases
 
-In general, the .col1[controller] is $f\_C,h\_C$:
+In general, the .col1[controller] is $(f\_C,h\_C)$:
 .cols[
 .c50.center[
 $h\_C: S\_C \\times O \\to S\_C$  
 $f\_C: S\_C \\times O \\to A$
 ]
 .c50.center[
-$s\_C^{(k)}=h\_C(s\_C^{(k-1)}, o^{(k)})$  
-$a^{(k)}=f\_C(s\_C^{(k)}, o^{(k)})$
+$s\_C^{(k)}=h\_C\\left(s\_C^{(k-1)}, o^{(k)}\\right)$  
+$a^{(k)}=f\_C\\left(s\_C^{(k)}, o^{(k)}\\right)$
 ]
 ]
-The .col2[environment] is a dynamical system $f\_E,h\_E$ too.
+The .col2[environment] is a dynamical system $(f\_E,h\_E)$ too.
 
 Special case of practical relevance (**continuous control**): $O = \\mathbb{R}^n$, $A = \\mathbb{R}^m$.
 
@@ -72,10 +72,10 @@ When the controller is defined by "just" an $f: \\mathbb{R}^n \\to \\mathbb{R}^m
 
 .cols[
 .c50[
-**(Multivariate) regression**: given some data, **find** an .col1[$f: \\mathbb{R}^n \\to \\mathbb{R}^m$] that fits the data .col2[$(\\vect{x}^{(i)},y^{(i)})_i$].
+**(Multivariate) regression**: given some data, **find** an .col1[$f: \\mathbb{R}^n \\to \\mathbb{R}^m$] that fits the data .col2[$\\left(\\vect{x}^{(i)},y^{(i)}\\right)_i$].
 ]
 .c50[
-**Control**: given an environment, **find** an .col1[$f: \\mathbb{R}^n \\to \\mathbb{R}^m$] that makes the environment .col2[$f\_E,h\_E$] steer towards a goal.
+**Control**: given an environment, **find** an .col1[$f: \\mathbb{R}^n \\to \\mathbb{R}^m$] that makes the environment .col2[$(f\_E,h\_E)$] steer towards a goal.
 ]
 ]
 
@@ -116,7 +116,7 @@ Here: in the context of **simulated modular soft robots**
 - **simulated** in discrete time, in **2-D**
 - at each $k$, each square may expand ($+1$) or contract ($-1$)
   - this is what the controller decides
-- softness simulated through spring-hamper systems (dynamical system!)
+- softness simulated through spring-damper systems (dynamical system!)
   - actuation as instantaneous rest-length change
 
 Most of the dynamics is in the mechanical part, rather than in the controller
@@ -129,21 +129,27 @@ Most of the dynamics is in the mechanical part, rather than in the controller
 .cols[
 .c30[
 .w100p[![Real VSRs 1](images/hiller-lipson.png)]
+]
+.c30[
+.w100p[![Real VSRs 2](images/kriegman-frog.png)]
+]
+.c30[
+.w100p[![Real VSRs 3](images/legrand.png)]
+]
+]
 
+.cols[
+.c30[
 W/ foam cubes.
 
 .refnote[Hiller, Jonathan, and Hod Lipson. "Automatic design and manufacture of soft robots." IEEE Transactions on Robotics 28.2 (2011): 457-466.]
 ]
 .c30[
-.w100p[![Real VSRs 2](images/kriegman-frog.png)]
-
 W/ living cells!
 
 .refnote[Kriegman, Sam, et al. "A scalable pipeline for designing reconfigurable organisms." Proceedings of the National Academy of Sciences 117.4 (2020): 1853-1859.]
 ]
 .c30[
-.w100p[![Real VSRs 3](images/legrand.png)]
-
 W/ sylicon boxes.
 
 .refnote[Legrand, Julie, et al. "Reconfigurable, multi-material, voxel-based soft robots." IEEE Robotics and Automation Letters (2023).]
@@ -165,10 +171,10 @@ $$\\c{3}{\\left[v\_{x,y}^{(k)} \\; \\vect{c}\_{x,y}^{(k)}\\right]} = f\\left(\\c
 - the **same .col1[$f$]** inside each voxel
 - observation $\\c{3}{o^{(k)}} \\in O = \\mathbb{R}^{4+4 n\\subtext{comm}}$
   - $4$ local sensor readings .col3[$\\vect{r}\_{x,y}^{(k)}$]
-  - $4 n\\subtext{comm}$ values from neighb. voxels .col3[$\\vect{c}\_{x',y'}^{(k)}$]
+  - $4 n\\subtext{comm}$ values from adjacent voxels .col3[$\\vect{c}\_{x',y'}^{(k)}$]
 - action $\\c{4}{a^{(k)}} \\in A = \\mathbb{R}^{1+n\\subtext{comm}}$
   - $1$ local contract/expand value .col4[$v\_{x,y}^{(k)}$]
-  - $n\\subtext{comm}$ values to neighb. voxels .col4[$\\vect{c}\_{x,y}^{(k)}$]
+  - $n\\subtext{comm}$ values to adjacent voxels .col4[$\\vect{c}\_{x,y}^{(k)}$]
 ]
 .c40[
 .w75p.center[![Controller scheme](images/controller-scheme.png)]
@@ -221,7 +227,7 @@ Three contenders:
 .c60.compact[
 Representation:
 - an $f$ is an **MLP with a predefined topology**
-  - $n$ inputs, $m$ outputs .note[1 hidden layer w\ $0.65 n$ nodes]
+  - $n$ inputs, $m$ outputs .note[1 hidden layer w/ $0.65 n$ nodes]
   - $\\tanh$ as activation function
 - $G = \\mathbb{R}^p$, with $p$ given by the topology
 
@@ -294,6 +300,8 @@ EA:
   - a few mutations
 
 Never used on VSRs.
+
+.note[Why not CGP?]
 ]
 .c40[
 .w100p.center[![oGraph](images/ograph.png)]
@@ -316,7 +324,7 @@ Point of view:
 Dynamical system? Goal?
 - dynamical system: VSR + environment
 - state $s^{(k)}$ of the dynamical system:
-  - $s^{(k)}$ is the VSR $x$-position $\\Rightarrow$ goal is non-equilibrium ($\\lim_k s^{(k)} = +\\infty$)
+  - $s^{(k)}$ is the VSR $x$-position $\\Rightarrow$ goal is non-equilib. ($\\lim\_{k \\to +\\infty} s^{(k)} = +\\infty$)
   - $s^{(k)}$ is the VSR $x$-velocity $\\Rightarrow$ goal is point equilibrium $v\_\\text{max}$
   - $s^{(k)}$ is the VSR pose $\\Rightarrow$ goal is a cyclic equilibrium
 
@@ -328,7 +336,7 @@ Dynamical system? Goal?
 
 Findings:
 - both NE and multi-GP converge; GraphEA does not
-- multi-GP $\simeq$ NE with $n\\subtext{comm}$, i.e., with larger search space .note[unexpected?]
+- multi-GP $\simeq$ NE with $n\\subtext{comm}=3$, i.e., with larger search space .note[unexpected?]
 
 ---
 
@@ -371,7 +379,7 @@ GraphEA, $n\\subtext{comm}=1$, seed 1
 
 Findings:
 - NE behavior is smoother
-- GP, GraphEA looks like bang-bang control
+- GP, GraphEA look like **bang-bang** control
 
 ---
 
@@ -402,7 +410,7 @@ GraphEA, $n\\subtext{comm}=3$, seed 1
 ]
 
 Findings:
-- NE behavior is "same of" $n\\subtext{comm}=1$
+- NE behavior is "same as" $n\\subtext{comm}=1$
 - GP looks even more like bang-bang control
   - "denser recurrency" makes the search easier for GP
 
@@ -426,10 +434,10 @@ In direct evolution, the candidate $f$ may directly interact with the environmen
 What if we look for a $f$ that aims at reproducing the "behavior" of another $f'$?
 - $f$: the learner
 - $f'$: the teacher
-- "behavior": pairs $(o^{(k)},a^{(k)})\_k$ (i.e., $(\\vect{x}^{(k)},\\vect{y}^{(k)})\_k$ generated by $f'$
+- "behavior": pairs $\\left(o^{(k)},a^{(k)}\\right)\_k$ (i.e., $\\left(\\vect{x}^{(k)},\\vect{y}^{(k)}\\right)\_k$ generated by $f'$
 - a form of **offline imitation learning**
   - offline: $f$ cannot directly experience the environment
-  - imitation: $f \\leftarrow (\\vect{x}^{(k)},\\vect{y}^{(k)})\_k \\leftarrow f'$
+  - imitation: $f \\leftarrow \\left(\\vect{x}^{(k)},\\vect{y}^{(k)}\\right)\_k \\leftarrow f'$
 
 In principle, offline imitation learning is closer to multivariate regression than direct evolution. 
 
@@ -439,12 +447,12 @@ In principle, offline imitation learning is closer to multivariate regression th
 
 For each $n\\subtext{comm}$:
 1. obtain the teachers' behaviors
-  - for each teacher $f'$ ($10 \\times 3$), get $(\\vect{x}^{(k)},\\vect{y}^{(k)})\_k$  
+  - for each teacher $f'$, get $\\left(\\vect{x}^{(k)},\\vect{y}^{(k)}\\right)\_k$ .note[$10 \\times 3$ times]  
   .note[one sample every 0.2s, subsampling $\\rightarrow$ 375 samples]
 2. do OIL, i.e., solve multivariate regression (**learning**)
-  - for each $(\\vect{x}^{(k)},\\vect{y}^{(k)})\_k$ ($10 \\times 3$), run 5 EA runs for NE, multi-GP, GraphEA  
-  .note[average MSE (across the $m$ vars) as fitness]
-3. for each evolved $f$ ($450$), put it inside a VSR and assess it ("**embodiment**")
+  - for each $\\left(\\vect{x}^{(k)},\\vect{y}^{(k)}\\right)\_k$ .note[$10 \\times 3$ times], perform 5 EA runs for NE, multi-GP, GraphEA .note[$5 \\times 3$ times]  
+  - using average MSE (across the $m$ vars) as fitness
+3. for each evolved $f$, put it inside a VSR and assess it ("**embodiment**") .note[$10 \\times 3 \\times 5 \\times 3 = 450$ times]
 
 ---
 
@@ -491,7 +499,7 @@ Finding:
   - Are GP-generated controllers different than the baseline?  
   .col1[Yes, less smooth, more like bang-bang]
 2. Is optimizing a controller different than fitting some data?  
-.col1[Yes! A lot!] .note[in this scenario (these VSRs, these sensors, ...), with this GP]
+.col1[Yes! A lot!] .note[with this GP, in this scenario, i.e., with these VSRs, these sensors, ...]
   - Can controller optimization be cast as a form of regression?  
   .col1[Yes, but it **does not work**!]
 
@@ -499,7 +507,7 @@ Finding:
 
 # Lesson learned, perspectives
 
-.note[in this scenario (these VSRs, these sensors, ...), with this GP]
+.note[with this GP, in this scenario, i.e., with these VSRs, these sensors, ...]
 
 Controller evolution for VSRs likely has a very rugged fitness lanscape:
 - many "optima"
@@ -507,7 +515,7 @@ Controller evolution for VSRs likely has a very rugged fitness lanscape:
   - .refnote[Medvet, Eric, and Francesco Rusin. "Impact of Morphology Variations on Evolved Neural Controllers for Modular Robots." Artificial Life and Evolutionary Computation: 16th Italian Workshop, WIVACE 2022, Gaeta, Italy, September 14–16, 2022, Revised Selected Papers. Cham: Springer Nature Switzerland, 2023.]
 - attempting to imitate a good solution does not give a good solution
 
-Practical quality of a controller is to "match" the body dynamics, rather than determine it!
+The quality of a controller is to "match" the body dynamics, rather than to determine it!
 - direct evolution permits an explorative interaction with the dynamics, imitation learning does not
   - sort-of Baldwin effect  
   .refnote[Pigozzi, Federico, et al. "How the Morphology Encoding Influences the Learning Ability in Body-Brain Co-Optimization"; ACM Genetic and Evolutionary Computation Conference (GECCO); 2023]

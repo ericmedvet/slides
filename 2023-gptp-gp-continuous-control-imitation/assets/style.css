@@ -6,10 +6,10 @@ body {
   font-size: 22px;
   padding: 1em 2em 1em 2em;
 }
-.col1 { color: blue }
-.col2 { color: red }
-.col3 { color: green }
-.col4 { color: #DC267F }
+.col1 { color: #3333cc }
+.col2 { color: #ff0505 }
+.col3 { color: #008000 }
+.col4 { color: #ff00ff }
 
 h1,
 h2,
@@ -20,7 +20,7 @@ h4 {
 }
 h1 {
   text-decoration-line: underline;
-  text-decoration-color: #DC267F;
+  text-decoration-color: #ff0505;
   text-decoration-thickness: 2mm;
 }
 code {
@@ -35,9 +35,9 @@ code {
   font-size: 90%;
 }
 a {
-  color: #DC267F;
+  color: #ff0505;
   text-decoration-line: underline;
-  text-decoration-color: #648FFF;
+  text-decoration-color: #ff0505;
 }
 pre {
   margin: 0.1em 0;
@@ -204,5 +204,5 @@ blockquote:before {
 }
 del {
   text-decoration-thickness: 2mm;
-  text-decoration-color: #DC267F;
+  text-decoration-color: #ff0505;
 }
