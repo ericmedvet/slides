@@ -1434,7 +1434,7 @@ For everything else, a `record` is just like a `class`!
 Just a record:
 .compact[
 ```java
-record Point(double x, double y) {
+record Point(double x, double y) {}
 ```
 ]
 
@@ -1443,7 +1443,7 @@ With one more method:
 ```java
 record Segment(Point p1, Point p2) {
   public double length() {
-    return Math.sqrt(Math.pow(p1.x() - p2.x(), 2) + Math.pow(p1.x() - p2.x(), 2));
+    return Math.sqrt(Math.pow(p1.x() - p2.x(), 2) + Math.pow(p1.y() - p2.y(), 2));
   }
 }
 ```
