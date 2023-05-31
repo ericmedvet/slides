@@ -181,9 +181,9 @@ $$\\c{3}{\\left[v\_{x,y}^{(k)} \\; \\vect{c}\_{x,y}^{(k)}\\right]} = f\\left(\\c
 ]
 ]
 
-Practical relevance (potential): enables true modularity $\\rightarrow$ **collective intelligence**!
-- .refnote[Nadizar, Giorgia, et al. "A Fully-distributed Shape-aware Neural Controller for Modular Robots." Proceedings of the Genetic and Evolutionary Computation Conference. 2023.]
-- .refnote[Nadizar, Giorgia, et al. "Collective control of modular soft robots via embodied Spiking Neural Cellular Automata." arXiv preprint arXiv:2204.02099 (2022).]
+Practical relevance (potential): enables true modularity $\\rightarrow$ **collective intelligence**!  
+.refnote[Nadizar, Giorgia, et al. "A Fully-distributed Shape-aware Neural Controller for Modular Robots." Proceedings of the Genetic and Evolutionary Computation Conference. 2023.]
+.refnote[Nadizar, Giorgia, et al. "Collective control of modular soft robots via embodied Spiking Neural Cellular Automata." arXiv preprint arXiv:2204.02099 (2022).]
 
 ---
 
@@ -290,7 +290,7 @@ Representation:
   - $|C|$ nodes with constants
   - inner nodes with operators $O$
 - $G = \\mathcal{G}\_{n,m,O,C}$
-  - $O = \\{+,-,\\times,\\div\\}$
+  - $O = \\{+,-,\\times,\\div, \\log\\}$
   - $C = \\{0,0.5,1,\\dots,5\\}$
 - $\\tanh$ on outputs to enforce $\\in [-1,1]$
 
@@ -419,7 +419,7 @@ Findings:
 ## Research ~~questions~~ answers
 
 1. Is **GP** good for **continuous control**?  
-.col1[Yes] .note[no tuning of params, vanilla GP, no sofistication]
+.col1[Yes] .note[no tuning of params, vanilla GP, no sofistications]
   - Is it better than a common alternative (MLP+GA)?  
   .col1[Not terribly worse]
   - Are GP-generated controllers different than the baseline?  
@@ -439,7 +439,7 @@ What if we look for a $f$ that aims at reproducing the "behavior" of another $f'
   - offline: $f$ cannot directly experience the environment
   - imitation: $f \\leftarrow \\left(\\vect{x}^{(k)},\\vect{y}^{(k)}\\right)\_k \\leftarrow f'$
 
-In principle, offline imitation learning is closer to multivariate regression than direct evolution. 
+In principle, offline imitation learning is **closer to multivariate regression** than direct evolution. 
 
 ---
 
@@ -511,8 +511,8 @@ Finding:
 
 Controller evolution for VSRs likely has a very rugged fitness lanscape:
 - many "optima"
-- slighlty perturbing a good solution is disruptive
-  - .refnote[Medvet, Eric, and Francesco Rusin. "Impact of Morphology Variations on Evolved Neural Controllers for Modular Robots." Artificial Life and Evolutionary Computation: 16th Italian Workshop, WIVACE 2022, Gaeta, Italy, September 14–16, 2022, Revised Selected Papers. Cham: Springer Nature Switzerland, 2023.]
+- slighlty perturbing a good solution is disruptive  
+.refnote[Medvet, Eric, and Francesco Rusin. "Impact of Morphology Variations on Evolved Neural Controllers for Modular Robots." Artificial Life and Evolutionary Computation: 16th Italian Workshop, WIVACE 2022, Gaeta, Italy, September 14–16, 2022, Revised Selected Papers. Cham: Springer Nature Switzerland, 2023.]
 - attempting to imitate a good solution does not give a good solution
 
 The quality of a controller is to "match" the body dynamics, rather than to determine it!
