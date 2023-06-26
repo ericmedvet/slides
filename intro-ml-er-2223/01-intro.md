@@ -12,7 +12,7 @@ A.Y. 2022/2023
 ## Lecturer
 
 Eric Medvet
-- associate Professor of Computer Engineering at [Departmenet of Engineering and Architecture](https://dia.units.it/), [University of Trieste](https://www.units.it/)
+- associate Professor of Computer Engineering at [Department of Engineering and Architecture](https://dia.units.it/), [University of Trieste](https://www.units.it/)
 - online at: [medvet.inginf.units.it](http://medvet.inginf.units.it/)
 
 Research interests:
