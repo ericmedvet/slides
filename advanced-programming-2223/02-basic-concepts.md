@@ -271,7 +271,7 @@ Examples (class [`String`](https://docs.oracle.com/en/java/javase/13/docs/api/ja
 String s = new String("Hello!");
 int l = s.length();
 ```
-- execute (who?) the operation defined by the method `lenght()` on the object referenced by `s`
+- execute (who?) the operation defined by the method `length()` on the object referenced by `s`
   - briefly: invoke `length()` on `s`
 - create reference `l` of type `int`
 - make `l` reference the object created upon the execution of the operation
