@@ -75,7 +75,7 @@ Labs:
 
 ## Structure of the course
 
-1st part (6 CFUs, 48 hours): .note[for all: [IN20](https://corsi.units.it/IN20/descrizione-corso), [IN19](https://corsi.units.it/IN19/descrizione-corso), [SM35](https://dssc.units.it/), [SM34](https://corsi.units.it/SM34/descrizione-corso), [SM23](https://corsi.units.it/SM23/descrizione-corso), and [SM64](https://corsi.units.it/SM64/descrizione-corso)]
+1st part (6 CFUs, 48 hours): .note[for all: [IN20](https://corsi.units.it/IN20/descrizione-corso), [IN19](https://corsi.units.it/IN19/descrizione-corso), [SM38](https://dsai.units.it/), [SM36](https://sdic.units.it/), [SM34](https://corsi.units.it/SM34/descrizione-corso), [SM23](https://corsi.units.it/SM23/descrizione-corso), and [SM64](https://corsi.units.it/SM64/descrizione-corso)]
 - what is machine learning?
   - [definitions](#ml-definitions), [recap](#ml-definitions-recap)
 - evaluating an ML system
