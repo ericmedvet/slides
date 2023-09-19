@@ -1000,21 +1000,29 @@ The **more unbalanced** a dataset, the farther the error (accuracy) from the ave
 ## Precision and recall
 
 .cols[
-.c60[
-.key[Precision]: .note[may be $\\frac{0}{0}$, i.e., `NaN`, if the classifier never says positive]
-$$\\text{Prec}=\\frac{\\text{TP}}{\\text{TP}+\\text{FP}}$$
-]
 .c40[
+.key[Precision]:
+$$\\text{Prec}=\\frac{\\text{TP}}{\\text{TP}+\\text{FP}}$$
+.note[may be $\\frac{0}{0}$, i.e., `NaN`, if the classifier never says positive]
+]
+.c30[
 .key[Recall]:
 $$\\text{Rec}=\\frac{\\text{TP}}{\\text{P}}=\\text{TPR}$$
 ]
+.c30[
+.key[F-measure]: .note[or F1, F1-score, F-score]
+$$\\text{Rec}=2\\frac{\\text{Prec} \\cdot \\text{Rec}}{\\text{Prec}+\\text{Rec}}$$
+.note[geometric mean of precision and recall]
+]
 ]
 
+.compact[
 They come from the **information retrieval** scenario:
 - imagine a set of documents $D$ (e.g., the web)
 - imagine a query $q$ with an **ideal** subset $D^\\star \\subseteq D$ as response (**relevant** documents)
 - the search engine retrieves a subset $D' \\subseteq D$ of documents (**retrieved** documents)
 - retrieving a document as binary classification: is $d \\in D$ relevant or not? .note[relevant = positive]
+]
 
 .cols[
 .c60[
@@ -1027,7 +1035,7 @@ They come from the **information retrieval** scenario:
 ]
 ]
 
-**The greater, the better** (like accuracy); precision $\\in [0,1] \\cup $ `NaN`, recall $\\in [0,1]$.
+**The greater, the better** (like accuracy); precision $\\in [0,1] \\cup $ `NaN`, recall $\\in [0,1]$, F-measure $\\in [0,1]$.
 
 ---
 
@@ -2622,8 +2630,6 @@ Similar:
 - just **effectiveness**
 ]
 .c60[
-- F1 is the F- or F1-score
-  - geometric mean of precision and recall
 - MCC is the Matthews correlation coefficient
   - $\\text{MCC}=\\frac{\\text{TP} \; \\text{TN} - \\text{FP} \; \\text{FN}}{\\sqrt{(\\text{TP} + \\text{FP})(\\text{TP} + \\text{FN})(\\text{TN} + \\text{FP})(\\text{TN} + \\text{FN})}}$
 ]
