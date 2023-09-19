@@ -2564,7 +2564,7 @@ alternative hypothesis: true location shift is not equal to 0
 $H\_0 \\ni$ `true location shift is equal to 0`
 
 $p=0.7621 > 0.05$: we cannot reject the null hypothesis  
-$\\Rightarrow$ people from Trieste is **not taller** than people from Udine .note[or, at least, we cannt state this]
+$\\Rightarrow$ people from Trieste is **not taller** than people from Udine .note[or, at least, we cannot state this]
 
 .footnote[
 More on statistical significance tests:
