@@ -1011,7 +1011,7 @@ $$\\text{Rec}=\\frac{\\text{TP}}{\\text{P}}=\\text{TPR}$$
 ]
 .c30[
 .key[F-measure]: .note[or F1, F1-score, F-score]
-$$\\text{Rec}=2\\frac{\\text{Prec} \\cdot \\text{Rec}}{\\text{Prec}+\\text{Rec}}$$
+$$\\text{F-measure}=2\\frac{\\text{Prec} \\cdot \\text{Rec}}{\\text{Prec}+\\text{Rec}}$$
 .note[geometric mean of precision and recall]
 ]
 ]
