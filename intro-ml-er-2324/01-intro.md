@@ -115,7 +115,7 @@ Textbooks:
 
 ## How to attend lectures
 
-**New slides for this course edition!**
+**New slides since AY 22/23!**
 - same content of previous years, slightly different order
 - hopefully better
   - main concept definitions are more explicit
