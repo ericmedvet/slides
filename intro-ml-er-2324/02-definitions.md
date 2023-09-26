@@ -370,7 +370,7 @@ otext(250,10,'$f\\\\subtext{predict}$')
 
 ---
 
-## Lerning techniques
+## Learning techniques
 
 .important[
 A .key[supervised learning technique] is a way for learn an $f\\subtext{predict} \\in \\mathcal{F}\_{X \\to Y}$ given a $D\\subtext{learn} \\in \\mathcal{P}^\*(X \\times Y)$.
