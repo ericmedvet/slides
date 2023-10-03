@@ -992,7 +992,7 @@ $Y=\\{\\text{setosa}, \\text{versicolor}, \\text{virginica}\\}$
 
 .cols[
 .c60[
-We cannot just take *another* X, because the problem is "given an Iris flower, assign a species".
+We cannot just take *another* $X$, because the problem is "given an Iris flower, assign a species".
 But we can introduce some **pre-processing**¹ steps that transform an $x \\in X$ in an $x' \\in X'$, with $X'$ being better, more suitable, for later steps.
 
 That is, we can design an $f\\subtext{pre-proc}: X \\to X'$ and an $X'$!
