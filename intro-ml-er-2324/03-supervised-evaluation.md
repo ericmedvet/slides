@@ -660,13 +660,13 @@ Consider the random classifier as a supervised learning technique:
 - in **prediction phase**: choose the most frequent class .note[concrete]
 
 Hence, formally:
-- a .col2[model $m \\in M$ is]:
-  - the class **frequencies** $\\c{2}{\\vect{f} = (f\_1,\\dots,f\_{|Y|})}$, with $M=F\_Y=\\{\\vect{f} \\in [0,1]^{|Y|}: \\lVert \\vect{f} \\rVert\_1=1\\}$ .note[
+- a .col2[model $m \\in M$ is]: .note[these are alternative options]
+  1. the class **frequencies** $\\c{2}{\\vect{f} = (f\_1,\\dots,f\_{|Y|})}$, with $M=F\_Y=\\{\\vect{f} \\in [0,1]^{|Y|}: \\lVert \\vect{f} \\rVert\_1=1\\}$ .note[
   $\\lVert \\vect{x} \\rVert\_1$ is the **1-norm** of a vector $\\vect{x}=(x\_1,\\dots,x\_p)$ with $\\lVert \\vect{x} \\rVert\_1$ $=\\sum\_i x\_i$
   ]
-  - a **discrete probability distribution** .col2[$p$] over $Y$, with $M=P\_Y=\\{p: Y \\to [0,1] \\text{ s.t. } 1=\\sum\_{y' \\in Y} p(y')=\\prob{y'=y}\\}$ .note[$\\text{s.t.}$ stays for "such that"]
-  - the $y$ part .col2[$\\seq{y^{(i)}}{i}$] of a **dataset** $\\seq{x^{(i)},y^{(i)}}{i}$, with $M=\\mathcal{P}^*(Y)$
-  - just the most frequent **class** .col2[$y^\\star$], with $M=Y$
+  2. a **discrete probability distribution** .col2[$p$] over $Y$, with $M=P\_Y=\\{p: Y \\to [0,1] \\text{ s.t. } 1=\\sum\_{y' \\in Y} p(y')=\\prob{y'=y}\\}$ .note[$\\text{s.t.}$ stays for "such that"]
+  3. the $y$ part .col2[$\\seq{y^{(i)}}{i}$] of a **dataset** $\\seq{x^{(i)},y^{(i)}}{i}$, with $M=\\mathcal{P}^*(Y)$
+  4. just the most frequent **class** .col2[$y^\\star$], with $M=Y$
 - $f'\\subtext{learn}: \\mathcal{P}^*(X \\times Y) \\to M$ .note[asbtract]
 - $f'\\subtext{predict}: X \\times M \\to Y$ .note[asbtract]
 
@@ -697,19 +697,7 @@ otext(250,10,'$y$')
 ]
 ]
 
-Option 1: the model .col2[$m$] is a **discrete probability distribution**: .note[here $f'\\subtext{learn}$ a function that returns a function]
-.cols[
-.c50.center.compact[
-$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\c{2}{p}: p(y)= \\freq{y, \\seq{y^{(i)})}{i}}$
-]
-.c50.center.compact[
-$f'\\subtext{predict}(x,\\c{2}{p})=\\argmax\_{y \\in Y} \\c{2}{p}(y)$
-]
-]
-
---
-
-Option 2: the model .col2[$m$] is a **vector of frequencies**:
+Option 1: the model .col2[$m$] is a **vector of frequencies**:
 .note[assume $Y=\\\\{y\_1, y\_2, \\dots\\\\}$]
 .cols[
 .c50.center.compact[
@@ -717,6 +705,18 @@ $f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\c{2}{\\vect{f}} = \\left(\\
 ]
 .c50.center.compact[
 $f'\\subtext{predict}(x,\\c{2}{\\vect{f}})=y\_i$ with $i = \\argmax\_i f\_i$]
+]
+
+--
+
+Option 2: the model .col2[$m$] is a **discrete probability distribution**: .note[here $f'\\subtext{learn}$ a function that returns a function]
+.cols[
+.c50.center.compact[
+$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\c{2}{p}: p(y)= \\freq{y, \\seq{y^{(i)})}{i}}$
+]
+.c50.center.compact[
+$f'\\subtext{predict}(x,\\c{2}{p})=\\argmax\_{y \\in Y} \\c{2}{p}(y)$
+]
 ]
 
 ---
@@ -757,7 +757,7 @@ Are they different? How?
 
 They differ in efficiency, are equal in effectiveness:
 - **effectiveness** as supervised learning techniques, **same by definition**
-- **efficiency**, always low, but: .note[just an implementation matter]
+- **efficiency**, always high, but: .note[just an implementation matter]
   - more or less memory for storing the model $m$
   - computational effort more in the learning or prediction phase
 
@@ -877,7 +877,7 @@ The .key[False Negative Rate (FNR)] is the rate of **.col3[positives]** that are
 $$f\\subtext{FNR}(\\{(y^{(i)},\\hat{y}^{(i)})\\}\_i)=\\frac{\\sum\_i\\mathbf{1}(\\c{3}{y^{(i)}=\\text{pos}} \\land \\c{2}{y^{(i)} \\ne \\hat{y}^{(i)}})}{\\sum\_i\\mathbf{1}(\\c{3}{y^{(i)}=\\text{pos}})}$$
 
 For both:
-- the codomain is $[0,1]$
+- the codomain is $[0,1]$ .note[may be $\\frac{0}{0}$, i.e., `NaN`, if no negatives (FPR) or positives (FNR) in the data]
 - **the lower, the better** (like the error)
 - each one is formally an $f\\subtext{comp-resps}$ considering just a part  $\\seq{(y^{(i)},\\hat{y}^{(i)})}{i}$
 
@@ -898,7 +898,7 @@ $$\\text{FNR}=\\frac{\\text{FN}}{\\text{P}}$$
 ]
 
 Assuming that:
-- there is a $\\seq{(y^{(i)},\\hat{y}^{(i)}}{i}$, even if it's not written
+- there is a $\\seq{(y^{(i)},\\hat{y}^{(i)})}{i}$, even if it's not written
 - $\\text{FP}$ is the number of false positives; $\\text{FN}$ is the number of false negatives
   - you need both $y^{(i)}$ and $\\hat{y}^{(i)}$ for counting them
   - *.col1[negative]/.col3[positive]* is for $\\hat{y}^{(i)}$; *.col2[false]* is for $y^{(i)}$, but considering $\\hat{y}^{(i)}$
