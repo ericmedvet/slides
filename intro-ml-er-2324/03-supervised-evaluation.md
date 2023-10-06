@@ -483,7 +483,6 @@ Case: **coin tossing**, $Y=\\{\\c{1}{\\text{heads}},\\c{2}{\\text{tails}}\\}$
 |.col2[⬤].col2[⬤].col1[⬤].col2[⬤]|.col2[⬤].col1[⬤].col2[⬤].col1[⬤]|$25\%$|
 | ... | ... | ... |
 |.col1[⬤]|.col1[⬤]|$100\%$|
-|.col2[⬤]|.col1[⬤]|$0\%$|
 |.col1[⬤]|.col2[⬤]|$0\%$|
 ]
 Average accuracy = $50\%$
@@ -504,7 +503,6 @@ Case: **Iris**, $Y=\\{\\c{1}{\\text{setosa}},\\c{2}{\\text{versicolor}},\\c{3}{\
 |.col2[⬤].col2[⬤].col1[⬤].col3[⬤]|.col2[⬤].col1[⬤].col2[⬤].col3[⬤]|$50\%$|
 | ... | ... | ... |
 |.col3[⬤]|.col3[⬤]|$100\%$|
-|.col2[⬤]|.col1[⬤]|$0\%$|
 |.col1[⬤]|.col3[⬤]|$0\%$|
 ]
 Average accuracy $\\approx 33\%$
@@ -515,6 +513,11 @@ Average accuracy $\\approx 33\%$
 $$f\\subtext{acc}(\\htmlClass{col3 st}{\\text{⬤⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}},\\htmlClass{col3 st}{\\text{⬤⬤⬤⬤}}) = 50\%$$
 ]
 ]
+
+.footnote[
+Here $f\\subtext{acc}(\\htmlClass{col3 st}{\\text{⬤}}\\htmlClass{col1 st}{\\text{⬤}}\\htmlClass{col2 st}{\\text{⬤}},\\htmlClass{col3 st}{\\text{⬤⬤⬤}})$ stays for $f\\subtext{acc}(\\{(\\htmlClass{col3 st}{\\text{⬤}},\\htmlClass{col3 st}{\\text{⬤}}),(\\htmlClass{col1 st}{\\text{⬤}},\\htmlClass{col3 st}{\\text{⬤}}),(\\htmlClass{col2 st}{\\text{⬤}},\\htmlClass{col3 st}{\\text{⬤}})\\})$.
+]
+
 
 ---
 
