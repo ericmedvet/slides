@@ -348,7 +348,7 @@ We'll see **a few options** for the main cases:
   - all (i.e., agnostic with respect to $|Y|$): **error**, **accuracy**
   - binary: **FPR** and **FNR** (and variants), **EER**, **AUC**
   - multiclass: **weighted accuracy**
-- regression: **MAE**, **MSE**, **MRE**, $R^2$
+- regression: **MAE**, **MSE**, **MRE**
 ]
 .c40[
 <span style="font-size: 600%; line-height: 140px; vertical-align: bottom;">}</span>
@@ -1339,7 +1339,7 @@ d %>% pivot_longer(c(FPR,FNR)) %>% ggplot(aes(x=tau,y=value,color=name)) + geom_
 
 ## The ROC curve
 
-For a model $m$ and a dataset $\\seq{(x^{(i)},y^{(i)})}{i}$ and a sequence $(\\tau\_i)\_i$, the .key[Receiver operating chracteristic¹ (ROC)] curve is the plot of $\\text{TPR}$ ($= 1-\\text{FNR}$) vs. $\\text{FPR}$ for the **different values** of $\\tau \\in (\\tau\_i)\_i$.
+For a model $m$ and a dataset $\\seq{(x^{(i)},y^{(i)})}{i}$ and a sequence $(\\tau\_i)\_i$, the .key[Receiver operating characteristic¹ (ROC)] curve is the plot of $\\text{TPR}$ ($= 1-\\text{FNR}$) vs. $\\text{FPR}$ for the **different values** of $\\tau \\in (\\tau\_i)\_i$.
 
 .cols[
 .c30[
