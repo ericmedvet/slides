@@ -1851,7 +1851,7 @@ $\\text{wAcc} = \\frac{1}{4} \\left( \\frac{15}{20}+\\frac{10}{16}+\\frac{28}{37
 ]
 
 $\\text{wAcc}$ overlooks class imbalance, $\\text{Acc}$ does not; $\\text{wAcc} \\in [0,1]$; **the greater, the better**
-- $\\text{wAcc}$ is like $\\frac{1}{2} (\\text{FPR}+\\text{FNR})$
+- $\\text{wAcc}$ is like $\\frac{1}{2} (\\text{TPR}+\\text{TNR})$
 
 ---
 
@@ -2227,7 +2227,7 @@ $D$ is split in $D\\subtext{learn}$ and $D\\subtext{test}$ for $k$ times and mea
 .compact.pseudo-code[
 function $\\text{learn-effect-cv}(f'\\subtext{learn},f'\\subtext{predict}, D, k)$ {  
 .i[]for $j \\in 1,\\dots,k$ {  
-.i[].i[]$D\\subtext{test} \\gets \\text{fold}(D, j)$  
+.i[].i[]$D\\subtext{test} \\gets \\text{fold}(D, j, k)$  
 .i[].i[]$D\\subtext{learn} \\gets D \\setminus D\\subtext{test}$  
 .i[].i[]$m \\gets f'\\subtext{learn}(D\\subtext{learn})$  
 .i[].i[]$v\_j \\gets \\text{predict-effect}(f'\\subtext{predict},m,D\\subtext{test})$  
@@ -2267,7 +2267,7 @@ otext(300,25,"$k$")
 **Efficiency** of assessment:
 - learning is executed $k$ times: might be heavy
 
-.center[**Bad** 👎]
+.center[$\\propto k$ 🫳]
 ]
 ]
 
@@ -2303,7 +2303,7 @@ otext(400,10,"$v\\\\subtext{effect}$")
 **Efficiency** of assessment:
 - learning is executed $k=|D|$ times: might be heavy
 
-.center[$\\propto k$ 🫳]
+.center[**Bad** 👎]
 ]
 ]
 
