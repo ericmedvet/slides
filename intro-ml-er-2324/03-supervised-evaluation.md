@@ -1908,7 +1908,7 @@ Premise:
   - we measure this with $f\\subtext{comp-behavior}$, that internally uses a dataset
 
 Goal:
-- we want a measure (a number!) the effectiveness of $f'\\subtext{learn},f'\\subtext{predict}$
+- we want a measure (a number!) of the effectiveness of $f'\\subtext{learn},f'\\subtext{predict}$
 
 Sketch of solution:
 1. **learn** an $m$ with $f'\\subtext{learn}$
@@ -1997,7 +1997,7 @@ otext(400,10,"$v\\\\subtext{effect}$")
 .note[
 We are just leaving the data collection out of $\\text{predict-effect}()$.
 
-$\\text{first}()$ and $\\text{first}()$ take the first or second element of a pair.
+$\\text{first}()$ and $\\text{second}()$ take the first or second element of a pair.
 ]
 ]
 ]
