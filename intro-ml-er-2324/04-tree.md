@@ -49,7 +49,7 @@ Hence:
 ]
 ]
 
-We (the ML expert and the domain expert) decide to **collect some data** $D=\\seq{(x^{(i)},y^{(i)}}{i}$ by observing the real system:
+We (the ML expert and the domain expert) decide to **collect some data** $D=\\seq{(x^{(i)},y^{(i)})}{i}$ by observing the real system:
 - it'll come handy for both learning and assessment
 
 ---
@@ -437,8 +437,7 @@ function $\\text{predict}(\\vect{x}, t)$ {
 .i[].i[]} else {  
 .i[].i[].i[]return $\\text{predict}(\\vect{x}, \\text{right-child-of}(t))$  
 .i[].i[]}  
-.i[]}  
-}
+.i[]}    
 }
 ]
 ]
