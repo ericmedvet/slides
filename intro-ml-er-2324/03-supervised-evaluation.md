@@ -610,7 +610,7 @@ $$f\\subtext{Bayes}(x) = \\begin{cases}
 .compact[
 .question[Questions]
 - what's the accuracy of $f\\subtext{Bayes}$? What's the model for the Bayes classifier? What's $M$?  
-- what's the accurcay of $f\\subtext{dummy}$? And of $f\\subtext{rnd}$?
+- what's the accuracy of $f\\subtext{dummy}$? And of $f\\subtext{rnd}$?
 ]
 
 ---
