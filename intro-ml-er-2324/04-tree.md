@@ -1320,13 +1320,13 @@ otext(195,-5,'●','col2')
 ]
 ]
 
-.i[].i[]return $\\tree{(1,4)}{\\treel{\\c{2}{●  \\smaller{1}}}}{\\treel{(\\c{1}{● \\smaller{\\frac{2}{3}}}, \\c{2}{● \\smaller{\\frac{1}{3}}})}}$  
-.i[]return $\\tree{(1,2)}{\\treel{\\c{1}{● \\smaller{1}}}}{\\tree{(1,4)}{\\treel{\\c{2}{●  \\smaller{1}}}}{\\treel{(\\c{1}{● \\smaller{\\frac{2}{3}}}, \\c{2}{● \\smaller{\\frac{1}{3}}})}}}$
+.i[].i[]return $\\tree{(1,4)}{\\treel{(\\c{2}{●  \\smaller{1}})}}{\\treel{(\\c{1}{● \\smaller{\\frac{2}{3}}}, \\c{2}{● \\smaller{\\frac{1}{3}}})}}$  
+.i[]return $\\tree{(1,2)}{\\treel{(\\c{1}{● \\smaller{1}})}}{\\tree{(1,4)}{\\treel{(\\c{2}{●  \\smaller{1}})}}{\\treel{(\\c{1}{● \\smaller{\\frac{2}{3}}}, \\c{2}{● \\smaller{\\frac{1}{3}}})}}}$
 
 .cols.pcompact[
 .c40[
 .i[]**1st-r call:**  
-.i[]return $\\treel{\\c{3}{● \\smaller{1}}}$
+.i[]return $\\treel{(\\c{3}{● \\smaller{1}})}$
 ]
 .c60[
 .diagram.neutral.center[
@@ -1351,7 +1351,7 @@ otext(285,-5,'●','col3')
 ]
 ]
 
-return $\\tree{(1,7)}{\\tree{(1,2)}{\\treel{\\c{1}{● \\smaller{1}}}}{\\tree{(1,4)}{\\treel{\\c{2}{●  \\smaller{1}}}}{\\treel{(\\c{1}{● \\smaller{\\frac{2}{3}}}, \\c{2}{● \\smaller{\\frac{1}{3}}})}}}}{\\treel{\\c{3}{● \\smaller{1}}}}$
+return $\\tree{(1,7)}{\\tree{(1,2)}{\\treel{(\\c{1}{● \\smaller{1}})}}{\\tree{(1,4)}{\\treel{(\\c{2}{●  \\smaller{1}})}}{\\treel{(\\c{1}{● \\smaller{\\frac{2}{3}}}, \\c{2}{● \\smaller{\\frac{1}{3}}})}}}}{\\treel{(\\c{3}{● \\smaller{1}})}}$
 
 ]
 .c40.compact[
@@ -1416,24 +1416,24 @@ rect(200,60,140,30)
 otext(270,75,'$x\\\\subtext{age}$ vs. $9.887$', 'small')
 link([70,90,15,120])
 otext(15,105,'$\\\\le$','small')
-rect(0,120,30,30)
-otext(15,135,'●$\\\\smaller{1}$','col1')
+rect(-5,120,40,30)
+otext(15,135,'$(\\\\c{1}{●\\\\smaller{1}})$','small')
 link([70,90,130,120])
 otext(130,105,'$>$','small')
 rect(60,120,140,30)
 otext(130,135,'$x\\\\subtext{age}$ vs. $9.002$', 'small')
 link([270,90,235,120])
 otext(235,105,'$\\\\le$','small')
-rect(220,120,30,30)
-otext(235,135,'●$\\\\smaller{1}$','col1')
+rect(215,120,40,30)
+otext(235,135,'$(\\\\c{1}{●\\\\smaller{1}})$','small')
 link([270,90,305,120])
 otext(305,105,'$>$','small')
-rect(290,120,30,30)
-otext(305,135,'●$\\\\smaller{1}$','col2')
+rect(285,120,40,30)
+otext(305,135,'$(\\\\c{2}{●\\\\smaller{1}})$','small')
 link([130,150,70,180])
 otext(70,165,'$\\\\le$','small')
-rect(55,180,30,30)
-otext(70,195,'●$\\\\smaller{1}$','col2')
+rect(50,180,40,30)
+otext(70,195,'$(\\\\c{2}{●\\\\smaller{1}})$','small')
 link([130,150,185,180])
 otext(185,165,'$>$','small')
 rect(115,180,140,30)
@@ -1444,16 +1444,16 @@ link([185,210,245,240])
 otext(245,225,'$>$','small')
 rect(55,240,140,30)
 otext(125,255,'$x\\\\subtext{age}$ vs. $9.306$', 'small')
-rect(230,240,30,30)
-otext(245,255,'●$\\\\smaller{1}$','col1')
+rect(225,240,40,30)
+otext(245,255,'$(\\\\c{1}{●\\\\smaller{1}})$','small')
 link([125,270,90,300])
 otext(90,285,'$\\\\le$', 'small')
-rect(75,300,30,30)
-otext(90,315,'●$\\\\smaller{1}$','col1')
+rect(70,300,40,30)
+otext(90,315,'$(\\\\c{1}{●\\\\smaller{1}})$','small')
 link([125,270,160,300])
 otext(160,285,'$>$', 'small')
-rect(145,300,30,30)
-otext(160,315,'●$\\\\smaller{1}$','col2')
+rect(140,300,40,30)
+otext(160,315,'$(\\\\c{2}{●\\\\smaller{1}})$','small')
 ]
 
 .question[Question]: **is this tree ok for you?**
@@ -1490,24 +1490,24 @@ rect(200,60,140,30)
 otext(270,75,'$x\\\\subtext{age}$ vs. $9.887$', 'small')
 link([70,90,15,120])
 otext(15,105,'$\\\\le$','small')
-rect(0,120,30,30)
-otext(15,135,'●$\\\\smaller{1}$','col1')
+rect(-5,120,40,30)
+otext(15,135,'$(\\\\c{1}{●\\\\smaller{1}})$','small')
 link([70,90,130,120])
 otext(130,105,'$>$','small')
 rect(60,120,140,30)
 otext(130,135,'$x\\\\subtext{age}$ vs. $9.002$', 'small')
 link([270,90,235,120])
 otext(235,105,'$\\\\le$','small')
-rect(220,120,30,30)
-otext(235,135,'●$\\\\smaller{1}$','col1')
+rect(215,120,40,30)
+otext(235,135,'$(\\\\c{1}{●\\\\smaller{1}})$','small')
 link([270,90,305,120])
 otext(305,105,'$>$','small')
-rect(290,120,30,30)
-otext(305,135,'●$\\\\smaller{1}$','col2')
+rect(285,120,40,30)
+otext(305,135,'$(\\\\c{2}{●\\\\smaller{1}})$','small')
 link([130,150,70,180])
 otext(70,165,'$\\\\le$','small')
-rect(55,180,30,30)
-otext(70,195,'●$\\\\smaller{1}$','col2')
+rect(50,180,40,30)
+otext(70,195,'$(\\\\c{2}{●\\\\smaller{1}})$','small')
 link([130,150,185,180])
 otext(185,165,'$>$','small')
 rect(115,180,140,30)
@@ -1518,16 +1518,16 @@ link([185,210,245,240])
 otext(245,225,'$>$','small')
 rect(55,240,140,30)
 otext(125,255,'$x\\\\subtext{age}$ vs. $9.306$', 'small')
-rect(230,240,30,30)
-otext(245,255,'●$\\\\smaller{1}$','col1')
+rect(225,240,40,30)
+otext(245,255,'$(\\\\c{1}{●\\\\smaller{1}})$','small')
 link([125,270,90,300])
 otext(90,285,'$\\\\le$', 'small')
-rect(75,300,30,30)
-otext(90,315,'●$\\\\smaller{1}$','col1')
+rect(70,300,40,30)
+otext(90,315,'$(\\\\c{1}{●\\\\smaller{1}})$','small')
 link([125,270,160,300])
 otext(160,285,'$>$', 'small')
-rect(145,300,30,30)
-otext(160,315,'●$\\\\smaller{1}$','col2')
+rect(140,300,40,30)
+otext(160,315,'$(\\\\c{2}{●\\\\smaller{1}})$','small')
 ]
 ]
 ]
@@ -1720,12 +1720,12 @@ The learned tree is a **dummy classifier** (with probability):
 .cols[
 .c50[
 .diagram.center.tree[
-rect(0,0,100,40)
-otext(50,20,'$\\\\c{1}{\\\\text{●}\\\\smaller{\\\\frac{59}{103}}}, \\\\c{2}{\\\\text{●}\\\\smaller{\\\\frac{44}{103}}}$')
+rect(0,0,110,40)
+otext(55,20,'$(\\\\c{1}{\\\\text{●}\\\\smaller{\\\\frac{59}{103}}}, \\\\c{2}{\\\\text{●}\\\\smaller{\\\\frac{44}{103}}})$')
 ]
 ]
 .c50.center[
-$t=\\treel{\\c{1}{\\text{●}\\smaller{\\frac{59}{103}}}, \\c{2}{\\text{●}\\smaller{\\frac{44}{103}}}}$
+$t=\\treel{(\\c{1}{\\text{●}\\smaller{\\frac{59}{103}}}, \\c{2}{\\text{●}\\smaller{\\frac{44}{103}}})}$
 ]
 ]
 
