@@ -2570,6 +2570,12 @@ Some R resources:
 
 ---
 
+## An R notebook on Google Colab 
+
+.w75p.center[![Colab appearance with a notebook](images/colab-notebook.png)]
+
+---
+
 ## Data types
 
 There are some built-in data types.
