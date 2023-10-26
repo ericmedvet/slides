@@ -1910,7 +1910,7 @@ Let's do hyperparameter tuning with grid search (assuming $|D|=n=1000$):
 ]
 
 .question[Questions]
-- how many times is $f'\\subtext{learn}$ invoked?
+- how many times is $f'\\subtext{learn}$ invoked? .note[without considering recurrent invokations]
 - how many times is $f''\\subtext{predict}$ invoked?
 
 
@@ -2033,7 +2033,7 @@ function $\\text{learn-free}(D)$ {
 
 ---
 
-## Hyperparameter-free tree learning excercise
+## Hyperparameter-free tree learning exercise
 
 Consider the $f'\\subtext{learn}$ for trees and these two hyperparameters:
 - $n\\subtext{min} = p\_1 \\in \\mathbb{N} = P\_1$
@@ -2043,15 +2043,15 @@ Consider the improved, hyperparameter-free version of $f'\\subtext{learn}$ calle
 - with accuracy and 10-fold CV
 - with $|P'\_1|=10$ and $|P'\_2|=|P\_2|=3$
 
-Suppose you want to compare it against the plain version (with hyperparameter):
+Suppose you want to compare it against the plain version (with $n\\subtext{min}=10$ and $p\\subtext{impurity}=\\text{Gini}$):
 - with AUC (midpoints) and 10-fold CV
 - using a dataset $|D|=n=1000$.
 
 .question[Questions]
 - what phases of the ML design process are we doing?
 - how many times is $f'\\subtext{learn-free}$ invoked?
-- how many times is $f'\\subtext{learn}$ invoked?
-- how many times is $f''\\subtext{predict}$ invoked?
+- how many times is $f'\\subtext{learn}$ invoked? .note[without considering recurrent invokations]
+- how many times is $f''\\subtext{predict}$ invoked? .note[assuming $f''\\subtext{predict}$ is invoked internally by $f'\\subtext{predict}$]
 - how many times is $f'\\subtext{predict}$ invoked?
 
 ---
