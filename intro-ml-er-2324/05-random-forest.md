@@ -712,7 +712,7 @@ Toy example with $D=\\{\\c{1}{●},\\c{2}{●},\\c{3}{●},\\c{4}{●},\\c{5}{�
 
 - $t\_1 = \\text{learn}\\subtext{single}(\\{\\c{2}{●},\\c{4}{●},\\c{3}{●},\\c{1}{●},\\c{1}{●}\\}, 1)$, .col5[●] not used
 - $t\_2 = \\text{learn}\\subtext{single}(\\{\\c{4}{●},\\c{4}{●},\\c{1}{●},\\c{2}{●},\\c{5}{●}\\}, 1)$, .col3[●] not used
-- $t\_3 = \\text{learn}\\subtext{single}(\\{\\c{5}{●},\\c{3}{●},\\c{1}{●},\\c{3}{●},\\c{4}{●}\\}, 1)$, all used
+- $t\_3 = \\text{learn}\\subtext{single}(\\{\\c{5}{●},\\c{3}{●},\\c{1}{●},\\c{2}{●},\\c{4}{●}\\}, 1)$, all used
 - ...
 - $t\_j = \\text{learn}\\subtext{single}(\\{\\c{3}{●},\\c{1}{●},\\c{5}{●},\\c{4}{●},\\c{5}{●}\\}, 1)$, .col2[●] not used
 - ...
