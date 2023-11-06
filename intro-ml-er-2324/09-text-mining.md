@@ -288,7 +288,7 @@ Roles can then be used to augment the text-to-num transformation.
 
 class: labo
 
-## Lab 2: sport vs. politics
+## Lab 3: sport vs. politics
 
 Build a system that:
 1. everyday collects a large set of *random* tweets and groups them in tweets about **politics** and about **sport**

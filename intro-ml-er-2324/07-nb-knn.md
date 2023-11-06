@@ -492,3 +492,30 @@ Yes, it is a **flexibility** parameter: .note[link with the Bayes classifier!]
   - but tricky with mixed numerical/categorical cases
 - 👍 models give probability
 - 🫳 two parameters ($d$ and $k$), one impatting on bias-variance trade-off
+
+---
+
+class: labo
+
+## Lab 2¹: comparison of ML techniques
+
+Consider the DataCo Smart Supply Chain for Big Data [Analysis dataset](https://data.mendeley.com/datasets/8gx2fvg2k6/5)
+- given the objective of classifying if an order is marked as late delivery, design an implement a ML procedure which answers the question: 
+.center[**what is the best classification technique?**]
+
+- given the objective of predicting the sales of each order, design an implement a ML procedure which answers the question:
+.center[**what is the best regression technique?**]
+
+.note[consider the ML techniques seen during the lectures]
+
+.vspace1[]
+
+**Hints**:
+- the dataset is really big (~180k rows): use it at your own advantage! 
+- in Python, the [pandas](https://pandas.pydata.org/) library is the most popular for dataset manipulations and explorations
+- about ML algorithms, you can find all the ones you need for this lab in the library [scikit-learn](https://scikit-learn.org/stable/):
+  - for classification: [Random Forest](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html), [SVMs](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html), [kNN](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html), and [Naive Bayes](https://scikit-learn.org/stable/modules/naive_bayes.html) (in many flavours);
+  - for regression: [Random Forest](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html), [SVMs](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html), and [kNN](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsRegressor.html)
+  - as well as a bunch of metrics for quantifying the quality of the prediction: [metrics](https://scikit-learn.org/stable/modules/model_evaluation.html)
+  
+.footnote[1: designed by Gaia Saveri, tutor A.Y. 2023/2024]
