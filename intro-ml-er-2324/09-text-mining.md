@@ -22,8 +22,7 @@ A single text $x^{(i)}$ is called .key[document].
 
 However, what we usually mean with text is **natural language**, where the sequence of characters is a **noisy** container of an underlying information:
 - given a document $x$, the actual meaning of $x$ may depend on other documents
-- given a portion $x' \\sqsubset x$ of a document $x$, its meaning might be different if put in another document $x''$
-- two equal documents $x,x'$ in the same corpus may have different meaning
+- given a portion $x' \\sqsubset x$ of a document $x$, its meaning may be different if put in another document $x''$
 
 Natural language is by nature **ambiguous**!
 
@@ -35,7 +34,7 @@ Natural language is by nature **ambiguous**!
 
 - Given a corpus of letters to/from soldiers fighting during the WW1, what are the **topics** they talk about?
 
-- Given a scientific paper $p\_1$, whats the **relevance** of the citation of another paper $p\_2$ referenced in $p\_1$?
+- Given a scientific paper $p\_1$, what's the **relevance** of the citation of another paper $p\_2$ referenced in $p\_1$?
 
 ---
 

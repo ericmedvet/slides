@@ -46,7 +46,7 @@ What's a **pattern**?
 In practice:
 - we assume that the system that generates the data **follows some scheme** (the pattern)
 - we do not know the pattern
-- we want to **discover the patter from a dataset**
+- we want to **discover the pattern from a dataset**
 
 ---
 
@@ -250,7 +250,7 @@ where:
 $$\\c{1}{d\\subtext{out}(x,\\seq{D\_i}{i})}=\\min\_{D\_i \\not\\ni x} \\min\_{x' \\in D\_i} d(x, x')$$
 ]
 .c50[
-$$\\c{2}{d\\subtext{in}(x,\\seq{D\_i}{i})}=\\frac{1}{|D\_i \\ni x|}\\sum\_{x' \\in D\_i \\ni x \\land x \\ne x'} d(x, x')$$
+$$\\c{2}{d\\subtext{in}(x,\\seq{D\_i}{i})}=\\frac{1}{|D\_i \\ni x|-1}\\sum\_{x' \\in D\_i \\ni x \\land x \\ne x'} d(x, x')$$
 ]
 ]
 
@@ -568,7 +568,7 @@ function $\\c{2}{\\text{assign}}(\\seq{\\vect{x}^{(i)}}{i=1}^{i=n}, \\c{1}{\\seq
       - number of iterations
       - distance traveled by the centroids
 - this technique is **not deterministic**, due to the initial random assignment
-  - $\\sim U(\\{1,\\dots,n\\})$ .note[withour repetition]
+  - $\\sim U(\\{1,\\dots,n\\})$ .note[without repetition]
 
 ]
 ]
@@ -607,6 +607,8 @@ $D=\\{1,2,3,6,7,9,11,12,15,18\\}$, $k=3$
 | $\\{\\c{1}{1},\\c{1}{2},\\c{1}{3},\\c{2}{6},\\c{2}{7},\\c{2}{9},\\c{4}{11},\\c{4}{12},\\c{4}{15},\\c{4}{18}\\}$ | $\\c{1}{2}$ | $\\c{2}{7.3}$ | $\\c{4}{14}$ |
 | $\\{\\c{1}{1},\\c{1}{2},\\c{1}{3},\\c{2}{6},\\c{2}{7},\\c{2}{9},\\c{4}{11},\\c{4}{12},\\c{4}{15},\\c{4}{18}\\}$ | $\\c{1}{2}$ | $\\c{2}{7.3}$ | $\\c{4}{14}$ |
 ]
+
+.footnote[.question[Question:] what's the best clustering? can we answer this question?]
 
 ]
 .c40[

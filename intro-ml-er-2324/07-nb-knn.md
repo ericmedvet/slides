@@ -53,8 +53,8 @@ where $\\prob{A \\mid B}$ is the **conditional probability**, i.e., the probabil
 
 Do you say "excuse me, **sir**"	🧔‍♀️ or "excuse me, **madam**" 👩?
 
-So, we want to know $\\prob{h=\\text{man} \\mid p=\\text{long}}$ and $\\prob{h=\\text{woman} \\mid p=\\text{long}}$, or maybe just if:
-- $\\prob{h=\\text{man} \\mid p=\\text{long}} \\stackrel{?}{>} \\prob{h=\\text{woman} \\mid p=\\text{long}}$
+So, we want to know $\\prob{p=\\text{man} \\mid h=\\text{long}}$ and $\\prob{p=\\text{woman} \\mid h=\\text{long}}$, or maybe just if:
+- $\\prob{p=\\text{man} \\mid h=\\text{long}} \\stackrel{?}{>} \\prob{p=\\text{woman} \\mid h=\\text{long}}$
 
 But we know $\\prob{h=\\text{long} \\mid p=\\text{man}}$, not $\\prob{h=\\text{man} \\mid p=\\text{long}}$...
 
@@ -433,7 +433,7 @@ By using a **proper distance** $d: X \\times X \\to \\mathbb{R}$, kNN can be use
   - **$\\ell$-norms**: with $\\ell$ being a parameter, $d(\\vect{x},\\vect{x}')=\\lVert \\vect{x},\\vect{x}' \\rVert\_\\ell=\\sqrt[\\ell]{\\sum\_j |x\_j-x'\_j|^\\ell}$
       - **Euclidean** with $\\ell=2$
       - **Manhattan** with $\\ell=1$
-  - **cosine distance**: $d(\\vect{x},\\vect{x}')=\\frac{\\vect{x}^\\intercal\\vect{x}'}{\\lVert \\vect{x} \\rVert\_1 \\lVert \\vect{x}' \\rVert\_1}$
+  - **cosine distance**: $d(\\vect{x},\\vect{x}')=\\frac{\\vect{x}^\\intercal\\vect{x}'}{\\lVert \\vect{x} \\rVert \\lVert \\vect{x}' \\rVert}$ .note[$\\lVert \\cdot \\rVert$ is just $\\lVert \\cdot \\rVert\_2$]
       - disregards the individual scales of the points
   - many others
 - for fixed-length sequences of symbols in an alphabet $A$, i.e., $X=A^l$
