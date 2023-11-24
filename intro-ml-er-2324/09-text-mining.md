@@ -106,7 +106,7 @@ An alternative version is to consider the **frequencies** instead of occurrencie
 
 ## Common text pre-processing steps
 
-BOW is considers slightly different sequences of characters as different words, and hence as different feauters, because of tokenization.
+BOW is considers slightly different sequences of characters as different words, and hence as different features, because of tokenization.
 Usually, this is not good.
 
 In practice, you often do some basic **pre-processing steps**:
@@ -207,13 +207,13 @@ With BOW, $p=|W|$ and might be very large.
 
 Common approaches:
 - use a very small dictionary, tailored to the specific case
-- **learn** a small dictionary on the **learning data**
-  - you have a $f\\subtext{BOW-learn}: \\mathcal{P}^\\ast(A^\\ast) \\to \\mathcal{P}(A^\\ast)$ and a $f\\subtext{BOW-apply}: A^\\ast \\times \\mathcal{P}(A^\\ast) \\to A^\\ast$
+- **learn** a small dictionary ($|W|=k$) on the **learning data**
+  - you have a $f\\subtext{BOW-top-learn}: \\mathcal{P}^\\ast(A^\\ast) \\to \\mathcal{P}(A^\\ast)$ and a $f\\subtext{BOW-top-apply}: A^\\ast \\times \\mathcal{P}(A^\\ast) \\to \\mathbb{R}^k$
   - in learning
-      - use $f\\subtext{BOW-learn}(X)=W$ to build the dictionary $W$ from the corpus $X$, then
-      - transform the corpus in a $X' \\in \\mathcal{P}^\\ast(\\mathbb{R}^p)$ using $f\\subtext{BOW-learn}(x^{(i)}, W)=x^{\\prime(i)}$ on each $x$
-  - in prediction, use $f\\subtext{BOW-learn}(x, W)=x'$
-  - $|W|$ is often set as "the **most** frequent words" (but remove stop-words!)
+      - use $f\\subtext{BOW-top-learn}(X)=W$ to build the dictionary $W$ from the corpus $X$, then
+      - transform the corpus in a $X' \\in \\mathcal{P}^\\ast(\\mathbb{R}^k)$ using $f\\subtext{BOW-top-apply}(x^{(i)}, W)=\\vect{x}^{\\prime(i)}$ on each $x$
+  - in prediction, use $f\\subtext{BOW-top-apply}(x, W)=\\vect{x}'$
+  - $W$ is often set as "the **most** frequent $k$ words" (but remove stop-words!)
 - use **tf-idf** and get $k$ most important words
 
 .cols[
@@ -242,6 +242,8 @@ otext(175,75,'$f\\\\subtext{BOW-top-apply}$')
 
 ]
 ]
+
+.footnote[The order of words in $W$ does matter, so it's $W \in (A^\\ast)^\\ast$, rather than $W \in \\mathcal{P}(A^\\ast)$.]
 
 ---
 

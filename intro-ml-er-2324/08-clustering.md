@@ -202,7 +202,7 @@ $$
 \\end{align\*}
 $$
 
-If you also optimize $k$, then the optimal solution is the one with $k=1$...
+If you also optimize $k$, then the optimal solution is the one with $k=|D|$...
 
 **Can we just optimize also $k$?**
 **No!** It's pointless.
