@@ -9,11 +9,11 @@ name: ml-to-text
 
 Formally, a piece of text is a variable-length sequence of symbols belonging to an **alphabet** $A$.
 Hence:
-$$X=A^*$$
+$$x \\in A^*$$
 where $A$ is usually (in modern times) UTF-16, so it may includes [emojis](https://unicode.org/emoji/charts/full-emoji-list.html):
   - there are thousands of them: 🤩🦴🐁...
 
-A dataset $\\seq{x\_i}{i}$ of texts, possibly with labels, is called .key[corpus].
+A dataset $X \\in \\mathcal{P}^\\ast(A^\\ast)$ of texts, possibly with labels, is called .key[corpus].
 A single text $x^{(i)}$ is called .key[document].
 
 --
