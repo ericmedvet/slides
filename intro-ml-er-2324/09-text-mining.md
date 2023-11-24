@@ -161,8 +161,8 @@ BOW tends to overweigh words which are very frequent, but not relevant (similarl
 Solution: use .key[tf-idf] instead of occurrencies or frequency.
 tf-idf is the ratio between the .col1[**term frequency**] (i.e., the frequency of a word) in a document, and the .col2[**inverse document frequency**], i.e., *the frequency* in the corpus of documents containing that term.
 
-.cols[
-.c60[
+.cols.compact[
+.c50[
 Given the dictionary $W$, the corpus $X$, and a document $x$:
 1. **tokenize** $x$ in a multiset $T$ of tokens (words)
 2. for each $t \\in T$, set $x'\_t=\\c{1}{f\\subtext{tf}(t, x)} \\c{2}{f\\subtext{idf}(t, X)}$
@@ -175,8 +175,8 @@ The more common a word, the greater tf, the (more) lower idf ($0$ if in every do
 The more specific a word to a document, the larger tf, the larger idf.
 
 ]
-.c40[
-tf-idf corresponds to a $f\\subtext{tf-idf-learn}: \\mathcal{P}^\\ast(A^\\ast) \\to \\mathcal{P}^\\ast(A^\\ast)$, which is just the identity, and a $f\\subtext{tf-idf-apply}: A^\\ast \\times \\mathcal{P}(A^\\ast) \\to A^\\ast$:
+.c50[
+tf-idf corresponds to a $f\\subtext{tf-idf-learn}: \\mathcal{P}^\\ast(A^\\ast) \\to \\mathcal{P}^\\ast(A^\\ast)$, which is just the identity¹, and a $f\\subtext{tf-idf-apply}: A^\\ast \\times \\mathcal{P}^\\ast(A^\\ast) \\to \\mathbb{R}^{|W|}$:
 
 .diagram.center[
 link([0,25,100,25],'a')
@@ -188,16 +188,23 @@ otext(175,25,'$f\\\\subtext{tf-idf-learn}$')
 ]
 
 .diagram.center[
-link([0,25,100,25],'a')
-rect(100,0,150,50)
-link([250,25,350,25],'a')
-otext(50,10,'$x,X$')
-otext(300,10,"$\\\\vect{x}'$")
-otext(175,25,'$f\\\\subtext{tf-idf-apply}$')
+link([0,75,100,75],'a')
+rect(100,50,150,50)
+link([250,75,350,75],'a')
+link([175,0,175,50],'a')
+otext(50,60,'$x,X$')
+otext(300,60,"$\\\\vect{x}'$")
+otext(175,75,'$f\\\\subtext{tf-idf-apply}$')
+otext(195,25,'$W$')
+]
+
+.note[
+1. or, more verbosely and more formally: $f\\subtext{tf-idf-learn}: \\mathcal{P}^\\ast(A^\\ast) \\to \\mathcal{F}\_{A^\\ast \\to [0,1]^2}$, because it returns a mapping between words and two frequencies (tf and idf).
 ]
 
 ]
 ]
+
 
 ---
 
