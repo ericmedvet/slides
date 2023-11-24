@@ -92,7 +92,7 @@ otext(195,25,'$W$')
 ]
 ]
 
-In practice, given the dictionary (i.e., set of words $W \\subseteq \\mathcal{P}(A^*)$) and given a document $x$:
+In practice, given the dictionary (i.e., set of words $W \\in \\mathcal{P}(A^*)$) and given a document $x$:
 1. **tokenize** $x$ in a multiset $T=f\\subtext{tokenize}(x)$ of tokens (words)
 2. for each $t \\in T$, set $x'\_t$ to the multiplicity $m(t,T)$ of $t$ in $T$, i.e., to the number of occurrences of the words $t$ in $x$
 
