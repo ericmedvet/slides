@@ -2338,7 +2338,7 @@ $\\rightarrow \\text{Eff}$
 <span style="font-size: 550%; line-height: 100px; vertical-align: top;">}</span>
 <span style="line-height: 120px; vertical-align: top;">$\\rightarrow \\text{Eff}$</span>
 
-.note[$k$ learnings; $k|D|(1-r)$ predictions]
+.note[$k$ learnings; $|D|(1-r)$ pred. after each, $k|D|(1-r)$ pred. ]
 
 ]
 .c50[
@@ -2354,7 +2354,7 @@ $\\rightarrow \\text{Eff}$
 <span style="font-size: 650%; line-height: 130px; vertical-align: top;">}</span>
 <span style="line-height: 155px; vertical-align: top;">$\\rightarrow \\text{Eff}$</span>
 
-.note[$k$ learnings; $(k-1)|D|$ predictions]
+.note[$k$ learnings; $\frac{1}{k}|D|$ pred. after each, $|D|$ pred. tot.]
 
 **LOOCV**
 
@@ -2367,7 +2367,7 @@ $\\rightarrow \\text{Eff}$
 <span style="font-size: 550%; line-height: 100px; vertical-align: top;">}</span>
 <span style="line-height: 120px; vertical-align: top;">$\\rightarrow \\text{Eff}$</span>
 
-.note[$|D|$ learnings; $|D|(|D|-1)$ predictions]
+.note[$|D|$ learnings; $1$ pred. after each, $|D|$ pred. tot.]
 ]
 ]
 
