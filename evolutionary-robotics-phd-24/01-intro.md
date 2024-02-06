@@ -94,10 +94,10 @@ External resourses (e.g., videos, [software tools](https://en.wikipedia.org/wiki
 **Pseudo-code** for describing algorithms in an abstract way:
 .pseudo-code[
 function $\\text{factorial}(n)$ {  
-.i[]$p \\gets 1$  
+.i[]$p \\seteq 1$  
 .i[]while $n>1$ {  
-.i[].i[]$p \\gets n p$  
-.i[].i[]$n \\gets n -1$  
+.i[].i[]$p \\seteq n p$  
+.i[].i[]$n \\seteq n -1$  
 .i[]}  
 .i[]return $p$;  
 }
