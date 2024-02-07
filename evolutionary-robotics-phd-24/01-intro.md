@@ -30,44 +30,37 @@ Labs:
 
 .cols.compact[
 .c50[
-.h5ex.vam[![Sylvio Barbon Jr.](images/people/barbon-jr.jpg)]
+.h10ex.vam[![Sylvio Barbon Jr.](images/people/barbon-jr.jpg)]
 [Sylvio Barbon Jr.](https://www.barbon.com.br/)  
-<i class="fa-solid fa-chalkboard-user col2"></i> Fondamenti di informatica  
-<i class="fa-solid fa-chalkboard-user col2"></i> Progettazione del software e dei sistemi informativi  
-<i class="fa-regular fa-lightbulb col2"></i> *meta learning, applied ML, process mining*
+<i class="fa-solid fa-chalkboard-user col2"></i> fondamenti di informatica; ML operations; sistemi integrati e mobili  
+<i class="fa-regular fa-lightbulb col2"></i> meta learning; applied ML; process mining
 
-.h5ex.vam[![Alberto Bartoli](images/people/bartoli.jpg)]
+.h10ex.vam[![Alberto Bartoli](images/people/bartoli.jpg)]
 [Alberto Bartoli](https://bartoli.inginf.units.it/)  
-<i class="fa-solid fa-chalkboard-user col2"></i> Reti di calcolatori  
-<i class="fa-solid fa-chalkboard-user col2"></i> Computer networks 2 and introduction to cybersecurity  
-<i class="fa-regular fa-lightbulb col2"></i> *security, applied ML, evolutionary computation*
+<i class="fa-solid fa-chalkboard-user col2"></i> reti di calcolatori; cybersecurity  
+<i class="fa-regular fa-lightbulb col2"></i> security; applied ML; evolutionary computation
 
-.h5ex.vam[![Andrea De Lorenzo](images/people/de-lorenzo.jpg)]
+.h10ex.vam[![Andrea De Lorenzo](images/people/de-lorenzo.jpg)]
 [Andrea De Lorenzo](https://delorenzo.inginf.units.it/)  
-<i class="fa-solid fa-chalkboard-user col2"></i> Basi di dati  
-<i class="fa-solid fa-chalkboard-user col2"></i> Programmazione web  
-<i class="fa-regular fa-lightbulb col2"></i> *security, applied AI&ML, information retrieval, GP*
+<i class="fa-solid fa-chalkboard-user col2"></i> basi di dati; web programming  
+<i class="fa-regular fa-lightbulb col2"></i> applied ML; evolutionary optimization; generative AI
 
 ]
 .c50[
-.h5ex.vam[![Eric Medvet](images/people/medvet.jpg)]
+.h10ex.vam[![Eric Medvet](images/people/medvet.jpg)]
 [Eric Medvet](https://medvet.inginf.units.it/)  
-<i class="fa-solid fa-chalkboard-user col2"></i> Programmazione avanzata  
-<i class="fa-solid fa-chalkboard-user col2"></i> Introduction to machine learning and evolutionary robotics  
-<i class="fa-regular fa-lightbulb col2"></i> *evolutionary computation, embodied AI, applied ML*
+<i class="fa-solid fa-chalkboard-user col2"></i> programmazione ad oggetti; machine learning  
+<i class="fa-regular fa-lightbulb col2"></i> evolutionary optimization; applied ML; embodied AI
 
-.h5ex.vam[![Laura Nenzi](images/people/nenzi.jpg)]
+.h10ex.vam[![Laura Nenzi](images/people/nenzi.jpg)]
 [Laura Nenzi](https://lauranenzi.github.io/)  
-<i class="fa-solid fa-chalkboard-user col2"></i> Cyber-physical systems  
-<i class="fa-solid fa-chalkboard-user col2"></i> Introduction to Artificial Intelligence  
-<i class="fa-regular fa-lightbulb col2"></i> *formal methods, runtime verification*
+<i class="fa-solid fa-chalkboard-user col2"></i> cyber physical systems; information retrieval and data visualization  
+<i class="fa-regular fa-lightbulb col2"></i> formal methods; runtime verification
 
-.h5ex.vam[![Martino Trevisan](images/people/trevisan.jpg)]
+.h10ex.vam[![Martino Trevisan](images/people/trevisan.jpg)]
 [Martino Trevisan](https://trevisan.inginf.units.it/)  
-<i class="fa-solid fa-chalkboard-user col2"></i> Reti di calcolatori  
-<i class="fa-solid fa-chalkboard-user col2"></i> Sistemi operativi  
-<i class="fa-solid fa-chalkboard-user col2"></i> Architetture dei sistemi digitali  
-<i class="fa-regular fa-lightbulb col2"></i> *network measurements, data privacy, big data*
+<i class="fa-solid fa-chalkboard-user col2"></i> sistemi operativi; architetture dei calcolatori; advanced computer networks  
+<i class="fa-regular fa-lightbulb col2"></i> network measurements; data privacy; big data
 ]
 ]
 
