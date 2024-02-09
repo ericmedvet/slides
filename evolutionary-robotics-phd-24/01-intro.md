@@ -28,40 +28,65 @@ Labs:
 
 ## Computer Engineering (ING-INF/05) group
 
-.cols.compact[
-.c50[
-.h10ex.vam[![Sylvio Barbon Jr.](images/people/barbon-jr.jpg)]
-[Sylvio Barbon Jr.](https://www.barbon.com.br/)  
+.cols[
+.c15[
+.w80p[![Sylvio Barbon Jr.](images/people/barbon-jr.jpg)]
+]
+.c35[
+[Sylvio Barbon Jr.](https://www.barbon.com.br/)
+
 <i class="fa-solid fa-chalkboard-user col2"></i> fondamenti di informatica; ML operations; sistemi integrati e mobili  
 <i class="fa-regular fa-lightbulb col2"></i> meta learning; applied ML; process mining
-
-.h10ex.vam[![Alberto Bartoli](images/people/bartoli.jpg)]
-[Alberto Bartoli](https://bartoli.inginf.units.it/)  
-<i class="fa-solid fa-chalkboard-user col2"></i> reti di calcolatori; cybersecurity  
-<i class="fa-regular fa-lightbulb col2"></i> security; applied ML; evolutionary computation
-
-.h10ex.vam[![Andrea De Lorenzo](images/people/de-lorenzo.jpg)]
-[Andrea De Lorenzo](https://delorenzo.inginf.units.it/)  
-<i class="fa-solid fa-chalkboard-user col2"></i> basi di dati; web programming  
-<i class="fa-regular fa-lightbulb col2"></i> applied ML; evolutionary optimization; generative AI
-
 ]
-.c50[
-.h10ex.vam[![Eric Medvet](images/people/medvet.jpg)]
-[Eric Medvet](https://medvet.inginf.units.it/)  
+.c15[
+.w80p[![Eric Medvet](images/people/medvet.jpg)]
+]
+.c35[
+[Eric Medvet](https://medvet.inginf.units.it/)
+
 <i class="fa-solid fa-chalkboard-user col2"></i> programmazione ad oggetti; machine learning  
 <i class="fa-regular fa-lightbulb col2"></i> evolutionary optimization; applied ML; embodied AI
+]
+]
 
-.h10ex.vam[![Laura Nenzi](images/people/nenzi.jpg)]
-[Laura Nenzi](https://lauranenzi.github.io/)  
+.cols[
+.c15[
+.w80p[![Alberto Bartoli](images/people/bartoli.jpg)]
+]
+.c35[
+[Alberto Bartoli](https://bartoli.inginf.units.it/)
+
+<i class="fa-solid fa-chalkboard-user col2"></i> reti di calcolatori; cybersecurity  
+<i class="fa-regular fa-lightbulb col2"></i> security; applied ML; evolutionary computation]
+.c15[
+.w80p[![Laura Nenzi](images/people/nenzi.jpg)]
+]
+.c35[
+[Laura Nenzi](https://lauranenzi.github.io/)
+
 <i class="fa-solid fa-chalkboard-user col2"></i> cyber physical systems; information retrieval and data visualization  
 <i class="fa-regular fa-lightbulb col2"></i> formal methods; runtime verification
-
-.h10ex.vam[![Martino Trevisan](images/people/trevisan.jpg)]
-[Martino Trevisan](https://trevisan.inginf.units.it/)  
-<i class="fa-solid fa-chalkboard-user col2"></i> sistemi operativi; architetture dei calcolatori; advanced computer networks  
-<i class="fa-regular fa-lightbulb col2"></i> network measurements; data privacy; big data
 ]
+]
+
+.cols[
+.c15[
+.w80p[![Andrea De Lorenzo](images/people/de-lorenzo.jpg)]
+]
+.c35[
+[Andrea De Lorenzo](https://delorenzo.inginf.units.it/)
+
+<i class="fa-solid fa-chalkboard-user col2"></i> basi di dati; web programming  
+<i class="fa-regular fa-lightbulb col2"></i> applied ML; evolutionary optimization; generative AI
+]
+.c15[
+.w80p[![Martino Trevisan](images/people/trevisan.jpg)]
+]
+.c35[
+[Martino Trevisan](https://trevisan.inginf.units.it/)
+
+<i class="fa-solid fa-chalkboard-user col2"></i> sistemi operativi; architetture dei calcolatori; advanced computer networks  
+<i class="fa-regular fa-lightbulb col2"></i> network measurements; data privacy; big data]
 ]
 
 ---
