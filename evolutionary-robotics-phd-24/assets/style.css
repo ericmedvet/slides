@@ -277,6 +277,13 @@ span.note::after {
   background-color: #648FFF33;
   text-decoration-color: #648FFF;
 }
+.example {
+  font-weight: bold;
+  text-decoration-line: underline;
+  background-color: #648FFF33;
+  text-decoration-color: #648FFF;
+}
+
 .center{
   text-align: center;
 }

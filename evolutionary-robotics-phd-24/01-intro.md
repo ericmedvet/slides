@@ -135,7 +135,7 @@ public static String sayHello(String name) {
 ## Exam
 
 The student is required to:
-1. choose a paper form a teacher-provided list of ER papers 
+1. choose a paper form a teacher-provided list of **evolutionary robotics papers** 
 2. read the paper!
 3. prepare a **10 minutes** presentation of the paper
   - more on the expected content later
