@@ -1,6 +1,6 @@
 class: middle, center
 
-# Evolutionary Robotics
+# Evolutionary robotics
 ### PhD course
 
 [Eric Medvet](http://medvet.inginf.units.it/)
