@@ -56,6 +56,21 @@ p, ul, ol {
 ul ul, ol ul, ul ol, ol ol {
   margin: 0;
 }
+ul li:has(.good) {
+  list-style: '👍';
+  padding-left: 0.5em;
+  list-style-position: outside;
+}
+ul li:has(.bad) {
+  list-style: '👎';
+  padding-left: 0.5em;
+  list-style-position: outside;
+}
+ul li:has(.soandso) {
+  list-style: '🫳';
+  padding-left: 0.5em;
+  list-style-position: outside;
+}
 .remark-code, .remark-inline-code {
   font-family: "Roboto Mono";
 }
