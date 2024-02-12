@@ -1,12 +1,12 @@
 ea.experiment(
-  runs = (randomGenerator = (seed = [1:1:3]) * [ea.rg.defaultRG()]) *
+  runs = (randomGenerator = (seed = [1:1:10]) * [ea.rg.defaultRG()]) *
     (problem = [
       ea.p.s.gaussianMixture2D()
     ]) *
     (solver = (nEval = [5000]) * [
-      ea.s.ga(name = "GA n_pop=10"; nPop = 10; representation = ea.r.doubleString());
-      ea.s.ga(name = "GA n_pop=50"; nPop = 50; representation = ea.r.doubleString());
-      ea.s.ga(name = "GA n_pop=100"; nPop = 100; representation = ea.r.doubleString())
+      ea.s.ga(name = "GA n_tour=1"; tournamentRate = 0.01; minNTournament = 1; representation = ea.r.doubleString());
+      ea.s.ga(name = "GA n_tour=5"; tournamentRate = 0.05; representation = ea.r.doubleString());
+      ea.s.ga(name = "GA n_tour=50"; tournamentRate = 0.5; representation = ea.r.doubleString())
     ]) * [
     ea.run()
   ];
