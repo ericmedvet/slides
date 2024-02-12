@@ -3,10 +3,10 @@ ea.experiment(
     (problem = [
       ea.p.s.gaussianMixture2D()
     ]) *
-    (solver = (nEval = [5000]) * [
-      ea.s.ga(name = "GA n_tour=1"; tournamentRate = 0.01; minNTournament = 1; representation = ea.r.doubleString());
-      ea.s.ga(name = "GA n_tour=5"; tournamentRate = 0.05; representation = ea.r.doubleString());
-      ea.s.ga(name = "GA n_tour=50"; tournamentRate = 0.5; representation = ea.r.doubleString())
+    (solver = (nEval = [2500]) * (nPop = [50]) * (minNTournament = [1]) *[
+      ea.s.ga(name = "GA n_tour=1"; tournamentRate = 0.02; representation = ea.r.doubleString());
+      ea.s.ga(name = "GA n_tour=5"; tournamentRate = 0.1; representation = ea.r.doubleString());
+      ea.s.ga(name = "GA n_tour=50"; tournamentRate = 1; representation = ea.r.doubleString())
     ]) * [
     ea.run()
   ];
@@ -41,6 +41,25 @@ ea.experiment(
         xSubplotRunKey = ea.misc.sEntry(key = p; value = "{problem.p}");
         ySubplotRunKey = ea.misc.sEntry(key = problem; value = "{problem.name}")
       )
+    );
+    ea.l.runPlotSaver(
+      w = 1000; h = 350;
+      filePathTemplate = "landscape-{problem.name}-{solver.name}-{randomGenerator.seed}.png";
+      type = landscape;
+      plot = ea.plot.landscape(
+        predicateValue = ea.nf.quantized(f = ea.nf.evals(); r = 10; s = "%.0f");
+        condition = ea.predicate.inD(
+          values = [0; 50; 100; 150; 200; 250; 500; 1000]
+        );
+        xRange = ds.range(min = -5; max = 5);
+        yRange = ds.range(min = -5; max = 5)
+      );
+      condition = ea.predicate.all(conditions = [
+        ea.predicate.inS(
+          f = ea.nf.runKey(runKey = ea.misc.sEntry(key = "seed"; value = "{randomGenerator.seed}"));
+          values = ["1"]
+        )
+      ])
     )
   ]
 )
