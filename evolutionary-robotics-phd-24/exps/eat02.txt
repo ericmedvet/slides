@@ -1,12 +1,15 @@
 ea.experiment(
-  runs = (randomGenerator = (seed = [1:1:10]) * [ea.rg.defaultRG()]) *
+  runs = (randomGenerator = (seed = [1:1:30]) * [ea.rg.defaultRG()]) *
     (problem = [
-      ea.p.s.gaussianMixture2D()
+      ea.p.s.gaussianMixture2D(targets = [3; 2; 2; -2; -2; 1])
     ]) *
-    (solver = (nEval = [2500]) * (nPop = [50]) * (minNTournament = [1]) *[
-      ea.s.ga(name = "GA n_tour=1"; tournamentRate = 0.02; representation = ea.r.doubleString());
-      ea.s.ga(name = "GA n_tour=5"; tournamentRate = 0.1; representation = ea.r.doubleString());
-      ea.s.ga(name = "GA n_tour=50"; tournamentRate = 1; representation = ea.r.doubleString())
+    (solver = (nEval = [2500]) * 
+      (nPop = [50]) *
+      (minNTournament = [1]) *
+      (representation = ea.r.doubleString()) * [
+      ea.s.ga(name = "ga n_tour=1"; tournamentRate = 0.02);
+      ea.s.ga(name = "ga n_tour=5"; tournamentRate = 0.1);
+      ea.s.ga(name = "gapre n_tour=50"; tournamentRate = 1)
     ]) * [
     ea.run()
   ];
@@ -26,7 +29,8 @@ ea.experiment(
       ]
     );
     ea.l.expPlotSaver(
-      filePath = "ga-variants-bestf-vs-evals.png";
+      w = 1200; h = 800;
+      filePath = "eat02-bestf-vs-evals.png";
       type = lines;
       plot = ea.plot.fitnessPlotMatrix(
         xFunction = ea.nf.quantized(f = ea.nf.evals(); r = 100; s = "%.0f");
@@ -35,7 +39,8 @@ ea.experiment(
       )
     );
     ea.l.expPlotSaver(
-      filePath = "ga-variants-bestf-boxplot.png";
+      w = 1200; h = 800;
+      filePath = "eat02-bestf-boxplot.png";
       type = boxplot;
       plot = ea.plot.fitnessBoxplotMatrix(
         xSubplotRunKey = ea.misc.sEntry(key = p; value = "{problem.p}");
@@ -43,8 +48,8 @@ ea.experiment(
       )
     );
     ea.l.runPlotSaver(
-      w = 1000; h = 350;
-      filePathTemplate = "landscape-{problem.name}-{solver.name}-{randomGenerator.seed}.png";
+      w = 1200; h = 300;
+      filePathTemplate = "eat02-landscape-{problem.name}-{solver.name}-{randomGenerator.seed}.png";
       type = landscape;
       plot = ea.plot.landscape(
         predicateValue = ea.nf.quantized(f = ea.nf.evals(); r = 10; s = "%.0f");
@@ -60,6 +65,21 @@ ea.experiment(
           values = ["1"]
         )
       ])
-    )
+    );
+    ea.l.runPlotVideoSaver(
+      w = 500; h = 500;
+      filePathTemplate = "eat02-landscape-{problem.name}-{solver.name}-{randomGenerator.seed}.mp4";
+      type = landscape;
+      plot = ea.plot.landscape(
+        xRange = ds.range(min = -5; max = 5);
+        yRange = ds.range(min = -5; max = 5)
+      );
+      condition = ea.predicate.all(conditions = [
+        ea.predicate.inS(
+          f = ea.nf.runKey(runKey = ea.misc.sEntry(key = "seed"; value = "{randomGenerator.seed}"));
+          values = ["1"]
+        )
+      ])
+    )    
   ]
 )

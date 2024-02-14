@@ -168,19 +168,27 @@ ul li:has(.soandso) {
 img {
   max-width: 100%;
 }
+video {
+  max-width: 100%;
+  height: auto;
+}
 .w50p img {
   width: 50%;
+  height: auto;
 }
-.w75p img {
+.w75p img, .w75p video  {
   width: 75%;
 }
-.w80p img {
+.w80p img, .w80p video {
   width: 80%;
 }
-.w85p img {
+.w85p img, .w85p video {
   width: 85%;
 }
-.w100p img {
+.w90p img, .w90p video {
+  width: 90%;
+}
+.w100p img, .w100p video {
   width: 100%;
 }
 .h5ex img {
