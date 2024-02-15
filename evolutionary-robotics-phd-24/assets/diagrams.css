@@ -43,6 +43,9 @@
 .diagram .link.a {
   marker-end: url(#markerArrow);
 }
+.diagram .link.t {
+  stroke-width: 5;
+}
 .diagram .refLabel,
 .diagram .typeLabel,
 .diagram .contentLabel {

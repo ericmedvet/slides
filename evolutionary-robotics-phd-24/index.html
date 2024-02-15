@@ -19,7 +19,8 @@
     <script>
       var sourceUrls = [
         "01-intro.md",
-        "02-ec.md"
+        "02-ec.md",
+        "03-er.md"
       ];
       var xmlhttp = new XMLHttpRequest();
       var source = "";
@@ -39,6 +40,7 @@
           macros: {
             "\\vect": "\\boldsymbol",
             "\\subtext": "\_\\text{#1}",
+            "\\suptext": "^\\text{#1}",
             "\\prob": "\\text{Pr}\\!\\left(#1\\right)",
             "\\freq": "\\text{Fr}\\!\\left(#1\\right)",
             "\\sub": "_{#1}",
