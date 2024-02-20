@@ -27,6 +27,10 @@ h1, h2 {
 .remark-slide-content h3:first-of-type {
   margin-top: 0;
 }
+del {
+  text-decoration-thickness: 1.5mm;
+  text-decoration-color: #DC267F;
+}
 code, .pseudo-code {
   border-radius: 0.5em;
 }
@@ -245,7 +249,7 @@ video {
   font-size: 125%;
   border-radius: 0.25em;
 }
-.note, .footnote {
+.note, .footnote, .bnote {
   color: darkgray;
   font-size: 75%;
 }
@@ -406,14 +410,16 @@ span.note::after {
   background-color: #648FFF66;
   background-color: #FFB00066;
 }
-blockquote {
+blockquote, q, .q {
   font-family: 'Prata', serif;
+  color: #383838;
+  background-color: #EEEEEE;
+}
+blockquote {
   margin: 0.25em 0;
   padding: 0.15em 40px;
   x-line-height: 1.45;
   position: relative;
-  color: #383838;
-  background-color: #EEEEEE;
   display: inline-block;
 }
 blockquote:before {
@@ -425,4 +431,20 @@ blockquote:before {
   left: -15px;
   top: -10px;
   color: #7a7a7a;
+}
+q:before, .q:before, q:after, .q:after {
+  line-height: 0;
+  display: inline-block;
+  color: #7a7a7a;
+  font-size: 175%;
+  position: relative;
+  top: 0.7ex;
+}
+q:before, .q:before {
+  content: "\201C";
+  left: -0.1ex;
+}
+q:after, .q:after {
+  content: "\201D";
+  left: 0.1ex;
 }
