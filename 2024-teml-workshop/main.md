@@ -10,6 +10,18 @@ Toulouse Workshop on Evolutionary Computation and Machine Learning (TEML)
 
 April 2024 - Toulouse
 
+.vspace1[]
+
+.vspace1[]
+
+.center[
+.h5ex[![Evolutionary Robotics and Artificial Life Lab](images/logo-erallab.png)]
+.hspace5[]
+.h5ex[![Department of Engineering and Architecture](images/logo-dia.png)]
+.hspace5[]
+.h5ex[![University of Trieste](images/logo-units.png)]
+]
+
 ---
 
 ## Intelligence?
@@ -95,7 +107,6 @@ otext(75,100,'$k \\\\to k+1$', 'compact')
 ]
 ]
 
-.compact[
 Both agent and environment are **dynamical systems**, but terminology reflects the agent point of view:
 - agent $A \\in \\mathcal{D}\\sub{O,A,S\_A}$
   - an input is an observation (of the environment): $I\_A=O$, the **observation space** 
@@ -103,10 +114,6 @@ Both agent and environment are **dynamical systems**, but terminology reflects t
 - environment $E \\in \\mathcal{D}\\sub{A,O,S\_E}$
   - an input is the agent's action: $I\_E=A$
   - an output is what the agent will observe at $k+1$: $O\_E=O$
-  
-Also with more than one agent $\\to$ **multi-agent systems** (MASs):
-- $f\\suptext{state}\\sub{E}: S \\times A\_1 \\times A\_2 \\times \\dots \\to S$ (and same for $f\\suptext{out}\\sub{E}$)
-]
 
 ---
 
@@ -248,6 +255,7 @@ link([810,75,850,75],'a')
 .important.center[Is intelligence just in the **brain** $C$? Or is it also in the **body** $B\\subtext{in}, B\\subtext{out}$?]
 
 Common belief: **intelligence is in the brain**!
+And/thus we usually opitimized this!
 
 ---
 
@@ -277,7 +285,7 @@ I don't know. But...
   1. set/change the relative storing/processing abilities of body/brain
   2. **measure** the change in intelligence, i.e., "deal with situations", "manipulate environment" $\\rightarrow$ **perform a task**
   
-For 1, we need an agent where we can also play with body **complexity**!
+For 1, we need an agent where we can also play with **body complexity**!
 
 .footnote[
 Further reading:
@@ -372,15 +380,34 @@ Biped:
 
 ---
 
-## Pre-investigation¹ 2: changes to the body material
+## Different brain types¹
 
-- newk
+.cols[
+.c60[
+Different neural network models, different complexity:
+- multi-layer perceptron (MLP)
+- recurrent neural network (RNN) .note[layered]
+- spiking neural network (SNN) .note[layered]
+  - also with **homeostasis** (SNN-H)
 
----
+Brain complexity:
+- of the state, $\\approx$ by state size $|\\vect{s}|$
+- of the functions, $\\approx$ by number of params $|\\vect{\\theta}|$
 
-## Different brain types
+Coupled with several bodies:
+.center.w50p[![Bodies](images/asoc-bodies.png)]
 
-- asoc
+And two control frequencies
+]
+.c40[
+.center.w100p[![Complexities of the NNs](images/asoc-sizes.png)]
+]
+]
+ 
+
+.footnote[
+1. .ref[Nadizar, Medvet, Nichele, Pontes-Filho; An Experimental Comparison of Evolved Neural Network Models for Controlling Simulated Modular Soft Robots; Applied Soft Computing (ASOC); 2023]
+]
 
 ---
 
@@ -401,5 +428,5 @@ Biped:
 
 ## Future
 
-- characterization
+- characterization fitness landscape
 - auto-assembly
