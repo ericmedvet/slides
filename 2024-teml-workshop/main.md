@@ -195,14 +195,14 @@ link([810,75,850,75],'a')
 ]
 .c35[
 Actuators have an inner, low-level controller, usually a proportional integrative derivative (PID) controller
-- $B\\subtext{in}$ has a state!
+- $B\\subtext{out}$ has a state!
 ]
 .c15[
 .w100p.center[![Thymio II robot](images/robot-thymio-ii.webp)]
 ]
 .c35[
 Sensors may perform a moving average of the perceived distances
-- $B\\subtext{out}$ has a state!
+- $B\\subtext{in}$ has a state!
 ]
 ]
 
@@ -212,7 +212,7 @@ Sensors may perform a moving average of the perceived distances
 ]
 .c40[
 Softness is modeled as an aggregate of spring-hamper systems
-- $B\\subtext{in}$ has a (quite rich) state!
+- $B\\subtext{out}$ has a (quite rich) state!
 ]
 ]
 
@@ -284,6 +284,7 @@ I don't know. But...
 - hence, one possible approach is:
   1. set/change the relative storing/processing abilities of body/brain
   2. **measure** the change in intelligence, i.e., "deal with situations", "manipulate environment" $\\rightarrow$ **perform a task**
+      - with **evolution** as "distribution" mechanism (global optimization)
   
 For 1, we need an agent where we can also play with **body complexity**!
 
@@ -390,30 +391,98 @@ Different neural network models, different complexity:
 - spiking neural network (SNN) .note[layered]
   - also with **homeostasis** (SNN-H)
 
-Brain complexity:
+Brain **complexity**:
 - of the state, $\\approx$ by state size $|\\vect{s}|$
 - of the functions, $\\approx$ by number of params $|\\vect{\\theta}|$
 
-Coupled with several bodies:
+Coupled with three bodies (and two control frequencies):
 .center.w50p[![Bodies](images/asoc-bodies.png)]
-
-And two control frequencies
 ]
 .c40[
 .center.w100p[![Complexities of the NNs](images/asoc-sizes.png)]
 ]
 ]
  
-
 .footnote[
 1. .ref[Nadizar, Medvet, Nichele, Pontes-Filho; An Experimental Comparison of Evolved Neural Network Models for Controlling Simulated Modular Soft Robots; Applied Soft Computing (ASOC); 2023]
 ]
 
 ---
 
-## Body criticality
+### Results: better with a state!
 
-- frai criticality
+.center.w90p[![Median fitness during evolution](images/asoc-fitness.png)]
+
+- **RNN** are in general more effective and efficient
+- unclear impact of perception 🤔, unclear impact of **body complexity** 🤔
+- frequency $\\rightarrow$ cap on brain role (low, stronger limit) $\\rightarrow$ **sound!**
+
+---
+
+## Body criticality¹
+
+**Research question**: what makes a body good for different tasks? (locomotion, cave escape, jump)
+- here as: what makes a single body "intelligent"?
+
+Idea:
+1. "critical systems allow for optimal information processing" $\\rightarrow$ **criticality**
+  - the property of being on the boundary between order and chaos (intuitively)
+2. *define* criticality for bodies
+3. optimize bodies for criticality
+4. check if high-criticality bodies are better then low-criticality bodies across different tasks
+
+.footnote[
+1. .ref[Talamini, Medvet, Nichele; Criticality-driven Evolution of Adaptable Morphologies of Voxel-Based Soft-Robots; Frontiers in Robotics and AI (FRAI); 2021]
+]
+
+--
+
+.vspace1[]
+
+.cols[
+.c70[
+Measuring body criticality (**task agnostic**!):
+1. apply one stimulus to only one voxel
+2. count how many voxels it impacts on (**avalanche** size)
+3. measure how well the distribution of the avalanche size fits
+
+$\\Rightarrow$ can be used to **drive on optimization** on bodies!
+]
+.c30[
+.center.w90p[![Median fitness during evolution](images/frai-body-fitness.png)]
+]
+]
+
+---
+
+### Results: bodies optimized for criticality are adaptable!!!
+
+.cols[
+.c30.center[
+"Manual" bodies
+.w75p[![Manual bodies](images/frai-bodies-manual.png)]
+
+Random bodies
+.w100p[![Random bodies](images/frai-bodies-random.png)]
+
+Grown bodies
+.w100p[![Grow bodies](images/frai-bodies-grow.png)]
+
+**Optimized bodies**
+.w100p[![Optimized bodies](images/frai-bodies-opt.png)]
+]
+.c70[
+Procedure:
+1. take a body $b$
+2. optimize a brain for $b$ for a task $t$ .note[always same type of brain]
+3. compute the **average rank** $\\mu_r$ of $b$+optimized brain in $t$ .note[w.r.t. all bodies with their optimized brains]
+  - the lower $\\mu_r$, the better!
+  
+.center.w50p[![Average rank](images/frai-table.png)]
+
+Here: **criticality$\\approx$complexity $\\land$ the larger the body complexity, the more intelligent the robot!**
+]
+]
 
 ---
 
