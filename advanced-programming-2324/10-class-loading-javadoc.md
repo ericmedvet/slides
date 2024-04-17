@@ -233,6 +233,8 @@ In some cases, providing an API documentation (aka javadoc) may be useful.
 
 Both steps are largely assisted by/automated with IDEs.
 
+.note[not only syntax matter, there's [large literature](https://www.oracle.com/it/technical-resources/articles/java/javadoc-tool.html) on **how to write** a proper API doc (prose, person, ...)]
+
 ---
 
 ## `javadoc` like documentation
@@ -279,4 +281,7 @@ public class Greeter {
 - `/**` marks the start of a javadoc comment (normal block comments start with `/*`)
 - javadoc tags start with `@`
 - some HTML syntax can be used
+  - possibly, in the future ([JEP 467](https://openjdk.org/jeps/467)), Markdown syntax
 - ...
+
+.note[possibly, in the future (JEP, the mark]
