@@ -150,7 +150,7 @@ Server:
 
 ---
 
-## `SimpleUppercaseServer`
+## `SimpleUppercaserServer`
 
 .compact[
 ```java
