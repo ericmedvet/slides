@@ -39,9 +39,9 @@ April 2024 - Toulouse
 
 .cols[
 .c60[
-A .note[time invariant¹] .key[dynamical system] $D$ in **discrete time** ($k \\in \\mathbb{N}$) is defined by:
-- a **state update function**² $f\\suptext{state}: S \\times I \\to S$
-- an **output function**² $f\\suptext{out}: S \\times I \\to O$
+A .note[time invariant<sup>1</sup>] .key[dynamical system] $D$ in **discrete time** ($k \\in \\mathbb{N}$) is defined by:
+- a **state update function**<sup>2</sup> $f\\suptext{state}: S \\times I \\to S$
+- an **output function**<sup>2</sup> $f\\suptext{out}: S \\times I \\to O$
 - an initial state $s^{(0)} \\in S$
 
 where
@@ -119,7 +119,7 @@ Both agent and environment are **dynamical systems**, but terminology reflects t
 
 ## Robot
 
-.key[Robot]¹: an agent with a **body**².
+.key[Robot]<sup>1</sup>: an agent with a **body**<sup>2</sup>.
 
 .diagram.center[
 otext(450,-15,'Agent')
@@ -263,7 +263,7 @@ And/thus we usually opitimized this!
 
 .important.center[Is intelligence just in the **brain** $C$? Or is it also in the **body** $B\\subtext{in}, B\\subtext{out}$?]
 
-- an alternative path towards (general) artificial intelligence
+- an alternative path towards artificial (general) intelligence
   - **embodied AI**, **morphological computation**
   - more balanced efforts (not just on "big" brains)
 - better understanding of what's intelligence
@@ -282,7 +282,7 @@ I don't know. But...
   - store information (**complexity** of the state $s \\in S$)
   - process it (**complexity** of the functions $f\\suptext{state}, f\\suptext{out}$)
 - hence, one possible approach is:
-  1. set/change the relative storing/processing abilities of body/brain
+  1. set/change the relative storing/processing **capacity** of body/brain
   2. **measure** the change in intelligence, i.e., "deal with situations", "manipulate environment" $\\rightarrow$ **perform a task**
       - with **evolution** as "distribution" mechanism (global optimization)
   
@@ -297,7 +297,7 @@ Further reading:
 
 ---
 
-## Voxel-based soft robots (VSRs¹)
+## Voxel-based soft robots (VSRs<sup>1</sup>)
 
 .cols[
 .c60[
@@ -330,10 +330,17 @@ Bottom image from .ref[Legrand, Julie, et al. "Reconfigurable, multi-material, v
 
 ---
 
-## Pre-investigation¹ 1: changes to the body shape
+## Pre-investigation<sup>1</sup> 1: changes to the body shape
 
-**Research question**²: can a brain control control a slightly different body (wrt the one it has been evolved for)?
+**Research question**<sup>2</sup>: can a brain control control a slightly different body (wrt the one it has been evolved for)?
 - why relevant? If "no", then the body likely matters a lot!
+
+.footnote[
+1. .ref[Medvet, Rusin; Impact of Morphology Variations on Evolved Neural Controllers for Modular Robots; XVI International Workshop on Artificial Life and Evolutionary Computation (WIVACE); 2022]
+2. Cheney et al. are working on this!
+]
+
+--
 
 .cols[
 .c50[
@@ -348,16 +355,11 @@ Body variations:
 ]
 ]
 
-.footnote[
-1. .ref[Medvet, Rusin; Impact of Morphology Variations on Evolved Neural Controllers for Modular Robots; XVI International Workshop on Artificial Life and Evolutionary Computation (WIVACE); 2022]
-2. Cheney et al. are working on this!
-]
-
 ---
 
 ### Results
 
-**Research question**²: can a brain control control a slightly different body (wrt the one it has been evolved for)?
+**Research question**<sup>2</sup>: can a brain control control a slightly different body (wrt the one it has been evolved for)?
 **TL;DR**: no!
 
 .cols[
@@ -373,15 +375,15 @@ Body variations:
 </video>
 
 Biped:
-- top: original brain+body
-- middle: original brain on modified body
-- bottom: re-optimized brain on modified body
+- top: **original** brain+body
+- middle: original brain on **modified** body
+- bottom: **re-optimized** brain on modified body
 ]
 ]
 
 ---
 
-## Different brain types¹
+## Different brain types<sup>1</sup>
 
 .cols[
 .c60[
@@ -392,8 +394,8 @@ Different neural network models, different complexity:
   - also with **homeostasis** (SNN-H)
 
 Brain **complexity**:
-- of the state, $\\approx$ by state size $|\\vect{s}|$
-- of the functions, $\\approx$ by number of params $|\\vect{\\theta}|$
+- of the state (**storing**), $\\approx$ by state size $|\\vect{s}|$
+- of the functions (**processing**), $\\approx$ by number of params $|\\vect{\\theta}|$
 
 Coupled with three bodies (and two control frequencies):
 .center.w50p[![Bodies](images/asoc-bodies.png)]
@@ -413,13 +415,13 @@ Coupled with three bodies (and two control frequencies):
 
 .center.w90p[![Median fitness during evolution](images/asoc-fitness.png)]
 
-- **RNN** are in general more effective and efficient
+- **RNNs** are in general more effective and efficient
 - unclear impact of perception 🤔, unclear impact of **body complexity** 🤔
 - frequency $\\rightarrow$ cap on brain role (low, stronger limit) $\\rightarrow$ **sound!**
 
 ---
 
-## Body criticality¹
+## Body criticality<sup>1</sup>
 
 **Research question**: what makes a body good for different tasks? (locomotion, cave escape, jump)
 - here as: what makes a single body "intelligent"?
@@ -480,22 +482,117 @@ Procedure:
   
 .center.w50p[![Average rank](images/frai-table.png)]
 
-Here: **criticality$\\approx$complexity $\\land$ the larger the body complexity, the more intelligent the robot!**
+Here: **the larger the body complexity** ($\\approx$criticality)**, the more intelligent** ($\\approx$adaptable) **the robot!**
 ]
 ]
 
 ---
 
-## Plastic brains
+## Beyond the single body+brain
 
-- attention
-- hebbian, hebbian+body
-- self-classification
-- Davis, Q. Tyrell, et al. "Subtract to adapt: Autotomic robots." 2023 IEEE International Conference on Soft Robotics (RoboSoft). IEEE, 2023.
+Being modular, a VSR can be seen as a "swarm" of robots
+- w.r.t. "classical" swarms, **tighter** interactions among robots
 
+"**Where's the intelligence?**" answer gains a dimension:
+- before: body vs. brain
+- now: single agent vs. collection of agents .note[in VSRs, agent$=$voxel]
+
+Open topics:
+- voxels **communication**
+- voxels **specialization**
+- voxels **collaboration**
+- ...
+
+---
+
+## Voxels (non) communication<sup>1</sup>
+
+**Research question**: can voxels of a VSR work well without communicating?
+**TL;DR**: yes, through attention!
+
+.cols[
+.c50[
+.w100p[![Fitness w/ and w/o communication](images/attention-plots.png)]
+
+- **MLP**: no communication
+- **MLP-Comm**: some values exchanged
+- **Attention**: no comm., but internal attention
+]
+.c50[
+<video autoplay muted loop>
+    <source src="images/attention-comb.mp4" type="video/mp4"/>
+</video>
+Voxels focus differently depending on their **role**!
+- same ANN in every voxel (all identical!)
+]
+]
+
+
+.footnote[
+1. .ref[Pigozzi, Tang, Medvet, Ha; Evolving Modular Soft Robots without Explicit Inter-Module Communication using Local Self-Attention; ACM Genetic and Evolutionary Computation Conference (GECCO); 2022]
+]
+
+---
+
+## Role and specialization<sup>1</sup>
+
+**Research question**: how to make voxels plastic such that they can adapt to bodies?
+
+**Preview**: Hebbian learning $+$ body+brain evolution $=$ ❤️
+.w80p.center[![Performance after remixing](images/totipotent-plots.png)]
+
+.footnote[
+1. .ref[Ferigo, Andrea, et al. "Totipotent Neural Controllers for Modular Soft Robots: Achieving Specialization in Body-Brain Co-Evolution Through Hebbian Learning."] .note[ongoing work]
+]
+
+---
+
+## Intelligence is collective (if needed)<sup>1</sup>
+
+**Identical** agents: same body, **some brain**!
+- not constrained to stay physically attached
+- can attach/detach
+
+.cols[
+.c50[
+.center[Goal: run **all together** (avg $v\_x$)]
+.w75p[
+<video autoplay muted loop>
+    <source src="images/collective-locomotion-avg.mp4" type="video/mp4"/>
+</video>
+]
+]
+.c50[
+.center[Goal: **one** run (max $v\_x$)]
+.w75p[
+<video autoplay muted loop>
+    <source src="images/collective-locomotion-max.mp4" type="video/mp4"/>
+</video>
+
+- **specialization** emerges!
+  - without plasticity
+  - "between" agent and environment
+]
+]
+]
+
+.footnote[
+1. .ref[Rusin, Medvet "How Perception, Actuation, and Communication Impact on the Emergence of Collective Intelligence in Simulated Modular Robots"] .note[ongoing work]
+]
 ---
 
 ## Future
 
-- characterization fitness landscape
-- auto-assembly
+- Is evolution equally **fair in distributing intelligence** (i.e., exploiting capacity of complexity)?
+  - likely, no... it depends (also) on representation<sup>1</sup>
+- Can a faster forms of **adaptation** fix this?
+  - learning<sup>2</sup>
+  - development<sup>3,4</sup>
+- **Explainable** body intelligence
+  
+.footnote[
+1. .ref[Thomson, Sarah L., et al. "Understanding fitness landscapes in morpho-evolution via local optima networks." arXiv preprint arXiv:2402.07822 (2024).]
+2. .ref[Pigozzi, Camerota Verdù, Medvet; How the Morphology Encoding Influences the Learning Ability in Body-Brain Co-Optimization; ACM Genetic and Evolutionary Computation Conference (GECCO); 2023]
+3. .ref[Nadizar, Medvet, Miras; On the Schedule for Morphological Development of Evolved Modular Soft Robots; 25th European Conference on Genetic Programming (EuroGP); 2022]
+4. .ref[Davis, Q. Tyrell, et al. "Subtract to adapt: Autotomic robots." 2023 IEEE International Conference on Soft Robotics (RoboSoft). IEEE, 2023.]
+]
