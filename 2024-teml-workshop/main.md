@@ -581,9 +581,9 @@ Voxels focus differently depending on their **role**!
 ]
 ---
 
-## Future
+## Future/open challenges
 
-- Is evolution equally **fair in distributing intelligence** (i.e., exploiting capacity of complexity)?
+- Is evolution equally **fair in distributing intelligence** (i.e., exploiting capacity of complexity) on body and brain?
   - likely, no... it depends (also) on representation<sup>1</sup>
 - Can a faster forms of **adaptation** fix this?
   - learning<sup>2</sup>
@@ -596,3 +596,36 @@ Voxels focus differently depending on their **role**!
 3. .ref[Nadizar, Medvet, Miras; On the Schedule for Morphological Development of Evolved Modular Soft Robots; 25th European Conference on Genetic Programming (EuroGP); 2022]
 4. .ref[Davis, Q. Tyrell, et al. "Subtract to adapt: Autotomic robots." 2023 IEEE International Conference on Soft Robotics (RoboSoft). IEEE, 2023.]
 ]
+
+---
+
+class: middle, center
+
+## Where is intelligence?<br> (in simulated modular soft robots)
+
+.cols[
+.c30[
+This slide deck:
+.w75p.center[![This slide deck QR code](images/qr-slides.png)]
+
+Me:  
+[medvet.inginf.units.it](http://medvet.inginf.units.it/)
+]
+.c40[
+.w75p.center[![ERALLab at Xmas '23](images/erallab-xmas-23.jpg)]
+**Thanks** to Federico, Giorgia, Samuele, Gloria, Michel
+]
+.c30[
+**ERALLab team**:  
+Giorgia Nadizar  
+Federico Pigozzi, Dr.  
+Francesco Rusin  
+Jacopo Talamini, Dr.
+
+**Guest stars**:  
+Stefano Nichele + Sidney Pontes-Filho  
+David Ha + Yujin Tang  
+Giovanni Iacca + Andrea Ferigo
+]
+]
+
