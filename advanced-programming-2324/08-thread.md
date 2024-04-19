@@ -197,16 +197,16 @@ Thread[Thread-0,5,main]:  6
 Thread[Thread-0,5,main]:  7
 Thread[Thread-0,5,main]:  8
 Thread[Thread-`0,5`,main]:  `9`
-Thread[Thread-`1,5`,main]:  `0`
-Thread[Thread-1,5,main]:  1
-Thread[Thread-1,5,main]:  2
-Thread[Thread-1,5,main]:  3
-Thread[Thread-1,5,main]:  4
-Thread[Thread-1,5,main]:  5
-Thread[Thread-1,5,main]:  6
-Thread[Thread-1,5,main]:  7
-Thread[Thread-1,5,main]:  8
-Thread[Thread-1,5,main]:  9
+Thread[Thread-`0,5`,main]:  `0`
+Thread[Thread-0,5,main]:  1
+Thread[Thread-0,5,main]:  2
+Thread[Thread-0,5,main]:  3
+Thread[Thread-0,5,main]:  4
+Thread[Thread-0,5,main]:  5
+Thread[Thread-0,5,main]:  6
+Thread[Thread-0,5,main]:  7
+Thread[Thread-0,5,main]:  8
+Thread[Thread-0,5,main]:  9
 ```
 ]
 ]
@@ -653,7 +653,7 @@ public class IncThread extends Thread {
     this.c = c;
   }
   public void run() {
-    System.out.print(c.inc() + " ");
+    System.out.print(c.incAndGet() + " ");
   }
 }
 ```
