@@ -321,7 +321,7 @@ Top image from .ref[Hiller, Jonathan, and Hod Lipson. "Automatic design and manu
 
 Bottom image from .ref[Legrand, Julie, et al. "Reconfigurable, multi-material, voxel-based soft robots." IEEE Robotics and Automation Letters 8.3 (2023): 1255-1262.], then many works
 
-1. aka Virtual Soft Robots, from .ref[Mertan, Alican, and Nick Cheney. "Investigating Premature Convergence in Co-optimization of Morphology and Control in Evolved Virtual Soft Robots." 27th European Conference on Genetic Programming (EuroGP); 2024.]
+1. aka Virtual Soft Robots, from .ref[Mertan, Alican, and Nick Cheney. "Investigating Premature Convergence in Co-optimization of Morphology and Control in Evolved Virtual Soft Robots." EuroGP 2024.]
 ]
 ]
 .c40[
