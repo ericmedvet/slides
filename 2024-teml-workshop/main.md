@@ -1,6 +1,6 @@
 class: middle, center
 
-# Where is intelligence?
+# Where's the intelligence?
 
 ## (in simulated modular soft robots)
 
@@ -117,9 +117,9 @@ Both agent and environment are **dynamical systems**, but terminology reflects t
 
 ---
 
-## Robot
+## Embodied agent
 
-.key[Robot]<sup>1</sup>: an agent with a **body**<sup>2</sup>.
+.key[Embodied agent]<sup>1</sup> (or **robot**): an agent with a **body**<sup>2</sup>.
 
 .diagram.center[
 otext(450,-15,'Agent')
@@ -218,7 +218,7 @@ Softness is modeled as an aggregate of spring-hamper systems
 
 ---
 
-## Why "where"?
+## Why "_where_'s the intelligence"?
 
 .diagram.center[
 otext(450,-15,'Agent')
@@ -278,12 +278,15 @@ I don't know. But...
 
 --
 
-- **general hypothesis**: a dynamical system has the ability to
-  - store information (**complexity** of the state $s \\in S$)
-  - process it (**complexity** of the functions $f\\suptext{state}, f\\suptext{out}$)
-- hence, one possible approach is:
-  1. set/change the relative storing/processing **capacity** of body/brain
-  2. **measure** the change in intelligence, i.e., "deal with situations", "manipulate environment" $\\rightarrow$ **perform a task**
+**General hypothesis**: **intelligence** $\\sim$ **complexity** and, for dynamical systems, complexity $\\approx$
+- ability to store information (**complexity** of the state $s \\in S$)
+-  ability to process it (**complexity** of the functions $f\\suptext{state}, f\\suptext{out}$)
+
+--
+
+Hence, one possible approach is:
+1. set/change the relative storing/processing **capacity** of body/brain
+2. **measure** the change in intelligence, i.e., "deal with situations" $\\rightarrow$ **perform a task**
       - with **evolution** as "distribution" mechanism (global optimization)
   
 For 1, we need an agent where we can also play with **body complexity**!
@@ -383,15 +386,17 @@ Biped:
 
 ---
 
-## Different brain types<sup>1</sup>
+## Brain complexity: different brain types<sup>1</sup>
 
 .cols[
 .c60[
-Different neural network models, different complexity:
+Different neural network models, different **brain complexity**:
+.compact[
 - multi-layer perceptron (MLP)
 - recurrent neural network (RNN) .note[layered]
 - spiking neural network (SNN) .note[layered]
   - also with **homeostasis** (SNN-H)
+]
 
 Brain **complexity**:
 - of the state (**storing**), $\\approx$ by state size $|\\vect{s}|$
@@ -421,7 +426,7 @@ Coupled with three bodies (and two control frequencies):
 
 ---
 
-## Body criticality<sup>1</sup>
+## Body complexity: criticality<sup>1</sup>
 
 **Research question**: what makes a body good for different tasks? (locomotion, cave escape, jump)
 - here as: what makes a single body "intelligent"?
@@ -490,18 +495,55 @@ Here: **the larger the body complexity** ($\\approx$criticality)**, the more int
 
 ## Beyond the single body+brain
 
+.cols[
+.c70[
 Being modular, a VSR can be seen as a "swarm" of robots
 - w.r.t. "classical" swarms, **tighter** interactions among robots
+]
+.c30.center[
+.w75p[![A module of a VSR](images/attention-module.png)]
+]
+]
 
+.diagram.center[
+otext(450,-15,'One agent')
+rect(50,0,800,110)
+otext(190,35,'Body (sensors) $B\\\\subtext{in}$')
+rect(90,50,200,50)
+otext(190,75,'$f\\\\suptext{state}\\\\sub{B\\\\subtext{in}},f\\\\suptext{out}\\\\sub{B\\\\subtext{in}},s\\\\sub{B\\\\subtext{in}}^{(0)}$')
+otext(450,35,'Brain $C$')
+rect(350,50,200,50)
+otext(450,75,'$f\\\\suptext{state}\\\\sub{C},f\\\\suptext{out}\\\\sub{C},s\\\\sub{C}^{(0)}$')
+otext(710,35,'Body (actuators) $B\\\\subtext{out}$')
+rect(610,50,200,50)
+otext(710,75,'$f\\\\suptext{state}\\\\sub{B\\\\subtext{out}},f\\\\suptext{out}\\\\sub{B\\\\subtext{out}},s\\\\sub{B\\\\subtext{out}}^{(0)}$')
+otext(450,130,'Environment (including the other agents)')
+rect(350,150,200,50)
+otext(450,175,'$f\\\\suptext{state}\\\\sub{E},f\\\\suptext{out}\\\\sub{E},s\\\\sub{E}^{(0)}$')
+link([350,175,0,175,0,75,50,75],'a')
+link([-10,125,10,125],'t')
+link([850,75,900,75,900,175,550,175],'a')
+link([50,75,90,75],'a')
+otext(320,60,'$o^{(k)}$')
+link([290,75,350,75],'a')
+otext(580,60,'$a^{(k)}$')
+link([550,75,610,75],'a')
+link([810,75,850,75],'a')
+]
+
+.cols[
+.c50[
 "**Where's the intelligence?**" answer gains a dimension:
 - before: body vs. brain
 - now: single agent vs. collection of agents .note[in VSRs, agent$=$voxel]
-
+]
+.c50[
 Open topics:
 - voxels **communication**
 - voxels **specialization**
 - voxels **collaboration**
-- ...
+]
+]
 
 ---
 
@@ -601,7 +643,7 @@ Voxels focus differently depending on their **role**!
 
 class: middle, center
 
-## Where is intelligence?<br> (in simulated modular soft robots)
+## Where's the intelligence?<br> (in simulated modular soft robots)
 
 .cols[
 .c30[
@@ -613,16 +655,18 @@ Me:
 ]
 .c40[
 .w75p.center[![ERALLab at Xmas '23](images/erallab-xmas-23.jpg)]
-**Thanks** to Federico, Giorgia, Samuele, Gloria, Michel
+👋👋👋 from Francesco, Giorgia, Samuele, Gloria, Michel, Eric
 ]
 .c30[
-**ERALLab team**:  
+**Contribs from ERALLab**:  
 Giorgia Nadizar  
 Federico Pigozzi, Dr.  
 Francesco Rusin  
 Jacopo Talamini, Dr.
 
-**Guest stars**:  
+.vspace1[]
+
+**Contribs from guest stars**:  
 Stefano Nichele + Sidney Pontes-Filho  
 David Ha + Yujin Tang  
 Giovanni Iacca + Andrea Ferigo
