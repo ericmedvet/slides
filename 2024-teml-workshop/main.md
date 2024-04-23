@@ -268,6 +268,13 @@ And/thus we usually opitimized this!
   - more balanced efforts (not just on "big" brains)
 - better understanding of what's intelligence
 
+.footnote[
+Further reading:
+- .ref[Paul, Chandana. “Morphological computation: A basis for the analysis of morphology and control requirements.” Robotics and Autonomous Systems 54.8 (2006): 619-630]
+- .ref[Füchslin, Rudolf M., et al. “Morphological computation and morphological control: steps toward a formal theory and applications.” Artificial life 19.1 (2013): 9-34]
+- .ref[Zahedi, Keyan, and Nihat Ay. “Quantifying morphological computation.” Entropy 15.5 (2013): 1887-1915]
+]
+
 ---
 
 ## How to answer?
@@ -290,13 +297,6 @@ Hence, one possible approach is:
       - with **evolution** as "distribution" mechanism (global optimization)
   
 For 1, we need an agent where we can also play with **body complexity**!
-
-.footnote[
-Further reading:
-- .ref[Zahedi, Keyan, and Nihat Ay. “Quantifying morphological computation.” Entropy 15.5 (2013): 1887-1915]
-- .ref[Paul, Chandana. “Morphological computation: A basis for the analysis of morphology and control requirements.” Robotics and Autonomous Systems 54.8 (2006): 619-630]
-- .ref[Füchslin, Rudolf M., et al. “Morphological computation and morphological control: steps toward a formal theory and applications.” Artificial life 19.1 (2013): 9-34]
-]
 
 ---
 
