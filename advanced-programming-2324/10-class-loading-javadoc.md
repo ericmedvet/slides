@@ -41,7 +41,7 @@ When JVM starts executing `Main.class`:
 The JVM needs to use a `.class` file when:
 - a constructor is executed
 - a method is executed (static or not)
-- a static field is accessed
+- a field is accessed (static or not)
 
 Whenever the JVM needs to use a `.class` file:
 - it looks for it in memory
@@ -283,5 +283,3 @@ public class Greeter {
 - some HTML syntax can be used
   - possibly, in the future ([JEP 467](https://openjdk.org/jeps/467)), Markdown syntax
 - ...
-
-.note[possibly, in the future (JEP, the mark]
