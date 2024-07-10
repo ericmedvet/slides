@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Evolutionary robotics - PhD course - 2024</title>
+    <meta charset="utf-8" />
+    <link rel="icon" href="images/ml-icon.png">
+    <link rel="stylesheet" type="text/css" href="assets/style.css" />
+    <link rel="stylesheet" type="text/css" href="assets/diagrams.css" />
+    <link href="assets/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+    <link href="assets/fontawesome/css/brands.min.css" rel="stylesheet">
+    <link href="assets/fontawesome/css/solid.min.css" rel="stylesheet">
+    </head>
+  <body>
+    <script src="assets/remark-latest.min.js"></script>
+    <script src="assets/katex.min.js"></script>
+    <script src="assets/auto-render.min.js"></script>
+    <script src="assets/diagram-transformer.js"></script>
+    <link rel="stylesheet" href="assets/katex.min.css" />
+    <script>
+      var sourceUrls = [
+        "01-intro.md",
+        "02-ec.md",
+        "03-er.md"
+      ];
+      var xmlhttp = new XMLHttpRequest();
+      var source = "";
+      for (var i = 0; i < sourceUrls.length; i++) {
+        xmlhttp.open("GET", sourceUrls[i], false);
+        xmlhttp.send();
+        source += xmlhttp.responseText;
+        if (i + 1 < sourceUrls.length) {
+          source += "\n---\n";
+        }
+      }
+      var renderMath = function() {
+        diagramTransformer.transformAll(document.body, "diagram");
+        renderMathInElement(document.body, {
+          strict: "ignore",
+          trust: true,
+          macros: {
+            "\\vect": "\\boldsymbol",
+            "\\subtext": "\_\\text{#1}",
+            "\\suptext": "^\\text{#1}",
+            "\\prob": "\\text{Pr}\\!\\left(#1\\right)",
+            "\\freq": "\\text{Fr}\\!\\left(#1\\right)",
+            "\\sub": "_{#1}",
+            "\\abs": "\\left\\lvert #1 \\right\\rvert",
+            "\\set": "\\left\\{#1\\right\\}",
+            "\\bag": "\\left[#1\\right]",
+            "\\tree": "\\left[#1;#2;#3\\right]",
+            "\\treel": "\\left[#1\\right]",
+            "\\c": "\\htmlClass{col#1}{#2}",
+            "\\smaller": "\\htmlClass{smaller}{#1}",
+            "\\setsample": "\\vcentcolon\\sim",
+            "\\seteq": "\\vcentcolon=",
+          },
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false }
+          ]
+        });
+      };
+      var slideshow = remark.create({
+          source: source,
+          ratio: "16:9",
+          highlightStyle: "monokai",
+          highlightLines: true,
+          highlightSpans: true,
+          countIncrementalSlides: false
+        },
+        renderMath
+      );
+    </script>
+    <svg class="diagram">
+      <defs>
+        <marker class="col1" id="markerArrow" markerUnits="strokeWidth" markerWidth="5" markerHeight="5" refX="5" refY="2.5" orient="auto">
+          <path d="M0,0 L5,2.5 L0,5"></path>
+        </marker>
+      </defs>
+    </svg>
+    <svg class="diagram neutral">
+      <defs>
+        <marker class="coln" id="markerArrowBlack" markerUnits="strokeWidth" markerWidth="5" markerHeight="5" refX="5" refY="2.5" orient="auto">
+          <path d="M0,0 L5,2.5 L0,5"></path>
+        </marker>
+      </defs>
+    </svg>
+  </body>
+</html>
