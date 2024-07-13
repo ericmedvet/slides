@@ -33,11 +33,13 @@ Labs:
 
 ## Key concepts
 
-**Metaheuristics** for **policy search** in **continuous control**
+.center[
+.col1[Metaheuristics] for .col2[policy search] in .col3[continuous control]
+]
 
 In brief:
-- metaheuristics $\\supseteq$ evolutionary computation $\\approx$ evolutionary optimization
-- control $\\supseteq$ continuos control $\\supseteq$ "policies"
+- .col1[metaheuristics] $\\supseteq$ evolutionary computation $\\approx$ evolutionary optimization
+- control $\\supseteq$ .col3[continuos control] $\\supseteq$ ".col2[policies]"
 
 .center[$\\downarrow$]
 
@@ -533,7 +535,7 @@ Point of view of $S'$:
 - .key[exploitation] of current knowledge about what are better solutions
 
 Alternative point of view of $S'$:
-*"What's outside? What's beyond $0.5$ and $3.5$? Let's find out!"*
+*"What's outside? What's beyond $0.5$ and $3$? Let's find out!"*
 - .key[exploration] of the search space regions not yet visited
 
 In selection criteria:
@@ -634,7 +636,9 @@ That is:
 **Applicability**:  
 - no dependency on $S,\\prec$ $\\Rightarrow$ no impact
 
-**Efficiency**?
+**Efficiency**
+- $n\\subtext{pop}=1$
+  - not actually parallelizable
 
 ]
 .c50[
@@ -1016,7 +1020,7 @@ Every crossover can be applied also to $G=\\mathbb{R}^P$
 $G = T\_{O,V\\cup C}$
 - $O=\\{+,-,\\times,\\div \\}$
 - $V=\\{x\_1,\\dots,x\_p\\}$
-- $C=\\{0.1,1,5\\}$ .note[might be $C=\\mathbb{R}$, **ephemeral constants**]
+- $C=\\{0.1,1,5\\}$ .note[might be $C=\\mathbb{R}$, **ephemeral constants**, often with a mutation working just on them]
 
 With $\\phi: T\_{O,V\\cup C} \\to \\mathcal{F}\_{\\mathbb{R}^p\\to \\mathbb{R}}$:
 - $\\phi(t) =$ visit $t$
@@ -1263,7 +1267,7 @@ function $\\text{solve}(\\phi, \\prec; B, o\\subtext{mut}, o\\subtext{xover}, n\
 **Remarks**:
 - .bad[] it's the bare minimum for optimization
   - often used as a baseline to destroy another EA
-  - does not rely on the variational inheritance principle
+  - does not rely on the variational inheritance principle .note[i.e., offspring are similar, but not identical, to parents]
       - indeed, no variation, nor inheritance
 - .bad[] not parallelizable
 - if total order on $S$ $\\Rightarrow$ monotonicity
@@ -1347,6 +1351,7 @@ Historically, a GA used to evolve computer programs (i.e., **program synthesys**
 - $G=(I \\times \\{1,\\dots,n\\subtext{reg}\\}^3)^\\ell$ $\\to$ discrete, $B$, $o\\subtext{mut}$ for string of symbols
 
 **Graph-based GP**
+- $s$ is a graph with some constraints
 
 ---
 

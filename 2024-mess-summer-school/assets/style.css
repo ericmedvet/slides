@@ -176,9 +176,14 @@ video {
   max-width: 100%;
   height: auto;
 }
-.w50p img {
+.w50p img, .w50p video  {
   width: 50%;
-  height: auto;
+}
+.w55p img, .w55p video  {
+  width: 55%;
+}
+.w65p img, .w65p video  {
+  width: 65%;
 }
 .w75p img, .w75p video  {
   width: 75%;

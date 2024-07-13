@@ -1,7 +1,16 @@
 
 class: middle, center
 
-# EC in/for robotics
+# Beyond policy search: optimizing body and brain of simulated robotic agents
+### MESS Summer School 2024
+
+[Eric Medvet](http://medvet.inginf.units.it/)
+
+.vspace1[]
+
+Catania (Italy)
+
+July, 18th 2024
 
 ---
 
@@ -295,7 +304,7 @@ link([810,75,850,75],'a')
 3. design $\\phi: \\c{3}{G} \\to \\mathcal{D}\\sub{\\c{1}{O},\\c{2}{A},\\cdot}$
 
 **Easy!**
-- often easier: $\\phi: \\c{3}{G} \\to \\mathcal{F}\\sub{\\c{1}{\\mathbb{R}^p} \\to \\c{2}{\\mathbb{R}^q}}$
+- often easier: $\\phi: \\c{3}{G} \\to \\mathcal{F}\\sub{\\c{1}{\\mathbb{R}^p} \\to \\c{2}{\\mathbb{R}^q}}$, **policy search**
 ]
 .c25[
 **Body only**
@@ -335,268 +344,31 @@ Usually, evolutionary robotics problems are problems with fitness:
 
 ---
 
+### Behavior vs. fitness space
+
+$f$ often operates on the .key[behavior] of the agent:
+- a behavior $\\beta \\in \\mathcal{B}$ being some description of what the agent does
+
+$f = f' \\circ f''$
+- $f': S \\to \\mathcal{B}$ is running/simulating the agent
+  - may be noisy, stochastic, hardly characterizable
+- $f'': \\mathcal{B} \\to \\mathbb{R}$ .note[or $\\mathbb{R}^k$ for multi-objective] is computing some quantitative metric out of the behavior
+
+.vspace1[]
+
+Longer trip from the genotype to the fitness space: $G \\xrightarrow{\\phi} S \\xrightarrow{f'} \\mathcal{B} \\xrightarrow{f''} \\mathbb{R}$
+- ideally, the full mapping process (i.e., $\\phi \\circ f' \\circ f''$) should comply with variational inheritance principle
+
+---
+
 ## ER by examples
 
+- **Interpretable controllers** for continuos control
+- **Imitation** "learning" with evolved controllers
+- **Morphological development** in simulated modular soft robots
+- **Multi-morphology** controllers
 - How to fight the **reality gap** in ER
 - How to **design a fitness function**
-- **Interpretable controllers** for continuos control
-- **Morphological development** in simulated modular soft robots
-- **Imitation** "learning" with evolved controllers
-
----
-
-class: middle, center
-
-## How to fight the reality gap in ER
-
-.ref[Koos, Sylvain, Jean-Baptiste Mouret, and Stéphane Doncieux. "The transferability approach: Crossing the reality gap in evolutionary robotics." IEEE Transactions on Evolutionary Computation 17.1 (2012): 122-145.]
-
----
-
-### Research question
-
-How to practically tackle the .key[reality gap] issue?
-
-**Brief answer**: with a multi-objective approach, where the secondary objective is the **transferability** of the controller.
-
---
-
-.vspace1[]
-
-.w100p.center[![A schematic definition of the reality gap](images/paper-fig-transf-rg-def.png)]
-
----
-
-### Sketch of the solution
-
-.w90p.center[![A schematic view of the proposed solution](images/paper-fig-transf-rg-solution.png)]
-
----
-
-### Experiments: case study 1
-
-.cols[
-.c60.compact[
-**Search space, fitness**:
-- $O=\\mathbb{R}^7$ .note[5 IR sensors, 2 color sensors]
-- $A=\\mathbb{R}^2$ .note[2 motors]
-- $S\_C=\\mathbb{R}^p$ and $f\\suptext{state}\\sub{C},f\\suptext{out}\\sub{C} =$ RNN with predefined architecture (with enforced simmetry)
-  - recurrent neural networks (RNNs) have a **state**!
-- $f\_1$ is distance ($d\_x+d\_y$) $+$ bonus
-
-**Representation, EA**:
-- $G \\simeq \\mathbb{R}^{35}$, but each number encoded with 4 bits
-- $o\\subtext{mut} =$ bit flip; $o\\subtext{xover} =$ uniform
-- NSGA-II
-
-**Other remarks**:
-- transferability descriptors: trajectory distance
-- diversity measure: genotype distance
-- ML features: min distance to left/right, traveled distance
-- interesting case of *non-brain computation*
-  - can be solved with a stateless controller...
-  - ... but here with a stateful controller
-]
-.c40[
-.w100p.center[![An overview of the task](images/paper-fig-transf-rg-case1-robot.png)]
-
-.vspace1[]
-
-.w100p.center[![Table with key results](images/paper-fig-transf-rg-case1-results.png)]
-]
-]
-
----
-
-### Experiments: case study 2
-
-.cols[
-.c60.compact[
-**Search space, fitness**:
-- $O=\\emptyset$ $\\to$ **open-loop controller**!
-- $A=\\mathbb{R}^8$ .note[8 degrees of freedom (8-DOF)]
-- $S\_C=\\emptyset$ and $f\\suptext{out}\\sub{C} =$ a set of sinusoidal functions parametrized with 2 parameters
-- $f\_1$ is distance
-
-**Representation, EA**:
-- $G = [0,1]^2$
-- $o\\subtext{mut} =$ bit flip; $o\\subtext{xover} =$ uniform
-- NSGA-II
-
-.w100p.center[![Plot of fitness landscape](images/paper-fig-transf-rg-case2-results.png)]
-
-]
-.c40.compact[
-**Other remarks**:
-- transferability descriptors: trajectory distance
-- ML features: traveled distance, mean center height, final angle
-- diversity measure: behavioral diversity in ML features space
-- simulated with [PyBullet](https://pybullet.org/wordpress/)
-
-.w100p.center[![An overview of the robot](images/paper-fig-transf-rg-case2-robot.png)]
-]
-]
-
----
-
-class: middle, center
-
-## How to design a fitness function
-
-.ref[Divband Soorati, Mohammad, and Heiko Hamann. "The effect of fitness function design on performance in evolutionary robotics: The influence of a priori knowledge." Proceedings of the 2015 Annual Conference on Genetic and Evolutionary Computation. 2015.]
-
----
-
-### Research question and sketch of solution
-
-If/how to use the **a priori knowledge** about the problem and desired solution when **designing the fitness**?
-- very well captured in the title: *The effect of fitness function design on performance in evolutionary robotics: The influence of a priori knowledge*
-
---
-
-Sketch of solution:
-1. define *a priori knowledge*
-2. define the *effect of*
-3. consider $>1$ ER problems (for **generality** of the findings) where the fitness can include more or less a priori knowledge
-4. experiment
-
-**Brief answer**: .note[not so brief...]
-> Fitness functions that include a high degree of a priori knowledge (here TFF and BFF) influence the performance positively.
-> They help to simplify the evolution of a successful controller and hence simplify the chosen task.
-> However, we also know that incorporating a high degree of a priori knowledge foils the dominant idea of evolutionary computation as a black-box optimizer.
-
----
-
-### Robot and tasks
-
-.cols[
-.c30[
-**Robot**:
-- simulated differential drive robot with 8 proximity sensors
-  - 6 on the front
-  - 2 on the back
-]
-.c70[
-**Tasks**:
-- **Obstacle avoidance (OA)**
-  - easy
-  - roam without colliding with walls
-- **Goal homing (GH)**
-  - medium
-  - reach a target (here, a **light source**) without colliding with walls
-- **Periodic goal homing (PGH)**
-  - hard
-  - reach and get away from a target without colliding with walls
-]
-]
-.w75p.center[![Schematic views of the arenas](images/paper-fig-fitness-design-arenas.png)]
-
----
-
-### A priori knowledge
-
-Just two levels (and two combined cases):
-- **Aggregate fitness function** (AFF): what matters is final result, no expections about how to achieve it
-  - **what is achieved** $\\to$ low a priori knowledge
-- **Behavioral fitness function** (BFF): there is an expected good behavior and the fitness captures it
-  - **how it is achieved** $\\to$ "high" a priori knowledge
-- **Tailored fitness function** (TFF): .q[combine elements of] AFF and BFF .note[suboptimal name]
-- **Functional incremental fitness function** (FIFF): .q[sets of fitness functions that are applied separately and gradually]
-  - sort of **curriculum learning**
-
----
-
-### Fitnesses
-
-.cols[
-.c70.compact[
-**Obstacle avoidance** (OA) .note[maximization]
-- **AFF**: $f\\subtext{AFF} = \\delta$
-  - "go!"
-- **BFF**: $f\\subtext{BFF} = \\c{1}{\\left(\\frac{\\bar{v}\_l+\\bar{v}\_r}{2}\\right)} \\c{2}{\\left(1-\\sqrt{\\left | \\bar{v}\_l-\\bar{v}\_r \\right |} \\right)} \\c{3}{\\frac{1}{\\theta} \\min\_t \\left( \\min\_i \\left( s\_i(t) \\right) \\right)}$
-  - ".col1[go fast], .col2[go straight], .col3[don't collide]" 
-
-**Goal homing** (GH) .note[maximization]
-- **AFF**: $f\\subtext{AFF} = \\sum\_t I(t)$
-  - "catch as much light as you can"
-- **BFF**: $f\\subtext{BFF} = \\sum\_t \\left| c I(t) - \\Delta d(t) \\right|$ .note[$c$ is a scale coefficient]
-  - "run in the dark, stand in the light"
-  
-**Periodic goal homing** (PGH) .note[maximization]
-- **AFF**: $f\\subtext{BFF} = \\sigma(I)$
-  - "perceive variable light intensity"
-- **BFF**: $f\\subtext{BFF} = \\sum\_t \\varphi(t) \\Delta d(t)$, with $\\varphi(t)=\\begin{cases} -1 &\\c{1}{\\text{if }0.3 < I(t) < 0.7}\\\\+1 &\\c{2}{\\text{otherwise}} \\end{cases}$
-  - "stay short in .col1[medium light] intensity, run fast in .col2[dark or light]"
-]
-.c30[
-Legend:
-- $\\delta$: distance traveled
-- $\\bar{v}\_l=\\frac{1}{T} \\sum\_t v\_l(t)$: average left wheel speed (same for right)
-- $s\_i(t)$: proximity sensor reading
-- $\\theta$: penalty ($1$ or $10^3$, if collision)
-- $I(t)$: perceived light intensity
-- $\\Delta d(t)$: robot current speed
-]
-]
-
-.footnote[I would have chosen a different notation...]
-
----
-
-### Experiments
-
-.cols[
-.c40.compact[
-**Search space, fitness**:
-- $O=\\mathbb{R}^{10}$ .note[8 proximity sensors, 2 light sensors]
-- $A=\\mathbb{R}^2$ .note[2 motors]
-- $S\_C=\\emptyset$ and $f\\suptext{out}\\sub{C} =$ NN with *free* architecture
-- $f$ is AFF, BFF, TFF, FIFF
-
-**Representation, EA**:
-- **NEAT**¹ (Neuroevolution of augmented topologies)
-  - complexification
-  - innovation protection via speciation
-  - meaningful crossover
-- $G$ given by NEAT
-
-**Other remarks**:
-- **112 days** (days!) of computation
-- simulated with [Stage](https://github.com/rtv/Stage)
-- actually, no clear results
-
-.vspace1[]
-
-.bnote[1: .ref[Stanley, Kenneth O., and Risto Miikkulainen. "Evolving neural networks through augmenting topologies." Evolutionary computation 10.2 (2002): 99-127.]]
-
-]
-.c60[
-.w90p.center[![Key results of post-evaluation](images/paper-fig-fitness-design-results.png)]
-
-.q[post-evaluated with AFF (1st column), BFF (2nd column), TFF (3rd column)]
-]
-]
-
----
-
-### NEAT in a nutshell
-
-.cols[
-.c50[
-.w90p.center[![NEAT mutation](images/paper-fig-neat-mutation.png)]
-
-Key contributions:
-1. complexification: start with minimal NNs, only increase
-2. innovation protection via **speciation** and fitness sharing
-3. meaningful crossover via alignment
-
-2 and 3 thanks to **historical marking**
-]
-.c50[
-.w90p.center[![NEAT crossover](images/paper-fig-neat-crossover.png)]
-]
-]
-
 
 ---
 
@@ -633,7 +405,7 @@ Just try:
 .c40[
 **Search space, fitness**:
 - $O$ and $A$ continuous and task-dependent
-- $S\_C=\\emptyset$ and $f\\suptext{out}\\sub{C} \\in \\mathcal{F}\\sub{\\mathbb{R}^{p\\sub{in}} \\to \\mathbb{R}^{p\\sub{out}}}$
+- $S\_C=\\emptyset$ and $f\\suptext{out}\\sub{C} \\in \\mathcal{F}\\sub{\\mathbb{R}^{p\\subtext{in}} \\to \\mathbb{R}^{p\\subtext{out}}}$
 - $f$ task-dependent
 ]
 .c60[
@@ -656,7 +428,7 @@ Just try:
 **LGP**:
 - **LGP** $S$, a program
 - **LGP** $G$, a string of ints with proper domains
-- $p\\sub{in}+p\\sub{out}+5$ registers
+- $p\\subtext{in}+p\\subtext{out}+5$ registers
 - 15 lines of code
 ]
 ]
@@ -1040,3 +812,426 @@ For comparison:
 .w100p.center[![Results of online learning, for comparison](images/paper-fig-imitation-results-online-small.png)]
 ]
 ]
+
+---
+
+class: middle, center
+
+## Multi-morphology controller
+
+.ref[Mertan, Cheney. "Towards Multi-Morphology Controllers with Diversity and Knowledge Distillation." In Proceedings of the Genetic and Evolutionary Computation Conference (GECCO '24)]
+
+.ref[Nadizar, Giorgia, et al. "A fully-distributed shape-aware neural controller for modular robots." Proceedings of the Genetic and Evolutionary Computation Conference. 2023.]
+
+---
+
+### Research question
+
+Can we have a single controller that works with different morphologies?
+
+.vspace1[]
+
+**Brief answer** of .ref[Mertan, Cheney. "Towards Multi-Morphology Controllers with Diversity and Knowledge Distillation." In Proceedings of the Genetic and Evolutionary Computation Conference (GECCO '24)]:
+- yes, with some imitation learning and teacher controllers found with quality diversity
+
+**Brief answer** of .ref[Nadizar, Giorgia, et al. "A fully-distributed shape-aware neural controller for modular robots." Proceedings of the Genetic and Evolutionary Computation Conference. 2023.]
+- yes, with a controller which is indeed a library of controllers and a module able to recognize the morphology in a distributed way
+
+---
+
+### Obtaining good teacher controllers
+
+Sketch of solution:
+1. use MAP-elites for doing body-brain evolution, with descriptors describing the bodyu
+2. sample "uniformly" the archive to get many robots with different bodies
+3. use them as teachers
+  - with supervised learning, given all the $\\bag{(\\vect{o}^{(i)}, \\vect{a}^{(i)})}\_{i}$, one per teacher
+
+Many variants:
+- how to sample the archive
+- what's a controller
+
+---
+
+### MAP-elites for VSR body-brain evolution
+
+.cols.compact[
+.c50[
+2D VSRs¹ doing locomotion
+
+.vspace1[]
+
+**Search space and representation**:
+- body $\\in \\{0,1,2,3,4\\}^\{5 \\times 5\}$, up to $5 \\times 5$ morphology with 4 materials:
+  - active $\\leftrightarrow$, active $\\updownarrow$, passive rigid, passive soft
+- modular controller with $O=\\mathbb{R}^\{p\\subtext{in}\}$, $A=\\mathbb{R}^\{p\\subtext{out}\}$, the same for each voxel .note[and other variants]
+  - a NN $\\in \\mathcal{F}\\sub{\\mathbb{R}^\{p\\subtext{in}\} \\to \\mathbb{R}^\{p\\subtext{out}\}}$ with $p$ params, $S\_C=\\emptyset$
+  - $\\vect{o}$ includes sensor readings of neighbor voxels
+  - **morphology-agnostic**!
+- $G = \\{0,1,2,3,4\\}^\{5 \\times 5\} \\times \\mathbb{R}^p$
+  - composed mutation: "int flip" and Gaussian mutation
+  
+**MAP-elites descriptors**:
+- number of active voxels
+- number of voxels
+
+.vspace1[]
+
+.note[
+1. .ref[Bhatia, Jagdeep, et al. "Evolution gym: A large-scale benchmark for evolving soft robots." Advances in Neural Information Processing Systems 34 (2021): 2201-2214.]
+]
+]
+.c50[
+Best robots as teachers:
+.w90p.center[![Result with best teachers](images/paper-fig-cheney-gecco24-archive-best.png)]
+
+Uniform sample of the archive:
+.w90p.center[![Result with uniform teachers](images/paper-fig-cheney-gecco24-archive-uniform.png)]
+
+]
+]
+  
+---
+
+### Beyond teachers: unseen morphologies
+
+.w55p.center[![Results on unseen morphologies](images/paper-fig-cheney-gecco24-unseen.png)]
+
+---
+
+### Library of controller
+
+.w65p.center[![Overview of CA-based shape-aware neural controller](images/paper-fig-nadizar-gecco23-overview.png)]
+
+Sketch of solution:
+1. take some morphology, evolve a modular controller for each one
+  - same NN inside each voxel $\\Rightarrow$ morphology-agnostic
+2. use a distributed mechanims for morphology detection
+  - inside each voxel, based on cellular automata (CA)
+  - a multi-class classification problem
+3. select the controller based on CA detected morphology
+
+.footnote[.ref[Nadizar, Giorgia, et al. "A fully-distributed shape-aware neural controller for modular robots." Proceedings of the Genetic and Evolutionary Computation Conference. 2023.]]
+
+---
+
+### Classification with an NCA
+
+.cols.compact[
+.c60[
+**Cellular automata (CA)**:
+- a distributed computation paradigm .note[usuallu] in discrete time
+- each cell updates its state based on the state of the neighborhood according to some rule
+- in **neural CA** (NCA), the state is $\\in \\mathbb{R}^q$ and the rule is a NN
+
+**NCA for classification** of VSR shape:
+- one cell inside each voxel
+- one additional channel in the state for each possible shape
+  - at a given NCA time, each voxel "estimates" what's the overall shape
+- training:
+  - find the NN params that make all voxels guess the correct shape after a some given NCA time, for each shape
+  - with stochastic gradient descent (Adam)
+  
+.w100p.center[![The robots](images/paper-fig-nadizar-gecco23-nca.png)]
+
+]
+.c40[
+.w55p.center[![The robots](images/paper-fig-nadizar-gecco23-robots.png)]
+]
+]
+
+---
+
+### Evolution of each controller
+
+2D VSRs doing locomotion
+
+**Search space and representation**:
+- modular controller with $O=\\mathbb{R}^\{p\\subtext{in}\}$, $A=\\mathbb{R}^\{p\\subtext{out}\}$, the same for each voxel, one for each shape
+  - a NN $\\in \\mathcal{F}\\sub{\\mathbb{R}^\{p\\subtext{in}\} \\to \\mathbb{R}^\{p\\subtext{out}\}}$ with $p$ params, $S\_C=\\emptyset$
+  - $\\vect{o}$ includes communications from neighbor voxels
+  - $\\vect{a}$ includes communications to neighbor voxels
+  - overall, a recurrent NN
+  - morphology-agnostic
+- $G = \\mathbb{R}^\{57\}$
+
+**EA**:
+- a simple ES
+
+---
+
+### Results
+
+.cols[
+.c50[
+**NCA classificationa accuracy**:
+
+.w100p.center[![The robots](images/paper-fig-nadizar-gecco23-nca-acc.png)]
+- $C\_i$ is a set of shapes
+- $|C\_1|=3$, $|C\_1|=9$, $|C\_1|=15$, $|C\_1|=39$
+]
+.c50[
+**Accuracy/performance vs. classification time**:
+
+.w100p.center[![The robots](images/paper-fig-nadizar-gecco23-nca-times.png)]
+
+- classification time in training was set to $[25,50]$ steps
+- useful for "online" re-classification
+]
+]
+
+---
+
+class: middle, center
+
+## How to fight the reality gap in ER
+
+.ref[Koos, Sylvain, Jean-Baptiste Mouret, and Stéphane Doncieux. "The transferability approach: Crossing the reality gap in evolutionary robotics." IEEE Transactions on Evolutionary Computation 17.1 (2012): 122-145.]
+
+---
+
+### Research question
+
+How to practically tackle the .key[reality gap] issue?
+
+**Brief answer**: with a multi-objective approach, where the secondary objective is the **transferability** of the controller.
+
+--
+
+.vspace1[]
+
+.w100p.center[![A schematic definition of the reality gap](images/paper-fig-transf-rg-def.png)]
+
+---
+
+### Sketch of the solution
+
+.w90p.center[![A schematic view of the proposed solution](images/paper-fig-transf-rg-solution.png)]
+
+---
+
+### Experiments: case study 1
+
+.cols[
+.c60.compact[
+**Search space, fitness**:
+- $O=\\mathbb{R}^7$ .note[5 IR sensors, 2 color sensors]
+- $A=\\mathbb{R}^2$ .note[2 motors]
+- $S\_C=\\mathbb{R}^p$ and $f\\suptext{state}\\sub{C},f\\suptext{out}\\sub{C} =$ RNN with predefined architecture (with enforced simmetry)
+  - recurrent neural networks (RNNs) have a **state**!
+- $f\_1$ is distance ($d\_x+d\_y$) $+$ bonus
+
+**Representation, EA**:
+- $G \\simeq \\mathbb{R}^{35}$, but each number encoded with 4 bits
+- $o\\subtext{mut} =$ bit flip; $o\\subtext{xover} =$ uniform
+- NSGA-II
+
+**Other remarks**:
+- transferability descriptors: trajectory distance
+- diversity measure: genotype distance
+- ML features: min distance to left/right, traveled distance
+- interesting case of *non-brain computation*
+  - can be solved with a stateless controller...
+  - ... but here with a stateful controller
+]
+.c40[
+.w100p.center[![An overview of the task](images/paper-fig-transf-rg-case1-robot.png)]
+
+.vspace1[]
+
+.w100p.center[![Table with key results](images/paper-fig-transf-rg-case1-results.png)]
+]
+]
+
+---
+
+### Experiments: case study 2
+
+.cols[
+.c60.compact[
+**Search space, fitness**:
+- $O=\\emptyset$ $\\to$ **open-loop controller**!
+- $A=\\mathbb{R}^8$ .note[8 degrees of freedom (8-DOF)]
+- $S\_C=\\emptyset$ and $f\\suptext{out}\\sub{C} =$ a set of sinusoidal functions parametrized with 2 parameters
+- $f\_1$ is distance
+
+**Representation, EA**:
+- $G = [0,1]^2$
+- $o\\subtext{mut} =$ bit flip; $o\\subtext{xover} =$ uniform
+- NSGA-II
+
+.w100p.center[![Plot of fitness landscape](images/paper-fig-transf-rg-case2-results.png)]
+
+]
+.c40.compact[
+**Other remarks**:
+- transferability descriptors: trajectory distance
+- ML features: traveled distance, mean center height, final angle
+- diversity measure: behavioral diversity in ML features space
+- simulated with [PyBullet](https://pybullet.org/wordpress/)
+
+.w100p.center[![An overview of the robot](images/paper-fig-transf-rg-case2-robot.png)]
+]
+]
+
+---
+
+class: middle, center
+
+## How to design a fitness function
+
+.ref[Divband Soorati, Mohammad, and Heiko Hamann. "The effect of fitness function design on performance in evolutionary robotics: The influence of a priori knowledge." Proceedings of the 2015 Annual Conference on Genetic and Evolutionary Computation. 2015.]
+
+---
+
+### Research question and sketch of solution
+
+If/how to use the **a priori knowledge** about the problem and desired solution when **designing the fitness**?
+- very well captured in the title: *The effect of fitness function design on performance in evolutionary robotics: The influence of a priori knowledge*
+
+--
+
+Sketch of solution:
+1. define *a priori knowledge*
+2. define the *effect of*
+3. consider $>1$ ER problems (for **generality** of the findings) where the fitness can include more or less a priori knowledge
+4. experiment
+
+**Brief answer**: .note[not so brief...]
+> Fitness functions that include a high degree of a priori knowledge (here TFF and BFF) influence the performance positively.
+> They help to simplify the evolution of a successful controller and hence simplify the chosen task.
+> However, we also know that incorporating a high degree of a priori knowledge foils the dominant idea of evolutionary computation as a black-box optimizer.
+
+---
+
+### Robot and tasks
+
+.cols[
+.c30[
+**Robot**:
+- simulated differential drive robot with 8 proximity sensors
+  - 6 on the front
+  - 2 on the back
+]
+.c70[
+**Tasks**:
+- **Obstacle avoidance (OA)**
+  - easy
+  - roam without colliding with walls
+- **Goal homing (GH)**
+  - medium
+  - reach a target (here, a **light source**) without colliding with walls
+- **Periodic goal homing (PGH)**
+  - hard
+  - reach and get away from a target without colliding with walls
+]
+]
+.w75p.center[![Schematic views of the arenas](images/paper-fig-fitness-design-arenas.png)]
+
+---
+
+### A priori knowledge
+
+Just two levels (and two combined cases):
+- **Aggregate fitness function** (AFF): what matters is final result, no expections about how to achieve it
+  - **what is achieved** $\\to$ low a priori knowledge
+- **Behavioral fitness function** (BFF): there is an expected good behavior and the fitness captures it
+  - **how it is achieved** $\\to$ "high" a priori knowledge
+- **Tailored fitness function** (TFF): .q[combine elements of] AFF and BFF .note[suboptimal name]
+- **Functional incremental fitness function** (FIFF): .q[sets of fitness functions that are applied separately and gradually]
+  - sort of **curriculum learning**
+
+---
+
+### Fitnesses
+
+.cols[
+.c70.compact[
+**Obstacle avoidance** (OA) .note[maximization]
+- **AFF**: $f\\subtext{AFF} = \\delta$
+  - "go!"
+- **BFF**: $f\\subtext{BFF} = \\c{1}{\\left(\\frac{\\bar{v}\_l+\\bar{v}\_r}{2}\\right)} \\c{2}{\\left(1-\\sqrt{\\left | \\bar{v}\_l-\\bar{v}\_r \\right |} \\right)} \\c{3}{\\frac{1}{\\theta} \\min\_t \\left( \\min\_i \\left( s\_i(t) \\right) \\right)}$
+  - ".col1[go fast], .col2[go straight], .col3[don't collide]" 
+
+**Goal homing** (GH) .note[maximization]
+- **AFF**: $f\\subtext{AFF} = \\sum\_t I(t)$
+  - "catch as much light as you can"
+- **BFF**: $f\\subtext{BFF} = \\sum\_t \\left| c I(t) - \\Delta d(t) \\right|$ .note[$c$ is a scale coefficient]
+  - "run in the dark, stand in the light"
+  
+**Periodic goal homing** (PGH) .note[maximization]
+- **AFF**: $f\\subtext{BFF} = \\sigma(I)$
+  - "perceive variable light intensity"
+- **BFF**: $f\\subtext{BFF} = \\sum\_t \\varphi(t) \\Delta d(t)$, with $\\varphi(t)=\\begin{cases} -1 &\\c{1}{\\text{if }0.3 < I(t) < 0.7}\\\\+1 &\\c{2}{\\text{otherwise}} \\end{cases}$
+  - "stay short in .col1[medium light] intensity, run fast in .col2[dark or light]"
+]
+.c30[
+Legend:
+- $\\delta$: distance traveled
+- $\\bar{v}\_l=\\frac{1}{T} \\sum\_t v\_l(t)$: average left wheel speed (same for right)
+- $s\_i(t)$: proximity sensor reading
+- $\\theta$: penalty ($1$ or $10^3$, if collision)
+- $I(t)$: perceived light intensity
+- $\\Delta d(t)$: robot current speed
+]
+]
+
+.footnote[I would have chosen a different notation...]
+
+---
+
+### Experiments
+
+.cols[
+.c40.compact[
+**Search space, fitness**:
+- $O=\\mathbb{R}^{10}$ .note[8 proximity sensors, 2 light sensors]
+- $A=\\mathbb{R}^2$ .note[2 motors]
+- $S\_C=\\emptyset$ and $f\\suptext{out}\\sub{C} =$ NN with *free* architecture
+- $f$ is AFF, BFF, TFF, FIFF
+
+**Representation, EA**:
+- **NEAT**¹ (Neuroevolution of augmented topologies)
+  - complexification
+  - innovation protection via speciation
+  - meaningful crossover
+- $G$ given by NEAT
+
+**Other remarks**:
+- **112 days** (days!) of computation
+- simulated with [Stage](https://github.com/rtv/Stage)
+- actually, no clear results
+
+.vspace1[]
+
+.bnote[1: .ref[Stanley, Kenneth O., and Risto Miikkulainen. "Evolving neural networks through augmenting topologies." Evolutionary computation 10.2 (2002): 99-127.]]
+
+]
+.c60[
+.w90p.center[![Key results of post-evaluation](images/paper-fig-fitness-design-results.png)]
+
+.q[post-evaluated with AFF (1st column), BFF (2nd column), TFF (3rd column)]
+]
+]
+
+---
+
+### NEAT in a nutshell
+
+.cols[
+.c50[
+.w90p.center[![NEAT mutation](images/paper-fig-neat-mutation.png)]
+
+Key contributions:
+1. complexification: start with minimal NNs, only increase
+2. innovation protection via **speciation** and fitness sharing
+3. meaningful crossover via alignment
+
+2 and 3 thanks to **historical marking**
+]
+.c50[
+.w90p.center[![NEAT crossover](images/paper-fig-neat-crossover.png)]
+]
+]
+
+
