@@ -899,7 +899,7 @@ Uniform sample of the archive:
 
 ---
 
-### Library of controller
+### Other approach: library of controllers
 
 .w65p.center[![Overview of CA-based shape-aware neural controller](images/paper-fig-nadizar-gecco23-overview.png)]
 

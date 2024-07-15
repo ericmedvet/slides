@@ -193,7 +193,7 @@ Ingredients (i.e., parameters):
 2. a stochastic (unary) operator .col2[$o\\subtext{mut}$] on $S$ (**mutation**)
   - $o\\subtext{mut}: S \\to \\mathcal{P}\_S$, $s' \\setsample o\\subtext{mut}(s)$
 3. a stochastic binary operator .col2[$o\\subtext{xover}$] on $S$ (**crossover**)
-  - $o\\subtext{xover}: S \\times S \\to \\mathcal{P}\_S$, $s' \\setsample o\\subtext{mut}(s\_1,s\_2)$
+  - $o\\subtext{xover}: S \\times S \\to \\mathcal{P}\_S$, $s' \\setsample o\\subtext{xover}(s\_1,s\_2)$
 4. a population size $\\c{2}{n\\subtext{pop}} \\in \\mathbb{N}$
 5. a number of iterations $\\c{2}{n\\subtext{gen}} \\in \\mathbb{N}$
 6. a reproduction **selection criterion** .col2[$c\\subtext{repr}$]
