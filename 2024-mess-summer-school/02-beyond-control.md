@@ -313,7 +313,7 @@ link([810,75,850,75],'a')
 3. design $\\phi: \\c{3}{G} \\to \\mathcal{D}\\sub{\\cdot,\\c{1}{O},\\cdot} \\times \\mathcal{D}\\sub{\\c{2}{A},\\cdot,\\cdot}$
 ]
 .c40[
-**Body+brain only**
+**Body+brain**
 1. choose a genotype space .col3[$G$] and a compatible EA
 2. design $\\phi: \\c{3}{G} \\to \\mathcal{D}\\sub{\\cdot,\\c{1}{O},\\cdot} \\times \\mathcal{D}\\sub{\\c{1}{O}, \\c{2}{A},\\cdot} \\times \\mathcal{D}\\sub{\\c{2}{A},\\cdot,\\cdot}$
   - possibly with "free" $O$ and $A$
