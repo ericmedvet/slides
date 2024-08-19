@@ -12,8 +12,9 @@ body {
 .col2 { color: #DC267F }
 .col3 { color: #FE6100 }
 .col5 { color: #FFB000 }
+.col6 { color: #1b7837 }
 
-/* "#648FFF", "#DC267F", "#FE6100", "#785EF0", "#FFB000" */
+/* "#648FFF", "#DC267F", "#FE6100", "#785EF0", "#FFB000", "#1b7837" */
 
 h1, h2, h3, h4 {
   font-weight: bold;
@@ -326,6 +327,10 @@ span.note::after {
 }
 .right {
   text-align: right;
+}
+.ttt {
+  font-family: "Prata";
+  font-size: 85%;
 }
 .dict-def {
   font-family: "Prata";
