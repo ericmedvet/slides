@@ -332,6 +332,10 @@ span.note::after {
   font-family: "Prata";
   font-size: 85%;
 }
+.ttt strong {
+  font-weight: bold;
+  text-decoration-line: underline;
+}
 .dict-def {
   font-family: "Prata";
   color: #648FFF;

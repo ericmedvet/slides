@@ -19,7 +19,7 @@ August, 30th 2024
 Here:
 - **personal** advices, based on my **personal** experience
 - not a set of **rules** 
-- there are many other points of views/advices, sometimes conflicting with mines
+- there are many other points of views/advices, **sometimes conflicting** with mines
 ]
 
 .vspace1[]
@@ -42,6 +42,8 @@ Ultimate goal:
 2. and **yourself (and co-authors)**, by making your paper .note[and your research pipeline] **easier to maintain** and its production more **efficient**:
   - LaTeX constructs and packages
   - LaTeX source code style
+
+.vspace1[]
 
 Pre-requisites:
 - basic knowledge of LaTeX
@@ -241,9 +243,186 @@ class: middle, center
 
 ## Use active voice
 
-✅❌
+.center[.key[Use active voice!]]
 
+It makes clear who is the actor/author of an action/claim, i.e., who is responsible
+- .ttt[We did something...]
+- .ttt[The algorithm works as follows: it initializes a set of..., it selects one...]
+- .ttt[Smith et al. showed that...]
+
+.vspace1[]
+
+.cols[
+.c50[
+#### ✅ Good
+
+- .ttt[**We run** BO for $20$ iterations and use the best $\eta$ seen during optimization as the final output.]
+- .ttt[To check the validity of the dimensionality reduction method used in our visualization methods, **we randomly selected** ten ideas (three about audio devices, three about transportation, two about music players, and two about cameras) and obtained their locations in Fig. 2 (Table II).]
+]
+.c50[
+#### ❌ Bad
+
+- .ttt[Various measures **are derived** from the concepts and validated in two experiments that highlight their strengths and weaknesses.] By whom? Who did the experiments?
+- .ttt[Damage type 0 **was chosen** as it is similar to damage inflicted on the robot in other damage recovery research...] By whom? Who is accountable for this choice?
+]
+
+]
 
 ---
+
+## Contracted forms
+
+**Avoid contracted forms**
+They are suitable for informal discourse
+- ✅ **Good**: .ttt[is not], .ttt[does not], .ttt[cannot], .ttt[we will do]
+- ❌ **Bad**: .ttt[isn't], .ttt[doesn't], .ttt[can't], .ttt[we'll do]
+
+Unless, in trouble with text lenght, use parsimonously:
+- .ttt[w.r.t.] for .ttt[with respect to]
+- .ttt[approx.] for .ttt[approximatively]
+
+If you use them, do it **consistently**, i.e., either always or never!
+
+---
+
+## Acronyms
+
+Use acronyms for very frequent technical terms, e.g.:
+- .ttt[GP] for .ttt[genetic programming]
+- .ttt[FPR] for .ttt[false positive rate]
+
+In general:
+- expanded version with acronym at the **first usage**
+  - .ttt[We use genetic programming (GP) for optimizing...]
+- acronym only at **every subsequent usage**
+  - .ttt[Figure 2 shows that GP performs better than...]
+
+... with some exceptions:
+- if term is used only once in the abstract, show just the expanded version in the abstract
+- reintroduce expanded+acronym at first usage after abstract
+- (possibly) reintroduce expanded+acronym at first usage in conclusions
+- (possibly) use expanded+acronym if in section title
+
+---
+
+### Capitalization and articles
+
+Be **consistent** with capitalization:
+- ✅ **Good**: .ttt[Genetic Programming (GP)] and .ttt[False Positive Rate (FPR)]
+- ✅ **Good**: .ttt[genetic programming (GP)] and .ttt[false positive rate (FPR)]
+- ❌ **Bad**: .ttt[Genetic Programming (GP)] and .ttt[false positive rate (FPR)]
+
+... but caring about special cases:
+- .ttt[Smith’s sorting algorithm (SSA)] even with .ttt[genetic programming (GP)]
+
+.vspace1[]
+
+Use proper article, if any, before:
+- **expanded**, the proper one
+  - .ttt[we employ **a** multilayer perceptron (MLP)]
+- **acronym**, the one used if you pronounce the letters
+  - .ttt[we employ **an** MLP]
+
+---
+
+### How?
+
+A lot of things to care about for acronyms .note[the what]
+
+.vspace1[]
+
+🤔 How to do that? .note[the how]
+- "easy", with the proper LaTeX package (later)
+
+---
+
+## British vs. American English
+
+🇺🇸: .ttt[color], .ttt[behavior], .ttt[focused], .ttt[labeled], ...
+
+🇬🇧: .ttt[colour], .ttt[behaviour], .ttt[focussed], .ttt[labelled], ...
+
+.note[this is just about basic differences]
+
+.vspace1[]
+
+Choose one and use it **consistently**.
+- exploit your authoring tool (e.g., Overleaf with spell checking and language setting)
+
+---
+
+## Possessive case
+
+.center[to .ttt['s] or not to .ttt['s]?]
+
+In theory:
+- .ttt['s] with:
+  - **people** (both proper and common names): ✅ .ttt[the user's preference], ✅ .ttt[Smith's sorting algorithm], ✅ .ttt[the authors' opinion]
+  - (some) physical places (cities, countries) .note[usually not relevant in papers]
+  - (some) temporal adverbs: ✅ .ttt[today's meeting]
+- no .ttt['s] elsewhere
+  - ✅ .ttt[the algorithm complexity], ❌ .ttt[the algorithm's complexity]
+  - same for .ttt[policy], .ttt[genotype], ...
+
+.vspace1[]
+
+Many corner cases:
+- 🤔 .ttt[individual]
+- 🤔 .ttt[robot]
+- 🤔 .ttt[agent]
+
+---
+
+class: middle, center
+
+## Language
+
+---
+
+## I.e. and e.g.
+
+- .ttt[i.e.] stays for .ttt[*id est*] (latin for .ttt[that is])
+- .ttt[e.g.] stays for .ttt[example given]
+
+For both:
+- **a comma before and a comma after**
+  - ✅ .ttt[we increase $i$, i.e., the counter]
+  - ❌ .ttt[we increase $i$, i.e. the counter] .note[missing the comma after also trigger a space "rendering" problem, see later]
+  
+For i.e.:
+- since it is latin, possibly show it in alternative font, i.e., italics:
+  - ✅ .ttt[we increase $i$, *i.e.*, the counter]
+  
+---
+
+## Dashes
+
+There are three dashes:
+- **hyphen** - (`-` in LaTeX), for **composed words**
+  - without spaces before and after
+  - if you use two similar composed works close to each other, you can shorten one: .ttt[we tested an MLP- and a random-based controller...]
+- **en-dash** – (`--` in LaTeX), for ranges: .ttt[$25\text{--}35$]
+  - possibly rely on proper LaTeX packages .note[later] for ranges
+- **em-dash** — (`---` in LaTeX), for parenthetical thought (**asides**)
+  - without spaces before and after: .ttt[We tested this approach with an MLP—we also experimented with other kinds of controller with no qualitative different findings.]
+
+---
+
+## Oxford comma
+
+A pretty **popular** matter:
+.cols[
+.c50.center[
+.h25ex.center[![Use Oxford comma!](images/oxford-meme-main.jpg)]
+]
+.c50.center[
+.h25ex.center[![Oxford comma meme with rhinos](images/oxford-meme-rhino.jpg)]
+]
+]
+
+
+
+
+
 
 
