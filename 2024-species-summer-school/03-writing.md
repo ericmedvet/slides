@@ -92,7 +92,7 @@ This part of the abstract usually starts with _In this paper, we propose..._.
 6. .col6[broader impact]
 ]
 .c70.compact[
-.ttt[
+.tc[
 .col1[Graphs are a way to describe complex entities and their relations that apply to many practically relevant domains.]
 .col2[However, domains often differ not only in the properties of nodes and edges, but also in the constraints imposed to the overall structure.]
 .col3[This makes hard to define a general representation and genetic operators for graphs that permit the evolutionary optimization over many domains.]
@@ -115,7 +115,7 @@ This part of the abstract usually starts with _In this paper, we propose..._.
 6. .col6[broader impact]
 ]
 .c70.compact[
-.ttt[
+.tc[
 .col1[The recent and rapid progresses in Machine Learning (ML) tools and methodologies paved the way for an accessible market of ML services.]
 .col2[In principle, small and medium-sized enterprises, as well as big companies, could act as providers and consumers of services, resulting in an intense exchange of ML services where a consumer may ask many providers for a service preview based on its particular business case, that is, its data.]
 .col3[In practice, however, many potential service consumers are reluctant to release their data, when seeking for ML services, because of privacy or intellectual property concerns. As a consequence, the market of ML services is not as fluid as it could be. An alternative to providing real data when looking for an ML service consists in generating and releasing synthetic data. The synthetic data should (a) allow the service provider to preview an ML service whose performance is predictive of the one the same service will achieve on the real data and (b) prevent the disclosure of the real data.]
@@ -139,7 +139,7 @@ This part of the abstract usually starts with _In this paper, we propose..._.
 6. .col6[broader impact]
 ]
 .c70.compact[
-.ttt[
+.tc[
 .col1[Biological neural networks are characterized by their high degree of plasticity, a core property that enables the remarkable adaptability of natural organisms.]
 .col2[Importantly, this ability affects both the synaptic strength and the topology of the nervous systems.]
 .col3[Artificial neural networks, on the other hand, have been mainly designed as static, fully connected structures that can be notoriously brittle in the face of changing environments and novel inputs.]
@@ -168,8 +168,8 @@ Present tense
 .c50[
 **Examples**
 
-.ttt[We propose...]  
-.ttt[Current techniques have this limitation...]
+.tc[We propose...]  
+.tc[Current techniques have this limitation...]
 ]
 ]
 
@@ -181,8 +181,8 @@ Related works
 Past tense
 ]
 .c50[
-.ttt[Smith et al. proposed...]  
-.ttt[revious works showed that...]
+.tc[Smith et al. proposed...]  
+.tc[revious works showed that...]
 ]
 ]
 
@@ -195,8 +195,8 @@ Our approach
 Present tense
 ]
 .c50[
-.ttt[Let $x$ be...]  
-.ttt[We repeat the following procedure $n$ times...]
+.tc[Let $x$ be...]  
+.tc[We repeat the following procedure $n$ times...]
 ]
 ]
 
@@ -208,10 +208,10 @@ Experimental evaluation
 Past (for what you did) and present (for comments) tense
 ]
 .c50[
-.ttt[We considered four datasets...]  
-.ttt[We repeated the learning three times...]  
-.ttt[Figure 3 shows the results of...]  
-.ttt[We explain this gap in performance with...]
+.tc[We considered four datasets...]  
+.tc[We repeated the learning three times...]  
+.tc[Figure 3 shows the results of...]  
+.tc[We explain this gap in performance with...]
 ]
 ]
 
@@ -223,9 +223,9 @@ Conluding remarks
 Past (for recap) and future (for "promises") tense
 ]
 .c50[
-.ttt[We considered the problem of...]  
-.ttt[We showed that...]  
-.ttt[We will extend the approach to...]
+.tc[We considered the problem of...]  
+.tc[We showed that...]  
+.tc[We will extend the approach to...]
 ]
 ]
 
@@ -246,9 +246,9 @@ class: middle, center
 .center[.key[Use active voice!]]
 
 It makes clear who is the actor/author of an action/claim, i.e., who is responsible
-- .ttt[We did something...]
-- .ttt[The algorithm works as follows: it initializes a set of..., it selects one...]
-- .ttt[Smith et al. showed that...]
+- .tc[We did something...]
+- .tc[The algorithm works as follows: it initializes a set of..., it selects one...]
+- .tc[Smith et al. showed that...]
 
 .vspace1[]
 
@@ -256,14 +256,14 @@ It makes clear who is the actor/author of an action/claim, i.e., who is responsi
 .c50[
 #### ✅ Good
 
-- .ttt[**We run** BO for $20$ iterations and use the best $\eta$ seen during optimization as the final output.]
-- .ttt[To check the validity of the dimensionality reduction method used in our visualization methods, **we randomly selected** ten ideas (three about audio devices, three about transportation, two about music players, and two about cameras) and obtained their locations in Fig. 2 (Table II).]
+- .tc[**We run** BO for $20$ iterations and use the best $\eta$ seen during optimization as the final output.]
+- .tc[To check the validity of the dimensionality reduction method used in our visualization methods, **we randomly selected** ten ideas (three about audio devices, three about transportation, two about music players, and two about cameras) and obtained their locations in Fig. 2 (Table II).]
 ]
 .c50[
 #### ❌ Bad
 
-- .ttt[Various measures **are derived** from the concepts and validated in two experiments that highlight their strengths and weaknesses.] By whom? Who did the experiments?
-- .ttt[Damage type 0 **was chosen** as it is similar to damage inflicted on the robot in other damage recovery research...] By whom? Who is accountable for this choice?
+- .tc[Various measures **are derived** from the concepts and validated in two experiments that highlight their strengths and weaknesses.] By whom? Who did the experiments?
+- .tc[Damage type 0 **was chosen** as it is similar to damage inflicted on the robot in other damage recovery research...] By whom? Who is accountable for this choice?
 ]
 
 ]
@@ -274,12 +274,12 @@ It makes clear who is the actor/author of an action/claim, i.e., who is responsi
 
 **Avoid contracted forms**
 They are suitable for informal discourse
-- ✅ **Good**: .ttt[is not], .ttt[does not], .ttt[cannot], .ttt[we will do]
-- ❌ **Bad**: .ttt[isn't], .ttt[doesn't], .ttt[can't], .ttt[we'll do]
+- ✅ **Good**: .tc[is not], .tc[does not], .tc[cannot], .tc[we will do]
+- ❌ **Bad**: .tc[isn't], .tc[doesn't], .tc[can't], .tc[we'll do]
 
 Unless, in trouble with text lenght, use parsimonously:
-- .ttt[w.r.t.] for .ttt[with respect to]
-- .ttt[approx.] for .ttt[approximatively]
+- .tc[w.r.t.] for .tc[with respect to]
+- .tc[approx.] for .tc[approximatively]
 
 If you use them, do it **consistently**, i.e., either always or never!
 
@@ -288,14 +288,14 @@ If you use them, do it **consistently**, i.e., either always or never!
 ## Acronyms
 
 Use acronyms for very frequent technical terms, e.g.:
-- .ttt[GP] for .ttt[genetic programming]
-- .ttt[FPR] for .ttt[false positive rate]
+- .tc[GP] for .tc[genetic programming]
+- .tc[FPR] for .tc[false positive rate]
 
 In general:
 - expanded version with acronym at the **first usage**
-  - .ttt[We use genetic programming (GP) for optimizing...]
+  - .tc[We use genetic programming (GP) for optimizing...]
 - acronym only at **every subsequent usage**
-  - .ttt[Figure 2 shows that GP performs better than...]
+  - .tc[Figure 2 shows that GP performs better than...]
 
 ... with some exceptions:
 - if term is used only once in the abstract, show just the expanded version in the abstract
@@ -308,20 +308,20 @@ In general:
 ### Capitalization and articles
 
 Be **consistent** with capitalization:
-- ✅ **Good**: .ttt[Genetic Programming (GP)] and .ttt[False Positive Rate (FPR)]
-- ✅ **Good**: .ttt[genetic programming (GP)] and .ttt[false positive rate (FPR)]
-- ❌ **Bad**: .ttt[Genetic Programming (GP)] and .ttt[false positive rate (FPR)]
+- ✅ **Good**: .tc[Genetic Programming (GP)] and .tc[False Positive Rate (FPR)]
+- ✅ **Good**: .tc[genetic programming (GP)] and .tc[false positive rate (FPR)]
+- ❌ **Bad**: .tc[Genetic Programming (GP)] and .tc[false positive rate (FPR)]
 
 ... but caring about special cases:
-- .ttt[Smith’s sorting algorithm (SSA)] even with .ttt[genetic programming (GP)]
+- .tc[Smith’s sorting algorithm (SSA)] even with .tc[genetic programming (GP)]
 
 .vspace1[]
 
 Use proper article, if any, before:
 - **expanded**, the proper one
-  - .ttt[we employ **a** multilayer perceptron (MLP)]
+  - .tc[we employ **a** multilayer perceptron (MLP)]
 - **acronym**, the one used if you pronounce the letters
-  - .ttt[we employ **an** MLP]
+  - .tc[we employ **an** MLP]
 
 ---
 
@@ -338,9 +338,9 @@ A lot of things to care about for acronyms .note[the what]
 
 ## British vs. American English
 
-🇺🇸: .ttt[color], .ttt[behavior], .ttt[focused], .ttt[labeled], ...
+🇺🇸: .tc[color], .tc[behavior], .tc[focused], .tc[labeled], ...
 
-🇬🇧: .ttt[colour], .ttt[behaviour], .ttt[focussed], .ttt[labelled], ...
+🇬🇧: .tc[colour], .tc[behaviour], .tc[focussed], .tc[labelled], ...
 
 .note[this is just about basic differences]
 
@@ -353,46 +353,52 @@ Choose one and use it **consistently**.
 
 ## Possessive case
 
-.center[to .ttt['s] or not to .ttt['s]?]
+.center[to .tc['s] or not to .tc['s]?]
 
 In theory:
-- .ttt['s] with:
-  - **people** (both proper and common names): ✅ .ttt[the user's preference], ✅ .ttt[Smith's sorting algorithm], ✅ .ttt[the authors' opinion]
+- .tc['s] with:
+  - **people** (both proper and common names): ✅ .tc[the user's preference], ✅ .tc[Smith's sorting algorithm], ✅ .tc[the authors' opinion]
   - (some) physical places (cities, countries) .note[usually not relevant in papers]
-  - (some) temporal adverbs: ✅ .ttt[today's meeting]
-- no .ttt['s] elsewhere
-  - ✅ .ttt[the algorithm complexity], ❌ .ttt[the algorithm's complexity]
-  - same for .ttt[policy], .ttt[genotype], ...
+  - (some) temporal adverbs: ✅ .tc[today's meeting]
+- no .tc['s] elsewhere
+  - ✅ .tc[the algorithm complexity], ❌ .tc[the algorithm's complexity]
+  - same for .tc[policy], .tc[genotype], ...
 
 .vspace1[]
 
 Many corner cases:
-- 🤔 .ttt[individual]
-- 🤔 .ttt[robot]
-- 🤔 .ttt[agent]
+- 🤔 .tc[individual]
+- 🤔 .tc[robot]
+- 🤔 .tc[agent]
 
 ---
 
 class: middle, center
 
-## Language
+## Typography
 
 ---
 
-## I.e. and e.g.
+## I.e., e.g., and vs.
 
-- .ttt[i.e.] stays for .ttt[*id est*] (latin for .ttt[that is])
-- .ttt[e.g.] stays for .ttt[example given]
+- .tc[i.e.] stays for .tc[*id est*] (Latin for .tc[that is])
+- .tc[e.g.] stays for .tc[example given]
+- .tc[vs.] stays for .tc[versus] (Latin for .tc[against])
 
 For both:
 - **a comma before and a comma after**
-  - ✅ .ttt[we increase $i$, i.e., the counter]
-  - ❌ .ttt[we increase $i$, i.e. the counter] .note[missing the comma after also trigger a space "rendering" problem, see later]
+  - ✅ .tc[we increase $i$, i.e., the counter]
+  - ❌ .tc[we increase $i$, i.e. the counter] .note[missing the comma after also trigger a space "rendering" problem, see later]
   
-For i.e.:
-- since it is latin, possibly show it in alternative font, i.e., italics:
-  - ✅ .ttt[we increase $i$, *i.e.*, the counter]
-  
+For i.e. and vs.:
+- since it is Latin, possibly show it in alternative font variant, i.e., italics:
+  - ✅ .tc[we increase $i$, *i.e.*, the counter]
+- ideally, use italics consistently also for .tc[et al.]¹, .tc[etc.]
+
+.footnote[
+1. Ideally, you never write .tc[et al.] directly, since you use a LaTeX package for writing references)
+]
+
 ---
 
 ## Dashes
@@ -400,11 +406,11 @@ For i.e.:
 There are three dashes:
 - **hyphen** - (`-` in LaTeX), for **composed words**
   - without spaces before and after
-  - if you use two similar composed works close to each other, you can shorten one: .ttt[we tested an MLP- and a random-based controller...]
-- **en-dash** – (`--` in LaTeX), for ranges: .ttt[$25\text{--}35$]
+  - if you use two similar composed works close to each other, you can shorten one: .tc[we tested an MLP- and a random-based controller...]
+- **en-dash** – (`--` in LaTeX), for ranges: .tc[$25\text{--}35$]
   - possibly rely on proper LaTeX packages .note[later] for ranges
 - **em-dash** — (`---` in LaTeX), for parenthetical thought (**asides**)
-  - without spaces before and after: .ttt[We tested this approach with an MLP—we also experimented with other kinds of controller with no qualitative different findings.]
+  - without spaces before and after: .tc[We tested this approach with an MLP—we also experimented with other kinds of controller with no qualitative different findings.]
 
 ---
 
@@ -420,9 +426,286 @@ A pretty **popular** matter:
 ]
 ]
 
+.center.tc[We experimented with **GA, GP.col2[,] and GE**.]
+
+Use it! .note[my personal advice]
+
+Or don't use it, but be **consistent**!
+
+---
+
+## Ordinal numbers
+
+Three .note[at least] possible forms:
+- .tc[$i$-th] .note[my preferred one]
+- .tc[$i$th]
+- .tc[$i^\\text{th}$]
+
+Choose your preferred one and be **consistent**!
+
+.vspace1[]
+
+When you have few ordinals, use the extended form:
+- ✅ .tc[We take the second element of the vector]
+- ✅ .tc[where $\\vect{x}^{(j)}$ is the $j$-th sample of the data sequence]
+
+---
+
+## Typesetting mathematical notation
+
+- **Premise 1**.
+Choosing the mathematical notation for an entity is like choosing the **name of a variable/type/method**/... in a piece of code: choosing the **right** name is often half of the **modeling** job.
+So it's much more than just typography.
+
+- **Premise 2**.
+There are specific praxes and expectations in some scientific communities.
+If possible, try to conform to those praxes if your document will be consumed by people belonging to a community.
+
+---
+
+## Single-letter entities
+
+Try (hardly!) to use **only one letter** for math entities!
+
+Example:
+- if one single parameter concerning the quantity of something
+  - ✅ .tc[$n$]
+- if two of them:
+  - ✅  .tc[$n$] and .tc[$m$]
+- several of them, use **subscripts**:
+  - ✅ .tc[$n\\subtext{pop}$], .tc[$n\\subtext{gen}$], and .tc[$n\\subtext{tour}$]
+  - ❌ .tc[$n\\_{pop}$], .tc[$n\\_{gen}$], and .tc[$n\\_{tour}$] .note[see later]
+  - ❌ .tc[$\\text{pop}$], .tc[$\\text{gen}$], and .tc[$\\text{tour}$]
+  - ❌ .tc[$pop$], .tc[$gen$], and .tc[$tour$] .note[see later]
+  
+---
+
+## Collections and vectors
+
+- **collections** (sets, bags) of items $\\rightarrow$ uppercase letters: .tc[$A$]
+- their **elements** $\\rightarrow$ consistent lowercase letters: .tc[$a \\in A$]
+- **collections of collections** $\\rightarrow$ *calligraphic* uppercase letters: .tc[$\\mathcal{A}$] .note[`\mathcal{}` in LaTeX]
+- **vectors** (or, intuitively, fixed-length homogeneous sequences) $\\rightarrow$ bold: .tc[$\\vect{x}$]
+  - prettier/lighter than upper arrow, in particular with superscripts: .tc[$\\vec{x}^{(i)}$] vs. .tc[$\\vect{x}^{(i)}$]
+  - possibly use also for matrices: .tc[$\\vect{a} \\in \\mathbb{R}^{n \\times m}$] or .tc[$\\vect{A} \\in \\mathbb{R}^{n \\times m}$] 
+
+For delimiting the content:
+- order matters (vectors, sequences, tuples): round parentheses
+  - extended version: .tc[pair $p=(a,b)$], .tc[vector $\\vect{x}=(x\\sub{1}, x\\sub{2}, x\\sub{3})$] .note[also square brackets, but better for vector concatenation .tc[$\\vect{x} = [\\vect{x}\\subtext{train} \\; \\vect{x}\\subtext{test}]$]]
+  - contracted version: .tc[$\\vect{s}=(s\\_i)\\_i$] (or, with explicit bounds, .tc[$\\vect{s}=(s\\_i)\\sub{i=1}\\sup{i=n}$])
+- order does not matter (sets, bags): curly brackets
+  - expanded: .tc[set $A=\\\\{a\\sub{1},a\\sub{2},\\dots\\\\}$] with "unkown" size, or .tc[set $A=\\\\{a\\sub{1},\\dots,a\\sub{n}\\\\}$] with "known" size $n$
+  - contracted: .tc[dataset $D\\subtext{learn}=\\left\\\\{\\left(x^{(i)},y^{(i)}\\right)\\right\\\\}\\sub{i}$]
+  
+Example:
+.tc[Given a set $\\mathcal{X} = \\\\{X\\_1,X\\_2,\\dots\\\\}$ of datasets, where each $X\\_j=\\left\\\\{\\vect{x}^{(1)}, \\vect{x}^{(2)}, \\dots\\right\\\\}$, with $\\vect{x}^{(j)}=\\left(x\\sub{i}^{(j)}\\right)\\sub{i=1}\\sup{i=p} \\in \\mathbb{R}^p$, we do this and that...]
+
+---
+
+## Functions signature and mapping
+
+In general, specify formally the **domain** of math entities (at least once)
+- .tc[the genotype $g \\in \\mathbb{R}^p \\times \\\\{\\text{true}, \\text{false}\\\\}$ is a pair of a $p$-long real vector and a Boolean]
+- this answer the key question "what's a $g$?"
+
+Functions and mappings:
+- domain and co-domain: .tc[$f: \\mathbb{R} \\to [0,1]$] .note[`\to` in LaTeX]
+  - specify the *signature* of any valid $f$, i.e., from what to what, not the how .note[like an `interface`]
+- actual processing of an $f$: .tc[$x \\mapsto \\min(x^2,1)$] .note[`\mapsto` in LaTeX]
+  - specify the actual working of one specific $f$ .note[like a `class`]
+  
+---
+
+class: middle, center
+
+## LaTeX
+
+---
+
+## Ellipses
+
+Use `\dots`, not a literal `...`, both in text and math mode!
+.note[There's an ellipses char `…`]
+
+.vspace1[]
+
+.cols[
+.c50[
+#### ✅ Good (with `\dots`)
+
+.tc[$\text{We tested with one, two, \\dots users}$]
+
+.tc[$A=\\\\{a\\sub{1},\\dots,a\\sub{n}\\\\}$]
+]
+.c50[
+#### ❌ Bad (with `...`)
+.tc[$\text{We tested with one, two, ... users}$]
+
+.tc[$A=\\\\{a\\sub{1},...,a\\sub{n}\\\\}$]
+]
+]
+
+---
+
+## Double quotes
+
+Use <code>\`\`something''</code>, not `"something"`!
+
+.vspace1[]
+
+.cols[
+.c50[
+#### ✅ Good (with <code>\`\`...''</code>)
+
+.tc[$\\text{Users stated to be ``satisfied''}$]
+
+]
+.c50[
+#### ❌ Bad (with `"..."`)
+.tc[$\\text{Users stated to be "satisfied"}$]
+]
+
+.footnote[
+When you need to extensively use quotes, maybe because you are literally quoting others' text, use a package, e.g., `csquotes`.]
+]
 
 
+---
 
+## Emphasis
 
+For emphasized text, use `\emph{}`, not `\textit{}`!
 
+Why?
+1. `\emph{}` makes clear you are giving a role (i.e., to be emphasized) to the argument, not just a rendering directive; `\textit{}` looks like a rendering directive .note[many languages try to separate concerns, what from how; LaTeX is not good at this]
+2. when rendering `\emph{}` takes context (i.e., surrounding text) into account
+  - e.g., `\begin{theorem}...\end{theorem}` often renders text in italics: a `\textit{}` wouldn't have effect, an `\emph{}` has
+  
+When to emphasize?
+- at the first occurrence of key terms, usually at their definition
+  - .tc[A *strategy* is a function $s: [0,1]^2 \\to [0,1]^2$ to map one coordinate to another coordinate...]
+  
+---
+
+## Controlled and unbreakable spaces
+
+When rendering, LaTeX usually puts a larger space after a fullstop, to ease readabilty by separating sentences; however it does not tell apart actual sentences separators from other usages of the fullstop.
+
+Use:
+- controlled space `\ ` for spaces after *fake* fullstops
+- unbreakable space `~` to prevent linebreaking after (*fake*) fullstops
+
+.vspace1[]
+
+LaTeX:
+
+❌ `I thank prof. Smith. He has been very kind with me.`  
+✅ `I thank prof.\ Smith. He has been very kind with me.`  
+✅ `I thank prof.~Smith. He has been very kind with me.`
+
+Rendered:
+
+.w75p[![Controlled spaces](images/controlled-spaces.png)]
+
+---
+
+### Small/tiny details
+
+Should I really care about those tiny details?
+
+You could overlook at them, but remember:
+- **you submitted** your paper to reviewers, **asking them to evaluate** it
+- they do their job, they evaluate it
+  - 🧐 often, they are very **picky** and attentive
+  - 😈 often, they are more than happy to find issues/reasons to reject
+  
+.vspace1[]
+
+**You**: "*Please, come to my house to taste my food,*" (my food = my research) "*but please don't mind the dirt on the cutlery*" (the cutlery .note[what is needed to consume the food] = research presentation)
+
+**Reviewer**: "*If they are not even able to clean the cutlery, should I trust them in their ability to prepar complex foods?*"
+
+---
+
+## Multi-letter math entities
+
+(Recall: avoid multi-letter names!)
+
+Words in math environment $\\rightarrow$ enclose within `\text{}`
+
+.vspace1[]
+
+.cols[
+.c50[
+#### ✅ Good (with `\text{}`)
+
+.tc[$\text{FPR}=1-\text{TNR}$]
+
+.h5ex[![FPR with text](images/math-text-good.png)]
+
+.tc[$n\\subtext{pop}$]
+
+]
+.c50[
+#### ❌ Bad (without `\text{}`)
+
+.tc[$FPR=1-TNR$]
+
+.h5ex[![FPR with text](images/math-text-bad.png)]
+
+.tc[$n\\sub{pop}$]
+]
+]
+
+---
+
+## Bracket size
+
+Use `\left` and `\right` before brackets (of any type) to make them fit their content
+
+.vspace1[]
+
+.cols[
+.c70[
+#### ✅ Good (with `\left` and `\right`)
+]
+.c30[
+#### ❌ Bad (without)
+]
+]
+.cols[
+.c70[
+`k \left(\frac{1}{n+1}\right)` $\\rightarrow$ .tc[$k \\left(\\frac{1}{n+1}\\right)$]
+]
+.c30[
+.tc[$k (\\frac{1}{n+1})$]
+]
+]
+
+.cols[
+.c70[
+`\left\{\vect{v}^{(k)}\right\}_k` $\\rightarrow$ .tc[$\\left\\\\{\\vect{v}^{(k)}\\right\\\\}\\_k$]
+]
+.c30[
+.tc[$\\\\{\\vect{v}^{(k)}\\\\}\\_k$]
+]
+]
+
+.cols[
+.c70[
+`\left\lfloor n \frac{j}{k} \right\rfloor` $\\rightarrow$ .tc[$\\left\\lfloor n \\frac{j}{k} \\right\\rfloor$]
+]
+.c30[
+.tc[$\\lfloor n \\frac{j}{k} \\rfloor$]
+]
+]
+
+.cols[
+.c70[
+`\left\langle \vect{x}^\intercal \vect{x} \right\rangle` $\\rightarrow$ .tc[$\\left\\langle \\vect{x}^\\intercal \\vect{x} \\right\\rangle$]
+]
+.c30[
+.tc[$\\langle \\vect{x}^\\intercal \\vect{x} \\rangle$]
+]
+]
 

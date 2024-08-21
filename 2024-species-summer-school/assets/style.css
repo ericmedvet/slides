@@ -201,6 +201,9 @@ video {
 .w100p img, .w100p video {
   width: 100%;
 }
+.h2ex img {
+  height: 2ex;
+}
 .h5ex img {
   height: 5ex;
 }
@@ -328,11 +331,12 @@ span.note::after {
 .right {
   text-align: right;
 }
-.ttt {
+.tc {
   font-family: "Prata";
+  color: #785EF0;
   font-size: 85%;
 }
-.ttt strong {
+.tc strong {
   font-weight: bold;
   text-decoration-line: underline;
 }
