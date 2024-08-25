@@ -1,4 +1,5 @@
 class: middle, center
+name: lecture-3
 
 # Authoring a pretty looking paper: practical tips and tricks
 ### SPECIES Summer School 2024
@@ -10,6 +11,10 @@ class: middle, center
 Moraira (Spain)
 
 August, 30th 2024
+
+.vspace1[]
+
+.note[[Lecture 1](#lecture-1), [Lecture 2](#lecture-2), [Lecture 3](#lecture-3), [Challenges](#challenges)]
 
 ---
 
@@ -277,7 +282,7 @@ They are suitable for informal discourse
 - ✅ **Good**: .tc[is not], .tc[does not], .tc[cannot], .tc[we will do]
 - ❌ **Bad**: .tc[isn't], .tc[doesn't], .tc[can't], .tc[we'll do]
 
-Unless, in trouble with text lenght, use parsimonously:
+Unless, in trouble with text length, use parsimonously:
 - .tc[w.r.t.] for .tc[with respect to]
 - .tc[approx.] for .tc[approximatively]
 

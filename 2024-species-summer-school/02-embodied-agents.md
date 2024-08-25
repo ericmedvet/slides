@@ -1,5 +1,5 @@
-
 class: middle, center
+name: lecture-2
 
 # Evolutionary optimization of embodied agents: from (developing) bodies to (plastic) brains
 ### SPECIES Summer School 2024
@@ -11,6 +11,11 @@ class: middle, center
 Moraira (Spain)
 
 August, 27th 2024
+
+.vspace1[]
+
+.note[[Lecture 1](#lecture-1), [Lecture 2](#lecture-2), [Lecture 3](#lecture-3), [Challenges](#challenges)]
+
 
 ---
 
