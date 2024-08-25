@@ -204,6 +204,9 @@ video {
 .h2ex img {
   height: 2ex;
 }
+.h3ex img {
+  height: 3ex;
+}
 .h5ex img {
   height: 5ex;
 }

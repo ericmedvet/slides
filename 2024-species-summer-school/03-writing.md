@@ -504,9 +504,9 @@ Example:
 
 ## Functions signature and mapping
 
-In general, specify formally the **domain** of math entities (at least once)
+In general, formally specify the **domain** of math entities (at least once)
 - .tc[the genotype $g \\in \\mathbb{R}^p \\times \\\\{\\text{true}, \\text{false}\\\\}$ is a pair of a $p$-long real vector and a Boolean]
-- this answer the key question "what's a $g$?"
+- this answers the key question "what's a $g$?"
 
 Functions and mappings:
 - domain and co-domain: .tc[$f: \\mathbb{R} \\to [0,1]$] .note[`\to` in LaTeX]
@@ -583,7 +583,7 @@ Why?
   
 When to emphasize?
 - at the first occurrence of key terms, usually at their definition
-  - .tc[A *strategy* is a function $s: [0,1]^2 \\to [0,1]^2$ to map one coordinate to another coordinate...]
+  - .tc[A *strategy* is a function $s: [0,1]^2 \\to [0,1]^2$ that maps one coordinate to another coordinate...]
   
 ---
 
@@ -621,7 +621,7 @@ You could overlook at them, but remember:
   
 .vspace1[]
 
-**You**: "*Please, come to my house to taste my food,*" (my food = my research) "*but please don't mind the dirt on the cutlery*" (the cutlery .note[what is needed to consume the food] = research presentation)
+**You**: "*Please, come to my house to taste my food,*" (my food = my research) "*but please don't mind the dirt on the cutlery*" (the cutlery .note[what is needed to consume the food] = my presentation of my research)
 
 **Reviewer**: "*If they are not even able to clean the cutlery, should I trust them in their ability to prepar complex foods?*"
 
@@ -633,7 +633,8 @@ You could overlook at them, but remember:
 
 Words in math environment $\\rightarrow$ enclose within `\text{}`
 
-.vspace1[]
+For some "popular" functions, there's a LaTeX command, e.g., `\max`
+- or you may define it: `\DeclareMathOperator*{\argmax}{\arg\,max}` .note[`\,` puts a nice short space between arg and max]
 
 .cols[
 .c50[
@@ -641,9 +642,13 @@ Words in math environment $\\rightarrow$ enclose within `\text{}`
 
 .tc[$\text{FPR}=1-\text{TNR}$]
 
-.h5ex[![FPR with text](images/math-text-good.png)]
+.h3ex[![FPR with text](images/math-text-good.png)]
 
 .tc[$n\\subtext{pop}$]
+
+.tc[$\max_{x} f(x)$]
+
+.tc[$\argmax\\sub{\\vect{g}} \\frac{\text{weight}(\\vect{g})}{\\lVert\\vect{g}\\rVert}$]
 
 ]
 .c50[
@@ -651,9 +656,13 @@ Words in math environment $\\rightarrow$ enclose within `\text{}`
 
 .tc[$FPR=1-TNR$]
 
-.h5ex[![FPR with text](images/math-text-bad.png)]
+.h3ex[![FPR with text](images/math-text-bad.png)]
 
 .tc[$n\\sub{pop}$]
+
+.tc[$max_{x} f(x)$]
+
+.tc[$argmax\\sub{\\vect{g}} \\frac{weight(\\vect{g})}{\\lVert\\vect{g}\\rVert}$]
 ]
 ]
 
@@ -708,4 +717,151 @@ Use `\left` and `\right` before brackets (of any type) to make them fit their co
 .tc[$\\langle \\vect{x}^\\intercal \\vect{x} \\rangle$]
 ]
 ]
+
+---
+
+class: middle, center
+
+## Useful LaTeX packages
+
+---
+
+## Premise
+
+- LaTeX is very old: **1985** .note[I'm older, actually...]
+- Typesetting scientific documents is even older!
+
+.center[$\Downarrow$]
+
+Very very likely, you are not the first one trying to do one certain thing:
+- e.g., properly formatting a table
+- e.g., showing authors' names for some references
+- ...
+
+.center[$\Downarrow$]
+
+- if you think your document is not nice enough, e.g., with ugly tables, search for suggestions
+- if you think your document *is* nice, but actually it is not, look at other nice documents!
+
+---
+
+## `siunitx` for quantities and measures
+
+For raw numbers (i.e., raw quantities, usually not for years and dates) with `\num`:
+- in text: `we performed this procedure \num{30} times`
+- in math with big numbers `$x=\num{10000}$`, rendered as $10\\,000$ instead of $10000$
+
+For quantities with measure with `\qty`:
+- `the experiment lasted more than \qty{35}{\second}`
+- `we used a machine with \qty{16}{\giga\byte} RAM`
+
+For ranges and lists:
+- `runs took \qtyrange{10}{25}{\minute}`
+- `we experimented with \numlist{1;10;15;25} moves for each user` (with Oxford comma if `\sisetup{list-final-separator = {, and }}`)
+
+In tables for making nicely aligned columns, by specifying format:
+- `S[table-format:3.2]`
+
+---
+
+## `glossaries` for acronyms
+
+Define all of them at the beginning of the document:
+- `\newacronym{ea}{EA}{evolutionary algorithm}` (name, rendered short version, rendered extended version)
+
+Use them:
+- `\gls{ea}` gives .tc[evolutionary algorithm] at the first occurrence and .tc[EA] later
+- `\glspl{ea}` gives .tc[evolutionary algorithms] at the first occurrence and .tc[EAs] later
+- `\Gls{ea}` gives .tc[Evolutionary algorithm] at the first occurrence and .tc[EA] later
+- ...
+
+Possibly reset occurrences after abstract with `\glsresetall`
+
+If you use `\hyperref` all acronyms are rendered with a link, which might be annoying: disable it with `\glsdisablehyper`
+
+---
+
+## `natbib` for citations
+
+**Premise**: the format of citations *in the text* and of references *in the References* section is almost always **dictated by the template** of the document (i.e., by the journal/conference).
+Adhere to it!
+
+However:
+- `\citet{smith19cost} showed that the cost` gives .tc[Smith et al. [32] showed that the cost], i.e., you don't actually write `Smith`
+
+Other examples [here](https://it.overleaf.com/learn/latex/Natbib_citation_styles).
+
+
+---
+
+## `enumitem` for lists
+
+In particular for inline lists:
+- e.g., .tc[We proceed as follows: (i) we compute the initial value, (ii) we increase it...]
+- e.g., .tc[Our algorithm meets the two aforementioned requirements, because (a) it always produces a valid solution and (b) it does not require...]
+- improves readability
+- remarks importance
+- makes items referenceable
+
+Use:
+- preamble: `\usepackage[inline]{enumitem}`
+- in place:
+  - begin: `\begin{enumerate*}[label=(\roman*)]` .note[or `(\alph*)` or `\arabic*.`...)
+  - item (with label): `\item \label{item:alg-desc-find} we compute...`
+  - end: `\end{enumerate*}`
+- possibly reference: `Step~\ref{item:alg-desc-choose-rule} is the main contribution of this work.` 
+
+---
+
+## `booktables` for tables
+
+**General rules**:
+- no vertical rules, only vertical (`\toprule`, `\midrule`, `\bottomrule`)
+- separation through grouping (`\multirow`, `\multicolumn`, `\cmidrule`) and spacing (`@{\hspace{1mm}}`)
+- align numbers with decimal separator (`S[table-format=1.2]`, not just `r` or `c`)
+
+.w100p.center[![A rather complex table](images/nice-table.png)]
+
+.note[source code [here](https://medvet.inginf.units.it/teaching/how-to-write/#tables-with-codebooktables%2fcode)]
+
+---
+
+## `pgfplots` for plots (and more)
+
+Making **nice and informative** plots is hard!
+
+A good tool may help for:
+- greater style consistency
+- greater efficiency
+
+`pgfplots` is **the** tool .note[in the LaTeX ecosystem]
+
+But:
+- the learning curve is very steep
+- some possibilities are still unexplored
+- something is simply "impossible" .note[I'm pointing at you, Violin plot!]
+
+---
+
+### Complex plot 1
+
+.w100p[![A rather complex plot](images/nice-plot-1-cabea-1.png)]
+
+.footnote[From [this](https://medvet.inginf.units.it/publications/2024-c-pnm-role/) paper.]
+
+---
+
+### Complex plot 2
+
+.center.w65p[![A rather complex plot](images/nice-plot-2-cabea-2.png)]
+
+.footnote[From [this](https://medvet.inginf.units.it/publications/2024-c-pnm-role/) paper.]
+
+---
+
+### Complex plot 3
+
+.center.w90p[![A rather complex plot](images/nice-plot-3-wivace.png)]
+
+.footnote[From [this](https://medvet.inginf.units.it/publications/2024-c-emnst-factors/) paper.]
 
