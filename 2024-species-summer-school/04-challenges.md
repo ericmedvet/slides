@@ -45,8 +45,8 @@ August, 27th 2024
   - what baseline (likely, normal MAP-Elites, but look for relevant existing variants)
   - what problems (2D navigation is a good candidate)
 4. **implement** the EA
-  - Python
-  - Java (I am the documentation)
+  - [Python](https://github.com/adaptive-intelligent-robotics/QDax/tree/main)
+  - [Java](https://github.com/ericmedvet/jgea/tree/develop) (I am the documentation)
   - other
   - everything from scratch
 5. do the experiments and possibly reiterate
@@ -57,7 +57,6 @@ August, 27th 2024
 ### Relevant pointers
 
 - .ref[Flageat, Manon, and Antoine Cully. "Uncertain quality-diversity: evaluation methodology and new methods for quality-diversity in uncertain domains." IEEE Transactions on Evolutionary Computation (2023)]
-<!-- add just enough diversity -->
 
 ---
 
@@ -65,12 +64,12 @@ August, 27th 2024
 
 **Context**:
 - often the fitness/quality function $f$ is very **costly to compute**
-- there are (many) cases where you can vary the cost of computation of $f$, at the expenses of the precision
+- there are (many) cases where you can vary the cost of computation of $f$, at the expenses of the precision (**fidelity**)
   - e.g., number of data points in supervised learning (symbolic regression)
   - e.g., simulation length in simulated evolutionary robotics 
 
 **Narrow context**:
-- there are many approaches for changing the precision $\\rho$ of $f$ during an EA run
+- there are many approaches for changing the **fidelity** $\\rho$ of $f$ during an EA run
   - fixed schedule
   - adaptive schedule, based on some population-wise metric
 
@@ -91,11 +90,15 @@ August, 27th 2024
   - what baselines (likely, $\\rho\\sub{\\ell}^{(k)}=1$, $\\rho\\sub{\\ell}^{(k)}$ depends only on $k$)
   - what problems (symbolic regression is a good candidate)
 4. **implement** the EA
-  - Python
-  - Java (I am the documentation)
+  - [Python](https://github.com/adaptive-intelligent-robotics/QDax/tree/main)
+  - [Java](https://github.com/ericmedvet/jgea/tree/develop) (I am the documentation)
   - other
   - everything from scratch
 5. do the experiments and possibly reiterate
 6. **write and submit**!
 
+### Relevant pointers
+
+- .ref[Wang, Handing, Yaochu Jin, and John Doherty. "A generic test suite for evolutionary multifidelity optimization." IEEE Transactions on Evolutionary Computation 22.6 (2017): 836-850.]
+- .ref[Fernández-Godino, M. Giselle. "Review of multi-fidelity models." arXiv preprint arXiv:1609.07196 (2016).]
 
