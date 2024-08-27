@@ -38,6 +38,8 @@ August, 27th 2024
 
 ### Steps to goal
 
+.cols[
+.c70[
 1. (re)check the **literature** for novelty
 2. problem statement (*easy!*)
 3. **design the experiments**
@@ -51,6 +53,13 @@ August, 27th 2024
   - everything from scratch
 5. do the experiments and possibly reiterate
 6. **write and submit**!
+]
+.c30[
+![The 2D navigation problem](images/robot-vs-nav-best-traj-me2-pos-0001.png)
+
+<video autoplay muted loop><source src="images/robot-vs-nav-me-me2-pos-1.mp4" type="video/mp4"/></video>
+]
+]
 
 ---
 
@@ -96,6 +105,8 @@ August, 27th 2024
   - everything from scratch
 5. do the experiments and possibly reiterate
 6. **write and submit**!
+
+---
 
 ### Relevant pointers
 
