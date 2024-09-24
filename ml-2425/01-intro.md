@@ -185,12 +185,12 @@ You'll practice doing **lab activities**:
 ## Lecture times
 
 Where:
-- .col1[Room C1, building H, Piazzale Europa Campus]
+- .col1[Room H, building C1, Piazzale Europa Campus]
 - .col2[Room 3B, building H3, Piazzale Europa Campus]
 - .col3[Room 2A, building D, Piazzale Europa Campus]
 
 When:
-- **Monday**, 16.00–19.00, .col1[C1, H] $\\rightarrow$ **16.00–18.30**
+- **Monday**, 16.00–19.00, .col1[H, C1] $\\rightarrow$ **16.00–18.30**
 - **Tuesday**, 11.00–13.00, .col2[3B, H3] $\\rightarrow$ **11.00–12.30**
 - **Wednesday**, 10.00–12.00, .col3[2A, D] $\\rightarrow$ **10.00–11.30**
 
@@ -200,7 +200,7 @@ When:
 
 **Michel El Saliby**
 - master student enrolled in [Ingegneria Elettronica e Informatica](https://corsi.units.it/IN20/descrizione-corso) master course
-- *hopefully* future PhD student enrolled in the [Appliead Data Science and Artificial Intelligence](https://adsai.units.it/) PhD program
+- *hopefully* future PhD student enrolled in the [Applied Data Science and Artificial Intelligence](https://adsai.units.it/) PhD program
 
 Role of the tutor:
 - assisting students **during lab activities**, together with the teacher
