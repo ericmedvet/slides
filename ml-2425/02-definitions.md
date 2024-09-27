@@ -553,6 +553,10 @@ $\\mathcal{F}'\_{A^\* \\to Y} = \\{ \\dots, f'\\subtext{predict}(\\cdot, \\text{
 
 **Choosing** the learning technique means choosing one $\\mathcal{F}'\_{X \\to Y}$!
 
+.footnote[
+$A^* = \\bigcup\\sub{i=0}^{i=\\infty} A^i$
+]
+
 ---
 
 ## Alternative views/terminology
