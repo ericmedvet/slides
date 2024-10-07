@@ -665,7 +665,7 @@ Hence, formally:
   $\\lVert \\vect{x} \\rVert\_1$ is the **1-norm** of a vector $\\vect{x}=(x\_1,\\dots,x\_p)$ with $\\lVert \\vect{x} \\rVert\_1$ $=\\sum\_i x\_i$
   ]
   2. a **discrete probability distribution** .col2[$p$] over $Y$, with $M=P\_Y=\\{p: Y \\to [0,1] \\text{ s.t. } 1=\\sum\_{y' \\in Y} p(y')=\\prob{y'=y}\\}$ .note[$\\text{s.t.}$ stays for "such that"]
-  3. the $y$ part .col2[$\\seq{y^{(i)}}{i}$] of a **dataset** $\\seq{x^{(i)},y^{(i)}}{i}$, with $M=\\mathcal{P}^*(Y)$
+  3. the $y$ part .col2[$\\seq{y^{(i)}}{i}$] of a **dataset** $\\seq{(x^{(i)},y^{(i)})}{i}$, with $M=\\mathcal{P}^*(Y)$
   4. just the most frequent **class** .col2[$y^\\star$], with $M=Y$
 - $f'\\subtext{learn}: \\mathcal{P}^*(X \\times Y) \\to M$ .note[asbtract]
 - $f'\\subtext{predict}: X \\times M \\to Y$ .note[asbtract]
@@ -1826,6 +1826,7 @@ name: multiclass-regression-assessment
 Besides accuracy and error, for unbalanced datasets, the .key[weighted accuracy] (or balanced accuracy) is:
 $$\\text{wAcc}=f\\subtext{wAcc}(\\seq{(y^{(i)},\\hat{y}^{(i)})}{i})=\\frac{1}{|Y|} \\sum\_{y \\in Y} \\left( \\frac{\\sum\_i \\mathbf{1}(y^{(i)}=y \\land y^{(i)}=\\hat{y}^{(i)})}{\\sum\_i \\mathbf{1}(y^{(i)}=y)} \\right)=\\frac{1}{|Y|} \\sum\_{y \\in Y} \\text{Acc}\_y$$
 i.e., the (unweighted) average of the accuracy **for each class**.
+.note[You can do the same with error, precision, recall, ...]
 
 .cols[
 .c30[
