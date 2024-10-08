@@ -2249,7 +2249,7 @@ otext(400,60,"$v\\\\subtext{effect}$")
 otext(300,25,"$k$")
 ]
 
-.note[$r \\in [0,1]$ and $k \\in \\mathbb{N}^+$ is a parameter]
+.note[$k \\in \\mathbb{N}^+$ is a parameter]
 
 ]
 ]
