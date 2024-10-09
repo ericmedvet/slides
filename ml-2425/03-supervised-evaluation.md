@@ -2489,7 +2489,7 @@ Answers **with the boxplot**:
 
 --
 
-*For us*, a .key[statistical significance test] is a procedure that, given two **samples** $\\seq{x\_{a,i}}{i}$ and $\\seq{x\_{b,i}}{i}$  (i.e., collections of observations) of **two random variables** $X_a$ and $X_b$ and a **set of hypotheses** $H_0$ (the .key[null hypothess]), returns a number $p \\in [0,1]$, called the .key[$p$-value].
+*For us*, a .key[statistical significance test] is a procedure that, given two **samples** $\\seq{x\_{a,i}}{i}$ and $\\seq{x\_{b,i}}{i}$  (i.e., collections of observations) of **two random variables** $X_a$ and $X_b$ and a **set of hypotheses** $H_0$ (the .key[null hypothesis]), returns a number $p \\in [0,1]$, called the .key[$p$-value].
 
 .diagram.center[
 link([0,25,250,25],'a')
@@ -2552,7 +2552,7 @@ There exist several concrete statistical significance tests, e.g.:
 - Wilcoxon (in many versions)
 - Friedman (in many versions)
 
-Usually, you aim at "argumenting" $\\mu\_a > \\mu\_a$ (**one-tailed**) or $\\mu\_a \\ne \\mu\_a$ (**inequality**):
+Usually, you aim at "argumenting" $\\mu\_a > \\mu\_b$ (**one-tailed**) or $\\mu\_a \\ne \\mu\_b$ (**inequality**):
 1. you **choose** one test based on the other parts of $H\_0$
 2. you compute the $p$-value
 3. you hope it is low
