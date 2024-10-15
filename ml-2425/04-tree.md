@@ -518,7 +518,7 @@ This $f'\\subtext{learn}$ is called .key[recursive binary splitting]:
 
 **Intuitively**:
 - consider all variables (i.e., all $j$) and *all*¹ threshold values
-- choose the pair (variable, threshold) that best separate the data
+- choose the pair (variable, threshold) that best separates the data
   - i.e., that results in the lowest rate of **misclassified** examples
 
 .cols[
