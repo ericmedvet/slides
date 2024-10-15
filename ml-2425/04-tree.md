@@ -940,7 +940,7 @@ Gini and cross-entropy are **smoother** than the error.
 .center[.col1[$n \\le n\\subtext{min}$] or .col1[$\\text{error}(\\seq{y^{(i)}}{i})=0$]]
 
 Alternative 1 (**tree depth**):
-- node depth deeper than $\\tau_m$ or
+- node depth deeper than $\\tau\_d$ or
 - no errors
 
 .note[requires propagating recursively the depth of the node being currently built]
@@ -964,7 +964,7 @@ function $\\text{should-stop}(\\seq{y^{(i)}}{i}, n\\subtext{min})$ {
 
 Impact of the parameter:
 - the lower $n\\subtext{min}$, the **larger** the tree
-- the greater $\\tau\_m$, the **larger** the tree
+- the greater $\\tau\_d$, the **larger** the tree
 - the lower $\\tau\_\\epsilon$, the **larger** the tree
 
 (for the same dataset, in general)
