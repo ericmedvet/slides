@@ -2170,7 +2170,7 @@ Assume a problem with $X = \\c{1}{X\_1 \\times \\dots \\times X\_{p\\subtext{num
 - $p\\subtext{cat}$ .col2[categorical variables]
 
 The labels of the tree nodes can be:
-- class labels $y \\in \\c{3}{Y}$ or discrete probability distribution $p \\in \\c{3}{P\_y}$ (terminal nodes)
+- class labels $y \\in \\c{3}{Y}$ or discrete probability distribution $p \\in \\c{3}{P\_Y}$ (terminal nodes)
 - branch conditions $\\c{1}{\\{1,\\dots,p\\subtext{num}\\} \\times \\mathbb{R}}$ for numerical variables (non-terminal nodes)
 - branch conditions $\\c{2}{\\bigcup_{j=p\\subtext{num}+1}^{j=p\\subtext{num}+p\\subtext{cat}} \\{j\\} \\times \\mathcal{P}(X\_j)}$ for categorical variables (non-terminal nodes)
   - i.e., each variable with its corresponding powerset of possible values
