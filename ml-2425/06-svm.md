@@ -147,7 +147,7 @@ function $\\text{predict}(\\vect{x}, \\c{1}{(\\beta\_0, \\vect{\\beta})})$ {
 
 ]
 .c50[
-- .col1[$\\vect{x}, (\\beta\_0, \\vect{\\beta})$] is the model
+- .col1[$(\\beta\_0, \\vect{\\beta})$] is the model
 - $y = \\text{Pos}$ for both the .col2[$>$] and .col2[$=$] cases
   - $y = \\text{Neg}$ for .col2[$<$], i.e., otherwise
 - computationally **very fast**: just $p$ multiplications and sums
