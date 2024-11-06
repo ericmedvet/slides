@@ -618,7 +618,7 @@ function $\\text{cluster}(\\seq{\\vect{x}^{(i)}}{i=1}^{i=n}, k)$ {
 .i[].i[]$\\vect{\\mu}\_h \\gets \\vect{x}^{(\\sim U(\\{1,\\dots,n\\}))}$  
 .i[]}  
 .i[]$\\mathcal{D} \\gets \\text{assign}(\\seq{\\vect{x}^{(i)}}{i=1}^{i=n}, \\seq{\\vect{\\mu}\_h}{h=1}^{h=k})$  
-.i[]while $\\neg\\text{shoul-stop()}$ {  
+.i[]while $\\neg\\text{should-stop()}$ {  
 .i[].i[]for $h \\in \\{1,\\dots,k\\}$ {  
 .i[].i[].i[]$\\vect{\\mu}\_h \\gets \\frac{1}{|D\_h|} \\sum\_{\\vect{x} \\in D\_h} \\vect{x} $  
 .i[].i[]}  
