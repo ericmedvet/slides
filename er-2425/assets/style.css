@@ -98,6 +98,7 @@ ul li:has(.soandso) {
 .pseudo-code .katex {
   line-height: 90%;
 }
+
 .i {
   display: inline-block;
   width: 1.5em;
@@ -105,6 +106,12 @@ ul li:has(.soandso) {
 .pseudo-code .comment {
   color: #888; /*785EF0 FE6100;*/
   font-size: small;
+}
+.bnf {
+  font-size: 120%;
+  font-family: KaTeX_Typewriter;
+  white-space: pre;
+  line-height: 1;
 }
 .katex .st {
   font-size: 82%;
