@@ -12,7 +12,7 @@ A.Y. 2024/2025
 ## Lecturer
 
 Eric Medvet
-- Associate Professor of Computer Engineering at [Departmenet of Engineering and Architecture](https://dia.units.it/), [University of Trieste](https://www.units.it/)
+- Associate Professor of Computer Engineering at [Department of Engineering and Architecture](https://dia.units.it/), [University of Trieste](https://www.units.it/)
 - Online at: [medvet.inginf.units.it](http://medvet.inginf.units.it/)
 
 Research interests:
@@ -193,11 +193,11 @@ Practice is fundamental!
 ## Teaching assistant
 
 **Giorgia Nadizar**
-- 3rd year PhD student enrolled in the Applied Data Science and Artificial Intelligence PhD program at the [Department of Mathematics and Geosciences](https://dmg.units.it/), [University of Trieste](https://www.units.it/)
+- PostDoc at [Department of Engineering and Architecture](https://dia.units.it/), [University of Trieste](https://www.units.it/)
 - former student of this course
 - online at: [giorgia-nadizar.github.io](https://giorgia-nadizar.github.io/)
 
-Role of the tutor:
+Role of the teaching assistant (like a super-tutor):
 - leading **extra excercise sessions**
 - assisting students **during excercises**, together with the teacher
 - first point-of-contact for course-related questions by students
@@ -284,9 +284,9 @@ A few options:
 ## JDK versions
 .cols[
 .c40[
-We are currently at version **21**:
+We are currently at version **23**:
 - last LTS¹ is **21**
-- coming in days: **22**
+- coming in days: **24**
 
 History from [Wikipedia](https://en.wikipedia.org/wiki/Java_version_history)
 
@@ -320,7 +320,7 @@ Cloud-based:
 ## IDE: your best friend
 
 .cols[
-.c60[
+.c40[
 Pros:
 - makes typing much faster
 - greatly helps following conventions
@@ -333,12 +333,12 @@ Cons:
 
 **Pros >> Cons**
 ]
-.c40[
+.c60[
 .center[
-.h10ex[![Apache NetBeans screenshot](images/ide-netbeans-screenshot.png)]
-.h10ex[![Microsoft Visual Studio Code](images/ide-visualstudiocode-screenshot.png)]
-.h10ex[![Jetbrains IntelliJ IDEA screenshot](images/ide-intellij-screenshot.png)]
-.h10ex[![Eclipse IDE screenshot](images/ide-eclipse-screenshot.jpg)]
+.h15ex[![Apache NetBeans screenshot](images/ide-netbeans-screenshot.png)]
+.h15ex[![Microsoft Visual Studio Code](images/ide-visualstudiocode-screenshot.png)]
+.h15ex[![Jetbrains IntelliJ IDEA screenshot](images/ide-intellij-screenshot.png)]
+.h15ex[![Eclipse IDE screenshot](images/ide-eclipse-screenshot.jpg)]
 ]
 ]
 ]
