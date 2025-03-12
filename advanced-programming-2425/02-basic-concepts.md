@@ -1055,7 +1055,9 @@ public class Greeter {
   private String name;
   /* ... */
 }
+```
 
+```java
 Greeter g1 = new Greeter();
 Greeter g2 = new Greeter();
 ```
@@ -1105,7 +1107,9 @@ public class Greeter {
     return msg;
   }
 }
+```
 
+```java
 String msg = `Greeter.sayMessage()`; /* OK! */
 
 Greeter greeter = new Greeter();

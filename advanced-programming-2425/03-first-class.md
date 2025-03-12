@@ -801,7 +801,7 @@ class: middle center
 
 ## Onlide IDE [repl.it](repl.it)
 
-![repl.it online IDE](images/replit-1st-lab.png)
+.center[![repl.it online IDE](images/replit-1st-lab.png)]
 
 - register
 - enjoy compilation (`javac`) and execution (`java`)
