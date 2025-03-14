@@ -227,20 +227,28 @@ Definition:
 
 ---
 
-## Array creation
+## Array initialization
 
 ```java
 String[] dogNames = {"Simba", "Gass"};
-//same of new String[]{"Simba", "Gass"}
 ```
-
-is the same of
-
+```java
+String[] dogNames = new String[]{"Simba", "Gass"}
+```
+```java
+String[] dogNames = new String[]{
+    new String("Simba"),
+    new String("Gass")
+}
+```
+are the same of
 ```java
 String[] dogNames = new String[2];
 dogNames[0] = "Simba"; //same of = new String("Simba");
 dogNames[1] = "Gass";
 ```
+
+.note[But the shortest is usable only *together* with reference definition]
 
 ---
 
@@ -268,7 +276,7 @@ System.out.println(`dogNames.length`); //prints 3
 
 ```java
 String[] dogNames = {"Simba", "Gass"};
-for (int i = 0; i<dogNames.length; i++) {
+for (int i = 0; i < dogNames.length; i++) {
   System.out.println("Dog " + i + " name is " + dogNames[i]);
 }
 ```
@@ -306,7 +314,7 @@ From the outside, i.e., where the method is invoked, `...` enables invokation wi
 ```java
 double max = max(4, 3.14, -1.1); //values ≅ double[3]; OK for 1
 max = max(); //values ≅ double[0]; OK for 1
-max = max(new double[2]{1, 2}); //Ok!; OK for 1 and 2
+max = max(new double[]{1, 2}); //Ok!; OK for 1 and 2
 ```
 
 .note[Since Java 5.0. Mathematically speaking, varargs allows to define **variadic functions**.]
@@ -318,7 +326,7 @@ max = max(new double[2]{1, 2}); //Ok!; OK for 1 and 2
 ```java
 public static double max(double... values) {
   double max = values[0];
-  for (int i = 1; i<values.length; i++) {
+  for (int i = 1; i < values.length; i++) {
     max = (max > values[i]) ? max : values[i];
   }
   return max;
