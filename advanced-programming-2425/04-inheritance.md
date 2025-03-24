@@ -301,7 +301,7 @@ Ok!
 
 ---
 
-### `super()` constructor: not working
+### `super()` constructor: ~~not working~~
 
 ```java
 public class Base {
@@ -320,8 +320,10 @@ public class Derived extends Base {
   }
 }
 ```
-Not ok!
-- does not compile: `super()` has to be invoked first
+~~Not ok!~~
+- ~~does not compile: `super()` has to be invoked first~~
+
+ Works since JDK 24: see [JEP 492: Flexible Constructor Bodies](https://openjdk.org/jeps/492)
 
 ---
 
