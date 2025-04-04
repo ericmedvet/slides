@@ -379,13 +379,13 @@ Ok!
 ## Inheritance and inline initialization
 
 ```java
-public static class Base {
+public class Base {
   public int n = 1;
 }
 ```
 
 ```java
-public static class Derived extends Base {
+public class Derived extends Base {
   public int m = n + 1;
 }
 ```
@@ -538,7 +538,7 @@ Because otherwise "`Derived` has all fields and methods of `Base`" would not be 
 ## Same code, different behavior
 
 ```java
-public void greet(Person person) {
+public static void greet(Person person) {
   System.out.println("Hi, " + person.getFullName());
 }
 ```
