@@ -561,13 +561,17 @@ Determined by access modifier:
 
 Reference and primitive object:
 
-- exists **only** during the execution of the **block**
+- exists **only** during the execution of the **block**¹
 
 Non-primitive object:
 
 - exists at least **as long as it is referenced**
 - when non referenced, might exist or not exist
   - in practice it's the same: it cannot be used!
+  
+.footnote[
+1. the value lives "with" the block (from creation to end of block), its space lives "with" the method
+]
 
 ---
 
