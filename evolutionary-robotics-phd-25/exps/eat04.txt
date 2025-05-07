@@ -1,0 +1,91 @@
+ea.experiment(
+  runs = (randomGenerator = (seed = [1:1:1]) * [m.defaultRG()]) *
+    (problem = [
+      ea.p.toMho(mtProblem = ea.p.s.pointsAiming2D(targetXs = [-2.5; 3.5]))
+    ]) *
+    (solver = (nEval = [10000]) * 
+    (representation = [ea.r.doubleString(sigmaMut = 0.35)]) * [
+      ea.s.nsga2();
+      ea.s.ga();
+      ea.s.mapElites(descriptors = [
+        ea.s.me.d.descriptor(f = f.nTh(n = 0; of = ea.f.quality()); min = -5; max = 5);
+        ea.s.me.d.descriptor(f = f.nTh(n = 1; of = ea.f.quality()); min = -5; max = 5)
+      ])
+    ]) * [
+    ea.run()
+  ];
+  listeners = [
+    ea.l.console(
+      functions = [
+        f.nTh(of = ea.f.quality(of = ea.f.best(); format = "%6.4f"); n = 0; format = "%4.2f");
+        f.nTh(of = ea.f.quality(of = ea.f.best(); format = "%6.4f"); n = 1; format = "%4.2f");
+        ea.f.hypervolume2D(
+          of = f.each(of = ea.f.firsts(); mapF = ea.f.quality());
+          minReference = [0; 0];
+          maxReference = [5; 5];
+          format = "%5.2f"
+        )
+      ];
+      onlyLast = true
+    );
+    ea.l.savePlotForExp(
+      path = "eat04-bestf-obj0-vs-evals";
+      processor = ea.f.imagePlotter(w = 800; h = 400);
+      plot = ea.plot.multi.quality(
+        q = f.nTh(n = 0);
+        x = ea.f.nOfEvals()
+      )
+    );
+    ea.l.savePlotForExp(
+      path = "eat04-bestf-obj1-vs-evals";
+      processor = ea.f.imagePlotter(w = 800; h = 400);
+      plot = ea.plot.multi.quality(
+        q = f.nTh(n = 1);
+        x = ea.f.nOfEvals()
+      )
+    );
+    ea.l.savePlotForExp(
+      path = "eat04-bestf-min-obj0-vs-evals";
+      processor = ea.f.imagePlotter(w = 800; h = 400);
+      plot = ea.plot.multi.xyExp(
+        y = f.min(of = f.each(of = ea.f.all(); mapF = f.nTh(of = ea.f.quality(); n = 0)));
+        x = ea.f.nOfEvals()
+      )
+    );
+    ea.l.savePlotForExp(
+      path = "eat04-bestf-min-obj1-vs-evals";
+      processor = ea.f.imagePlotter(w = 800; h = 400);
+      plot = ea.plot.multi.xyExp(
+        y = f.min(of = f.each(of = ea.f.all(); mapF = f.nTh(of = ea.f.quality(); n = 1)));
+        x = ea.f.nOfEvals()
+      )
+    );
+    ea.l.savePlotForExp(
+      path = "eat04-hv-vs-evals";
+      plot = ea.plot.multi.xyExp(
+        y = ea.f.hypervolume2D(
+          of = f.each(of = ea.f.firsts(); mapF = ea.f.quality());
+          minReference = [0; 0];
+          maxReference = [5; 5]
+        );
+        x = ea.f.nOfEvals()
+      )
+    );
+    ea.l.savePlotForRun(
+      path = "eat04-landscape-objs-{run.solver.name}";
+      plot = ea.plot.single.landscape(
+      	q = f.mathOp(op = multiply; args = [f.nTh(n = 0); f.nTh(n = 1)]);
+        xRange = m.range(min = -5; max = 5);
+        yRange = m.range(min = -5; max = 5)
+      )
+    );
+    ea.l.savePlotForRun(
+      path = "eat04-objs-space-{run.solver.name}";
+      plot = ea.plot.single.biObjectivePopulation(
+	xRange = m.range(min = 0; max = 8);
+        yRange = m.range(min = 0; max = 8)
+      );
+      processor = ea.f.imagePlotter(secondary = true)
+    )
+  ]
+)
