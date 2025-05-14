@@ -340,10 +340,10 @@ public class SimpleLineProcessingServer {
   private final String quitCommand;
   private final `PrintStream ps`;
 
-  public SimpleLineProcessingServer(int port, String quitCommand, OutputStream os) {
+  public SimpleLineProcessingServer(int port, String quitCommand, OutputStream loggingOs) {
     this.port = port;
     this.quitCommand = quitCommand;
-    `ps = new PrintStream(os)`;
+    `ps = new PrintStream(loggingOs)`;
   }
 
   /* ... */
