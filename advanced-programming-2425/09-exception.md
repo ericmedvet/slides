@@ -467,7 +467,7 @@ Compiles, but IDEs usually warn that code does not throw `MalformedNameException
 
 .compact[
 ```java
-public void showName(String fullName) throws Exception, MalformedNameException {
+public String getLastName(String fullName) throws Exception, MalformedNameException {
   String[] pieces = fullName.split(" ");
   if (pieces.length == 0) {
     throw new MalformedNameException("Empty name!");
@@ -991,7 +991,7 @@ Then, the method should return abruptly in anomalous state (i.e., throw or propa
 **When to "create" an error?**  
 (beyond propagation)
 - when preconditions are not met
-- when postcondition cannot
+- when postcondition cannot be met
 
 .compact[
 ```java
