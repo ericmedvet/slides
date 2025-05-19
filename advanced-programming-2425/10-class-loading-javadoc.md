@@ -281,5 +281,5 @@ public class Greeter {
 - `/**` marks the start of a javadoc comment (normal block comments start with `/*`)
 - javadoc tags start with `@`
 - some HTML syntax can be used
-  - possibly, in the future ([JEP 467](https://openjdk.org/jeps/467)), Markdown syntax
+  - since JDK 23, Markdown syntax ([JEP 467](https://openjdk.org/jeps/467))
 - ...
