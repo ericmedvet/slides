@@ -545,7 +545,7 @@ public static int count(Set<?> set) { /* ... */ }
 ```java
 public static void removeShorterThan(
   Set<? extends Sized> set,
-  double size
+  double sizeThreshold
 ) { /* ... */ }
 ```
 
