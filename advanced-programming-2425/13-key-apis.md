@@ -742,6 +742,15 @@ names.add("Pippi"); // -> java.lang.`UnsupportedOperationException`
 ![Big picture of Java Collections Framework](images/collection-bigpicture.svg)
 
 .note[From: [ICT.social](https://www.ict.social/java/collections-and-streams-in-java/java-collections-framework)]
+
+---
+
+## Big picture (from JDK 21)
+
+.center.w80p[![Big picture of Java Collections Framework](images/sequenced.webp)]
+
+.note[From: [Medium](https://medium.com/javarevisited/sequenced-collections-a-deep-dive-into-jdk-21s-addition-to-collections-framework-9c9887c41ad8)]
+
 ---
 
 ## Example
