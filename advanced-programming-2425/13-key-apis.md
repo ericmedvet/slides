@@ -747,7 +747,9 @@ names.add("Pippi"); // -> java.lang.`UnsupportedOperationException`
 
 ## Big picture (from JDK 21)
 
-.center.w80p[![Big picture of Java Collections Framework](images/sequenced.webp)]
+.center.h30ex[![Big picture of Java Collections Framework](images/sequenced.webp)]
+
+With `SequencedCollection`, `SequencedSet`, and `SequencedMap`
 
 .note[From: [Medium](https://medium.com/javarevisited/sequenced-collections-a-deep-dive-into-jdk-21s-addition-to-collections-framework-9c9887c41ad8)]
 
