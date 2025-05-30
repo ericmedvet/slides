@@ -1415,7 +1415,7 @@ The compiler, automatically, translates it to a class with:
 
 Usage: just like a class!
 ```java
-Point p = new Poing(44, 79);
+Point p = new Point(44, 79);
 ```
 
 ---
@@ -1427,7 +1427,7 @@ Cans:
 - a `record` can be declared inside a method
   - (`class`, `interface`, `enum` too...)
 - a `record` can be a generic
-  - .note[e.g., `record Range<C extends Comparable>(C lower, C upper) {}`]
+  - .note[e.g., `record Range<C extends Comparable<C>(C lower, C upper) {}`]
 
 Cannots:
 - a `record` cannot extend a class/record
