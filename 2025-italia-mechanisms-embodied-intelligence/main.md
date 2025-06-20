@@ -4,7 +4,7 @@ class: middle, center
 
 [Eric Medvet](http://medvet.inginf.units.it/), Giorgia Nadizar, Michel El Saliby, Francesco Rusin, Berfin Sakallioglu
 
-Evolutionary Robotics and Artificial Life Lab, Dip. di Ingegneria e Architettura, Università di Trieste
+*Evolutionary Robotics and Artificial Life Lab, Dip. di Ingegneria e Architettura, Università di Trieste*
 
 .vspace1[]
 
@@ -37,15 +37,15 @@ Ital-IA - Workshop su AI per la Robotica, 23 June 2025, Trieste
 
 --
 
-**When** (for how long) does adaptation occur? 
-- for many agents' life: evolution
-- for an entire agent's life: development
-- for a part of agent's life: **learning**
+**When** (for how long) does adaptation happen? 
+- for many agents' life: **evolution**
+- for an entire agent's life: **development**
+- for a part of agent's life: **learning**\*
 
-**Where** does adaptation occure?
-- only in a **centralized brain**
-- in coordinating parts of a distributed brain
-- in brain and body
+**Where** does adaptation happen?
+- only in a **centralized brain**\*
+- in coordinating parts of a **distributed brain**
+- in **brain and body**
 
 ---
 
