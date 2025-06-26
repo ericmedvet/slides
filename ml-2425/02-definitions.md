@@ -173,7 +173,7 @@ no explicit counterpart for $y$
 
 ## Further point of view
 
-**Abstract** definition:
+**Abstract** definition ($\\approx$ the .key[signature]):
 - just domain and codomain, not how the function works
 
 .cols[
@@ -197,7 +197,7 @@ otext(150,25,'$f$')
 ]
 ]
 
-**Concrete** definition:
+**Concrete** definition ($\approx$ signature and code):
 - domain, codomain, and how the function works
 
 .cols[
