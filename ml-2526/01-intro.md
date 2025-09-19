@@ -1,7 +1,7 @@
 class: middle, center
 
 # (Introduction to) Machine Learning
-### 456MI, 470SM
+### 456MI-1, 470SM
 
 [Eric Medvet](http://medvet.inginf.units.it/)
 
