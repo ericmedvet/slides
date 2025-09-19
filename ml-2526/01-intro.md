@@ -82,7 +82,7 @@ Labs:
 
 ## Structure of the course
 
-6 CFUs, 48 hour: .note[for all: [IN23](https://corsi.units.it/IN23/descrizione-corso), [IN19](https://corsi.units.it/IN19/descrizione-corso), [SM38](https://corsi.units.it/SM38/descrizione-corso), [SM34](https://corsi.units.it/SM34/descrizione-corso), [SM23](https://corsi.units.it/SM23/descrizione-corso), [SM28](https://corsi.units.it/SM28/descrizione-corso), [SM13](https://corsi.units.it/SM13/descrizione-corso), and [SM64](https://corsi.units.it/SM64/descrizione-corso)]
+6 CFUs, 48 hours: .note[for: [IN23](https://corsi.units.it/IN23/descrizione-corso), [IN19](https://corsi.units.it/IN19/descrizione-corso), [SM38](https://corsi.units.it/SM38/descrizione-corso), [SM34](https://corsi.units.it/SM34/descrizione-corso), [SM23](https://corsi.units.it/SM23/descrizione-corso), [SM28](https://corsi.units.it/SM28/descrizione-corso), [SM13](https://corsi.units.it/SM13/descrizione-corso), and [SM64](https://corsi.units.it/SM64/descrizione-corso)]
 - what is machine learning?
   - [definitions](#ml-definitions), [recap](#ml-definitions-recap)
 - evaluating an ML system
@@ -105,7 +105,7 @@ Teacher slides:
 - might be updated during the course
 
 Notebooks for the lab activity:
-- available on the course [web page](https://medvet.inginf.units.it/teaching/2526-ml-er/#course-material)
+- available on the course [web page](https://medvet.inginf.units.it/teaching/2526-ml/#course-material)
 - please, to fully enjoy lab activities, **do not look** at notebooks **in advance**
 
 ---
@@ -186,8 +186,8 @@ Where:
 - .col2[Room C, building C7, Piazzale Europa Campus]
 
 When:
-- **Tuesday**, 8.00–10.00, .col2[3B, H3] $\\rightarrow$ **8.00–10.00**
-- **Thursday**, 16.00–19.00, .col3[2A, D] $\\rightarrow$ **16.00–18.30**
+- **Tuesday**, 8.00–10.00, .col1[B, C7] $\\rightarrow$ **8.30–10.00**
+- **Thursday**, 16.00–19.00, .col2[C, C7] $\\rightarrow$ **16.00–18.30**
 
 ---
 
@@ -219,6 +219,21 @@ The grade is the **average** of written test and project grades:
 - both must be $\\ge 18$
 - parts can be repeated
 - honors (*lode*) if and only if both parts $\\ge 30$ and one $> 30$
+
+---
+
+## On the usage of generative AI (ChatGPT and alike)
+
+**Disclaimer**:
+In any type of content produced by the student for admission to or participation in an exam (projects, reports, exercises, tests), the use of Large Language Model tools (such as ChatGPT and the like) must be explicitly declared.
+This requirement must be met even in the case of partial use. Regardless of the method of assessment, the teacher reserves the right to further investigate the student's actual contribution with an oral exam for any type of content produced.
+
+.vspace1[]
+
+My two cents:
+
+- the human (here, the student) is the only **responsible** for the produced content, even if obtained through generative AI (see also below)
+- **the larger the role generative AI** is playing in producing a content (here, designing and implementing a ML system), the smaller the human's (here, the student's) role; hence, **the less useful the human**
 
 ---
 
