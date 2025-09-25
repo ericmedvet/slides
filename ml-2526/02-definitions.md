@@ -385,9 +385,11 @@ They differ in:
 - **efficiency** with respect to $|D\\subtext{learn}|$
   - e.g., some are really fast for producing $f\\subtext{predict}$ ($\\mathcal{O}\\left(|D\\subtext{learn}|^{\\approx 0}\\right)$), some are slow ($\\mathcal{O}\\left(|D\\subtext{learn}|^2\\right)$)
 - **effectiveness** in terms of the quality of the learned $f\\subtext{predict}$
+- **interpretability**/transparency/explainability .note[fuzzy boundaries...]
+  - why it is doing what it is doing?
 - attributes of learned $f\\subtext{predict}$
   - nature/type of $f\\subtext{predict}$ (a formula, a text, a tree...)
-  - interpretability of $f\\subtext{predict}$
+  - interpretability/transparency/explainability of $f\\subtext{predict}$
 
 ---
 
