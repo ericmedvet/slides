@@ -701,7 +701,7 @@ Option 1: the model .col2[$m$] is a **vector of frequencies**:
 .note[assume $Y=\\\\{y\_1, y\_2, \\dots\\\\}$]
 .cols[
 .c50.center.compact[
-$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\c{2}{\\vect{f}} = \\left(\\freq{y\_j, \\seq{y^{(i)})}{i}}\\right)\_j$
+$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\c{2}{\\vect{f}} = \\left(\\freq{y\_j, \\seq{y^{(i)}}{i}}\\right)\_j$
 ]
 .c50.center.compact[
 $f'\\subtext{predict}(x,\\c{2}{\\vect{f}})=y\_i$ with $i = \\argmax\_i f\_i$]
@@ -712,7 +712,7 @@ $f'\\subtext{predict}(x,\\c{2}{\\vect{f}})=y\_i$ with $i = \\argmax\_i f\_i$]
 Option 2: the model .col2[$m$] is a **discrete probability distribution**: .note[here $f'\\subtext{learn}$ a function that returns a function]
 .cols[
 .c50.center.compact[
-$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\c{2}{p}: p(y)= \\freq{y, \\seq{y^{(i)})}{i}}$
+$f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\c{2}{p}: p(y)= \\freq{y, \\seq{y^{(i)}}{i}}$
 ]
 .c50.center.compact[
 $f'\\subtext{predict}(x,\\c{2}{p})=\\argmax\_{y \\in Y} \\c{2}{p}(y)$
@@ -735,7 +735,7 @@ $f'\\subtext{predict}(x,\\seq{y^{(i)}}{i})=\\argmax\_{y \\in Y} \\freq{y,\\c{2}{
 
 --
 
-Option 4: the model .col2[$m$] is the most frquent **class** $y^\\star$:
+Option 4: the model .col2[$m$] is the most frequent **class** $y^\\star$:
 .cols[
 .c70.center.compact[
 $f'\\subtext{learn}(\\seq{(x^{(i)},y^{(i)})}{i}) = \\c{2}{y^\\star}=\\argmax\_{y \\in Y} \\freq{y,\\seq{y^{(i)}}{i}}$
