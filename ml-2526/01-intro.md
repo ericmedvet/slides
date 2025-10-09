@@ -193,7 +193,9 @@ When:
 
 ## Tutor
 
-?
+**Michel El Saliby**
+- $\\approx$2nd-year PhD student enrolled in the Applied Data Science and Artificial Intelligence (Univ. of Trieste)
+- find him at `name.lastname@phd.units.it`
 
 Role of the tutor:
 - assisting students **during lab activities**, together with the teacher
