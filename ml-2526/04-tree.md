@@ -1910,7 +1910,7 @@ Let's do hyperparameter tuning with grid search (assuming $|D|=n=1000$):
 ]
 
 .question[Questions]
-- how many times is $f'\\subtext{learn}$ invoked? .note[without considering recurrent invokations]
+- how many times is $f'\\subtext{learn}$ invoked? .note[without considering recurrent invocations]
 - how many times is $f''\\subtext{predict}$ invoked?
 
 
@@ -2050,7 +2050,7 @@ Suppose you want to compare it against the plain version (with $n\\subtext{min}=
 .question[Questions]
 - what phases of the ML design process are we doing?
 - how many times is $f'\\subtext{learn-free}$ invoked?
-- how many times is $f'\\subtext{learn}$ invoked? .note[without considering recurrent invokations]
+- how many times is $f'\\subtext{learn}$ invoked? .note[without considering recurrent invocations]
 - how many times is $f''\\subtext{predict}$ invoked? .note[assuming $f''\\subtext{predict}$ is invoked internally by $f'\\subtext{predict}$]
 - how many times is $f'\\subtext{predict}$ invoked?
 
