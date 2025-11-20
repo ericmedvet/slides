@@ -670,7 +670,7 @@ However, "we can use the default values"
 2. take a random set of points $\\seq{x^{(i)}}{i}$ in $[x\\subtext{min},x\\subtext{max}]$
 3. compute the corresponding $y$ and perturb them with a noise: $y^{(i)}=f(x^{(i)})+\\epsilon$ with $\\epsilon \\sim N(0,1)$
 4. set the dataset as $D=\\seq{(x^{(i)},y^{(i)})}{i}$
-  - plot <span style="color: blue">●</span> each $(x^{(i),y^{(i)}})$ in $D$
+  - plot <span style="color: blue">●</span> each $(x^{(i)},y^{(i)})$ in $D$
 5. learn one single tree $t$ on $D$
   - plot <span style="color: gray">**—**</span> $f'\\subtext{predict}(x,t)$ for $x \\in [x\\subtext{min},x\\subtext{max}]$
 6. learn¹ a bag $\\seq{t\_j}{j}$ on $D$
