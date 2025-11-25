@@ -781,7 +781,7 @@ $$
   - $c=0$ (1st) and $c=+\\infty$ (2nd) for **high variance**
 - *learnability*:
   - with the 2nd, you can **always learn a model** from of any dataset $D$
-  - with the 1st, given a $D$, there is a $c\\subtext{learnable} \\le 0$ such that if you set $c < c\\subtext{learnable}$ you cannot learn a model from $D$
+  - with the 1st, given a $D$, there is a $c\\subtext{learnable} \\ge 0$ such that if you set $c < c\\subtext{learnable}$ you cannot learn a model from $D$
       - $c\\subtext{learnable}=0$ if the data is **linearly separable**
 
 **In practice**:
@@ -1024,7 +1024,7 @@ In practice, the decision boundary can **smoothly follow** any path:
   - but complex interactions between $c$ and $\\gamma$ require to choose parameter values carefully
 
 **Applicability** 🫳
-- 🫳 $Y$: **only binary classifications**
+- 🫳 $Y$: **only binary classification**
 - 🫳 $X$: **only numerical variables**
 - 👍 models give a confidence
 - 🫳 with two parameters ($c$ and $\\gamma$)
