@@ -500,10 +500,10 @@ class: labo
 ## Lab 2¹: comparison of ML techniques
 
 Consider the DataCo Smart Supply Chain for Big Data [Analysis dataset](https://data.mendeley.com/datasets/8gx2fvg2k6/5)
-- given the objective of classifying if an order is marked as late delivery, design an implement a ML procedure which answers the question: 
+- given the objective of classifying if an order is marked as late delivery, design and implement a ML procedure which answers the question: 
 .center[**what is the best classification technique?**]
 
-- given the objective of predicting the sales of each order, design an implement a ML procedure which answers the question:
+- given the objective of predicting the sales of each order, design and implement a ML procedure which answers the question:
 .center[**what is the best regression technique?**]
 
 .note[consider the ML techniques seen during the lectures]
