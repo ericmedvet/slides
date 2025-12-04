@@ -212,7 +212,7 @@ $$\\c{2}{p\\left(y\_m \\mid x\_{1,l\_1},\\dots,x\_{p,l\_p}\\right)}=\\frac{\\c{1
 
 The technique based on the independency hypothesis is called .key[Naive Bayes]:
 - based on the **Bayes rule**
-- with a **naive independency** hipothesys
+- with a **naive independency** hypothesis
 
 .cols.compact[
 .c50[
