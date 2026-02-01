@@ -76,3 +76,58 @@ What is this?
 - should different levels have the same goals?
 - should the information (amount and time resolution) available to levels be the same?
 
+---
+
+class: middle, center
+
+# Discussion
+
+---
+
+## Outline
+
+1. Do you think this is a relevant topic? Do you like it?
+2. Are you aware of related things?
+3. What would you start from? What would be the first research question?
+4. How would you define a set of experiments for answering the research question(s)?
+
+---
+
+## Relevance
+
+Do you think this is a relevant topic? Do you like it?
+
+- the things you would write in an introduction (first paragraph(s)) for motivating the research
+- the thing you would write in the conclusions as a perspective impact of the work
+
+---
+
+## Related works
+
+Are you aware of related things?
+
+---
+
+## Research question(s)
+
+What would you start from? What would be the first research question?
+
+Likely necessary:
+- a definition of hierarchical
+
+Possible questions:
+- is some (forcibly) hierarchical brain better than a non-hierarchical brain?
+- does hierarchy naturally emerges?
+- is there an "optimal" number of levels in the hierarchy?
+- does hierarchy lead to different behaviors?
+- ...
+
+---
+
+## Experiment design
+
+How would you define a set of experiments for answering the research question(s)?
+
+- what kind of agent? toy vs. "realistic" setting?
+- what kind of brain? (and body)
+- what kind of optimization? evolution/development/plasticity/learning?
