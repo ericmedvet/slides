@@ -185,19 +185,19 @@ There we'll be several exercises:
 
 Practice is fundamental!
 
-**Extra excercises** with the teaching assistant, **Michel El Saliby**
+**Extra excercises** with the tutor, **Michel El Saliby**
 
 .note[**Computational thinking is an outcome of the coding practice**. See Nardelli, Enrico. "[Do we really need computational thinking?](https://cacm.acm.org/magazines/2019/2/234348-do-we-really-need-computational-thinking/abstract)." Communications of the ACM 62.2 (2019): 32-35.]
 
 ---
 
-## Teaching assistant
+## Tutor
 
 **Michel El Saliby**
 - PhD student at [Department of Engineering and Architecture](https://dia.units.it/), [University of Trieste](https://www.units.it/)
 - former student of this course
 
-Role of the teaching assistant (like a super-tutor):
+Role of the tutor:
 - leading **extra excercise sessions**
 - assisting students **during excercises**, together with the teacher
 - first point-of-contact for course-related questions by students
@@ -483,7 +483,7 @@ The JRE is part of the JDK.
 The JDK contains (mainly):
 - the compiler `javac`
 - the JRE (including `java`)
-- many compiled classes (`.class` files)
+  - many compiled classes (`.class` files)
 - other development tools
 
 It does not contain:

@@ -25,7 +25,7 @@ Goal: **deep understanding** of this code
 ## Objects
 
 "Things" (entities that can be manipulated in the code) are **objects**
-- objects exist
+- objects exist *at running time*
 - but **do not have a name**
 
 The code manipulates objects through **references**
