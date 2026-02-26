@@ -523,7 +523,7 @@ Do you need them?
 - source code: no, but it can be useful for understanding
 
 How to access the documentation?
-- online: [https://docs.oracle.com/en/java/javase/17/docs/api/index.html](https://docs.oracle.com/en/java/javase/17/docs/api/index.html)
+- online: [https://docs.oracle.com/en/java/javase/25/docs/api/index.html](https://docs.oracle.com/en/java/javase/25/docs/api/index.html)
 - through IDE, often deeply integrated with autocompletion and suggestions
 
 How to access the source code?

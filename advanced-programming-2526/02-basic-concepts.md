@@ -257,7 +257,7 @@ Every method has a **signature**, consisting of:
 - type of output parameter (aka **return type**)
   - possibly `void`, if there is no output
 
-Examples (class [`String`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html)):
+Examples (class [`String`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html)):
 - `char charAt(int index)`
 - `int indexOf​(String str, int fromIndex)`
 - `String replace​(CharSequence target, CharSequence replacement)`
@@ -339,7 +339,7 @@ ps.`println(s)`;
 ]
 ]
 .c20[
-Class [`PrintStream`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/PrintStream.html)
+Class [`PrintStream`](https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/PrintStream.html)
 ]
 ]
 
@@ -474,7 +474,7 @@ There are a few exceptions to this syntax:
 
 What happens with initialization depends on the constructor.
 
-Class [`Date`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html): The class `Date` represents a specific instant in time, with millisecond precision.
+Class [`Date`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Date.html): The class `Date` represents a specific instant in time, with millisecond precision.
 
 .javadoc.constructors[
 | Constructor | Description |
@@ -499,7 +499,7 @@ A class C can have more than one constructors:
   - name: the very same name of the class (e.g., `Date` $\rightarrow$ `Date()`)
   - return type: C (e.g., `Date` $\rightarrow$ `Date`)
 
-Class [`String`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html):
+Class [`String`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html):
 .javadoc.constructors[
 | Constructor | Description |
 | --- | --- |
@@ -512,7 +512,7 @@ Class [`String`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/ja
 
 ### Other example: `Socket`
 
-Class [`Socket`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/net/Socket.html): This class implements client sockets (also called just "sockets"). A socket is an endpoint for communication between two machines.
+Class [`Socket`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/net/Socket.html): This class implements client sockets (also called just "sockets"). A socket is an endpoint for communication between two machines.
 
 .javadoc.constructors[
 | Constructor | Description |
@@ -536,7 +536,7 @@ The user of a class (that is, a developer possibly different than the one who de
 - can use the class and operates on it
 - does not know how it is coded
 
-Class [`Date`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html):
+Class [`Date`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Date.html):
 .javadoc.methods[
 | Type | Method | Description |
 | --- | --- | --- |
@@ -931,7 +931,7 @@ Since Java 9, a new, higher level abstraction for code entities organization has
 
 ### API documentation
 
-<iframe width="100%" height="500" src="https://docs.oracle.com/en/java/javase/13/docs/api/index.html"></iframe>
+<iframe width="100%" height="500" src="https://docs.oracle.com/en/java/javase/25/docs/api/index.html"></iframe>
 
 ---
 
@@ -1223,7 +1223,7 @@ public class Greeter {
 }
 ```
 
-Look at [`System`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/System.html) class documentation (fields):
+Look at [`System`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/System.html) class documentation (fields):
 .javadoc.fields[
 | Modifier and type | Field | Description |
 | --- | --- | --- |
@@ -1248,7 +1248,7 @@ public class Greeter {
 }
 ```
 
-Look at [`PrintStream`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/PrintStream.html) class documentation (methods):
+Look at [`PrintStream`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/PrintStream.html) class documentation (methods):
 .javadoc.methods[
 | Type | Method | Description |
 | --- | --- | --- |
