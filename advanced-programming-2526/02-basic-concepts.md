@@ -804,6 +804,7 @@ It is the identifier of the reference that references the object on which the me
 
 ```java
 public class Complex {
+  /* ... */
   public Complex add(Complex other) {
     return new Complex(
       `this.`real + other.real,
@@ -822,6 +823,7 @@ public class Complex {
 Can be omitted:
 ```java
 public class Complex {
+  /* ... */
   public Complex add(Complex other) {
     return new Complex(
       `real` + other.real,
@@ -847,6 +849,7 @@ public class Complex {
     `this.real` = `real`;
     this.imaginary = imaginary;
   }
+  /* ... */
 }
 ```
 
@@ -1051,7 +1054,7 @@ From another point of view:
 
 ```java
 public class Greeter {
-  public `static` String msg;
+  private `static` String msg;
   private String name;
   /* ... */
 }
