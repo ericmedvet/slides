@@ -348,7 +348,7 @@ public class Doc extends Person {
 - `final static`
 - avoid the risk to type it differently
 - ease changing the value all-at-once
-- `public` if meant to be used outside (e.g., [`Math.PI`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Math.html#PI))
+- `public` if meant to be used outside (e.g., [`Math.PI`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html#PI))
 
 **Naming convention** is different for `final static` constants:
 
@@ -539,7 +539,7 @@ public String capitalize(final String string) {
 
 ---
 
-## Scope: fields*, class*, method*
+## Scope: field\*, class\*, method\*
 
 Determined by access modifier:
 
@@ -1173,13 +1173,13 @@ Wrapper classes
 - `Character` for `char` .note[with different name]
 - ...
 
-.note[There's also a [`Void`](https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Void.html) class]
+.note[There's also a [`Void`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Void.html) class]
 
 ---
 
 ### Constants and constructor
 
-[`Integer`]() class: .note[the same for the others]
+[`Integer`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html) class: .note[the same for the others]
 
 .javadoc[
 The `Integer` class wraps a value of the primitive type `int` in an object. An object of type `Integer` contains a single field whose type is `int`.
