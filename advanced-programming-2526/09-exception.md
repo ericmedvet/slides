@@ -1056,8 +1056,7 @@ If no methods handles the exception (e.g., `NullPointerException`), the **thread
 ## Common mistake: lazy catch all
 
 .cols[
-.c50[
-.compact[
+.c40[
 ```java
 try {
   doRiskyThing();
@@ -1066,9 +1065,7 @@ try {
 }
 ```
 ]
-]
-.c50[
-.compact[
+.c60[
 ```java
 public void doRiskyThing()
     throws BadFooException, BadBarException {
@@ -1077,13 +1074,11 @@ public void doRiskyThing()
 ```
 ]
 ]
-]
 
 The (lazy) developer handles `BadFooException` and `BadBarException` in the same way.
 - but the `catch` block might be executed also in other conditions, e.g., `NullPointerException`
 
 Correct way:
-.compact[
 ```java
 try {
   doRiskyThing();
@@ -1093,7 +1088,6 @@ try {
   /* handling code for bar */
 }
 ```
-]
 
 ---
 
@@ -1312,7 +1306,6 @@ Resources are closed in the reversed order they were opened.
 
 ### Without `catch`
 
-.compact[
 ```java
 public static void log(String msg, String filePath) `throws IOException` {
   try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
@@ -1320,11 +1313,12 @@ public static void log(String msg, String filePath) `throws IOException` {
   }
 }
 ```
-]
 
 The `BufferedWriter` is always closed, but exceptions are not handled (here):
 - the compiler requires to handle or add the `throws` clause
 - normal/anomalous state is not affected
+
+.question[Is there any issue in this code?]
 
 ---
 
