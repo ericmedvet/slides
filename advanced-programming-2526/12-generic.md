@@ -319,7 +319,6 @@ An `interface` that represents a function from `A` to `B` that is able to do one
 
 ### Examples
 
-.compact[
 ```java
 Function<Double, Double> squarer = new Function<>() {
   @Override
@@ -329,7 +328,7 @@ Function<Double, Double> squarer = new Function<>() {
 };
 double y = squarer.apply(2); // -> 4
 ```
-
+.compact[
 ```java
 Function<String, String> shortener = new Function<>() {
   @Override
@@ -343,6 +342,7 @@ Function<String, String> shortener = new Function<>() {
 };
 String shortened = shortener.apply("Eric Medvet"); // -> EM
 ```
+]
 
 ```java
 Function<String, Integer> tokenCounter = s -> s.split(" ").length;
@@ -353,7 +353,7 @@ int nOfTokens = tokenCounter.apply("I love generics!"); // -> 3
 Function<String, Integer> length = String::length;
 length.apply("wow"); // -> 3
 ```
-]
+
 ---
 
 ## Generic method
