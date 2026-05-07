@@ -842,7 +842,7 @@ public interface CommandProcessor {
 
 ```java
 CommandProcessor p = (String input) -> {
-  return input.toUpperCase()
+  return input.toUpperCase();
 };
 LineProcessingServer server = new LineProcessingServer(10000, "BYE", p);
 ```
@@ -926,26 +926,20 @@ public class StringUtils {
 ## Usage in practice
 
 Convert to uppercase:
-.compact[
 ```java
 server = new LineProcessingServer(10000, "BYE", s -> s.toUpperCase());
 ```
-]
 
 Prefix:
-.compact[
 ```java
 final String prefix = /* ... */;
 server = new LineProcessingServer(10000, "BYE", s -> prefix + s);
 ```
-]
 
 Count tokens:
-.compact[
 ```java
 server = new LineProcessingServer(10000, "BYE", s -> s.split(" ").length);
 ```
-]
 
 ---
 
@@ -986,14 +980,12 @@ Both return a function!
 
 ### Usage
 
-.compact[
 ```java
 public class RealFunctionUtils {  
   public static double max(RealFunction f) { /* ... */ };
   public static double[] zeros(RealFunction f) { /* ... */ };  
 }
 ```
-]
 
 ```java
 double[] zeros = RealFunctionUtils
