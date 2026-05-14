@@ -773,7 +773,6 @@ Design phase:
 
 ### Solution
 
-.compact[
 ```java
 public static Map<String, Integer> wordOccurrences(String sentence) {
   String[] words = sentence.split("\\W+");
@@ -793,7 +792,6 @@ System.out.println(wordOccurrences("today the cat is on the table."));
 ```bash
 {the=2, today=1, cat=1, is=1, table=1, on=1}
 ```
-]
 
 - `\W` is any non-word character
 - `default V getOrDefault​(Object, V)` returns the second argument if the key (1st argument) is not present
@@ -802,7 +800,6 @@ System.out.println(wordOccurrences("today the cat is on the table."));
 
 ### Sorted alphabetically
 
-.compact[
 ```java
 SortedMap<String, Integer> sortedOccurrences = new TreeMap<>(
     wordOccurrences("today the cat is on the table.")
@@ -812,7 +809,6 @@ System.out.println(sortedOccurrences);
 ```bash
 {cat=1, is=1, on=1, table=1, the=2, today=1}
 ```
-]
 
 - further modification to the `Map` would not be reflected in the `SortedMap`
 
@@ -820,7 +816,6 @@ System.out.println(sortedOccurrences);
 
 ### Sorted by increasing occurrences
 
-.compact[
 ```java
 List<Map.Entry<String, Integer>> entries = new ArrayList<>(
   wordOccurrences("today the cat is on the table.").entrySet()
@@ -831,7 +826,6 @@ System.out.println(entries);
 ```bash
 [today=1, cat=1, is=1, table=1, on=1, the=2]
 ```
-]
 
 - `sort()` line is equivalent to `entries.sort((e1, e2) -> e1.getValue().compareTo(e2.getValue()))`
 - note the `[]` instead of `{}`: come from `ArrayList.toString()` instead of `HashMap.toString()`
@@ -1026,7 +1020,6 @@ Models a **future result**:
 
 ## Usage: `Executor`+`Callable`+`Future`
 
-.compact[
 ```java
 ExecutorService executorService = /* ... */
 long n = 20;
@@ -1040,7 +1033,6 @@ try {
 }
 executorService.shutdown();
 ```
-]
 
 - `factorial(n)` is done in asynchronously!
   - `submit()` returns immediately
@@ -1050,7 +1042,6 @@ executorService.shutdown();
 
 ## Parallel execution of tasks
 
-.compact[
 ```java
 ExecutorService executorService = /* ... */
 List<Callable<Long>> callables = new ArrayList<>();
@@ -1067,7 +1058,6 @@ try {
   System.err.println(String.format("Cannot compute due to %s", e));
 }
 ```
-]
 
 - All tasks are submitted together
 - Results are collected sequentially, but could made be ready in different order
@@ -1296,7 +1286,6 @@ And others such as `average()`, `max()`, `min()`, ... in numeric streams.
 
 Given a collection of person names (first+last), get the initials corresponding to names with more than 2 words in the names.
 
-.compact[
 ```java
 Collection<String> names = List.of(
     "Andrea De Lorenzo",
@@ -1313,7 +1302,7 @@ names = names.stream()
     .collect(Collectors.toList());
 System.out.println(names);
 ```
-]
+
 Gives:
 ```bash
 [ADL, FAP]
@@ -1325,7 +1314,6 @@ Gives:
 
 Given a collection of strings, compute the average number of consonants.
 
-.compact[
 ```java
 System.out.println(strings.stream()
     .map(s -> s.toLowerCase().replaceAll("[aeiou]", ""))
@@ -1334,7 +1322,6 @@ System.out.println(strings.stream()
     .orElse(0d)
 );
 ```
-]
 
 ---
 
@@ -1480,7 +1467,6 @@ record Polygon(List<Point> vertexes) {
 
 ### Compact vs. canonical constructor
 
-.compact[
 ```java
 public record Person(String firstName, String middleName, String lastName) {
 
@@ -1496,7 +1482,6 @@ public record Person(String firstName, String middleName, String lastName) {
   
 }
 ```
-]
 
 ---
 
