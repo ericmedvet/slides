@@ -283,7 +283,11 @@ Further reading:
 
 .important.center[Is intelligence just in the **brain** $C$? Or is it also in the **body** $B\\subtext{in}, B\\subtext{out}$?]
 
-I don't know. But...
+I don't know. But...<sup>1</sup>
+
+.footnote[
+1. .ref[Medvet, Nadizar, El Saliby, Rusin, Sakallioglu; Investigating the Mechanisms of Embodied Intelligence with Evolvable Modular Soft Robots; 5th Convegno Nazionale CINI sull'Intelligenza Artificiale (Ital-IA); 2025]
+]
 
 --
 
@@ -319,11 +323,11 @@ In general:
 .vspace1[]
 
 .bnote[
-Top image from .ref[Hiller, Jonathan, and Hod Lipson. "Automatic design and manufacture of soft robots." IEEE Transactions on Robotics 28.2 (2011): 457-466.]
+Top image from .ref[Hiller, Jonathan, and Hod Lipson. "Automatic design and manufacture of soft robots." IEEE Transactions on Robotics 28.2 (2011): 457-466]
 
-Bottom image from .ref[Legrand, Julie, et al. "Reconfigurable, multi-material, voxel-based soft robots." IEEE Robotics and Automation Letters 8.3 (2023): 1255-1262.], then many works
+Bottom image from .ref[Legrand, Julie, et al. "Reconfigurable, multi-material, voxel-based soft robots." IEEE Robotics and Automation Letters 8.3 (2023): 1255-1262], then many works
 
-1. aka Virtual Soft Robots, from .ref[Mertan, Alican, and Nick Cheney. "Investigating Premature Convergence in Co-optimization of Morphology and Control in Evolved Virtual Soft Robots." EuroGP 2024.]
+1. aka Virtual Soft Robots, from .ref[Mertan, Alican, and Nick Cheney. "Investigating Premature Convergence in Co-optimization of Morphology and Control in Evolved Virtual Soft Robots." EuroGP 2024]
 ]
 ]
 .c40[
@@ -335,56 +339,16 @@ Bottom image from .ref[Legrand, Julie, et al. "Reconfigurable, multi-material, v
 
 ---
 
-## Pre-investigation<sup>1</sup> 1: changes to the body shape
+## Agenda
 
-**Research question**<sup>2</sup>: can a brain control control a slightly different body (wrt the one it has been evolved for)?
-- why relevant? If "no", then the body likely matters a lot!
-
-.footnote[
-1. .ref[Medvet, Rusin; Impact of Morphology Variations on Evolved Neural Controllers for Modular Robots; XVI International Workshop on Artificial Life and Evolutionary Computation (WIVACE); 2022]
-2. Cheney et al. are working on this!
-]
-
---
-
-.cols[
-.c50[
-A **body-agnostic brain**:
-
-.center.w90p[![Distributed controller](images/distributed.png)]
-]
-.c50[
-Body variations:
-
-.center.w90p[![Sample of modified morphologies](images/mod-morphs.png)]
-]
-]
-
----
-
-### Results
-
-**Research question**<sup>2</sup>: can a brain control control a slightly different body (wrt the one it has been evolved for)?
-**TL;DR**: no!
-
-.cols[
-.c50[
-.center.w100p[![Velocity drop](images/plot-reopt.png)]
-
-- Big drop in performance, also with small variations ($\\delta$)
-- With a (short) re-optimization, the brain "adapts" to the new body
-]
-.c50[
-<video autoplay muted loop>
-    <source src="images/video-small.mp4" type="video/mp4"/>
-</video>
-
-Biped:
-- top: **original** brain+body
-- middle: original brain on **modified** body
-- bottom: **re-optimized** brain on modified body
-]
-]
+1. brain complexity
+2. body complexity
+3. evolving them together .note[spoiler: it's hard!]
+4. overcoming body-brain poor evolvability
+  - with quality-diversity
+  - with (social) learning
+  - with plasticity
+5. towards collective intelligence
 
 ---
 
@@ -464,7 +428,7 @@ $\\Rightarrow$ can be used to **drive on optimization** on bodies!
 
 ---
 
-### Results: bodies optimized for criticality are adaptable!!!
+### Results: bodies optimized for criticality are adaptable!
 
 .cols[
 .c30.center[
@@ -490,6 +454,247 @@ Procedure:
 .center.w50p[![Average rank](images/frai-table.png)]
 
 Here: **the larger the body complexity** ($\\approx$criticality)**, the more intelligent** ($\\approx$adaptable) **the robot!**
+]
+]
+
+---
+
+## Body-brain interplay: brain _transferability_
+
+**Research question**<sup>2</sup>: can a brain control control a slightly different body (wrt the one it has been evolved for)?
+- why relevant? If "no", then the body likely matters a lot!
+
+.footnote[
+1. .ref[Medvet, Rusin; Impact of Morphology Variations on Evolved Neural Controllers for Modular Robots; XVI International Workshop on Artificial Life and Evolutionary Computation (WIVACE); 2022]
+]
+
+--
+
+.vspace1[]
+
+.cols[
+.c50[
+A **body-agnostic brain**:
+
+.center.w90p[![Distributed controller](images/distributed.png)]
+]
+.c50[
+Body variations:
+
+.center.w90p[![Sample of modified morphologies](images/mod-morphs.png)]
+]
+]
+
+---
+
+### Results
+
+**Research question**<sup>2</sup>: can a brain control control a slightly different body (wrt the one it has been evolved for)?
+**TL;DR**: no!
+
+.vspace1[]
+
+.cols[
+.c50[
+.center.w100p[![Velocity drop](images/plot-reopt.png)]
+
+- Big drop in performance, also with small variations ($\\delta$)
+  - **Fragile coupling** of body and brain
+- With a (short) re-optimization, the brain "adapts" to the new body
+]
+.c50[
+<video autoplay muted loop>
+    <source src="images/video-small.mp4" type="video/mp4"/>
+</video>
+
+Biped:
+- top: **original** brain+body
+- middle: original brain on **modified** body
+- bottom: **re-optimized** brain on modified body
+]
+]
+
+---
+
+## Poor transferability: impact on evolution
+
+**Research question**<sup>1</sup>: is it hard to look concurrently for a good body _and_ its good brain? If yes, how?
+
+Actually, the answer was already known<sup>2</sup>: **body-brain evolution is hard!**
+
+.vspace1[]
+
+.footnote[
+1. .ref[Mertan, Alican, and Nick Cheney. "Evolutionary Brain-Body Co-Optimization Consistently Fails to Select for Morphological Potential." Artificial Life Conference Proceedings 37. Vol. 2025. MIT Press, 2025]
+2. .ref[Cheney, Nicholas, et al. "On the difficulty of co-optimizing morphology and control in evolved virtual creatures." Artificial life conference proceedings. MIT Press, 2016]
+]
+
+--
+
+.cols[
+.c70[
+Systematic characterization of the **body-only** fitness landscape:
+- $\\approx 1\\,300\\,000$ different bodies with (up to) $3 \\times 3$ voxels
+- body quality estimate with performance of its $\\approx$best brain
+  - $\\approx$best $=$ evolved with a reasonable budget
+- comparison against full body+brain evolution
+
+Robots:
+- body: V-active <span style="color: #FD8E3E">■</span>, H-active <span style="color: #6DAFD6">■</span>, soft-passive <span style="color: #BFBFBF">■</span>, hard-passive ■ voxels
+- brain: NN hardly linked to body largest structure
+  - not translation robust
+]
+.c30[
+.center.w100p[![Evogym 3x3 VSRs](images/mertan-bb-evo-fails-3.png)]
+]
+]
+
+---
+
+#### Results
+
+**Research question**: is it hard to look concurrently for a good body and a good brain? If yes, how?
+
+.cols[
+.c50[
+.center.w100p[![Body-brain vs. body](images/mertan-bb-evo-fails-2.png)]
+]
+.c50[
+.center.w100p[![Distance vs. closest near optimum](images/mertan-bb-evo-fails-1.png)]
+]
+]
+
+> Strikingly, both algorithms fail to discover morphologies that have higher true fitness, despite scenarios where just one voxel alteration is sufficient
+
+- _not surprising_, as that voxel alteration would require a matching brain alteration
+
+
+.footnote[
+AFPO: age-fitness Pareto optimization  
+MAP-Elites with numbers of active/passive voxels as descriptors
+]
+
+---
+
+## Fostering the search with quality-diversity
+
+**Research question**<sup>1</sup>: as **diversity** plays a key role in nature, does it work also for body-brain evolution? Can it be enforced at multiple levels?
+
+.vspace1[]
+
+.cols[
+.c60[
+.center.w80p[![BBB archives](images/nadizar-bbbqd-archives.png)]
+
+- one solution $\\rightarrow$ a complete VSR (body+brain)
+  - two kind of brains: NNs or graphs .note[interpretable!]
+- kept if diverse in at least:
+  - body .note[active voxels, elongation]
+  - brain .note[NN activation patterns or graph structure]
+  - behavior .note[gait]
+]
+.c40[
+.center.w100p[![BBB fitness progression](images/nadizar-bbbqd-progression.png)]
+
+Diversity comes with a cost! .note[not new]
+- slower convergence
+
+... but can favor adaptation to different tasks
+]
+]
+
+.footnote[
+1. .ref[Nadizar, Giorgia, Eric Medvet, and Dennis G. Wilson. "Enhancing adaptability in embodied agents: A multi-quality-diversity approach." IEEE Transactions on Evolutionary Computation (2025)]
+]
+
+---
+
+## Social learning: learning from similar robots
+
+Premise:
+- split body+brain optimization in body _evolution_ and brain _learning_<sup>1,2</sup>
+- but, instead of _individual_ learning, learn from other robots
+
+**Research question**<sup>3</sup>: from whom to learn? Is morphological similarity relevant in social learning?
+- the single best performing robot?
+- a few good robots
+- a few _morphologically similar_ robots? $\\rightarrow$ **embodiment**-based
+
+.footnote[
+1. .ref[Gupta, Agrim, et al. "Embodied intelligence via learning and evolution." Nature communications 12.1 (2021): 5721]
+2. .ref[Pigozzi, Camerota Verdù, Medvet; How the Morphology Encoding Influences the Learning Ability in Body-Brain Co-Optimization; ACM Genetic and Evolutionary Computation Conference (GECCO); 2023]
+3. .ref[De Bruin, Glette, Ellefsen, Nadizar, Medvet; Social Learning Strategies for Evolved Virtual Soft Robots; ACM Genetic and Evolutionary Computation Conference (GECCO); 2026]
+]
+
+--
+
+.cols[
+.c40[
+Robots:
+
+- body: $5 \\times 5$, V-active <span style="color: #FD8E3E">■</span>, H-active <span style="color: #6DAFD6">■</span>, soft-passive <span style="color: #BFBFBF">■</span>, hard-passive ■ voxels
+- brain: a distributed, body-agnostic NN .note[$321$ params]
+]
+.c40[
+Learning (for four tasks):
+- **Bayesian optimization**
+- social learning: some param samples transferred from teacher(s) to learner as starting point
+]
+]
+
+---
+
+### Results
+
+.cols[
+.c60[
+**Research question**: from whom to learn? Is morphological similarity relevant in social learning?
+
+.vspace1[]
+
+- Learning from similar robots is .note[almost] as effective as learning from best ones  
+  - morphological similarity matters
+- Social learning $>$ individual learning $>$ no learning (body+brain evolution)
+
+
+
+.center.w80p[![Social learning bodies](images/ege-social-bodies.png)]
+]
+.c40[
+.center.w90p[![Social learning boxplots](images/ege-social-boxplots.png)]
+
+]
+]
+
+
+---
+
+## Plasticity: role and specialization<sup>1</sup>
+
+**Research question**: how to make voxels plastic such that they can adapt to bodies?
+
+**Preview**: Hebbian plasticity $+$ body+brain evolution $=$ ❤️
+.w80p.center[![Performance after remixing](images/totipotent-plots.png)]
+
+.footnote[
+1. .ref[Ferigo, Iacca, Medvet, Nadizar; Totipotent Neural Controllers for Modular Soft Robots: Achieving Specialization in Body-Brain Co-Evolution through Hebbian Learning; Neurocomputing; 2024] .note[ISAL Award for Outstanding Student Publication]
+]
+
+---
+
+### Results
+
+.center[
+ <span style="color: #E41A1C">**—**</span> No plasticity
+ <span style="color: #377EB8">**—**</span> Fast plasticity
+ <span style="color: #4DAF4A">**—**</span> Slow plasticity
+]
+.cols[
+.c50[
+.center.w100p[![Plastic controller evolution](images/ferigo-totipotent-evo-progression.png)]
+]
+.c50[
+.center.w100p[![Plastic controller life](images/ferigo-totipotent-life-progression.png)]
 ]
 ]
 
@@ -578,19 +783,6 @@ Voxels focus differently depending on their **role**!
 
 ---
 
-## Role and specialization<sup>1</sup>
-
-**Research question**: how to make voxels plastic such that they can adapt to bodies?
-
-**Preview**: Hebbian learning $+$ body+brain evolution $=$ ❤️
-.w80p.center[![Performance after remixing](images/totipotent-plots.png)]
-
-.footnote[
-1. .ref[Ferigo, Andrea, et al. "Totipotent Neural Controllers for Modular Soft Robots: Achieving Specialization in Body-Brain Co-Evolution Through Hebbian Learning."] .note[ongoing work]
-]
-
----
-
 ## Intelligence is collective (if needed)<sup>1</sup>
 
 **Identical** agents: same body, **some brain**!
@@ -621,7 +813,7 @@ Voxels focus differently depending on their **role**!
 ]
 
 .footnote[
-1. .ref[Rusin, Medvet "How Perception, Actuation, and Communication Impact on the Emergence of Collective Intelligence in Simulated Modular Robots"] .note[ongoing work]
+1. .ref[Rusin, Francesco, and Eric Medvet. "How perception, actuation, and communication impact the emergence of collective intelligence in simulated modular robots." Artificial Life 30.4 (2024): 448-465]
 ]
 ---
 
@@ -629,49 +821,51 @@ Voxels focus differently depending on their **role**!
 
 - Is evolution equally **fair in distributing intelligence** (i.e., exploiting capacity of complexity) on body and brain?
   - likely, no... it depends (also) on representation<sup>1</sup>
-- Can a faster forms of **adaptation** fix this?
-  - learning<sup>2</sup>
-  - development<sup>3,4</sup>
+- Can other forms of **adaptation** fix this?
+  - development<sup>2,3</sup>
 - **Explainable** body intelligence
+- **Hierarchical** embodied intelligence
   
 .footnote[
-1. .ref[Thomson, Sarah L., et al. "Understanding fitness landscapes in morpho-evolution via local optima networks." arXiv preprint arXiv:2402.07822 (2024).]
-2. .ref[Pigozzi, Camerota Verdù, Medvet; How the Morphology Encoding Influences the Learning Ability in Body-Brain Co-Optimization; ACM Genetic and Evolutionary Computation Conference (GECCO); 2023]
-3. .ref[Nadizar, Medvet, Miras; On the Schedule for Morphological Development of Evolved Modular Soft Robots; 25th European Conference on Genetic Programming (EuroGP); 2022]
-4. .ref[Davis, Q. Tyrell, et al. "Subtract to adapt: Autotomic robots." 2023 IEEE International Conference on Soft Robotics (RoboSoft). IEEE, 2023.]
+1. .ref[Thomson, Sarah L., et al. "Understanding fitness landscapes in morpho-evolution via local optima networks." arXiv preprint arXiv:2402.07822 (2024)]
+2. .ref[Nadizar, Medvet, Miras; On the Schedule for Morphological Development of Evolved Modular Soft Robots; 25th European Conference on Genetic Programming (EuroGP); 2022]
+3. .ref[Davis, Q. Tyrell, et al. "Subtract to adapt: Autotomic robots." 2023 IEEE International Conference on Soft Robotics (RoboSoft). IEEE, 2023]
 ]
 
 ---
 
 class: middle, center
 
-## Where's the intelligence?<br> (in simulated modular soft robots)
+## Evolutionary modular robotics
+
+### A tool for investigating embodied intelligence
 
 .cols[
 .c30[
 This slide deck:
-.w75p.center[![This slide deck QR code](images/qr-slides.png)]
+.w75p.center[![This slide deck QR code](images/qr-slides.svg)]
 
 Me:  
 [medvet.inginf.units.it](http://medvet.inginf.units.it/)
 ]
-.c40[
-.w75p.center[![ERALLab at Xmas '23](images/erallab-xmas-23.jpg)]
-👋👋👋 from Francesco, Giorgia, Samuele, Gloria, Michel, Eric
-]
-.c30[
-**Contribs from ERALLab**:  
-Giorgia Nadizar  
+.c70[
+**Contributions from ERALLab**:  
+Michel El Saliby  
+Giorgia Nadizar, Dr.  
 Federico Pigozzi, Dr.  
 Francesco Rusin  
+Berfin Sakalliglu  
 Jacopo Talamini, Dr.
 
 .vspace1[]
 
-**Contribs from guest stars**:  
-Stefano Nichele + Sidney Pontes-Filho  
+**Contributions from guest stars**:  
+Ege De Bruin + Kyrre Glette + Kai Olaf Ellefsen  
 David Ha + Yujin Tang  
+Stefano Nichele + Sidney Pontes-Filho  
 Giovanni Iacca + Andrea Ferigo
+Dennis G. Wilson
+
 ]
 ]
 
