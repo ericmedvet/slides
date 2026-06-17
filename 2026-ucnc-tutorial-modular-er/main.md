@@ -392,9 +392,9 @@ Coupled with three bodies (and two control frequencies):
 
 ---
 
-## Body complexity: criticality<sup>1</sup>
+## Body complexity: criticality
 
-**Research question**: what makes a body good for different tasks? (locomotion, cave escape, jump)
+**Research question**<sup>1</sup>: what makes a body good for different tasks? (locomotion, cave escape, jump)
 - here as: what makes a single body "intelligent"?
 
 Idea:
@@ -461,7 +461,7 @@ Here: **the larger the body complexity** ($\\approx$criticality)**, the more int
 
 ## Body-brain interplay: brain _transferability_
 
-**Research question**<sup>2</sup>: can a brain control control a slightly different body (wrt the one it has been evolved for)?
+**Research question**<sup>1</sup>: can a brain control control a slightly different body (wrt the one it has been evolved for)?
 - why relevant? If "no", then the body likely matters a lot!
 
 .footnote[
@@ -477,6 +477,9 @@ Here: **the larger the body complexity** ($\\approx$criticality)**, the more int
 A **body-agnostic brain**:
 
 .center.w90p[![Distributed controller](images/distributed.png)]
+
+- same NN (**same weights**!) in every voxel
+- NNs exchange numbers as I/O
 ]
 .c50[
 Body variations:
@@ -489,7 +492,7 @@ Body variations:
 
 ### Results
 
-**Research question**<sup>2</sup>: can a brain control control a slightly different body (wrt the one it has been evolved for)?
+**Research question**: can a brain control control a slightly different body (wrt the one it has been evolved for)?
 **TL;DR**: no!
 
 .vspace1[]
@@ -551,7 +554,7 @@ Robots:
 
 ---
 
-#### Results
+### Results
 
 **Research question**: is it hard to look concurrently for a good body and a good brain? If yes, how?
 
@@ -579,8 +582,6 @@ MAP-Elites with numbers of active/passive voxels as descriptors
 ## Fostering the search with quality-diversity
 
 **Research question**<sup>1</sup>: as **diversity** plays a key role in nature, does it work also for body-brain evolution? Can it be enforced at multiple levels?
-
-.vspace1[]
 
 .cols[
 .c60[
@@ -630,13 +631,13 @@ Premise:
 
 .cols[
 .c40[
-Robots:
+**Robots:**
 
 - body: $5 \\times 5$, V-active <span style="color: #FD8E3E">■</span>, H-active <span style="color: #6DAFD6">■</span>, soft-passive <span style="color: #BFBFBF">■</span>, hard-passive ■ voxels
 - brain: a distributed, body-agnostic NN .note[$321$ params]
 ]
 .c40[
-Learning (for four tasks):
+**Learning** (for four tasks):
 - **Bayesian optimization**
 - social learning: some param samples transferred from teacher(s) to learner as starting point
 ]
@@ -669,20 +670,42 @@ Learning (for four tasks):
 
 ---
 
-## Plasticity: role and specialization<sup>1</sup>
+## Plastic brains
 
-**Research question**: how to make voxels plastic such that they can adapt to bodies?
+**Research question**<sup>1</sup>: are plastic brains effective?
 
-**Preview**: Hebbian plasticity $+$ body+brain evolution $=$ ❤️
-.w80p.center[![Performance after remixing](images/totipotent-plots.png)]
+.cols[
+.c50[
+**Brain:**
+- one NN per voxel, same params
+  - with I/O exchange
+- **ABCD Hebbian plasticity**  
+$w\_{i,j}^{(k+1)}=w\_{i,j}^{(k)}+\\eta (\\c{1}{a\_{i,j}} x\_{i}^{(k)}x\_{j}^{(k)} + \\c{2}{b\_{i,j}} x\_{i}^{(k)} + \\c{3}{c\_{i,j}} x\_{j}^{(k)} + \\c{4}{d\_{i,j}})$
+  - a dynamical system, with a state
+  - $4 \times$ the params of a non-plastic MLP .note[but<sup>2</sup>...]
+  - no reward signal needed
+
+> fire together, wire together
+]
+.c50[
+**Body:**
+- indirect representation: $(x,y)$ in a $10 \\times 10$ grid $\\to [-1,1]$, voxel _presenceness_
+- $\\approx$ CCPNs
+
+.vspace1[]
+
+.center.w100p[![Totipotent body shapes](images/ferigo-totipotent-bodies.png)]
+]
+]
 
 .footnote[
 1. .ref[Ferigo, Iacca, Medvet, Nadizar; Totipotent Neural Controllers for Modular Soft Robots: Achieving Specialization in Body-Brain Co-Evolution through Hebbian Learning; Neurocomputing; 2024] .note[ISAL Award for Outstanding Student Publication]
+2. .ref[Ferigo, Andrea, Elia Cunegatti, and Giovanni Iacca. "Neuron-centric hebbian learning." Proceedings of the Genetic and Evolutionary Computation Conference. 2024]
 ]
 
 ---
 
-### Results
+### Results: plasticity works!
 
 .center[
  <span style="color: #E41A1C">**—**</span> No plasticity
@@ -691,12 +714,55 @@ Learning (for four tasks):
 ]
 .cols[
 .c50[
-.center.w100p[![Plastic controller evolution](images/ferigo-totipotent-evo-progression.png)]
+.center[
+.note[Evolutionary time, with ES]
+.w90p[![Plastic controller evolution](images/ferigo-totipotent-evo-progression.png)]
+]
+
+Eventually, **plastic brains $\\rightarrow$ faster robots**!
+- .note[maybe] plasticity gives greater opportunity for the brain to adapt to the body
+- .note[likely] related with **Baldwin effect**<sup>1</sup>
 ]
 .c50[
-.center.w100p[![Plastic controller life](images/ferigo-totipotent-life-progression.png)]
+.center[
+.note[Life time]
+.w90p[![Plastic controller life](images/ferigo-totipotent-life-progression.png)]
+]
+
+Plasticity $=$ **good adaptation**:
+- initially, robots with plastic brain are slower
+- then, they become faster
+  - sooner with greater learning rate
 ]
 ]
+
+.footnote[
+1. .ref[Le, Nam, Anthony Brabazon, and Michael O’Neill. "How the “baldwin effect” can guide evolution in dynamic environments." International Conference on Theory and Practice of Natural Computing. Cham: Springer International Publishing, 2018]
+]
+
+---
+
+### Results: roles and specialization
+
+.cols[
+.col40[
+Procedure:
+1. take an evolved plastic robot
+2. make it _live_ for 60s
+3. clone it, and make it live again
+  - w/ <span style="color: #FC9E79">plast. on</span>
+  - w/ <span style="color: #73C7AD">plast. off</span>
+  - w/ <span style="color: #8DA0CB">plast. off, shuffling NNs</span>
+]
+.col60[
+.w100p.center[![Performance after remixing](images/totipotent-plots.png)]
+]
+]
+
+- Brains have **really learned**: if you turn off plasticity, they work
+- Brains do **specialize**: if you change their position, they don't work
+- Starting from all being the same: .key[totipotency]!
+
 
 ---
 
@@ -740,12 +806,12 @@ link([810,75,850,75],'a')
 
 .cols[
 .c50[
-"**Where's the intelligence?**" answer gains a dimension:
+**Intelligence _location_** gains a dimension:
 - before: body vs. brain
-- now: single agent vs. collection of agents .note[in VSRs, agent$=$voxel]
+- now: single agent vs. collection of agents .note[in VSRs, agent $=$ voxel]
 ]
 .c50[
-Open topics:
+Factors:
 - voxels **communication**
 - voxels **specialization**
 - voxels **collaboration**
@@ -863,7 +929,7 @@ Jacopo Talamini, Dr.
 Ege De Bruin + Kyrre Glette + Kai Olaf Ellefsen  
 David Ha + Yujin Tang  
 Stefano Nichele + Sidney Pontes-Filho  
-Giovanni Iacca + Andrea Ferigo
+Giovanni Iacca + Andrea Ferigo  
 Dennis G. Wilson
 
 ]
