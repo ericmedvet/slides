@@ -8,7 +8,7 @@ class: middle, center
 
 .vspace1[]
 
-BIC "AI in mobility"
+Erasmus+ BIP - "AI in future mobility"
 
 29 July 2026 - Koper
 
