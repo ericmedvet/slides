@@ -2,7 +2,7 @@ class: middle, center
 
 ## Moving Intelligent Things
 
-## a look at through Evolutionary modular robotics
+## a look at through evolutionary modular robotics
 
 [Eric Medvet](http://medvet.inginf.units.it/)
 
