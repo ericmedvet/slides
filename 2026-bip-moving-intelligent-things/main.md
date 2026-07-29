@@ -26,6 +26,50 @@ Erasmus+ BIP - "AI in future mobility"
 
 ---
 
+## Who am I, where I come fromt
+
+.cols[
+.c30[
+**Eric Medvet**
+[medvet.inginf.units.it](https://medvet.inginf.units.it)
+
+Associate Professor of **Computer Engineering** at the Department of Engineering and Architecture
+
+Research:
+- evolutionary computation
+  - evolutionary robotics
+- artificial life
+- their applications
+
+Teaching:
+- Machine Learning
+- Evolutionary Robotics
+- Object-oriented Programming
+]
+.c40[
+.w100p.center[![Trieste + Koper maps](images/map.png)]
+]
+.c30[
+**University of Trieste**
+
+- almost all disciplines
+  - 35+37+7 degree programs
+- $\\approx$ 18k students (9% foreign, 60% women)
+- $\\approx$ 550 PhDs (13% foreign)
+- $\\approx$ 720 faculties (professors and researchers)
+
+**Trieste**
+
+- $\\approx$ 200k population
+- 2 universities, many other institutions
+  - 37 researchers on 1000 pers.
+- high life quality
+
+]
+]
+
+---
+
 ## Intelligence?
 
 > **in·​tel·​li·​gence** - *in-ˈte-lə-jən(t)s*
