@@ -11,7 +11,7 @@ A.Y. 2026/2027
 
 ## Structure of the course
 
-3 CFUs, 24 hours: .note[for [IN23](https://corsi.units.it/IN23/descrizione-corso)
+3 CFUs, 24 hours: .note[for [IN23](https://corsi.units.it/IN23/descrizione-corso)]
 - [evolutionary algorithms](#evolutionary-computation) and [their usage](#evolution-at-work)
 - [agents, environments as optimization problems](#er)
 - notable [research in evolutionary robotics](#er-examples)
