@@ -33,7 +33,7 @@ Labs:
 .h5ex.vam[![Sylvio Barbon Jr.](images/people/barbon-jr.jpg)]
 [Sylvio Barbon Jr.](https://www.barbon.com.br/)  
 <i class="fa-solid fa-chalkboard-user col2"></i> Fondamenti di informatica  
-<i class="fa-solid fa-chalkboard-user col2"></i> Progettazione del software e dei sistemi informativi  
+<i class="fa-solid fa-chalkboard-user col2"></i> Data-driven digital systems  
 <i class="fa-regular fa-lightbulb col2"></i> *meta learning, applied ML, process mining*
 
 .h5ex.vam[![Alberto Bartoli](images/people/bartoli.jpg)]
@@ -51,7 +51,8 @@ Labs:
 .h5ex.vam[![Eric Medvet](images/people/medvet.jpg)]
 [Eric Medvet](https://medvet.inginf.units.it/)  
 <i class="fa-solid fa-chalkboard-user col2"></i> Programmazione orientata agli oggetti  
-<i class="fa-solid fa-chalkboard-user col2"></i> Introduction to machine learning and evolutionary robotics  
+<i class="fa-solid fa-chalkboard-user col2"></i> Machine learning  
+<i class="fa-solid fa-chalkboard-user col2"></i> Evolutionary robotics  
 <i class="fa-regular fa-lightbulb col2"></i> *evolutionary computation, embodied AI, applied ML*
 ]
 .c50[
@@ -60,7 +61,7 @@ Labs:
 [Laura Nenzi](https://lauranenzi.github.io/)  
 <i class="fa-solid fa-chalkboard-user col2"></i> Safe and verified AI  
 <i class="fa-solid fa-chalkboard-user col2"></i> Information retrieval and data visualization  
-<i class="fa-solid fa-chalkboard-user col2"></i> Laboratorio di programmazione I e II  
+<i class="fa-solid fa-chalkboard-user col2"></i> Laboratorio di programmazione  
 <i class="fa-regular fa-lightbulb col2"></i> *formal methods, runtime verification*
 
 .h5ex.vam[![Alessandro Renda](images/people/renda.jpg)]
@@ -71,9 +72,9 @@ Labs:
 
 .h5ex.vam[![Martino Trevisan](images/people/trevisan.jpg)]
 [Martino Trevisan](https://trevisan.inginf.units.it/)  
-<i class="fa-solid fa-chalkboard-user col2"></i> Reti di calcolatori  
+<i class="fa-solid fa-chalkboard-user col2"></i> Advanced internet technologies  
 <i class="fa-solid fa-chalkboard-user col2"></i> Sistemi operativi  
-<i class="fa-solid fa-chalkboard-user col2"></i> Architetture dei sistemi digitali  
+<i class="fa-solid fa-chalkboard-user col2"></i> Architetture dei sistemi digitali (part of)  
 <i class="fa-regular fa-lightbulb col2"></i> *network measurements, data privacy, big data*
 ]
 ]
@@ -101,11 +102,11 @@ Focus on **methodology**:
 ## Materials
 
 Teacher slides:
-- available on the course [web page](https://medvet.inginf.units.it/teaching/2526-ml/#course-material)
+- available on the course [web page](https://medvet.inginf.units.it/teaching/2627-ml/#course-material)
 - might be updated during the course
 
 Notebooks for the lab activity:
-- available on the course [web page](https://medvet.inginf.units.it/teaching/2526-ml/#course-material)
+- available on the course [web page](https://medvet.inginf.units.it/teaching/2627-ml/#course-material)
 - please, to fully enjoy lab activities, **do not look** at notebooks **in advance**
 
 ---

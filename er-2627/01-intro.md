@@ -21,7 +21,7 @@ A.Y. 2026/2027
 ## Materials
 
 Teacher slides:
-- available on the course [web page](https://medvet.inginf.units.it/teaching/2526-er/#course-material)
+- available on the course [web page](https://medvet.inginf.units.it/teaching/2627-er/#course-material)
 - might be updated during the course
 
 ---
