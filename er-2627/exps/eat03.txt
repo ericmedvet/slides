@@ -1,0 +1,123 @@
+ea.experiment(
+  runs = (randomGenerator = (seed = [1:1:30]) * [ea.rg.defaultRG()]) *
+    (problem = [
+      ea.p.s.gaussianMixture2D(targets = [2; 2; 1; -2; -2; 1])
+    ]) *
+    (solver = (nEval = [2500]) * [
+      ea.s.ga(name = "ga n_tour=1"; representation = ea.r.doubleString(); tournamentRate = 0.01; minNTournament = 1);
+      ea.s.ga(name = "ga n_tour=5"; representation = ea.r.doubleString(); tournamentRate = 0.05; minNTournament = 1);
+      ea.s.simpleEs();
+      ea.s.mapElites(representation = ea.r.doubleString(); descriptors = [
+        ea.s.me.d.ofSolution(f = ea.nf.nth(n = 0); min = -5; max = 5);
+        ea.s.me.d.ofSolution(f = ea.nf.nth(n = 1); min = -5; max = 5)
+      ])
+    ]) * [
+    ea.run()
+  ];
+  listeners = [
+    ea.l.console(
+      functions = [
+        ea.nf.size(f = ea.nf.genotype(individual = ea.nf.best()); s = "%3d");
+        ea.nf.bestFitness(s = "%6.2f");
+        ea.nf.hist(collection = ea.nf.each(map = ea.nf.fitness(); collection = ea.nf.all()))
+      ];
+      onlyLast = true;
+      runKeys = [
+        ea.misc.sEntry(key = "problem.name"; value = "{problem.name}");
+        ea.misc.sEntry(key = "problem.p"; value = "{problem.p}");
+        ea.misc.sEntry(key = "solver"; value = "{solver.name}");
+        ea.misc.sEntry(key = "seed"; value = "{randomGenerator.seed}")
+      ]
+    );
+    ea.l.expPlotSaver(
+      w = 1200; h = 800;
+      filePath = "eat03-bestf-vs-evals.png";
+      type = lines;
+      plot = ea.plot.fitnessPlotMatrix(
+        xFunction = ea.nf.quantized(f = ea.nf.evals(); r = 100; s = "%.0f");
+        xSubplotRunKey = ea.misc.sEntry(key = p; value = "{problem.p}");
+        ySubplotRunKey = ea.misc.sEntry(key = problem; value = "{problem.name}")
+      )
+    );
+    ea.l.expPlotSaver(
+      w = 1200; h = 800;
+      filePath = "eat03-bestf-boxplot.png";
+      type = boxplot;
+      plot = ea.plot.fitnessBoxplotMatrix(
+        xSubplotRunKey = ea.misc.sEntry(key = p; value = "{problem.p}");
+        ySubplotRunKey = ea.misc.sEntry(key = problem; value = "{problem.name}")
+      )
+    );
+    ea.l.runPlotSaver(
+      w = 1200; h = 300;
+      filePathTemplate = "eat03-landscape-{problem.name}-{solver.name}-{randomGenerator.seed}.png";
+      type = landscape;
+      plot = ea.plot.landscape(
+        predicateValue = ea.nf.quantized(f = ea.nf.evals(); r = 100; s = "%.0f");
+        condition = ea.predicate.inD(
+          values = [0; 100; 200; 300; 400; 500; 1000; 5000]
+        );
+        xRange = ds.range(min = -5; max = 5);
+        yRange = ds.range(min = -5; max = 5)
+      );
+      condition = ea.predicate.all(conditions = [
+        ea.predicate.inS(
+          f = ea.nf.runKey(runKey = ea.misc.sEntry(key = "seed"; value = "{randomGenerator.seed}"));
+          values = ["1"]
+        )
+      ])
+    );
+    ea.l.runPlotVideoSaver(
+      w = 500; h = 500;
+      filePathTemplate = "eat03-landscape-{problem.name}-{solver.name}-{randomGenerator.seed}.mp4";
+      type = landscape;
+      plot = ea.plot.landscape(
+        xRange = ds.range(min = -5; max = 5);
+        yRange = ds.range(min = -5; max = 5)
+      );
+      condition = ea.predicate.all(conditions = [
+        ea.predicate.inS(
+          f = ea.nf.runKey(runKey = ea.misc.sEntry(key = "seed"; value = "{randomGenerator.seed}"));
+          values = ["1"]
+        )
+      ])
+    );
+    ea.l.runPlotSaver(
+      w = 1200; h = 300;
+      filePathTemplate = "eat03-me-archive-{problem.name}-{solver.name}-{randomGenerator.seed}.png";
+      type = univariate_grid;
+      plot = ea.plot.mapElitesPopulation(
+        predicateValue = ea.nf.quantized(f = ea.nf.evals(); r = 100; s = "%.0f");
+        condition = ea.predicate.inD(
+          values = [0; 100; 200; 300; 400; 500; 1000; 5000]
+        )
+      );
+      condition = ea.predicate.all(conditions = [
+        ea.predicate.matches(
+          f = ea.nf.runKey(runKey = ea.misc.sEntry(key = "solver"; value = "{solver.name}"));
+          regex = "me.*"
+        );
+        ea.predicate.inS(
+          f = ea.nf.runKey(runKey = ea.misc.sEntry(key = "seed"; value = "{randomGenerator.seed}"));
+          values = ["1"]
+        )
+      ])
+    );
+    ea.l.runPlotVideoSaver(
+      w = 500; h = 500;
+      filePathTemplate = "eat03-me-archive-{problem.name}-{solver.name}-{randomGenerator.seed}.mp4";
+      type = univariate_grid;
+      plot = ea.plot.mapElitesPopulation();
+      condition = ea.predicate.all(conditions = [
+        ea.predicate.matches(
+          f = ea.nf.runKey(runKey = ea.misc.sEntry(key = "solver"; value = "{solver.name}"));
+          regex = "me.*"
+        );
+        ea.predicate.inS(
+          f = ea.nf.runKey(runKey = ea.misc.sEntry(key = "seed"; value = "{randomGenerator.seed}"));
+          values = ["1"]
+        )
+      ])
+    )    
+  ]
+)
