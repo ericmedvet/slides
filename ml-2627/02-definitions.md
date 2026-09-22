@@ -368,7 +368,7 @@ otext(250,10,'$f\\\\subtext{predict}$')
 
 --
 
-- .key[learning phase]: when $f\\subtext{learn}$ is applied to obtain $f\\subtext{predict}$ from $D$  
+- .key[learning phase]: when $f\\subtext{learn}$ is applied to obtain $f\\subtext{predict}$ from $D\\subtext{learn}$  
 - .key[prediction phase]: when $f\\subtext{predict}$ is applied to obtain a $y$ from an $x$
 
 ---
