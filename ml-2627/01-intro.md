@@ -161,7 +161,7 @@ public static String sayHello(String name) {
 ## Lab activities and how to attend
 
 Focus on **methodology**:
-- how to **design**, build, and **evaluate** an ML (or EC) system?
+- how to **design**, build, and **evaluate** an ML system?
 
 Practice (in designing, building, evaluating) **is fundamental!**
 
@@ -217,11 +217,12 @@ The written test consists of few ($\\approx$ 6) questions, some with medium-leng
 The project consists in the design, development, and assessment of an ML system dealing with one "problem" chosen among a few options ([examples](https://medvet.inginf.units.it/teaching/2223-intro-ml-er/project/)).
 - **the student delivers a description, not the software**
 - the description is evaluated for **clarity**, technical soundness, (amount of) results
+  - how to craft a clear and nice technical/scientific document? [my humble advice](https://medvet.inginf.units.it/teaching/how-to-write/)
 - may be done in group (you are **encouraged to form groups**!)
 
 The grade is the **average** of written test and project grades:
 - both must be $\\ge 18$
-- parts can be repeated
+- the written test can be repeated, **the project cannot** .note[both if you fail or reject the project grade]
 - honors (*lode*) if and only if both parts $\\ge 30$ and one $> 30$
 
 ---
@@ -238,6 +239,7 @@ My two cents:
 
 - the human (here, the student) is the only **responsible** for the produced content, even if obtained through generative AI (see also below)
 - **the larger the role generative AI** is playing in producing a content (here, designing and implementing a ML system), the smaller the human's (here, the student's) role; hence, **the less useful the human**
+- the metaphor of the gym
 
 ---
 

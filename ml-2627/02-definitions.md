@@ -81,6 +81,8 @@ $$f: X \\to Y$$
 
 None of the two notations says **how** $f$ works internally.
 
+.note[$y=f(x)$ also implies that $y$ depends only on *this* $x$, not on previous ones; otherwise, it would be a **sequential decision making** problem.]
+
 ---
 
 ## $x$ and $y$ names
@@ -131,6 +133,7 @@ New version:
 
 $f$ is often denoted as $f\\subtext{predict}$ since, given an $x$, **predicts** a $y$
 - when used in practice, i.e., in the **prediction phase**, $f\\subtext{predict}$ guesses about an unknown, real $\\hat{y}$
+  - $\\hat{y}$ would be/represent the correct decision to be made
 
 
 ---
