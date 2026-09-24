@@ -590,7 +590,7 @@ Supervised learning techniques may be categorized depending on the kind of $X,Y,
 
 With respect to $Y$, most important cases:
 - $Y$ is a **finite** set **without intrinsic ordering** $\\rightarrow$ .key[classification]
-  - $y$ is said a **categorical** (or nominal) variable
+  - $y$ is said a **categorical** variable, every element in $Y$ is a **class**
   - if $|Y|=2$ $\\rightarrow$ .key[binary classification]  
   otherwise $\\rightarrow$ .key[multiclass classification]
 - $Y = \\mathbb{R}$ (or $Y \\subseteq \\mathbb{R}$) $\\rightarrow$ .key[regression]
@@ -699,14 +699,14 @@ Goal: given a **tweet**, determine **age range** and **gender** of the author
 
 One possible ML system for this problem:  
 - $f\\subtext{text-to-num}: A^{280} \\to [0,1]^\{50\}$ (chosen among a few options, maybe adjusted)
-- $f\\subtext{foreach}: X^\* \\times \\mathcal{F}\_{X \\to Y} \\to Y^\*$ (given an $f: X \\to Y$ and a sequence $\\{x\_i\\}\_i$, apply $f$ to each $x\_i$)
+- $f\\subtext{foreach}: Z^\* \\times \\mathcal{F}\_{Z \\to W} \\to W^\*$ (given an $f: Z \\to W$ and a sequence $(z\_i)\_i$, apply¹ $f$ to each $z\_i$)
 - $f'\_{\\text{learn},1},f'\_{\\text{predict},1}$ and $f'\_{\\text{learn},2},f'\_{\\text{predict},2}$ (two learning techniques suitable for classification)
 
 .cols[
 .c60[
 Learning phase:
 
-$D'\\subtext{learn} = f\\subtext{foreach}(D\\subtext{learn}, f\\subtext{text-to-num})$ .note[just the $x$ part]  
+$D'\\subtext{learn} = f\\subtext{foreach}(D\\subtext{learn}, f\\subtext{text-to-num})$ .note[just the $x$ part²]  
 $m\\subtext{age} = f'\_{\\text{learn},1}(D'\\subtext{learn})$  
 $m\\subtext{gender} = f'\_{\\text{learn},2}(D'\\subtext{learn})$
 ]
@@ -718,6 +718,12 @@ $y\\subtext{age} = f'\_{\\text{predict},1}(x', m\\subtext{age})$
 $y\\subtext{gender} = f'\_{\\text{predict},2}(x', m\\subtext{gender})$  
 ]
 ]
+
+.footnote[
+1. $f\\subtext{foreach}: ((z\_i)\_i,f) \\mapsto (f(z\_i))\_i$
+2. The truly formally correct formalization would be to use a function splitting and then rebuilding a pair as the second argument of $f\\subtext{foreach}$ in the learning phase
+]
+
 
 ---
 
