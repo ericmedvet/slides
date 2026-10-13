@@ -1140,7 +1140,7 @@ $$f'\\subtext{predict}(x, m)= \\argmax\\sub{y \\in Y} (f''\\subtext{predict}(x, 
 ]
 where $P\_Y$ is the set of discrete probability distributions over $Y$.
 
-**Example**: for spam detection, given an $m$ and an email $x$, $f'\\subtext{predict}(x, m)$ might return:
+**Example**: for spam detection, given an $m$ and an email $x$, $f''\\subtext{predict}(x, m)$ might return:
 $$p(y)=
 \\begin{cases}
 80\% &\\text{if } y=\\text{spam} \\\\
