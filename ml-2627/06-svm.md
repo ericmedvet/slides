@@ -87,6 +87,10 @@ $$\\beta\_0+\\vect{\\beta}^\\intercal\\vect{x}=0$$
 .cols[
 .c50[
 .w100p.center[![Binary classificatio problem for SVM: just data](images/svm-data-line.png)]
+
+.footnote[
+1. "iff" is "if and only if", i.e., "if" is $\\Rightarrow$, "iff" is $\\Leftrightarrow$
+]
 ]
 .c50.compact[
 **Intuitively**:
@@ -95,7 +99,7 @@ $$\\beta\_0+\\vect{\\beta}^\\intercal\\vect{x}=0$$
 - else, if the point $\\vect{x}$ is **on** line, then 🤔
 
 **Formally**:
-- $\\vect{x}$ is .col3[**on**] the line iff $\\beta\_0+\\beta\_1 x\_1+\\beta\_2 x\_2 \\c{3}{=} 0$
+- $\\vect{x}$ is .col3[**on**] the line iff¹ $\\beta\_0+\\beta\_1 x\_1+\\beta\_2 x\_2 \\c{3}{=} 0$
 - $\\vect{x}$ is .col3[**above**] the line iff $\\beta\_0+\\beta\_1 x\_1+\\beta\_2 x\_2 \\c{3}{>} 0$
 - $\\vect{x}$ is .col3[**below**] the line iff $\\beta\_0+\\beta\_1 x\_1+\\beta\_2 x\_2 \\c{3}{<} 0$
 
@@ -110,7 +114,7 @@ For $\\vect{x}=(10,10)$:
 
 For $\\vect{x}=(-10,-10)$:
 - $2+1.1 x\_1 + x\_2 = 2-11-10=-19 \\c{3}{<} 0$
-- hence $y=\\c{1}{●}$ (above)
+- hence $y=\\c{1}{●}$ (below)
 ]
 ]
 
@@ -563,7 +567,7 @@ $$
 .col2[$c=0$] $\\rightarrow$ .col2[no tolerance] $\\rightarrow$ **any noise will change the model**
 - hence **high variance**
 - **even worse**: if $c$ is too small, this is an $\\approx$ MMC
-  - for a given dataset, there is a $c\\subtext{learnable}$ sucht that if $c<c\\subtext{learnable}$ no model is learnable 😱
+  - for a given dataset, there is a $c\\subtext{learnable}$ such that if $c < c\\subtext{learnable}$ no model is learnable 😱
 
 ---
 
