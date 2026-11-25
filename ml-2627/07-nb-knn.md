@@ -56,7 +56,7 @@ Do you say "excuse me, **sir**"	🧔‍♀️ or "excuse me, **madam**" 👩?
 So, we want to know $\\prob{p=\\text{man} \\mid h=\\text{long}}$ and $\\prob{p=\\text{woman} \\mid h=\\text{long}}$, or maybe just if:
 - $\\prob{p=\\text{man} \\mid h=\\text{long}} \\stackrel{?}{>} \\prob{p=\\text{woman} \\mid h=\\text{long}}$
 
-But we know $\\prob{h=\\text{long} \\mid p=\\text{man}}$, not $\\prob{h=\\text{man} \\mid p=\\text{long}}$...
+But we know $\\prob{h=\\text{long} \\mid p=\\text{man}}$, not $\\prob{p=\\text{man} \\mid h=\\text{long}}$...
 
 --
 
@@ -228,7 +228,7 @@ otext(300,10,'$\\\\vect{p}$')
 
 .pseudo-code.compact[
 function $\\text{learn}(\\seq{(x^{(i)},y^{(i)})}{i=1}^{i=n})$ {  
-.i[]$\\vect{p} \\gets \\emptyset$  
+.i[]$\\vect{p} \\gets \\vect{0}$  
 .i[]for $m \\in  \\{1, \\dots, |Y|\\}$ { .comment[//$|Y|=k$]  
 .i[].i[]$\\c{1}{p\_m} \\gets \\frac{1}{n} \\sum\_i \\mathbf{1}(y^{(i)}=y\_m)$  
 .i[].i[]for $j \\in  \\{1, \\dots, p\\}$ {  
